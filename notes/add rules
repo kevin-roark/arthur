@@ -1,0 +1,8 @@
+arthur.add(media);
+arthur.add(media, timedelay);
+
+Frame frame = get(x, y, w, h); 
+frame.add(media);
+arthur.add(frame);
+
+arthur.add(frame, timedelay); // or should we have visibile instead?
