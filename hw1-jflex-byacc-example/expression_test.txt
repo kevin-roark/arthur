@@ -1,0 +1,7 @@
+true nand true
+true
+true nand false
+false
+true nand (false)
+true nand (false nand false)
+true nand true nand (false nand false)
