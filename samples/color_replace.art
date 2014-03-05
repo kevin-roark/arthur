@@ -44,10 +44,13 @@ init() {
 }
 
 loop() {
-	
-	/* NO MORE WHITE IN THE DOG */
-	color_replace(dog, white, mystery);
 
- 	/* Even more mysterious color fills that whole rectangle */
-	color_replace(rect, white, mystery+<100,100,100>);
+	if (ms() > 10000) { 	// after 10 sec
+	
+		/* NO MORE WHITE IN THE DOG */
+		color_replace(dog, white, mystery);
+
+	 	/* Even more mysterious color fills that whole rectangle */
+		color_replace(rect, white, mystery+<100,100,100>);
+	}
 }
