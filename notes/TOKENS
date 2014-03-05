@@ -1,4 +1,5 @@
 INIT
+LOOP
 DW
 IF
 ELF
