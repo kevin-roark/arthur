@@ -1,0 +1,12 @@
+init(){
+Video beach = get('vidOfMeOnTheBeach.mov');
+Video basketball = get('vidOfMePlayingBall.mov');
+beach = beach + basketball;
+arthur.add(beach);
+
+}
+
+
+
+
+
