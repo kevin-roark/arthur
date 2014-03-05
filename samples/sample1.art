@@ -1,0 +1,25 @@
+/* Kevins first arthur sample program */
+
+void init() {
+  Color screenColor = RED;
+
+  num time = ms();
+
+  arthur.add(screenColor);
+}
+
+void loop() {
+  if ((ms() - arthur.time) < 30) {
+    return;
+  }
+
+  if (arthur.screenColor.b < 255 & arthur.screenColor.r == 255) {
+    arthur.screenColor = arthur.screenColor + rgb(0, 0, 1);
+  } else if (arthur.screenColor.b == 255 & arthur.screenColor.r > 0) {
+    arthur.screenColor = arthur.screenColor - rgb(1, 0, 0);
+  } else if (arthur.screenColor.r == 0 && arthur.screenColor.b > 0) {
+    arthur.screenColor = arthur.screenColor - rgb(0, 0, 1);
+  } else if (arthur.screenColor.b == 0 && arthur.screenColor.r < 255) {
+    arthur.screenColor = arthur.screenColor + rgb(1, 0, 0);
+  }
+}
