@@ -1,0 +1,27 @@
+loop(){
+	
+	//Every 2 seconds decrement the background color
+	if(ms()-startTime>2000){
+		background-=5;
+		startTime=ms();
+	}
+}
+
+
+init(){
+
+Frame main= frame(xSize, ySize, Xcenter, Ycenter); //Does this make sense? Trying to position the frame mid-canvas
+Sound scream = get('scream.mp3');
+main.add(scream);
+
+Video mouth = get('mouth.mp4');
+main.add(mouth);
+
+
+arthur.add(frame);
+
+Color background= <255,255,255>;
+arthur.add(background);
+
+num startTime=ms();
+}
