@@ -15,11 +15,11 @@ void loop() {
 
   if (arthur.screenColor.b < 255 & arthur.screenColor.r == 255) {
     arthur.screenColor = arthur.screenColor + <0, 0, 1>;
-  } else if (arthur.screenColor.b == 255 & arthur.screenColor.r > 0) {
+  } elf (arthur.screenColor.b == 255 & arthur.screenColor.r > 0) {
     arthur.screenColor = arthur.screenColor - <1, 0, 0>;
-  } else if (arthur.screenColor.r == 0 && arthur.screenColor.b > 0) {
+  } elf (arthur.screenColor.r == 0 && arthur.screenColor.b > 0) {
     arthur.screenColor = arthur.screenColor - <0, 0, 1>;
-  } else if (arthur.screenColor.b == 0 && arthur.screenColor.r < 255) {
+  } elf (arthur.screenColor.b == 0 && arthur.screenColor.r < 255) {
     arthur.screenColor = arthur.screenColor + <1, 0, 0>;
   }
 }
