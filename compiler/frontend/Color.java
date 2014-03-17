@@ -1,10 +1,24 @@
 
 public class Color extends Token {
 
-    public String name;
+    public int r;
+    public int g;
+    public int b;
+    public double a;
 
-    public Color(String name) {
+    public Color(int r, int g, int b) {
         super(Tokens.COLOR);
-        this.name = name;
+        this.r = r;
+        this.g = g;
+        this.b = b;
+        this.a = 1.0;
+    }
+
+    public Color(int r, int g, int b, double a) {
+        super(Tokens.COLOR);
+        this.r = r;
+        this.g = g;
+        this.b = b;
+        this.a = a;
     }
 }

@@ -12,16 +12,28 @@ public class Var extends Token {
     public int type;
     public Object val;
 
-    public Var(String id, int type) {
+    public Var(String id, String t) {
         super(Tokens.VAR);
         this.id = id;
-        this.type = type;
+        this.type = Var.getType(t);
+        this.val = null;
     }
 
-    public Var(String id, int type, Object val) {
-        super(Tokens.VAR);
-        this.id = id;
-        this.type = type;
-        this.val = val;
+    public static int getType(String t) {
+        if (t.equals("num")) {
+            return NUM;
+        } else if (t.equals("string")) {
+            return STRING;
+        } else if (t.equals("color")) {
+            return COLOR;
+        } else if (t.equals("Sound")) {
+            return SOUND;
+        } else if (t.equals("Video")) {
+            return VIDEO;
+        } else if (t.equals("Image")) {
+            return IMAGE;
+        } else {
+            return -1;
+        }
     }
 }

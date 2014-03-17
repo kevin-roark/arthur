@@ -16,4 +16,6 @@ IMAGE
 	This kind of suggests another class of Pixels though which sucks. But matrix representation of visual media is important to consider.
 
 
+DO WE WANT NULL???
+
 	/*---------------------------------*/
