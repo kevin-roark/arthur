@@ -1,5 +1,5 @@
-INIT
-LOOP
+//INIT
+//LOOP
 DW
 IF
 ELF
