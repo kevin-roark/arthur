@@ -1,8 +1,3 @@
-/* Kevin Roark - ker2143 */
-
-/* PLT Homework 1, Problem 4 - A Flex program to make nand
- * expression tokens.
- */
 
 /** USER CODE SECTION */
 
@@ -44,7 +39,7 @@ Digit = [0-9]
 Comment = //.*{NewLine} | /\*{All}*\*/
 
 /* string literal */
-//StringLiteral = \".*\"
+StringLiteral = \".*\"
 
 /* numbers */
 Number = [-+]?[0-9]*\.?[0-9]+
