@@ -298,7 +298,7 @@ num_expr
     ;
 
 eq_stmt
-    : id EQ val                                     {
+    : id EQ val SEMI                                {
                                                         ParseNode eq = new ParseNode("=");
                                                         ParseNode id = (ParseNode) $1.obj;
                                                         ParseNode val = (ParseNode) $3.obj;
@@ -308,7 +308,7 @@ eq_stmt
                                                         eq.addChild(val);    
                                                         $$ = new ParserVal(eq);
                                                     }
-    | var EQ val                                    {
+    | var EQ val SEMI                               {
                                                         ParseNode eq = new ParseNode("=");
                                                         ParseNode var = (ParseNode) $1.obj;
                                                         ParseNode val = (ParseNode) $3.obj;
