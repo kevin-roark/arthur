@@ -40,8 +40,8 @@ public class Tokens {
     public static final int COLOR = 34;
     public static final int NUMBER = 35;
     public static final int STRINGLIT = 350;
-    public static final int NEWLINE = 37;
-    public static final int WHITESPACE = 38;
+    //public static final int NEWLINE = 37;
+    //public static final int WHITESPACE = 38;
     public static final int EOF = 39;
     public static final int VALUE = 40;
 }
