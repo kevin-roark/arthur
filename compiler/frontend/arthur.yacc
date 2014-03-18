@@ -127,11 +127,11 @@ func_def
     ;
 
 stmt
-    : SEMI                                          { $$ = (ParseNode) $1.obj; }
-    | expr stmt                                     { $$ = (ParseNode) $1.obj; }
-    | stmt stmt                                     { $$ = (ParseNode) $1.obj; }
-    | if_stmt stmt                                  { $$ = (ParseNode) $1.obj; }
-    | dw_stmt stmt                                  { $$ = (ParseNode) $1.obj; }
+    : SEMI                                          { $$ =  }
+    | expr stmt                                     { $$ = $1; }
+    | stmt stmt                                     { $$ = $1; }
+    | if_stmt stmt                                  { $$ = $1; }
+    | dw_stmt stmt                                  { $$ = $1; }
     |                                               { $$ = new ParserVal(null); }
     ;
 
@@ -142,11 +142,28 @@ expr
     ;
 
 bool_expr
-    : TRUE                                          { $$ = $1; }
-    | FALSE                                         { $$ = $1; }
-    | bool_expr AND bool_expr                       { $$ = (ParseNode) $1.obj && (ParseNode) $3.obj; }
-    | bool_expr OR bool_expr                        { $$ = (ParseNode) $1.obj || (ParseNode) $3.obj; }
-    | NOT bool_expr                                 { $$ = (ParseNode) !($2.obj); }
+    : TRUE                                          { ParseNode bool = new ParseNode("true"); $$ = new ParserVal(bool); }
+    | FALSE                                         { ParseNode bool = new ParseNode("false"); $$ = new ParserVal(bool); }
+    | bool_expr AND bool_expr                       { 
+                                                      ParseNode and = new ParseNode("and");
+                                                      ParseNode b1 = (ParseNode) $1.obj; ParseNode b2 = (ParseNode) $3.obj;
+                                                      and.addChild(b1); b1.setParent(and);
+                                                      and.addChild(b2); b2.setParent(and);
+                                                      $$ = new ParserVal(and);
+                                                    }
+    | bool_expr OR bool_expr                        { 
+                                                      ParseNode or = new ParseNode("or");
+                                                      ParseNode b1 = (ParseNode) $1.obj; ParseNode b2 = (ParseNode) $3.obj;
+                                                      or.addChild(b1); b1.setParent(or);
+                                                      or.addChild(b2); b2.setParent(or);
+                                                      $$ = new ParserVal(or);
+                                                    }                                                      
+    | NOT bool_expr                                 { 
+                                                      ParseNode b = (ParseNode) $2.obj;
+                                                      ParseNode not = new ParseNode("not");
+                                                      not.addChild(b); not.setParent(b.parent); b.setParent(not);
+                                                      $$ = new ParserVal(not);
+                                                    }
     ;
 
 num_expr
