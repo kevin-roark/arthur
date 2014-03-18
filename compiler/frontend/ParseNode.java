@@ -6,8 +6,8 @@ public class ParseNode {
     public ParseNode parent;
     public ArrayList<ParseNode> children;
 
-    public ParseNode() {
-        val = null;
+    public ParseNode(String v) {
+        val = v;
         parent = null;
         children = null;
     }
