@@ -122,7 +122,7 @@ func_def
                                                 ParseNode body = (ParseNode) $4.obj;
                                                 body.setParent(funDef);
                                                 funDef.addChild(body);
-                                                $$ = new ParseVal(funDef);
+                                                $$ = new ParserVal(funDef);
                                             }
     ;
 
@@ -159,40 +159,50 @@ num_expr
     ;
 
 val
-    : VAR
+    : 
     | COLOR
     | NUMBER
     | STRINGLIT
     | TRUE
     | FALSE
-    | LPAREN val RPAREN
-    | val PLUS val                                  { $$ = $1 + $3; }
-    | val MINUS val                                 { $$ = $1 - $3; }
-    | val TIMES val                                 { $$ = $1 * $3; }
-    | val DIV val                                   { $$ = $1 / $3; }
-    | val MOD val                                   { $$ = $1 % $3; }
-    | val EXP val                                   { $$ = pow($1, $3); }
+    | LPAREN val RPAREN                             
+    | val PLUS val                                  { 
+                                                        ParseNode plus = new ParseNode("+");
+                                                        plus.AddChild((ParseNode)$1.obj);
+                                                        plus.AddChild((ParseNode)$3.obj);
+                                                        $$ = new ParserVal(plus);
+                                                    }
+    | val MINUS val                                 { 
+                                                        ParseNode minus = new ParseNode("-");
+                                                        minus.AddChild((ParseNode)$1.obj);
+                                                        minus.AddChild((ParseNode)$3.obj);
+                                                        $$ = new ParserVal(minus);
+                                                    }
+    | val TIMES val                                 { 
+                                                        ParseNode times = new ParseNode("*");
+                                                        times.AddChild((ParseNode)$1.obj);
+                                                        times.AddChild((ParseNode)$3.obj);
+                                                        $$ = new ParserVal(times);
+                                                    }
+    | val DIV val                                   { 
+                                                        ParseNode div = new ParseNode("/");
+                                                        div.AddChild((ParseNode)$1.obj);
+                                                        div.AddChild((ParseNode)$3.obj);
+                                                        $$ = new ParserVal(div);
+                                                    }
+    | val MOD val                                   { 
+                                                        ParseNode mod = new ParseNode("%");
+                                                        mod.AddChild((ParseNode)$1.obj);
+                                                        mod.AddChild((ParseNode)$3.obj);
+                                                        $$ = new ParserVal(mod);
+                                                    }
+    | val EXP val                                   { 
+                                                        ParseNode exp = new ParseNode("^");
+                                                        exp.AddChild((ParseNode)$1.obj);
+                                                        exp.AddChild((ParseNode)$3.obj);
+                                                        $$ = new ParserVal(exp);
+                                                    }
     ;
-
-input: /* empty string */
-    | input line
-    ;
-
-line:   '\n'
-|       expression '\n'       {
-                                Boolean result = (Boolean) $1.obj;
-                                expNo++;
-                                System.out.println("Expression " + expNo + " result: "  + result);
-                              }
-    ;
-
-expression:     expression 'N' expression       { boolean one = (Boolean) $1.obj;
-                                                  boolean two = (Boolean) $3.obj;
-                                                  $$ = new ParserVal(new Boolean(!(one && two))); 
-                                                }
-        |       '(' expression ')'              { $$ = $2; }
-        |       BOOL                            { $$ = $1; }
-        ;
 
 %%
 ParseNode root = new ParseNode("Program");
