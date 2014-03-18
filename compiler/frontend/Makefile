@@ -10,5 +10,8 @@ yacc:
 lextest:
 	javac lextest.java
 
+yacctest:
+	javac yacctest.java
+
 clean:
 	rm -f *.class; rm -f Lexer.j*; rm -f Parser.j*; rm -f ParserVal.j*

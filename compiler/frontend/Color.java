@@ -1,10 +1,10 @@
 
 public class Color extends Token {
 
-    public int r;
-    public int g;
-    public int b;
-    public double a;
+    public Integer r;
+    public Integer g;
+    public Integer b;
+    public Double a;
 
     public Color(int r, int g, int b) {
         super(Tokens.COLOR);

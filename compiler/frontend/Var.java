@@ -49,6 +49,12 @@ public class Var extends Token {
         }
     }
 
+    public String typeName() {
+        String type = getName(this.type);
+        System.out.println(type);
+        return type;
+    }
+
     public String toString() {
         String s = "Variable | type: " + getName(this.type);
         s += " | id: " + this.id;

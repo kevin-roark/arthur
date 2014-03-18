@@ -12,7 +12,7 @@
 %token AND OR NOT RETURN
 %token DOT COMMA SEMI ARROW
 %token LPAREN RPAREN LCURLY RCURLY LBRACK RBRACK
-%token EQ EQ2X LT LTE RT RTE
+%token EQ EQ2X LT LTE GT GTE
 %token PLUS MINUS TIMES DIV MOD EXP
 %token FUNCTION VAR VALUE ID
 %token COLOR NUMBER STRINGLIT TRUE FALSE
@@ -25,7 +25,7 @@
 
 program
     : EOF                                           { ParseNode p = new ParseNode("arthur"); $$ = new ParserVal(p); }
-    | stuff EOF                                     { $$ = $1; }
+    | stuff EOF                                     { $$ = $1; System.out.println($1.obj); }
     ;
 
 stuff
@@ -116,7 +116,7 @@ if_stmt
     ;
 
 elf
-    : if_stmt                                       { $$ = (ParseNode) $1.obj; }
+    : if_stmt                                       { $$ = $1; }
     |                                               { $$ = new ParserVal(null); }
     ;
 
@@ -324,14 +324,14 @@ val
     :                             
     | val PLUS term                                 { 
                                                         ParseNode plus = new ParseNode("+");
-                                                        plus.AddChild((ParseNode)$1.obj);
-                                                        plus.AddChild((ParseNode)$3.obj);
+                                                        plus.addChild((ParseNode)$1.obj);
+                                                        plus.addChild((ParseNode)$3.obj);
                                                         $$ = new ParserVal(plus);
                                                     }
     | val MINUS term                                { 
                                                         ParseNode minus = new ParseNode("-");
-                                                        minus.AddChild((ParseNode)$1.obj);
-                                                        minus.AddChild((ParseNode)$3.obj);
+                                                        minus.addChild((ParseNode)$1.obj);
+                                                        minus.addChild((ParseNode)$3.obj);
                                                         $$ = new ParserVal(minus);
                                                     }
     | term                                          { $$ = $1; }
@@ -340,20 +340,20 @@ val
 term
     : term TIMES exfactor                           { 
                                                         ParseNode times = new ParseNode("*");
-                                                        times.AddChild((ParseNode)$1.obj);
-                                                        times.AddChild((ParseNode)$3.obj);
+                                                        times.addChild((ParseNode)$1.obj);
+                                                        times.addChild((ParseNode)$3.obj);
                                                         $$ = new ParserVal(times);
                                                     }
     | term DIV exfactor                             { 
                                                         ParseNode div = new ParseNode("/");
-                                                        div.AddChild((ParseNode)$1.obj);
-                                                        div.AddChild((ParseNode)$3.obj);
+                                                        div.addChild((ParseNode)$1.obj);
+                                                        div.addChild((ParseNode)$3.obj);
                                                         $$ = new ParserVal(div);
                                                     }
     | term MOD exfactor                             { 
                                                         ParseNode mod = new ParseNode("%");
-                                                        mod.AddChild((ParseNode)$1.obj);
-                                                        mod.AddChild((ParseNode)$3.obj);
+                                                        mod.addChild((ParseNode)$1.obj);
+                                                        mod.addChild((ParseNode)$3.obj);
                                                         $$ = new ParserVal(mod);
                                                     }
     | exfactor                                      { $$ = $1; }
@@ -362,8 +362,8 @@ term
 exfactor
     : exfactor EXP factor                           { 
                                                         ParseNode exp = new ParseNode("^");
-                                                        exp.AddChild((ParseNode)$1.obj);
-                                                        exp.AddChild((ParseNode)$3.obj);
+                                                        exp.addChild((ParseNode)$1.obj);
+                                                        exp.addChild((ParseNode)$3.obj);
                                                         $$ = new ParserVal(exp);
                                                     }
     | factor                                        { $$ = $1; }
@@ -373,16 +373,16 @@ factor
     : COLOR                                         {
                                                         Color c = (Color) $1.obj;
                                                         ParseNode color = new ParseNode("Color literal");
-                                                        color.addChild(new ParseNode(c.r, color));
-                                                        color.addChild(new ParseNode(c.g, color));
-                                                        color.addChild(new ParseNode(c.b, color));
-                                                        color.addChild(new ParseNode(c.a, color));
+                                                        color.addChild(new ParseNode(c.r.toString(), color));
+                                                        color.addChild(new ParseNode(c.g.toString(), color));
+                                                        color.addChild(new ParseNode(c.b.toString(), color));
+                                                        color.addChild(new ParseNode(c.a.toString(), color));
                                                         $$ = new ParserVal(color);
                                                     }
     | NUMBER                                        {
                                                         Number n = (Number) $1.obj;
                                                         ParseNode number = new ParseNode("Number literal");
-                                                        number.addChild(new ParseNode(n.val, number)); 
+                                                        number.addChild(new ParseNode(n.val.toString(), number)); 
                                                         $$ = new ParserVal(number);    
                                                     }
     | STRINGLIT                                     {
@@ -401,7 +401,7 @@ var
     : VAR                                           {
                                                         Var v = (Var) $1.obj;
                                                         ParseNode var = new ParseNode("variable");
-                                                        var.addChild(new ParseNode(v.type, var));
+                                                        var.addChild(new ParseNode(v.typeName(), var));
                                                         var.addChild(new ParseNode(v.id, var));
                                                         $$ = new ParserVal(var);
                                                     }
@@ -414,7 +414,7 @@ id
     | ID                                            {
                                                         Identifier i = (Identifier) $1.obj;
                                                         ParseNode id = new ParseNode("Identifier");
-                                                        id.addChild(new ParseNode(i.name), id);
+                                                        id.addChild(new ParseNode(i.name, id));
                                                         $$ = new ParserVal(id); 
                                                     }
     ;
@@ -493,7 +493,8 @@ int tokenMap(int tokenType) {
 
 void doParsing(Reader in) {
     lexer = new Lexer(in);
-    ParserVal program = yyparse();
-    ParseNode p = (ParseNode) program.obj;
-    System.out.println(p);
+    //ParserVal program = yyparse();
+    //ParseNode p = (ParseNode) program.obj;
+    int result = yyparse();
+    System.out.println(result);
 }
