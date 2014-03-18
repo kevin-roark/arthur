@@ -14,9 +14,9 @@
 %token LPAREN RPAREN LCURLY RCURLY LBRACK RBRACK
 %token EQ EQ2X LT LTE RT RTE
 %token PLUS MINUS TIMES DIV MOD EXP
-%token FUNCTION VAR
+%token FUNCTION VAR VALUE ID
 %token COLOR NUMBER STRINGLIT TRUE FALSE
-%token NEWLINE WHITESPACE EOF
+%token EOF
 
 %%
 
@@ -53,7 +53,7 @@ else
     ;
 
 func_def
-    : FUNCTION LBRACK stmt RBRACK
+    : 
     ;
 
 stmt
@@ -103,7 +103,6 @@ val
     | val MOD val                                   { $$ = $1 % $3; }
     | val EXP val                                   { $$ = pow($1, $3); }
     ;
-    
 
 input: /* empty string */
     | input line
@@ -126,6 +125,8 @@ expression:     expression 'N' expression       { boolean one = (Boolean) $1.obj
         ;
 
 %%
+ParseNode root = new ParseNode();
+ParseNode current = root;
 
 Lexer lexer;
 

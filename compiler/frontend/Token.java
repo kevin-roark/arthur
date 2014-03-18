@@ -1,4 +1,3 @@
-
 public class Token {
 
     public int tokenType;
