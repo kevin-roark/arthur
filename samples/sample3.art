@@ -1,0 +1,56 @@
+/* 
+ * color_replace.art
+ * Finds all instances of one color and replaces it with another lol
+ */
+
+void color_replace(color mything, color badColor, color goodColor) {
+
+	if (media.isImage()) {
+          // image.w() * {
+          //   image.h() * {
+              if (image.get(i,j).color() == badColor) {
+	          	image.get(i,j).color() = goodColor; // in reality, prob use some threshold
+	     	  }
+          //   }
+          // }
+	}
+
+	// else
+	// 	IDK YET;
+}
+
+
+/* Or if we're just using other libs etc.....figure it out, maybe some swapColor() function??? */
+
+
+
+void init() {
+
+	/* The one we don't want no more: white */
+	color white = <<0, 0, 0>>;
+
+	/* The one we wanna replace it with: idk */
+	color mystery = <<127, 127, 30>>;
+
+	/* Media */
+	Image dog = get("whitepoodle.jpg");
+	Image rect = get("justawhiterectangle.jpg");
+	rect = rect * 37; /* big one */
+
+	/* Add */
+	arthur.add(dog);
+	arthur.add(rect);
+
+}
+
+void loop() {
+
+	if (ms() > 10000) { 	// after 10 sec
+
+		/* NO MORE WHITE IN THE DOG */
+		color_replace(dog, white, mystery);
+
+	 	/* Even more mysterious color fills that whole rectangle */
+		color_replace(rect, white, mystery + <<100,100,100>>);
+	}
+}
