@@ -176,49 +176,81 @@ num_expr
     ;
 
 val
-    : 
-    | COLOR
-    | NUMBER
-    | STRINGLIT
-    | TRUE
-    | FALSE
-    | LPAREN val RPAREN                             
-    | val PLUS val                                  { 
+    :                             
+    | val PLUS term                                 { 
                                                         ParseNode plus = new ParseNode("+");
                                                         plus.AddChild((ParseNode)$1.obj);
                                                         plus.AddChild((ParseNode)$3.obj);
                                                         $$ = new ParserVal(plus);
                                                     }
-    | val MINUS val                                 { 
+    | val MINUS term                                { 
                                                         ParseNode minus = new ParseNode("-");
                                                         minus.AddChild((ParseNode)$1.obj);
                                                         minus.AddChild((ParseNode)$3.obj);
                                                         $$ = new ParserVal(minus);
                                                     }
-    | val TIMES val                                 { 
+    | term                                          { $$ = $1; }
+    ;
+
+term
+    : term TIMES exfactor                           { 
                                                         ParseNode times = new ParseNode("*");
                                                         times.AddChild((ParseNode)$1.obj);
                                                         times.AddChild((ParseNode)$3.obj);
                                                         $$ = new ParserVal(times);
                                                     }
-    | val DIV val                                   { 
+    | term DIV exfactor                             { 
                                                         ParseNode div = new ParseNode("/");
                                                         div.AddChild((ParseNode)$1.obj);
                                                         div.AddChild((ParseNode)$3.obj);
                                                         $$ = new ParserVal(div);
                                                     }
-    | val MOD val                                   { 
+    | term MOD exfactor                             { 
                                                         ParseNode mod = new ParseNode("%");
                                                         mod.AddChild((ParseNode)$1.obj);
                                                         mod.AddChild((ParseNode)$3.obj);
                                                         $$ = new ParserVal(mod);
                                                     }
-    | val EXP val                                   { 
+    | exfactor                                      { $$ = $1; }
+    ;
+
+exfactor
+    : exfactor EXP factor                           { 
                                                         ParseNode exp = new ParseNode("^");
                                                         exp.AddChild((ParseNode)$1.obj);
                                                         exp.AddChild((ParseNode)$3.obj);
                                                         $$ = new ParserVal(exp);
                                                     }
+    | factor                                        { $$ = $1; }
+    ;
+
+factor
+    : COLOR                                         {
+                                                        Color c = (Color) $1.obj;
+                                                        ParseNode color = new ParseNode("Color literal");
+                                                        color.addChild(new ParseNode(c.r, color));
+                                                        color.addChild(new ParseNode(c.g, color));
+                                                        color.addChild(new ParseNode(c.b, color));
+                                                        color.addChild(new ParseNode(c.a, color));
+                                                        $$ = new ParserVal(color);
+                                                    }
+    | NUMBER                                        {
+                                                        Number n = (Number) $1.obj;
+                                                        ParseNode number = new ParseNode("Number literal");
+                                                        ParseNode numVal = new ParseNode(n.val, number);
+                                                        number.addChild(numVal); 
+                                                        $$ = new ParserVal(number);    
+                                                    }
+    | STRINGLIT                                     {
+                                                        StringLit s = (StringLit) $1.obj;
+                                                        ParseNode string = new ParseNode("String literal");
+                                                        ParseNode stringLit = new ParseNode(s.val, string);
+                                                        string.addChild(stringLit); 
+                                                        $$ = new ParserVal(string); 
+                                                    }
+    | TRUE                                          { ParseNode t = new ParseNode("true"); $$ = new ParserVal(t); }
+    | FALSE                                         { ParseNode f = new ParseNode("false"); $$ = new ParserVal(f); }
+    | LPAREN val RPAREN                             { $$ = $2; }
     ;
 
 %%
