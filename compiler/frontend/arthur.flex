@@ -152,7 +152,7 @@ FunDec = ({Type}|void){WS}+{Identifier}{WS}*\(
 
     {Identifier}            { return new Identifier(yytext()); }
 
-    {Value}                 { return new Value(yytext()); }
+    /* {Value}                 { return new Value(yytext()); } */
 
     {WS}                    { /* do nothing */ }
 

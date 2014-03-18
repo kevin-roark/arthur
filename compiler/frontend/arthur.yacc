@@ -130,7 +130,7 @@ func_body
     ;
 
 func_def
-    : FUNCTION param_list RPAREN func_body          {
+    : FUNCTION param_list RPAREN func_body          {   
                                                         ParseNode funDef = new ParseNode("Function definition");
                                                         Function f = (Function) $1.obj;
                                                         funDef.addChild(new ParseNode(f.returnType, funDef));
@@ -497,5 +497,5 @@ void doParsing(Reader in) {
     //ParserVal program = yyparse();
     //ParseNode p = (ParseNode) program.obj;
     int result = yyparse();
-    System.out.println(result);
+    System.out.println("Return value: " + result);
 }
