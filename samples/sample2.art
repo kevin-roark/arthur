@@ -1,0 +1,30 @@
+/* Here is a fancy
+* awesome
+* comment
+*/
+void init() { //hey guys!
+
+	color white = <<0, 0, 0>>;
+
+	color mystery = <<127, 127, 30>>;
+
+	Image dog = get("whitepoodle.jpg");
+	Image rect = /* lol ! */ get("justawhiterectangle.jpg");
+	rect = rect * 37; 
+
+	arthur.add(dog); //another wun
+	arthur.add(rect);
+
+}
+
+/* Nother
+* comment
+*/
+
+void loop(num x, color y) {
+
+}
+
+Video make_it_blue_and_z(Video vid, color z) {
+    return vid + BLUE + z;
+}

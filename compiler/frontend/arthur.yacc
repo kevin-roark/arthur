@@ -280,6 +280,7 @@ expr_stmt
 
 stmt_block
     : LCURLY stmt_list RCURLY                       { $$ = $2; }
+    | stmt_list                                     { $$ = $1; }
     ;
 
 stmt_list
@@ -307,6 +308,7 @@ expr
 bool_expr
     : TRUE                                          { ParseNode bool = new ParseNode("true"); $$ = new ParserVal(bool); }
     | FALSE                                         { ParseNode bool = new ParseNode("false"); $$ = new ParserVal(bool); }
+    | val                                           { $$ = $1; }
     | bool_expr AND bool_expr                       { 
                                                       ParseNode and = new ParseNode("and");
                                                       ParseNode b1 = (ParseNode) $1.obj; ParseNode b2 = (ParseNode) $3.obj;
@@ -331,6 +333,7 @@ bool_expr
 
 num_expr
     : NUMBER                                        { ParseNode number = new ParseNode("number"); $$ = new ParserVal(number); }
+    | val                                           { $$ = $1; }
     | num_expr LT num_expr                          {
                                                       ParseNode lt = new ParseNode("less than");
                                                       ParseNode ne1 = (ParseNode) $1.obj; ParseNode ne2 = (ParseNode) $3.obj;
