@@ -21,4 +21,12 @@ public class Color extends Token {
         this.b = b;
         this.a = a;
     }
+
+    public String toString() {
+        String s = "Color | r: " + this.r;
+        s += " | g: " + this.g;
+        s += " | b: " + this.b;
+        s += " | a: " + this.a;
+        return s;
+    }
 }

@@ -11,4 +11,11 @@ public class Function extends Token {
         this.params = params;
         this.returnType = returnType;
     }
+
+    public String toString() {
+    	String s = "Function | name: " + this.name;
+    	s += " | params: " + this.params;
+    	s += " | return type: " + this.returnType;
+    	return s;
+    }
 }

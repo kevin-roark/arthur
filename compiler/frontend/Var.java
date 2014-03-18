@@ -36,4 +36,13 @@ public class Var extends Token {
             return -1;
         }
     }
+
+    public String toString() {
+        String s = "Var token | type: " + this.type;
+        s += " | id: " + this.id;
+        if (this.val != null) {
+            s += " | val: " + this.val;
+        }
+        return s;
+    }
 }

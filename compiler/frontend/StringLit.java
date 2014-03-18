@@ -7,4 +7,8 @@ public class StringLit extends Token {
         super(Tokens.STRINGLIT);
         this.val = val;
     }
+
+    public String toString() {
+    	return "String literal with val: " + val;
+    }
 }

@@ -6,4 +6,8 @@ public class Token {
     public Token(int tt) {
         this.tokenType = tt;
     }
+
+    public String toString() {
+    	return "Token type: " + this.tokenType;
+    }
 }

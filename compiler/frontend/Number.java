@@ -7,4 +7,8 @@ public class Number extends Token {
         super(Tokens.NUMBER);
         this.val = val;
     }
+
+    public String toString() {
+    	return "Number token with value: " + this.val;
+    }
 }

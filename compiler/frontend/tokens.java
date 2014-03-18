@@ -36,13 +36,12 @@ public class Tokens {
     public static final int ARROW = 31;
     public static final int FUNCTION = 32;
     public static final int VAR = 33;
+    public static final int ID = 330;
     public static final int COLOR = 34;
     public static final int NUMBER = 35;
     public static final int STRINGLIT = 350;
-    public static final int TRUE = 36;
-    public static final int FALSE = 360;
     public static final int NEWLINE = 37;
     public static final int WHITESPACE = 38;
     public static final int EOF = 39;
-
+    public static final int VALUE = 40;
 }

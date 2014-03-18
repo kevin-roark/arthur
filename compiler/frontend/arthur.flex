@@ -28,7 +28,7 @@
 
 /* white space/character definitions */
 NewLine = \r|\n|\r\n
-WS = {NewLine} | [ \t\f]
+WS = {NewLine}|[ \t\f]
 All = (.|{NewLine})
 
 /* basics */
@@ -36,7 +36,7 @@ Letter = [a-zA-Z_]
 Digit = [0-9]
 
 /* comments */
-Comment = //.*{NewLine} | /\*{All}*\*/
+Comment = \/\/.*{NewLine}|\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+\/
 
 /* string literal */
 StringLiteral = \".*\"
@@ -50,7 +50,7 @@ RGB = <<{WS}*{Byte}{WS}*,{WS}*{Byte}{WS}*,{WS}*{Byte}{WS}*>>
 RGBA = <<{WS}*{Byte}{WS}*,{WS}*{Byte}{WS}*,{WS}*{Byte}{WS}*,{WS}*{Number}{WS}*>>
 
 /* identifiers */
-Identifier = {Letter}[{Letter}{Digit}]*
+Identifier = {Letter}({Letter}|{Digit})*
 Value = {Identifier}|{Number}|{StringLiteral}|{RGB}|{RGBA}
 
 /* declarations */
@@ -58,7 +58,8 @@ Type = num|color|bool|string|Sound|Video|Image
 VarDec = {Type}{WS}+{Identifier}
 //VarInit = {VarDec}{WS}+\={WS}+{Value}
 //FunDec = [{Type}|void]{WS}+{Identifier}{WS}+\({WS}*(({VarDec}{WS}*,{WS}*)*{VarDec})?{WS}*\)
-FunDec = [{Type}|void]{WS}+{Identifier}{WS}+\({All}*\)
+ParamStuff = {Identifier}|{WS}|,|{Type}
+FunDec = ({Type}|void){WS}+{Identifier}{WS}*\({ParamStuff}*\)
 
 /* calls */
 //FunCall = {Identifier}{WS}+\({All}*\)
@@ -118,8 +119,8 @@ FunDec = [{Type}|void]{WS}+{Identifier}{WS}+\({All}*\)
                               return var;
                             } 
 
-    {FunDec}                { String[] arr = yytext().split("(");
-                              String params = arr[1].split(")")[0].trim();
+    {FunDec}                { String[] arr = yytext().split("\\(");
+                              String params = arr[1].replace(")", "").trim();
                               String[] arr2 = arr[0].split("\\s+");
                               String returnType = arr2[0];
                               String name = arr2[1];
@@ -134,20 +135,22 @@ FunDec = [{Type}|void]{WS}+{Identifier}{WS}+\({All}*\)
 
     {RGB}                   { String rgb = yytext().replace("<<", "").replace(">>", "");
                               String[] arr = rgb.split(",");
-                              int r = Integer.parseInt(arr[0]);
-                              int g = Integer.parseInt(arr[1]);
-                              int b = Integer.parseInt(arr[2]);
+                              int r = Integer.parseInt(arr[0].trim());
+                              int g = Integer.parseInt(arr[1].trim());
+                              int b = Integer.parseInt(arr[2].trim());
                               return new Color(r, g, b);
                             }
 
     {RGBA}                  { String rgb = yytext().replace("<<", "").replace(">>", "");
                               String[] arr = rgb.split(",");
-                              int r = Integer.parseInt(arr[0]);
-                              int g = Integer.parseInt(arr[1]);
-                              int b = Integer.parseInt(arr[2]);
-                              double a = Double.parseDouble(arr[3]);
+                              int r = Integer.parseInt(arr[0].trim());
+                              int g = Integer.parseInt(arr[1].trim());
+                              int b = Integer.parseInt(arr[2].trim());
+                              double a = Double.parseDouble(arr[3].trim());
                               return new Color(r, g, b, a);
                             }
+
+    {Identifier}            { return new Identifier(yytext()); }
 
     {Value}                 { return new Value(yytext()); }
 
