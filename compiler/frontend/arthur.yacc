@@ -76,7 +76,7 @@ dw_stmt
     ;
 
 if_stmt
-    : IF LPAREN expr RPAREN stmt elf else           {
+    : IF LPAREN expr RPAREN stmt elfs else           {
                                                       ParseNode ifmaster = new ParseNode("if");
                                                       ParseNode iffer = new ParseNode("iffer", ifmaster);
                                                       ParseNode expr = (ParseNode) $3.obj;
@@ -85,11 +85,21 @@ if_stmt
                                                       iffer.addChild(stmt);
                                                       ifmaster.addChild(iffer);
                                                       ParseNode elfer = (ParseNode) $6.obj;
-                                                      if (elfer != null)
-                                                          ifmaster.addChild(elfer);
+                                                      ifmaster.addChild(elfer);
                                                       ParseNode elser = (ParseNode) $7.obj;
-                                                      if (elser != null)
-                                                          ifmaster.addChild(elser);
+                                                      ifmaster.addChild(elser);
+                                                      $$ = new ParserVal(ifmaster);
+                                                    }
+    | IF LPAREN expr RPAREN stmt elfs               {
+                                                      ParseNode ifmaster = new ParseNode("if");
+                                                      ParseNode iffer = new ParseNode("iffer", ifmaster);
+                                                      ParseNode expr = (ParseNode) $3.obj;
+                                                      ParseNode stmt = (ParseNode) $5.obj;
+                                                      iffer.addChild(expr);
+                                                      iffer.addChild(stmt);
+                                                      ifmaster.addChild(iffer);
+                                                      ParseNode elfer = (ParseNode) $6.obj;
+                                                      ifmaster.addChild(elfer);
                                                       $$ = new ParserVal(ifmaster);
                                                     }
     | IF LPAREN expr RPAREN stmt                    {
@@ -115,14 +125,31 @@ if_stmt
                                                     }
     ;
 
+elfs
+    : elfs elf                                      {
+                                                      ParseNode elfs = (ParseNode) $1.obj;
+                                                      ParseNode elf = (ParseNode) $2.obj;
+                                                      elfs.addChild(elf);
+                                                      $$ = $1;
+                                                    }                                      
+    | elf                                           {
+                                                      ParseNode elfs = new ParseNode("elves");
+                                                      elfs.addChild((ParseNode) $1.obj);
+                                                      $$ = new ParserVal(elfs);
+                                                    }
+    ;
+
 elf
-    : if_stmt                                       { $$ = $1; }
-    |                                               { $$ = new ParserVal(null); }
+    : ELF LPAREN expr RPAREN stmt                   {
+                                                        ParseNode elf = new ParseNode("elf");
+                                                        elf.addChild((ParseNode) $3.obj);
+                                                        elf.addChild((ParseNode) $5.obj);
+                                                        $$ = new ParserVal(elf);
+                                                    }
     ;
 
 else
     : ELSE stmt                                     { $$ = $2; }
-    |                                               { $$ = new ParserVal(null); }
     ;
 
 func_body
