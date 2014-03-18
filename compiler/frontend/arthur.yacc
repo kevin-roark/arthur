@@ -24,75 +24,79 @@
 /* grammar rules */
 
 param_list
-    :                               { $$ = new ParserVal(new ParseNode("parameters")); }
-    | hard_param_list               { $$ = $1; }  
+    :                                                { $$ = new ParserVal(new ParseNode("parameters")); }
+    | hard_param_list                                { $$ = $1; }  
     ;
 
 hard_param_list
-    : VAR                           {
-                                        ParseNode params = new ParseNode("parameters");
-                                        Var v = (Var) $1.obj;
-                                        ParseNode var = new ParseNode("variable", params);
-                                        var.addChild(new ParseNode(v.type, var));
-                                        var.addChild(new ParseNode(v.id, var));
-                                        params.addChild(var);
-                                        $$ = new ParserVal(params);
-                                    }
-    | hard_param_list COMMA VAR     {
-                                        ParseNode params = (ParseNode) $1.obj;
-                                        Var v = (Var) $3.obj;
-                                        ParseNode var = new ParseNode("variable", params);
-                                        var.addChild(new ParseNode(v.type, var));
-                                        var.addChild(new ParseNode(v.id, var));
-                                        params.addChild(var);
-                                        $$ = $1;
-                                    }
+    : VAR                                           {
+                                                      ParseNode params = new ParseNode("parameters");
+                                                      Var v = (Var) $1.obj;
+                                                      ParseNode var = new ParseNode("variable", params);
+                                                      var.addChild(new ParseNode(v.type, var));
+                                                      var.addChild(new ParseNode(v.id, var));
+                                                      params.addChild(var);
+                                                      $$ = new ParserVal(params);
+                                                    }
+    | hard_param_list COMMA VAR                     {
+                                                      ParseNode params = (ParseNode) $1.obj;
+                                                      Var v = (Var) $3.obj;
+                                                      ParseNode var = new ParseNode("variable", params);
+                                                      var.addChild(new ParseNode(v.type, var));
+                                                      var.addChild(new ParseNode(v.id, var));
+                                                      params.addChild(var);
+                                                      $$ = $1;
+                                                    }
     ;
 
 dw_stmt
-    : DW LPAREN expr RPAREN stmt                    {   ParseNode dw = new ParseNode("dw");
-                                                        ParseNode expr = (ParseNode) $3.obj;
-                                                        ParseNode stmt = (ParseNode) $5.obj;
-                                                        dw.addChild(expr);
-                                                        dw.addChild(stmt);
-                                                        $$ = new ParserVal(dw);
+    : DW LPAREN expr RPAREN stmt                    {
+                                                      ParseNode dw = new ParseNode("dw");
+                                                      ParseNode expr = (ParseNode) $3.obj;
+                                                      ParseNode stmt = (ParseNode) $5.obj;
+                                                      dw.addChild(expr);
+                                                      dw.addChild(stmt);
+                                                      $$ = new ParserVal(dw);
                                                     }
     ;
 
 if_stmt
-    : IF LPAREN expr RPAREN stmt elf else           {   ParseNode ifmaster = new ParseNode("if");
-                                                        ParseNode iffer = new ParseNode("iffer", ifmaster);
-                                                        ParseNode expr = (ParseNode) $3.obj;
-                                                        ParseNode stmt = (ParseNode) $5.obj;
-                                                        iffer.addChild(expr);
-                                                        iffer.addChild(stmt);
-                                                        ifmaster.addChild(iffer);
-                                                        ParseNode elfer = (ParseNode) $6.obj;
-                                                        if (elfer != null)
-                                                            ifmaster.addChild(elfer);
-                                                        ParseNode elser = (ParseNode) $7.obj;
-                                                        if (elser != null)
-                                                            ifmaster.addChild(elser);
-                                                        $$ = new ParserVal(ifmaster);
+    : IF LPAREN expr RPAREN stmt elf else           {
+                                                      ParseNode ifmaster = new ParseNode("if");
+                                                      ParseNode iffer = new ParseNode("iffer", ifmaster);
+                                                      ParseNode expr = (ParseNode) $3.obj;
+                                                      ParseNode stmt = (ParseNode) $5.obj;
+                                                      iffer.addChild(expr);
+                                                      iffer.addChild(stmt);
+                                                      ifmaster.addChild(iffer);
+                                                      ParseNode elfer = (ParseNode) $6.obj;
+                                                      if (elfer != null)
+                                                          ifmaster.addChild(elfer);
+                                                      ParseNode elser = (ParseNode) $7.obj;
+                                                      if (elser != null)
+                                                          ifmaster.addChild(elser);
+                                                      $$ = new ParserVal(ifmaster);
                                                     }
-    | IF LPAREN expr RPAREN stmt                    {   ParseNode ifmaster = new ParseNode("if");
-                                                        ParseNode expr = (ParseNode) $3.obj;
-                                                        ParseNode stmt = (ParseNode) $5.obj;
-                                                        ifmaster.addChild(expr);
-                                                        ifmaster.addChild(stmt);
-                                                        $$ = new ParserVal(ifmaster);
+    | IF LPAREN expr RPAREN stmt                    {
+                                                      ParseNode ifmaster = new ParseNode("if");
+                                                      ParseNode expr = (ParseNode) $3.obj;
+                                                      ParseNode stmt = (ParseNode) $5.obj;
+                                                      ifmaster.addChild(expr);
+                                                      ifmaster.addChild(stmt);
+                                                      $$ = new ParserVal(ifmaster);
                                                     }
-    | IF LPAREN expr RPAREN stmt else               {   ParseNode ifmaster = new ParseNode("if");
-                                                        ParseNode iffer = new ParseNode("iffer", ifmaster);
-                                                        ParseNode expr = (ParseNode) $3.obj;
-                                                        ParseNode stmt = (ParseNode) $5.obj;
-                                                        iffer.addChild(expr);
-                                                        iffer.addChild(stmt);
-                                                        ifmaster.addChild(iffer);
-                                                        ParseNode elser = (ParseNode) $6.obj;
-                                                        if (elser != null)
-                                                            ifmaster.addChild(elser);
-                                                        $$ = new ParserVal(ifmaster);
+    | IF LPAREN expr RPAREN stmt else               {
+                                                      ParseNode ifmaster = new ParseNode("if");
+                                                      ParseNode iffer = new ParseNode("iffer", ifmaster);
+                                                      ParseNode expr = (ParseNode) $3.obj;
+                                                      ParseNode stmt = (ParseNode) $5.obj;
+                                                      iffer.addChild(expr);
+                                                      iffer.addChild(stmt);
+                                                      ifmaster.addChild(iffer);
+                                                      ParseNode elser = (ParseNode) $6.obj;
+                                                      if (elser != null)
+                                                          ifmaster.addChild(elser);
+                                                      $$ = new ParserVal(ifmaster);
                                                     }
     ;
 
@@ -111,19 +115,19 @@ func_body
     ;
 
 func_def
-    : FUNCTION param_list RPAREN func_body  {
-                                                ParseNode funDef = new ParseNode("Function definition");
-                                                Function f = (Function) $1.obj;
-                                                funDef.addChild(new ParseNode(f.returnType, funDef));
-                                                funDef.addChild(new ParseNode(f.name, funDef));
-                                                ParseNode params = (ParseNode) $2.obj;
-                                                params.setParent(funDef); //can take statements of this nature out later if parent becomes obsolete
-                                                funDef.addChild(params);
-                                                ParseNode body = (ParseNode) $4.obj;
-                                                body.setParent(funDef);
-                                                funDef.addChild(body);
-                                                $$ = new ParserVal(funDef);
-                                            }
+    : FUNCTION param_list RPAREN func_body          {
+                                                      ParseNode funDef = new ParseNode("Function definition");
+                                                      Function f = (Function) $1.obj;
+                                                      funDef.addChild(new ParseNode(f.returnType, funDef));
+                                                      funDef.addChild(new ParseNode(f.name, funDef));
+                                                      ParseNode params = (ParseNode) $2.obj;
+                                                      params.setParent(funDef); //can take statements of this nature out later if parent becomes obsolete
+                                                      funDef.addChild(params);
+                                                      ParseNode body = (ParseNode) $4.obj;
+                                                      body.setParent(funDef);
+                                                      funDef.addChild(body);
+                                                      $$ = new ParserVal(funDef);
+                                                    }
     ;
 
 stmt
@@ -167,12 +171,42 @@ bool_expr
     ;
 
 num_expr
-    : NUMBER                                        { $$ = $1; }
-    | num_expr LT num_expr                          { $$ = $1 < $3; }
-    | num_expr LTE num_expr                         { $$ = $1 <= $3; }
-    | num_expr GT num_expr                          { $$ = $1 > $3; }
-    | num_expr GTE num_expr                         { $$ = $1 >= $3; }
-    | num_expr EQ2X num_expr                        { $$ = $1 == $3; }
+    : NUMBER                                        { ParseNode number = new ParseNode("number"); $$ = new ParserVal(number); }
+    | num_expr LT num_expr                          {
+                                                      ParseNode lt = new ParseNode("less than");
+                                                      ParseNode ne1 = (ParseNode) $1.obj; ParseNode ne2 = (ParseNode) $3.obj;
+                                                      lt.addChild(ne1); ne1.setParent(lt);
+                                                      lt.addChild(ne2); ne2.setParent(lt);
+                                                      $$ = new ParserVal(lt);
+                                                    }
+    | num_expr LTE num_expr                         {
+                                                      ParseNode lte = new ParseNode("less than or equal to");
+                                                      ParseNode ne1 = (ParseNode) $1.obj; ParseNode ne2 = (ParseNode) $3.obj;
+                                                      lte.addChild(ne1); ne1.setParent(lte);
+                                                      lte.addChild(ne2); ne2.setParent(lte);
+                                                      $$ = new ParserVal(lte);
+                                                    }
+    | num_expr GT num_expr                          {
+                                                      ParseNode gt = new ParseNode("greater than");
+                                                      ParseNode ne1 = (ParseNode) $1.obj; ParseNode ne2 = (ParseNode) $3.obj;
+                                                      gt.addChild(ne1); ne1.setParent(gt);
+                                                      gt.addChild(ne2); ne2.setParent(gt);
+                                                      $$ = new ParserVal(gt);
+                                                    }
+    | num_expr GTE num_expr                         {
+                                                      ParseNode gte = new ParseNode("greater than or equal to");
+                                                      ParseNode ne1 = (ParseNode) $1.obj; ParseNode ne2 = (ParseNode) $3.obj;
+                                                      gte.addChild(ne1); ne1.setParent(gte);
+                                                      gte.addChild(ne2); ne2.setParent(gte);
+                                                      $$ = new ParserVal(gte);
+                                                    }
+    | num_expr EQ2X num_expr                        {
+                                                      ParseNode eq2x = new ParseNode("is equal to");
+                                                      ParseNode ne1 = (ParseNode) $1.obj; ParseNode ne2 = (ParseNode) $3.obj;
+                                                      eq2x.addChild(ne1); ne1.setParent(eq2x);
+                                                      eq2x.addChild(ne2); ne2.setParent(eq2x);
+                                                      $$ = new ParserVal(eq2x);
+                                                    }
     ;
 
 val
@@ -184,40 +218,40 @@ val
     | FALSE
     | LPAREN val RPAREN                             
     | val PLUS val                                  { 
-                                                        ParseNode plus = new ParseNode("+");
-                                                        plus.AddChild((ParseNode)$1.obj);
-                                                        plus.AddChild((ParseNode)$3.obj);
-                                                        $$ = new ParserVal(plus);
+                                                      ParseNode plus = new ParseNode("+");
+                                                      plus.AddChild((ParseNode)$1.obj);
+                                                      plus.AddChild((ParseNode)$3.obj);
+                                                      $$ = new ParserVal(plus);
                                                     }
     | val MINUS val                                 { 
-                                                        ParseNode minus = new ParseNode("-");
-                                                        minus.AddChild((ParseNode)$1.obj);
-                                                        minus.AddChild((ParseNode)$3.obj);
-                                                        $$ = new ParserVal(minus);
+                                                      ParseNode minus = new ParseNode("-");
+                                                      minus.AddChild((ParseNode)$1.obj);
+                                                      minus.AddChild((ParseNode)$3.obj);
+                                                      $$ = new ParserVal(minus);
                                                     }
     | val TIMES val                                 { 
-                                                        ParseNode times = new ParseNode("*");
-                                                        times.AddChild((ParseNode)$1.obj);
-                                                        times.AddChild((ParseNode)$3.obj);
-                                                        $$ = new ParserVal(times);
+                                                      ParseNode times = new ParseNode("*");
+                                                      times.AddChild((ParseNode)$1.obj);
+                                                      times.AddChild((ParseNode)$3.obj);
+                                                      $$ = new ParserVal(times);
                                                     }
     | val DIV val                                   { 
-                                                        ParseNode div = new ParseNode("/");
-                                                        div.AddChild((ParseNode)$1.obj);
-                                                        div.AddChild((ParseNode)$3.obj);
-                                                        $$ = new ParserVal(div);
+                                                      ParseNode div = new ParseNode("/");
+                                                      div.AddChild((ParseNode)$1.obj);
+                                                      div.AddChild((ParseNode)$3.obj);
+                                                      $$ = new ParserVal(div);
                                                     }
     | val MOD val                                   { 
-                                                        ParseNode mod = new ParseNode("%");
-                                                        mod.AddChild((ParseNode)$1.obj);
-                                                        mod.AddChild((ParseNode)$3.obj);
-                                                        $$ = new ParserVal(mod);
+                                                      ParseNode mod = new ParseNode("%");
+                                                      mod.AddChild((ParseNode)$1.obj);
+                                                      mod.AddChild((ParseNode)$3.obj);
+                                                      $$ = new ParserVal(mod);
                                                     }
     | val EXP val                                   { 
-                                                        ParseNode exp = new ParseNode("^");
-                                                        exp.AddChild((ParseNode)$1.obj);
-                                                        exp.AddChild((ParseNode)$3.obj);
-                                                        $$ = new ParserVal(exp);
+                                                      ParseNode exp = new ParseNode("^");
+                                                      exp.AddChild((ParseNode)$1.obj);
+                                                      exp.AddChild((ParseNode)$3.obj);
+                                                      $$ = new ParserVal(exp);
                                                     }
     ;
 
