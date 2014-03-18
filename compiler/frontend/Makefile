@@ -12,6 +12,8 @@ lextest:
 
 yacctest:
 	javac yacctest.java
+
+test:
 	java yacctest ../../samples/sample1.art
 	java yacctest ../../samples/sample2.art
 
