@@ -24,24 +24,28 @@
 /* grammar rules */
 
 param_list
-    :
-    | hard_param_list;              {
-
-                                    }
+    :                               { $$ = new ParserVal(new ParseNode("parameters")); }
+    | hard_param_list               { $$ = $1; }  
     ;
 
 hard_param_list
     : VAR                           {
                                         ParseNode params = new ParseNode("parameters");
-                                        Var v = (Var) $1;
+                                        Var v = (Var) $1.obj;
                                         ParseNode var = new ParseNode("variable", params);
                                         var.addChild(new ParseNode(v.type, var));
                                         var.addChild(new ParseNode(v.id, var));
                                         params.addChild(var);
-                                        $$ = params;
+                                        $$ = new ParserVal(params);
                                     }
     | hard_param_list COMMA VAR     {
-
+                                        ParseNode params = (ParseNode) $1.obj;
+                                        Var v = (Var) $3.obj;
+                                        ParseNode var = new ParseNode("variable", params);
+                                        var.addChild(new ParseNode(v.type, var));
+                                        var.addChild(new ParseNode(v.id, var));
+                                        params.addChild(var);
+                                        $$ = $1;
                                     }
     ;
 
@@ -102,17 +106,24 @@ else
     |                                               { $$ = new ParserVal(null); }
     ;
 
-func_def
-    : FUNCTION param_list RPAREN    {
-                                        ParseNode fundef = new ParseNode("Function definition", current);
-                                        current.addChild(fundef);
-                                        current = fundef;
-                                        Function f = (Function) $1.obj;
-                                        ParseNode params = (ParseNode) $2.obj;
+func_body
+    : LCURLY stmt RCURLY    { $$ = $2; }
+    ;
 
-                                        current.addChild(new ParseNode(f.returnType));
-                                                
-                                    }
+func_def
+    : FUNCTION param_list RPAREN func_body  {
+                                                ParseNode funDef = new ParseNode("Function definition");
+                                                Function f = (Function) $1.obj;
+                                                funDef.addChild(new ParseNode(f.returnType, funDef));
+                                                funDef.addChild(new ParseNode(f.name, funDef));
+                                                ParseNode params = (ParseNode) $2.obj;
+                                                params.setParent(funDef); //can take statements of this nature out later if parent becomes obsolete
+                                                funDef.addChild(params);
+                                                ParseNode body = (ParseNode) $4.obj;
+                                                body.setParent(funDef);
+                                                funDef.addChild(body);
+                                                $$ = new ParseVal(funDef);
+                                            }
     ;
 
 stmt
