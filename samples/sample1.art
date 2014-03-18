@@ -1,7 +1,7 @@
 /* Kevins first arthur sample program */
 
 void init() {
-  Color screenColor = RED;
+  color screenColor = RED;
 
   num time = ms();
 

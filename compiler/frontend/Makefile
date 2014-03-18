@@ -12,6 +12,8 @@ lextest:
 
 yacctest:
 	javac yacctest.java
+	java yacctest ../../samples/sample1.art
+	java yacctest ../../samples/sample2.art
 
 clean:
 	rm -f *.class; rm -f Lexer.j*; rm -f Parser.j*; rm -f ParserVal.j*
