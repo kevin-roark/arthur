@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class ParseNode {
     
@@ -19,6 +20,17 @@ public class ParseNode {
     public ParseNode(Token tok, ArrayList<ParseNode> chills) {
         val = tok;
         children = chills;
+    }
+
+    public String toString() {
+        String s = "ParseNode with token value: " + this.val;
+        if (children.size() > 0) {
+            s += "Children: \n";
+            for (ParseNode node : children) {
+                s += node + "\n";
+            }
+        }
+        return s;
     }
 
 }
