@@ -9,13 +9,15 @@ public class ParseNode {
     public ParseNode(String v) {
         val = v;
         parent = null;
-        children = null;
+        children = new ArrayList<ParseNode>();
+        System.out.println(this);
     }
 
     public ParseNode(String v, ParseNode p) {
         val = v;
         parent = p;
-        children = null;
+        children = new ArrayList<ParseNode>();
+        System.out.println(this);
     }
 
     /*
@@ -31,26 +33,34 @@ public class ParseNode {
         val = v;
         parent = p;
         children = chills;
+        System.out.println(this);
     }
 
     public void addChild(ParseNode child) {
         children.add(child);
+        System.out.println(this);
     }
 
     public void setParent(ParseNode p) {
         parent = p;
     }
 
-    public void toString(int depth) {
+    public String depthString(int depth) {
+        String s = "";
         for (int i = 0; i < depth; i++) {
-            System.out.print("   ");
+            s += "   ";
         }
-        System.out.println("\\_" + this.val);
+        s += "\\_" + this.val;
         if (children != null) {
             for (ParseNode child : children) {
-                child.toString(depth + 1);
+                s += "\n" + child.depthString(depth + 1);
             }
         }
+        return s;
+    }
+
+    public String toString() {
+        return "Parse node:\n" + depthString(0);
     }
 
 }
