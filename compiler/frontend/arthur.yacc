@@ -23,12 +23,24 @@
 
 param_list
     :
-    | hard_param_list;
+    | hard_param_list;              {
+
+                                    }
     ;
 
 hard_param_list
-    : VAR
-    | VAR COMMA VAR
+    : VAR                           {
+                                        ParseNode params = new ParseNode("parameters");
+                                        Var v = (Var) $1;
+                                        ParseNode var = new ParseNode("variable", params);
+                                        var.addChild(new ParseNode(v.type, var));
+                                        var.addChild(new ParseNode(v.id, var));
+                                        params.addChild(var);
+                                        $$ = params;
+                                    }
+    | hard_param_list COMMA VAR     {
+
+                                    }
     ;
 
 dw_stmt
@@ -50,7 +62,16 @@ else
     ;
 
 func_def
-    : 
+    : FUNCTION param_list RPAREN    {
+                                        ParseNode fundef = new ParseNode("Function definition", current);
+                                        current.addChild(fundef);
+                                        current = fundef;
+                                        Function f = (Function) $1.obj;
+                                        ParseNode params = (ParseNode) $2.obj;
+
+                                        current.addChild(new ParseNode(f.returnType));
+                                                
+                                    }
     ;
 
 stmt
@@ -122,7 +143,7 @@ expression:     expression 'N' expression       { boolean one = (Boolean) $1.obj
         ;
 
 %%
-ParseNode root = new ParseNode();
+ParseNode root = new ParseNode("Program");
 ParseNode current = root;
 
 Lexer lexer;
