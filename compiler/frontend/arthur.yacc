@@ -24,7 +24,7 @@
 /* grammar rules */
 
 program
-    : EOF                                           { ParseNode p = new ParseNode("arthur"); $$ = new ParserVal(p); }
+    : EOF                                           { ParseNode p = new ParseNode("arthur"); $$ = new ParserVal(p); System.out.println($$.obj);}
     | stuff EOF                                     { $$ = $1; System.out.println($1.obj); }
     ;
 
@@ -127,6 +127,7 @@ else
 
 func_body
     : LCURLY stmt RCURLY    { $$ = $2; }
+    | LCURLY RCURLY         { $$ = new ParserVal(new ParseNode("")); }
     ;
 
 func_def
@@ -156,8 +157,23 @@ fun_call
                                                     }
     ;
 
+meth_call
+    : id DOT fun_call                               {
+                                                      ParseNode methCall = new ParseNode("Method call");
+                                                      ParseNode ob = (ParseNode) $1.obj;
+                                                      methCall.addChild(ob);
+                                                      ParseNode fun = (ParseNode) $3.obj;
+                                                      methCall.addChild(fun);
+                                                      $$ = new ParserVal(methCall);
+                                                    }
+    ;
+
+meth_call_stmt
+    : meth_call SEMI                                { $$ = $1; }
+    ;
+
 fun_call_stmt
-    : fun_call SEMI
+    : fun_call SEMI                                 { $$ = $1; }
     ;
 
 arg_list
@@ -183,7 +199,8 @@ hard_arg_list
     ;
 
 stmt
-    : if_stmt                                       { 
+    : stmt_list                                     { $$ = $1; }
+    | if_stmt                                       { 
                                                       ParseNode s = new ParseNode("stmt: if");
                                                       s.addChild((ParseNode) $1.obj);
                                                       $$ = new ParserVal(s);
@@ -208,7 +225,25 @@ stmt
                                                       s.addChild((ParseNode) $1.obj);
                                                       $$ = new ParserVal(s);
                                                     }
-    | stmt_list                                     { $$ = $1; }
+    | meth_call_stmt                                { 
+                                                      ParseNode s = new ParseNode("stmt: meth_call");
+                                                      s.addChild((ParseNode) $1.obj);
+                                                      $$ = new ParserVal(s);
+                                                    }
+    | return_stmt                                   { 
+                                                      ParseNode s = new ParseNode("stmt: return");
+                                                      s.addChild((ParseNode) $1.obj);
+                                                      $$ = new ParserVal(s);
+                                                    }
+    ;
+
+return_stmt
+    : RETURN expr SEMI                              {
+                                                      ParseNode e = (ParseNode) $2.obj;
+                                                      ParseNode r = new ParseNode("return");
+                                                      r.addChild(e);
+                                                      $$ = new ParserVal(r);
+                                                    }
     ;
 
 expr_stmt
@@ -217,13 +252,18 @@ expr_stmt
     ;
 
 stmt_list
-    :                                               { $$ = new ParserVal(new ParseNode("stmt_list"));}
-    | stmt_list stmt                                {
+    : stmt_list stmt                                { 
                                                       ParseNode list = (ParseNode) $1.obj;
                                                       ParseNode s = (ParseNode) $2.obj;
                                                       list.addChild(s);
                                                       $$ = $1;
                                                     }
+    | stmt                                          {
+                                                      ParseNode s = (ParseNode) $1.obj;
+                                                      ParseNode list = new ParseNode("stmt_list");
+                                                      list.addChild(s);
+                                                      $$ = new ParserVal(list);
+                                                    }                                                    
     ;
 
 expr
@@ -408,9 +448,8 @@ var
     ;
 
 id
-    : fun_call                                      {
-                                                        $$ = $1;
-                                                    }
+    : fun_call                                      { $$ = $1; }
+    | meth_call                                     { $$ = $1; }
     | ID                                            {
                                                         Identifier i = (Identifier) $1.obj;
                                                         ParseNode id = new ParseNode("Identifier");

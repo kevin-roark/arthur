@@ -31,12 +31,10 @@ public class ParseNode {
         val = v;
         parent = p;
         children = chills;
-        System.out.println(this);
     }
 
     public void addChild(ParseNode child) {
         children.add(child);
-        System.out.println(this);
     }
 
     public void setParent(ParseNode p) {
