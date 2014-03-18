@@ -23,6 +23,25 @@
 
 /* grammar rules */
 
+program
+    : EOF                                           { ParseNode p = new ParseNode("arthur"); $$ = new ParserVal(p); }
+    | stuff EOF                                     { $$ = $1; }
+    ;
+
+stuff
+    : stuff func_def                                {
+                                                        ParseNode s = (ParseNode) $1.obj;
+                                                        ParseNode f = (ParseNode) $2.obj;
+                                                        s.addChild(f);
+                                                        $$ = $1;
+                                                    }
+    | func_def                                      { 
+                                                        ParseNode p = new ParseNode("arthur"); 
+                                                        p.addChild((ParseNode) $1.obj);
+                                                        $$ = new ParserVal(p);
+                                                    }   
+    ;
+
 param_list
     :                                               { $$ = new ParserVal(new ParseNode("parameters")); }
     | hard_param_list                               { $$ = $1; }  
@@ -123,6 +142,43 @@ func_def
                                                         body.setParent(funDef);
                                                         funDef.addChild(body);
                                                         $$ = new ParserVal(funDef);
+                                                    }
+    ;
+
+fun_call
+    : id LPAREN arg_list RPAREN                     {
+                                                      ParseNode funCall = new ParseNode("Function call");
+                                                      ParseNode name = (ParseNode) $1.obj;
+                                                      funCall.addChild(name);
+                                                      ParseNode args = (ParseNode) $3.obj;
+                                                      funCall.addChild(args);
+                                                      $$ = new ParserVal(funCall);
+                                                    }
+    ;
+
+fun_call_stmt
+    : fun_call SEMI
+    ;
+
+arg_list
+    :                                               { $$ = new ParserVal(new ParseNode("arguments")); }
+    | hard_arg_list                                 { $$ = $1; }
+    ;
+
+hard_arg_list
+    : expr                                          {
+                                                        ParseNode params = new ParseNode("arguments");
+                                                        ParseNode ex = (ParseNode) $1.obj;
+                                                        ex.setParent(params);
+                                                        params.addChild(ex);
+                                                        $$ = new ParserVal(params);
+                                                    }
+    | hard_arg_list COMMA expr                      {
+                                                        ParseNode params = (ParseNode) $1.obj;
+                                                        ParseNode ex = (ParseNode) $3.obj;
+                                                        ex.setParent(params);
+                                                        params.addChild(ex);
+                                                        $$ = $1;
                                                     }
     ;
 
@@ -429,5 +485,7 @@ int tokenMap(int tokenType) {
 
 void doParsing(Reader in) {
     lexer = new Lexer(in);
-    yyparse();
+    ParserVal program = yyparse();
+    ParseNode p = (ParseNode) program.obj;
+    System.out.println(p);
 }
