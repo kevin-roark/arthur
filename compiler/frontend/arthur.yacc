@@ -446,6 +446,7 @@ int yylex() {
 }
 
 int tokenMap(int tokenType) {
+    System.out.println("TYPE MAN: " + tokenType);
     switch(tokenType) {
         case Tokens.DW: return DW;
         case Tokens.IF: return IF;

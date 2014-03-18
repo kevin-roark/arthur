@@ -9,13 +9,13 @@ public class ParseNode {
     public ParseNode(String v) {
         val = v;
         parent = null;
-        children = null;
+        children = new ArrayList<ParseNode>();
     }
 
     public ParseNode(String v, ParseNode p) {
         val = v;
         parent = p;
-        children = null;
+        children = new ArrayList<ParseNode>();
     }
 
     /*
