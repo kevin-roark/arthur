@@ -210,50 +210,6 @@ num_expr
     ;
 
 val
-<<<<<<< HEAD
-    : 
-    | COLOR
-    | NUMBER
-    | STRINGLIT
-    | TRUE
-    | FALSE
-    | LPAREN val RPAREN                             
-    | val PLUS val                                  { 
-                                                      ParseNode plus = new ParseNode("+");
-                                                      plus.AddChild((ParseNode)$1.obj);
-                                                      plus.AddChild((ParseNode)$3.obj);
-                                                      $$ = new ParserVal(plus);
-                                                    }
-    | val MINUS val                                 { 
-                                                      ParseNode minus = new ParseNode("-");
-                                                      minus.AddChild((ParseNode)$1.obj);
-                                                      minus.AddChild((ParseNode)$3.obj);
-                                                      $$ = new ParserVal(minus);
-                                                    }
-    | val TIMES val                                 { 
-                                                      ParseNode times = new ParseNode("*");
-                                                      times.AddChild((ParseNode)$1.obj);
-                                                      times.AddChild((ParseNode)$3.obj);
-                                                      $$ = new ParserVal(times);
-                                                    }
-    | val DIV val                                   { 
-                                                      ParseNode div = new ParseNode("/");
-                                                      div.AddChild((ParseNode)$1.obj);
-                                                      div.AddChild((ParseNode)$3.obj);
-                                                      $$ = new ParserVal(div);
-                                                    }
-    | val MOD val                                   { 
-                                                      ParseNode mod = new ParseNode("%");
-                                                      mod.AddChild((ParseNode)$1.obj);
-                                                      mod.AddChild((ParseNode)$3.obj);
-                                                      $$ = new ParserVal(mod);
-                                                    }
-    | val EXP val                                   { 
-                                                      ParseNode exp = new ParseNode("^");
-                                                      exp.AddChild((ParseNode)$1.obj);
-                                                      exp.AddChild((ParseNode)$3.obj);
-                                                      $$ = new ParserVal(exp);
-=======
     :                             
     | val PLUS term                                 { 
                                                         ParseNode plus = new ParseNode("+");
@@ -298,7 +254,6 @@ exfactor
                                                         exp.AddChild((ParseNode)$1.obj);
                                                         exp.AddChild((ParseNode)$3.obj);
                                                         $$ = new ParserVal(exp);
->>>>>>> 33d56a62b50dec2da0b00f5cf089e9deac15bded
                                                     }
     | factor                                        { $$ = $1; }
     ;
