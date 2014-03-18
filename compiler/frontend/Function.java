@@ -5,6 +5,13 @@ public class Function extends Token {
     public String params;
     public String returnType;
 
+    public Function(String name, String returnType) {
+        super(Tokens.FUNCTION);
+        this.name = name;
+        this.params = "";
+        this.returnType = returnType;
+    }
+
     public Function(String name, String params, String returnType) {
         super(Tokens.FUNCTION);
         this.name = name;
@@ -14,7 +21,9 @@ public class Function extends Token {
 
     public String toString() {
     	String s = "Function | name: " + this.name;
-    	s += " | params: " + this.params;
+        if (this.params.length() > 0) {
+            s += " | params: " + this.params;
+        }
     	s += " | return type: " + this.returnType;
     	return s;
     }

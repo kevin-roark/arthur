@@ -3,6 +3,7 @@
  %{ 
     import java.io.Reader;
     import java.io.IOException;
+    import java.lang.Math;
  %}
 
 /* YACC declarations */
@@ -16,6 +17,7 @@
 %token FUNCTION VAR VALUE ID
 %token COLOR NUMBER STRINGLIT TRUE FALSE
 %token EOF
+%token UNKNOWN
 
 %%
 
@@ -44,11 +46,26 @@ hard_param_list
     ;
 
 dw_stmt
-    : DW LPAREN expr RPAREN stmt
+    : DW LPAREN expr RPAREN stmt                    {   
+
+                                                    }
     ;
 
 if_stmt
-    : IF LPAREN expr RPAREN stmt elf else
+    : IF LPAREN expr RPAREN stmt elf else           {   ParseNode if_stmt = new ParseNode("if_stmt", current);
+                                                        current.addChild(if_stmt);
+                                                        current = if_stmt;
+                                                        ParseNode iffer = new ParseNode("if", current);
+                                                        ParseNode lparen = new ParseNode("LPAREN", current);
+                                                        ParseNode expr = new ParseNode("expr", current);
+                                                        ParseNode rparen = new ParseNode("RPAREN", current);
+                                                        ParseNode stmt = new ParseNode("stmt", current);
+                                                        ParseNode elf = new ParseNode("elf", current);
+                                                        ParseNode elser = new ParseNode("else", current);
+
+
+
+     ParseNode if_stmt = new ParseNode() }
     ;
 
 elf
@@ -98,12 +115,12 @@ bool_expr
     ;
 
 num_expr
-    : NUMBER
-    | num_expr LT num_expr
-    | num_expr LTE num_expr
-    | num_expr GT num_expr
-    | num_expr GTE num_expr
-    | num_expr EQ2X num_expr
+    : NUMBER                                        { $$ = $1; }
+    | num_expr LT num_expr                          { $$ = $1 < $3; }
+    | num_expr LTE num_expr                         { $$ = $1 <= $3; }
+    | num_expr GT num_expr                          { $$ = $1 > $3; }
+    | num_expr GTE num_expr                         { $$ = $1 >= $3; }
+    | num_expr EQ2X num_expr                        { $$ = $1 == $3; }
     ;
 
 val
@@ -114,12 +131,12 @@ val
     | TRUE
     | FALSE
     | LPAREN val RPAREN
-    | val PLUS val
-    | val MINUS val
-    | val TIMES val
-    | val DIV val
-    | val MOD val
-    | val EXP val
+    | val PLUS val                                  { $$ = $1 + $3; }
+    | val MINUS val                                 { $$ = $1 - $3; }
+    | val TIMES val                                 { $$ = $1 * $3; }
+    | val DIV val                                   { $$ = $1 / $3; }
+    | val MOD val                                   { $$ = $1 % $3; }
+    | val EXP val                                   { $$ = pow($1, $3); }
     ;
 
 input: /* empty string */
@@ -166,7 +183,53 @@ int yylex() {
     yylval = new ParserVal(tok);
 
     /* need to do this at end */
-    return tok.tokenType;
+    return tokenMap(tok.tokenType);
+}
+
+int tokenMap(int tokenType) {
+    switch(tokenType) {
+        case Tokens.DW: return DW;
+        case Tokens.IF: return IF;
+        case Tokens.ELF: return ELF;
+        case Tokens.ELSE: return ELSE;
+        case Tokens.AND: return AND;
+        case Tokens.OR: return OR;
+        case Tokens.RETURN: return RETURN;
+        case Tokens.TRUE: return TRUE;
+        case Tokens.FALSE: return FALSE;
+        case Tokens.SEMI: return SEMI;
+        case Tokens.LPAREN: return LPAREN;
+        case Tokens.RPAREN: return RPAREN;
+        case Tokens.LCURLY: return LCURLY;
+        case Tokens.RCURLY: return RCURLY;
+        case Tokens.LBRACK: return LBRACK;
+        case Tokens.RBRACK: return RBRACK;
+        case Tokens.DOT: return DOT;
+        case Tokens.EQ: return EQ;
+        case Tokens.EQX2: return EQ2X;
+        case Tokens.NOT: return NOT;
+        case Tokens.LT: return LT;
+        case Tokens.LTE: return LTE;
+        case Tokens.GT: return GT;
+        case Tokens.GTE: return GTE;
+        case Tokens.COMMA: return COMMA;
+        case Tokens.PLUS: return PLUS;
+        case Tokens.MINUS: return MINUS;
+        case Tokens.TIMES: return TIMES;
+        case Tokens.DIV: return DIV;
+        case Tokens.MOD: return MOD;
+        case Tokens.EXP: return EXP;
+        case Tokens.ARROW: return ARROW;
+        case Tokens.FUNCTION: return FUNCTION;
+        case Tokens.VAR: return VAR;
+        case Tokens.ID: return ID;
+        case Tokens.COLOR: return COLOR;
+        case Tokens.NUMBER: return NUMBER;
+        case Tokens.STRINGLIT: return STRINGLIT;
+        case Tokens.EOF: return EOF;
+        case Tokens.VALUE: return VALUE;
+        default: return UNKNOWN;
+    }
 }
 
 void doParsing(Reader in) {
