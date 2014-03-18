@@ -195,6 +195,19 @@ meth_call
                                                     }
     ;
 
+prop_access
+    : id DOT id                                     {
+                                                      ParseNode prop = new ParseNode("Property access");
+                                                      prop.addChild((ParseNode) $1.obj);
+                                                      prop.addChild((ParseNode) $3.obj);
+                                                      $$ = new ParserVal(prop);
+                                                    }
+    ;
+
+prop_access_stmt
+    : prop_access SEMI                              { $$ = $1; }
+    ;
+
 meth_call_stmt
     : meth_call SEMI                                { $$ = $1; }
     ;
@@ -257,6 +270,11 @@ stmt
                                                       s.addChild((ParseNode) $1.obj);
                                                       $$ = new ParserVal(s);
                                                     }
+    | prop_access_stmt                                { 
+                                                      ParseNode s = new ParseNode("stmt: prop_access");
+                                                      s.addChild((ParseNode) $1.obj);
+                                                      $$ = new ParserVal(s);
+                                                    }
     | return_stmt                                   { 
                                                       ParseNode s = new ParseNode("stmt: return");
                                                       s.addChild((ParseNode) $1.obj);
@@ -269,6 +287,10 @@ return_stmt
                                                       ParseNode e = (ParseNode) $2.obj;
                                                       ParseNode r = new ParseNode("return");
                                                       r.addChild(e);
+                                                      $$ = new ParserVal(r);
+                                                    }
+    | RETURN SEMI;                                  {
+                                                      ParseNode r = new ParseNode("return");
                                                       $$ = new ParserVal(r);
                                                     }
     ;
@@ -309,7 +331,7 @@ expr
 bool_expr
     : TRUE                                          { ParseNode bool = new ParseNode("true"); $$ = new ParserVal(bool); }
     | FALSE                                         { ParseNode bool = new ParseNode("false"); $$ = new ParserVal(bool); }
-    | val                                           { $$ = $1; }
+    | num_expr                                      { $$ = $1; }
     | bool_expr AND bool_expr                       { 
                                                       ParseNode and = new ParseNode("and");
                                                       ParseNode b1 = (ParseNode) $1.obj; ParseNode b2 = (ParseNode) $3.obj;
@@ -333,7 +355,12 @@ bool_expr
     ;
 
 num_expr
-    : NUMBER                                        { ParseNode number = new ParseNode("number"); $$ = new ParserVal(number); }
+    : NUMBER                                        { 
+                                                      ParseNode number = new ParseNode("number");
+                                                      Number n = (Number) $1.obj;
+                                                      ParseNode val = new ParseNode(n.toString());
+                                                      number.addChild(val);
+                                                      $$ = new ParserVal(number); }
     | val                                           { $$ = $1; }
     | num_expr LT num_expr                          {
                                                       ParseNode lt = new ParseNode("less than");
@@ -485,6 +512,7 @@ var
 id
     : fun_call                                      { $$ = $1; }
     | meth_call                                     { $$ = $1; }
+    | prop_access                                   { $$ = $1; }
     | ID                                            {
                                                         Identifier i = (Identifier) $1.obj;
                                                         ParseNode id = new ParseNode("Identifier");
