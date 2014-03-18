@@ -7,6 +7,6 @@ public class Token {
     }
 
     public String toString() {
-    	return "Token type: " + this.tokenType;
+        return "Token | " + Tokens.getName(this.tokenType);
     }
 }
