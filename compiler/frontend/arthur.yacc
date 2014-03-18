@@ -199,7 +199,7 @@ hard_arg_list
     ;
 
 stmt
-    : stmt_list                                     { $$ = $1; }
+    : stmt_block                                    { $$ = $1; }
     | if_stmt                                       { 
                                                       ParseNode s = new ParseNode("stmt: if");
                                                       s.addChild((ParseNode) $1.obj);
@@ -249,6 +249,10 @@ return_stmt
 expr_stmt
     : SEMI                                          { $$ = new ParserVal(null); }
     | expr SEMI                                     { $$ = $1; }
+    ;
+
+stmt_block
+    : LCURLY stmt_list RCURLY                       { $$ = $2; }
     ;
 
 stmt_list
