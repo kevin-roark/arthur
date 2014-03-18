@@ -203,6 +203,11 @@ stmt
                                                       s.addChild((ParseNode) $1.obj);
                                                       $$ = new ParserVal(s);
                                                     }
+    | fun_call_stmt                                 { 
+                                                      ParseNode s = new ParseNode("stmt");
+                                                      s.addChild((ParseNode) $1.obj);
+                                                      $$ = new ParserVal(s);
+                                                    }
     | stmt_list                                     { $$ = $1; }
     ;
 
@@ -403,7 +408,10 @@ var
     ;
 
 id
-    : ID                                            {
+    : fun_call                                      {
+                                                        $$ = $1;
+                                                    }
+    | ID                                            {
                                                         Identifier i = (Identifier) $1.obj;
                                                         ParseNode id = new ParseNode("Identifier");
                                                         id.addChild(new ParseNode(i.name), id);
