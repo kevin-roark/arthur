@@ -40,20 +40,31 @@ dw_stmt
     ;
 
 if_stmt
-    : IF LPAREN expr RPAREN stmt elf else           {   ParseNode if_stmt = new ParseNode("if_stmt", current);
+    : IF LPAREN expr RPAREN stmt elf else           /* {   ParseNode if_stmt = new ParseNode("if statement", current);
                                                         current.addChild(if_stmt);
                                                         current = if_stmt;
                                                         ParseNode iffer = new ParseNode("if", current);
-                                                        ParseNode lparen = new ParseNode("LPAREN", current);
+                                                        current.addChild(iffer);
+                                                        current = iffer;
+                                                        ParseNode lparen = new ParseNode("(", current);
+                                                        current.addChild(lparen);
                                                         ParseNode expr = new ParseNode("expr", current);
+                                                        current.addChild(expr);
                                                         ParseNode rparen = new ParseNode("RPAREN", current);
+                                                        current.addChild(iffer);
                                                         ParseNode stmt = new ParseNode("stmt", current);
+                                                        current.addChild(iffer);
                                                         ParseNode elf = new ParseNode("elf", current);
+                                                        current.addChild(iffer);
                                                         ParseNode elser = new ParseNode("else", current);
+                                                        current.addChild(iffer);
+                                                        $$ = if_stmt;
+                                                    } */
 
 
 
-     ParseNode if_stmt = new ParseNode() }
+
+
     ;
 
 elf
