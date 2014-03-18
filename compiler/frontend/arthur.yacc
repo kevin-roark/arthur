@@ -33,13 +33,26 @@ hard_param_list
     ;
 
 dw_stmt
-    : DW LPAREN expr RPAREN stmt                    {   ArrayList<ParseNode> = new ArrayList<ParseNode>();
+    : DW LPAREN expr RPAREN stmt                    {   
 
-                                                        ParseNode p = new ParseNode() }
+                                                    }
     ;
 
 if_stmt
-    : IF LPAREN expr RPAREN stmt elf else
+    : IF LPAREN expr RPAREN stmt elf else           {   ParseNode if_stmt = new ParseNode("if_stmt", current);
+                                                        current.addChild(if_stmt);
+                                                        current = if_stmt;
+                                                        ParseNode iffer = new ParseNode("if", current);
+                                                        ParseNode lparen = new ParseNode("LPAREN", current);
+                                                        ParseNode expr = new ParseNode("expr", current);
+                                                        ParseNode rparen = new ParseNode("RPAREN", current);
+                                                        ParseNode stmt = new ParseNode("stmt", current);
+                                                        ParseNode elf = new ParseNode("elf", current);
+                                                        ParseNode elser = new ParseNode("else", current);
+
+
+
+     ParseNode if_stmt = new ParseNode() }
     ;
 
 elf
