@@ -420,9 +420,8 @@ id
     ;
 
 %%
-ParseNode root = new ParseNode("Program");
-
 Lexer lexer;
+Token prevTok;
 
 void yyerror(String s) {
     System.out.println("Error: " + s);
@@ -430,6 +429,10 @@ void yyerror(String s) {
 
 int yylex() {
     Token tok;
+
+    if (prevTok != null && prevTok.tokenType == Tokens.EOF) {
+        return -1;
+    }
 
     try {
         tok = lexer.yylex();
@@ -440,6 +443,8 @@ int yylex() {
 
     /* might need to do stuff with token and symbol table, etc */
     yylval = new ParserVal(tok);
+
+    prevTok = tok;
 
     /* need to do this at end */
     return tokenMap(tok.tokenType);
