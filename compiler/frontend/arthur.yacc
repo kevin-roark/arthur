@@ -46,8 +46,12 @@ hard_param_list
     ;
 
 dw_stmt
-    : DW LPAREN expr RPAREN stmt                    {   
-
+    : DW LPAREN expr RPAREN stmt                    {   ParseNode dw = new ParseNode("dw");
+                                                        ParseNode expr = (ParseNode) $3.obj;
+                                                        ParseNode stmt = (ParseNode) $5.obj;
+                                                        dw.addChild(expr);
+                                                        dw.addChild(stmt);
+                                                        $$ = new ParserVal(dw);
                                                     }
     ;
 
@@ -93,17 +97,6 @@ elf
     |                                               { $$ = new ParserVal(null); }
     ;
 
-
-// elfzam
-//     : elf ELF LPAREN expr RPAREN stmt               {   ParseNode elfmaster = new ParseNode("elf", current);
-//                                                         current.addChild(elfmaster); 
-//                                                         ParseNode recelf = (ParseNode) $1.obj; 
-
-
-//                                                         }
-//     |                                               { $$ = new ParserVal(null); }
-//     ;
-
 else
     : ELSE stmt                                     { $$ = $2; }
     |                                               { $$ = new ParserVal(null); }
@@ -123,12 +116,12 @@ func_def
     ;
 
 stmt
-    : SEMI
-    | expr stmt
-    | stmt stmt
-    | if_stmt stmt
-    | dw_stmt stmt
-    |
+    : SEMI                                          { $$ = (ParseNode) $1.obj; }
+    | expr stmt                                     { $$ = (ParseNode) $1.obj; }
+    | stmt stmt                                     { $$ = (ParseNode) $1.obj; }
+    | if_stmt stmt                                  { $$ = (ParseNode) $1.obj; }
+    | dw_stmt stmt                                  { $$ = (ParseNode) $1.obj; }
+    |                                               { $$ = new ParserVal(null); }
     ;
 
 expr
@@ -140,9 +133,9 @@ expr
 bool_expr
     : TRUE                                          { $$ = $1; }
     | FALSE                                         { $$ = $1; }
-    | bool_expr AND bool_expr
-    | bool_expr OR bool_expr
-    | NOT bool_expr
+    | bool_expr AND bool_expr                       { $$ = (ParseNode) $1.obj && (ParseNode) $3.obj; }
+    | bool_expr OR bool_expr                        { $$ = (ParseNode) $1.obj || (ParseNode) $3.obj; }
+    | NOT bool_expr                                 { $$ = (ParseNode) !($2.obj); }
     ;
 
 num_expr
