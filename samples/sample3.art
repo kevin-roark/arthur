@@ -37,6 +37,11 @@ void init() {
 	Image rect = get("justawhiterectangle.jpg");
 	rect = rect * 37; /* big one */
 
+	num i = 1;
+	dw (i < 5) {
+		i = i + 1;
+	}
+
 	/* Add */
 	arthur.add(dog);
 	arthur.add(rect);
