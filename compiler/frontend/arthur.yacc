@@ -280,6 +280,7 @@ expr_stmt
 
 stmt_block
     : LCURLY stmt_list RCURLY                       { $$ = $2; }
+    : LCURLY RCURLY                                 { $$ = new ParserVal(new ParseNode("")); }
     | stmt_list                                     { $$ = $1; }
     ;
 
