@@ -3,6 +3,7 @@
  %{ 
     import java.io.Reader;
     import java.io.IOException;
+    import java.lang.Math;
  %}
 
 /* YACC declarations */
@@ -27,12 +28,14 @@ param_list
     ;
 
 hard_param_list
-    : VAR
-    | VAR COMMA VAR
+    : VAR                                           { $1 }
+    | hard_param_list COMMA VAR
     ;
 
 dw_stmt
-    : DW LPAREN expr RPAREN stmt
+    : DW LPAREN expr RPAREN stmt                    {   ArrayList<ParseNode> = new ArrayList<ParseNode>();
+
+                                                        ParseNode p = new ParseNode() }
     ;
 
 if_stmt
@@ -77,12 +80,12 @@ bool_expr
     ;
 
 num_expr
-    : NUMBER
-    | num_expr LT num_expr
-    | num_expr LTE num_expr
-    | num_expr GT num_expr
-    | num_expr GTE num_expr
-    | num_expr EQ2X num_expr
+    : NUMBER                                        { $$ = $1; }
+    | num_expr LT num_expr                          { $$ = $1 < $3; }
+    | num_expr LTE num_expr                         { $$ = $1 <= $3; }
+    | num_expr GT num_expr                          { $$ = $1 > $3; }
+    | num_expr GTE num_expr                         { $$ = $1 >= $3; }
+    | num_expr EQ2X num_expr                        { $$ = $1 == $3; }
     ;
 
 val
@@ -93,12 +96,12 @@ val
     | TRUE
     | FALSE
     | LPAREN val RPAREN
-    | val PLUS val
-    | val MINUS val
-    | val TIMES val
-    | val DIV val
-    | val MOD val
-    | val EXP val
+    | val PLUS val                                  { $$ = $1 + $3; }
+    | val MINUS val                                 { $$ = $1 - $3; }
+    | val TIMES val                                 { $$ = $1 * $3; }
+    | val DIV val                                   { $$ = $1 / $3; }
+    | val MOD val                                   { $$ = $1 % $3; }
+    | val EXP val                                   { $$ = pow($1, $3); }
     ;
     
 
