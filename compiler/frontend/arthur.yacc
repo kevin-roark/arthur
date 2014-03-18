@@ -16,6 +16,7 @@
 %token FUNCTION VAR
 %token COLOR NUMBER STRINGLIT TRUE FALSE
 %token NEWLINE WHITESPACE EOF
+%token UNKNOWN
 
 %%
 
@@ -144,7 +145,53 @@ int yylex() {
     yylval = new ParserVal(tok);
 
     /* need to do this at end */
-    return tok.tokenType;
+    return tokenMap(tok.tokenType);
+}
+
+int tokenMap(int tokenType) {
+    switch(tokenType) {
+        case Tokens.DW: return DW;
+        case Tokens.IF: return IF;
+        case Tokens.ELF: return ELF;
+        case Tokens.ELSE: return ELSE;
+        case Tokens.AND: return AND;
+        case Tokens.OR: return OR;
+        case Tokens.RETURN: return RETURN;
+        case Tokens.TRUE: return TRUE;
+        case Tokens.FALSE: return FALSE;
+        case Tokens.SEMI: return SEMI;
+        case Tokens.LPAREN: return LPAREN;
+        case Tokens.RPAREN: return RPAREN;
+        case Tokens.LCURLY: return LCURLY;
+        case Tokens.RCURLY: return RCURLY;
+        case Tokens.LBRACK: return LBRACK;
+        case Tokens.RBRACK: return RBRACK;
+        case Tokens.DOT: return DOT;
+        case Tokens.EQ: return EQ;
+        case Tokens.EQX2: return EQ2X;
+        case Tokens.NOT: return NOT;
+        case Tokens.LT: return LT;
+        case Tokens.LTE: return LTE;
+        case Tokens.GT: return GT;
+        case Tokens.GTE: return GTE;
+        case Tokens.COMMA: return COMMA;
+        case Tokens.PLUS: return PLUS;
+        case Tokens.MINUS: return MINUS;
+        case Tokens.TIMES: return TIMES;
+        case Tokens.DIV: return DIV;
+        case Tokens.MOD: return MOD;
+        case Tokens.EXP: return EXP;
+        case Tokens.ARROW: return ARROW;
+        case Tokens.FUNCTION: return FUNCTION;
+        case Tokens.VAR: return VAR;
+        case Tokens.ID: return ID;
+        case Tokens.COLOR: return COLOR;
+        case Tokens.NUMBER: return NUMBER;
+        case Tokens.STRINGLIT: return STRINGLIT;
+        case Tokens.EOF: return EOF;
+        case Tokens.VALUE: return VALUE;
+        default: return UNKNOWN;
+    }
 }
 
 void doParsing(Reader in) {

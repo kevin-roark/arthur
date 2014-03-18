@@ -24,3 +24,7 @@ void init() { //hey guys!
 void loop(num x, color y) {
 
 }
+
+Video make_it_blue_and_z(Video vid, color z) {
+    return vid + BLUE + z;
+}

@@ -7,5 +7,8 @@ flex:
 yacc:
 	jyacc -J arthur.yacc; javac Parser.java;
 
+lextest:
+	javac lextest.java
+
 clean:
 	rm -f *.class; rm -f Lexer.j*; rm -f Parser.j*; rm -f ParserVal.j*

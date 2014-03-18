@@ -59,7 +59,8 @@ VarDec = {Type}{WS}+{Identifier}
 //VarInit = {VarDec}{WS}+\={WS}+{Value}
 //FunDec = [{Type}|void]{WS}+{Identifier}{WS}+\({WS}*(({VarDec}{WS}*,{WS}*)*{VarDec})?{WS}*\)
 ParamStuff = {Identifier}|{WS}|,|{Type}
-FunDec = ({Type}|void){WS}+{Identifier}{WS}*\({ParamStuff}*\)
+//FunDec = ({Type}|void){WS}+{Identifier}{WS}*\({ParamStuff}*\)
+FunDec = ({Type}|void){WS}+{Identifier}{WS}*\(
 
 /* calls */
 //FunCall = {Identifier}{WS}+\({All}*\)
@@ -117,14 +118,13 @@ FunDec = ({Type}|void){WS}+{Identifier}{WS}*\({ParamStuff}*\)
                               Var var = new Var(name, type);
                               table.getMap().put(name, var);
                               return var;
-                            } 
+                            }
 
-    {FunDec}                { String[] arr = yytext().split("\\(");
-                              String params = arr[1].replace(")", "").trim();
-                              String[] arr2 = arr[0].split("\\s+");
-                              String returnType = arr2[0];
-                              String name = arr2[1];
-                              Function fun = new Function(name, params, returnType);
+    {FunDec}                { String text = yytext().replace("(", "");
+                              String[] arr = text.split("\\s+");
+                              String returnType = arr[0];
+                              String name = arr[1];
+                              Function fun = new Function(name, returnType);
                               table.getMap().put(name, fun);
                               return fun;
                             }
@@ -157,6 +157,16 @@ FunDec = ({Type}|void){WS}+{Identifier}{WS}*\({ParamStuff}*\)
     {WS}                    { /* do nothing */ }
 
     {Comment}               { /* do nothing */ }
+
+  /*{FunDec}                { String[] arr = yytext().split("\\(");
+                              String params = arr[1].replace(")", "").trim();
+                              String[] arr2 = arr[0].split("\\s+");
+                              String returnType = arr2[0];
+                              String name = arr2[1];
+                              Function fun = new Function(name, params, returnType);
+                              table.getMap().put(name, fun);
+                              return fun;
+                            }*/
 
     /* anything else */
     [^]                     { throw new Error("Illegal character: " + yytext()); }

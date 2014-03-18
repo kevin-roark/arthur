@@ -40,8 +40,54 @@ public class Tokens {
     public static final int COLOR = 34;
     public static final int NUMBER = 35;
     public static final int STRINGLIT = 350;
-    public static final int NEWLINE = 37;
-    public static final int WHITESPACE = 38;
+    //public static final int NEWLINE = 37;
+    //public static final int WHITESPACE = 38;
     public static final int EOF = 39;
     public static final int VALUE = 40;
+
+    public static String getName(int token) {
+        switch (token) {
+            case DW: return "dw";
+            case IF: return "if";
+            case ELF: return "elf";
+            case ELSE: return "else";
+            case AND: return "and";
+            case OR: return "or";
+            case RETURN: return "return";
+            case TRUE: return "true";
+            case FALSE: return "false";
+            case SEMI: return "semi-colon";
+            case LPAREN: return "left parentheses";
+            case RPAREN: return "right parentheses";
+            case LCURLY: return "left curly";
+            case RCURLY: return "right curly";
+            case LBRACK: return "left bracket";
+            case RBRACK: return "right bracket";
+            case DOT: return "dot";
+            case EQ: return "single equals";
+            case EQX2: return "double equals";
+            case NOT: return "not";
+            case LT: return "less than";
+            case LTE: return "less than / equal to";
+            case GT: return "greater than";
+            case GTE: return "greater than / equal to";
+            case COMMA: return "comma";
+            case PLUS: return "plus";
+            case MINUS: return "minus";
+            case TIMES: return "times";
+            case DIV: return "divide";
+            case MOD: return "mod";
+            case EXP: return "exponent";
+            case ARROW: return "arrow";
+            case FUNCTION: return "function";
+            case VAR: return "variable";
+            case ID: return "identifier";
+            case COLOR: return "color literal";
+            case NUMBER: return "number literal";
+            case STRINGLIT: return "string literal";
+            case EOF: return "EOF";
+            case VALUE: return "value fallback";
+            default: return "unknown token";
+        }
+    }
 }

@@ -37,8 +37,20 @@ public class Var extends Token {
         }
     }
 
+    public static String getName(int type) {
+        switch (type) {
+            case NUM: return "num";
+            case STRING: return "string";
+            case COLOR: return "color";
+            case SOUND: return "sound";
+            case VIDEO: return "video";
+            case IMAGE: return "image";
+            default: return "unknown type";
+        }
+    }
+
     public String toString() {
-        String s = "Var token | type: " + this.type;
+        String s = "Variable | type: " + getName(this.type);
         s += " | id: " + this.id;
         if (this.val != null) {
             s += " | val: " + this.val;
