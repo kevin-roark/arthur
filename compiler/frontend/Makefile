@@ -15,3 +15,5 @@ yacctest:
 
 clean:
 	rm -f *.class; rm -f Lexer.j*; rm -f Parser.j*; rm -f ParserVal.j*
+
+all: clean arthur lextest yacctest
