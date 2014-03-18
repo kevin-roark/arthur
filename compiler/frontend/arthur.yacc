@@ -280,6 +280,7 @@ expr_stmt
 
 stmt_block
     : LCURLY stmt_list RCURLY                       { $$ = $2; }
+    | stmt_list                                     { $$ = $1; }
     ;
 
 stmt_list
