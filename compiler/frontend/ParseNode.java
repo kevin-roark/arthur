@@ -22,15 +22,16 @@ public class ParseNode {
         children = chills;
     }
 
-    public String toString() {
-        String s = "ParseNode with token value: " + this.val;
-        if (children.size() > 0) {
-            s += "Children: \n";
-            for (ParseNode node : children) {
-                s += node + "\n";
+    public void toString(int depth) {
+        for (int i = 0; i < depth; i++) {
+            System.out.print("   ");
+        }
+        System.out.println("\\_ParseNode with token value: " + this.val);
+        if (children != null) {
+            for (ParseNode child : children) {
+                child.toString(depth + 1);
             }
         }
-        return s;
     }
 
 }
