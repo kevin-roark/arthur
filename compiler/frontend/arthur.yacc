@@ -131,18 +131,49 @@ func_def
     ;
 
 stmt
-    : SEMI                                          { $$ =  }
-    | expr stmt                                     { $$ = $1; }
-    | stmt stmt                                     { $$ = $1; }
-    | if_stmt stmt                                  { $$ = $1; }
-    | dw_stmt stmt                                  { $$ = $1; }
-    |                                               { $$ = new ParserVal(null); }
+    : if_stmt                                       { 
+                                                      ParseNode s = new ParseNode("stmt");
+                                                      s.addChild((ParseNode) $1.obj);
+                                                      $$ = new ParserVal(s);
+                                                    }
+    | dw_stmt                                       { 
+                                                      ParseNode s = new ParseNode("stmt");
+                                                      s.addChild((ParseNode) $1.obj);
+                                                      $$ = new ParserVal(s);
+                                                    }
+    | expr_stmt                                     { 
+                                                      ParseNode s = new ParseNode("stmt");
+                                                      s.addChild((ParseNode) $1.obj);
+                                                      $$ = new ParserVal(s);
+                                                    }
+    | eq_stmt                                       { 
+                                                      ParseNode s = new ParseNode("stmt");
+                                                      s.addChild((ParseNode) $1.obj);
+                                                      $$ = new ParserVal(s);
+                                                    }
+    | stmt_list                                     { $$ = $1; }
+    ;
+
+expr_stmt
+    : SEMI                                          { $$ = new ParserVal(null); }
+    | expr SEMI                                     { $$ = $1; }
+    ;
+
+stmt_list
+    :                                               { $$ = new ParserVal(new ParseNode("stmt_list"));}
+    | stmt_list stmt                                {
+                                                      ParseNode list = (ParseNode) $1.obj;
+                                                      ParseNode s = (ParseNode) $2.obj;
+                                                      list.addChild(s);
+                                                      $$ = $1;
+                                                    }
     ;
 
 expr
-    : bool_expr                                     { $$ = (ParseNode) $1.obj; }
-    | num_expr                                      { $$ = (ParseNode) $1.obj; }
-    | val                                           { $$ = (ParseNode) $1.obj; }
+    : bool_expr                                     { $$ = $1; }
+    | num_expr                                      { $$ = $1; }
+    | val                                           { $$ = $1; }
+    |                                               { $$ = new ParserVal(null); }
     ;
 
 bool_expr
