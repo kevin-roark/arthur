@@ -10,14 +10,12 @@ public class ParseNode {
         val = v;
         parent = null;
         children = new ArrayList<ParseNode>();
-        System.out.println(this);
     }
 
     public ParseNode(String v, ParseNode p) {
         val = v;
         parent = p;
         children = new ArrayList<ParseNode>();
-        System.out.println(this);
     }
 
     /*

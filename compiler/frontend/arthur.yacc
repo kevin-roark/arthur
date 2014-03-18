@@ -184,27 +184,27 @@ hard_arg_list
 
 stmt
     : if_stmt                                       { 
-                                                      ParseNode s = new ParseNode("stmt");
+                                                      ParseNode s = new ParseNode("stmt: if");
                                                       s.addChild((ParseNode) $1.obj);
                                                       $$ = new ParserVal(s);
                                                     }
     | dw_stmt                                       { 
-                                                      ParseNode s = new ParseNode("stmt");
+                                                      ParseNode s = new ParseNode("stmt: dw");
                                                       s.addChild((ParseNode) $1.obj);
                                                       $$ = new ParserVal(s);
                                                     }
     | expr_stmt                                     { 
-                                                      ParseNode s = new ParseNode("stmt");
+                                                      ParseNode s = new ParseNode("stmt: expr");
                                                       s.addChild((ParseNode) $1.obj);
                                                       $$ = new ParserVal(s);
                                                     }
     | eq_stmt                                       { 
-                                                      ParseNode s = new ParseNode("stmt");
+                                                      ParseNode s = new ParseNode("stmt: eq");
                                                       s.addChild((ParseNode) $1.obj);
                                                       $$ = new ParserVal(s);
                                                     }
     | fun_call_stmt                                 { 
-                                                      ParseNode s = new ParseNode("stmt");
+                                                      ParseNode s = new ParseNode("stmt: fun_call");
                                                       s.addChild((ParseNode) $1.obj);
                                                       $$ = new ParserVal(s);
                                                     }
