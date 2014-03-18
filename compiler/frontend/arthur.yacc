@@ -24,28 +24,24 @@
 /* grammar rules */
 
 param_list
-    :                                                { $$ = new ParserVal(new ParseNode("parameters")); }
-    | hard_param_list                                { $$ = $1; }  
+    :                                               { $$ = new ParserVal(new ParseNode("parameters")); }
+    | hard_param_list                               { $$ = $1; }  
     ;
 
 hard_param_list
-    : VAR                                           {
-                                                      ParseNode params = new ParseNode("parameters");
-                                                      Var v = (Var) $1.obj;
-                                                      ParseNode var = new ParseNode("variable", params);
-                                                      var.addChild(new ParseNode(v.type, var));
-                                                      var.addChild(new ParseNode(v.id, var));
-                                                      params.addChild(var);
-                                                      $$ = new ParserVal(params);
+    : var                                           {
+                                                        ParseNode params = new ParseNode("parameters");
+                                                        ParseNode var = (ParseNode) $1.obj;
+                                                        var.setParent(params);
+                                                        params.addChild(var);
+                                                        $$ = new ParserVal(params);
                                                     }
-    | hard_param_list COMMA VAR                     {
-                                                      ParseNode params = (ParseNode) $1.obj;
-                                                      Var v = (Var) $3.obj;
-                                                      ParseNode var = new ParseNode("variable", params);
-                                                      var.addChild(new ParseNode(v.type, var));
-                                                      var.addChild(new ParseNode(v.id, var));
-                                                      params.addChild(var);
-                                                      $$ = $1;
+    | hard_param_list COMMA var                     {
+                                                        ParseNode params = (ParseNode) $1.obj;
+                                                        ParseNode var = (ParseNode) $3.obj;
+                                                        var.setParent(params);
+                                                        params.addChild(var);
+                                                        $$ = $1;
                                                     }
     ;
 
@@ -116,17 +112,17 @@ func_body
 
 func_def
     : FUNCTION param_list RPAREN func_body          {
-                                                      ParseNode funDef = new ParseNode("Function definition");
-                                                      Function f = (Function) $1.obj;
-                                                      funDef.addChild(new ParseNode(f.returnType, funDef));
-                                                      funDef.addChild(new ParseNode(f.name, funDef));
-                                                      ParseNode params = (ParseNode) $2.obj;
-                                                      params.setParent(funDef); //can take statements of this nature out later if parent becomes obsolete
-                                                      funDef.addChild(params);
-                                                      ParseNode body = (ParseNode) $4.obj;
-                                                      body.setParent(funDef);
-                                                      funDef.addChild(body);
-                                                      $$ = new ParserVal(funDef);
+                                                        ParseNode funDef = new ParseNode("Function definition");
+                                                        Function f = (Function) $1.obj;
+                                                        funDef.addChild(new ParseNode(f.returnType, funDef));
+                                                        funDef.addChild(new ParseNode(f.name, funDef));
+                                                        ParseNode params = (ParseNode) $2.obj;
+                                                        params.setParent(funDef); //can take statements of this nature out later if parent becomes obsolete
+                                                        funDef.addChild(params);
+                                                        ParseNode body = (ParseNode) $4.obj;
+                                                        body.setParent(funDef);
+                                                        funDef.addChild(body);
+                                                        $$ = new ParserVal(funDef);
                                                     }
     ;
 
@@ -240,6 +236,29 @@ num_expr
                                                     }
     ;
 
+eq_stmt
+    : id EQ val                                     {
+                                                        ParseNode eq = new ParseNode("=");
+                                                        ParseNode id = (ParseNode) $1.obj;
+                                                        ParseNode val = (ParseNode) $3.obj;
+                                                        id.setParent(eq); //again, can take these out later if need be
+                                                        val.setParent(eq);
+                                                        eq.addChild(id);
+                                                        eq.addChild(val);    
+                                                        $$ = new ParserVal(eq);
+                                                    }
+    | var EQ val                                    {
+                                                        ParseNode eq = new ParseNode("=");
+                                                        ParseNode var = (ParseNode) $1.obj;
+                                                        ParseNode val = (ParseNode) $3.obj;
+                                                        var.setParent(eq);
+                                                        val.setParent(eq);
+                                                        eq.addChild(var);
+                                                        eq.addChild(val);
+                                                        $$ = new ParserVal(eq);
+                                                    }
+    ;
+
 val
     :                             
     | val PLUS term                                 { 
@@ -302,25 +321,42 @@ factor
     | NUMBER                                        {
                                                         Number n = (Number) $1.obj;
                                                         ParseNode number = new ParseNode("Number literal");
-                                                        ParseNode numVal = new ParseNode(n.val, number);
-                                                        number.addChild(numVal); 
+                                                        number.addChild(new ParseNode(n.val, number)); 
                                                         $$ = new ParserVal(number);    
                                                     }
     | STRINGLIT                                     {
                                                         StringLit s = (StringLit) $1.obj;
                                                         ParseNode string = new ParseNode("String literal");
-                                                        ParseNode stringLit = new ParseNode(s.val, string);
-                                                        string.addChild(stringLit); 
+                                                        string.addChild(new ParseNode(s.val, string)); 
                                                         $$ = new ParserVal(string); 
                                                     }
     | TRUE                                          { ParseNode t = new ParseNode("true"); $$ = new ParserVal(t); }
     | FALSE                                         { ParseNode f = new ParseNode("false"); $$ = new ParserVal(f); }
+    | id                                            { $$ = $1; }
     | LPAREN val RPAREN                             { $$ = $2; }
+    ;
+
+var
+    : VAR                                           {
+                                                        Var v = (Var) $1.obj;
+                                                        ParseNode var = new ParseNode("variable");
+                                                        var.addChild(new ParseNode(v.type, var));
+                                                        var.addChild(new ParseNode(v.id, var));
+                                                        $$ = new ParserVal(var);
+                                                    }
+    ;
+
+id
+    : ID                                            {
+                                                        Identifier i = (Identifier) $1.obj;
+                                                        ParseNode id = new ParseNode("Identifier");
+                                                        id.addChild(new ParseNode(i.name), id);
+                                                        $$ = new ParserVal(id); 
+                                                    }
     ;
 
 %%
 ParseNode root = new ParseNode("Program");
-ParseNode current = root;
 
 Lexer lexer;
 
