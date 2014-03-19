@@ -77,12 +77,14 @@ dw_stmt
 
 if_stmt
     : IF LPAREN expr RPAREN stmt elfs else           {
-                                                      ParseNode ifmaster = new ParseNode("if");
-                                                      ParseNode iffer = new ParseNode("iffer", ifmaster);
-                                                      ParseNode expr = (ParseNode) $3.obj;
-                                                      ParseNode stmt = (ParseNode) $5.obj;
-                                                      iffer.addChild(expr);
-                                                      iffer.addChild(stmt);
+                                                      ParseNode ifmaster = new ParseNode("if-switch");
+                                                      ParseNode iffer = new ParseNode("if", ifmaster);
+                                                      ParseNode condition = new ParseNode("condition");
+                                                      ParseNode body = new ParseNode("body");
+                                                      condition.addChild((ParseNode) $3.obj);
+                                                      body.addChild((ParseNode) $5.obj);
+                                                      iffer.addChild(condition);
+                                                      iffer.addChild(body);
                                                       ifmaster.addChild(iffer);
                                                       ParseNode elfer = (ParseNode) $6.obj;
                                                       ifmaster.addChild(elfer);
@@ -91,33 +93,41 @@ if_stmt
                                                       $$ = new ParserVal(ifmaster);
                                                     }
     | IF LPAREN expr RPAREN stmt elfs               {
-                                                      ParseNode ifmaster = new ParseNode("if");
-                                                      ParseNode iffer = new ParseNode("iffer", ifmaster);
-                                                      ParseNode expr = (ParseNode) $3.obj;
-                                                      ParseNode stmt = (ParseNode) $5.obj;
-                                                      iffer.addChild(expr);
-                                                      iffer.addChild(stmt);
+                                                      ParseNode ifmaster = new ParseNode("if-switch");
+                                                      ParseNode iffer = new ParseNode("if", ifmaster);
+                                                      ParseNode condition = new ParseNode("condition");
+                                                      ParseNode body = new ParseNode("body");
+                                                      condition.addChild((ParseNode) $3.obj);
+                                                      body.addChild((ParseNode) $5.obj);
+                                                      iffer.addChild(condition);
+                                                      iffer.addChild(body);
                                                       ifmaster.addChild(iffer);
                                                       ParseNode elfer = (ParseNode) $6.obj;
                                                       ifmaster.addChild(elfer);
                                                       $$ = new ParserVal(ifmaster);
                                                     }
     | IF LPAREN expr RPAREN stmt                    {
-                                                      ParseNode ifmaster = new ParseNode("if");
-                                                      ParseNode expr = (ParseNode) $3.obj;
-                                                      ParseNode stmt = (ParseNode) $5.obj;
-                                                      ifmaster.addChild(expr);
-                                                      ifmaster.addChild(stmt);
+                                                      ParseNode ifmaster = new ParseNode("if-switch");
+                                                      ParseNode iffer = new ParseNode("if", ifmaster);
+                                                      ParseNode condition = new ParseNode("condition");
+                                                      ParseNode body = new ParseNode("body");
+                                                      condition.addChild((ParseNode) $3.obj);
+                                                      body.addChild((ParseNode) $5.obj);
+                                                      iffer.addChild(condition);
+                                                      iffer.addChild(body);
+                                                      ifmaster.addChild(iffer);
                                                       $$ = new ParserVal(ifmaster);
                                                     }
     | IF LPAREN expr RPAREN stmt else               {
-                                                      ParseNode ifmaster = new ParseNode("if");
-                                                      ParseNode iffer = new ParseNode("iffer", ifmaster);
-                                                      ParseNode expr = (ParseNode) $3.obj;
-                                                      ParseNode stmt = (ParseNode) $5.obj;
-                                                      iffer.addChild(expr);
-                                                      iffer.addChild(stmt);
-                                                      ifmaster.addChild(iffer);
+                                                     ParseNode ifmaster = new ParseNode("if-switch");
+                                                      ParseNode iffer = new ParseNode("if", ifmaster);
+                                                      ParseNode condition = new ParseNode("condition");
+                                                      ParseNode body = new ParseNode("body");
+                                                      condition.addChild((ParseNode) $3.obj);
+                                                      body.addChild((ParseNode) $5.obj);
+                                                      iffer.addChild(condition);
+                                                      iffer.addChild(body);
+                                                      ifmaster.addChild(iffer);;
                                                       ParseNode elser = (ParseNode) $6.obj;
                                                       if (elser != null)
                                                           ifmaster.addChild(elser);
@@ -142,14 +152,24 @@ elfs
 elf
     : ELF LPAREN expr RPAREN stmt                   {
                                                         ParseNode elf = new ParseNode("elf");
-                                                        elf.addChild((ParseNode) $3.obj);
-                                                        elf.addChild((ParseNode) $5.obj);
+                                                        ParseNode condition = new ParseNode("condition");
+                                                        ParseNode body = new ParseNode("body");
+                                                        condition.addChild((ParseNode) $3.obj);
+                                                        body.addChild((ParseNode) $5.obj);
+                                                        elf.addChild(condition);
+                                                        elf.addChild(body);
                                                         $$ = new ParserVal(elf);
                                                     }
     ;
 
 else
-    : ELSE stmt                                     { $$ = $2; }
+    : ELSE stmt                                     { 
+                                                        ParseNode elser = new ParseNode("else");
+                                                        ParseNode body = new ParseNode("body");
+                                                        body.addChild((ParseNode) $2.obj);
+                                                        elser.addChild(body);
+                                                        $$ = new ParserVal(elser);
+                                                    }
     ;
 
 func_body
