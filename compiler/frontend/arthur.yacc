@@ -67,10 +67,12 @@ hard_param_list
 dw_stmt
     : DW LPAREN expr RPAREN stmt                    {
                                                       ParseNode dw = new ParseNode("dw");
-                                                      ParseNode expr = (ParseNode) $3.obj;
-                                                      ParseNode stmt = (ParseNode) $5.obj;
-                                                      dw.addChild(expr);
-                                                      dw.addChild(stmt);
+                                                      ParseNode condition = new ParseNode("condition");
+                                                      ParseNode body = new ParseNode("body");
+                                                      condition.addChild((ParseNode) $3.obj);
+                                                      body.addChild((ParseNode) $5.obj);
+                                                      dw.addChild(condition);
+                                                      dw.addChild(body);
                                                       $$ = new ParserVal(dw);
                                                     }
     ;
