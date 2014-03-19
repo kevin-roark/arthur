@@ -241,44 +241,52 @@ hard_arg_list
 stmt
     : stmt_block                                    { $$ = $1; }
     | if_stmt                                       { 
-                                                      ParseNode s = new ParseNode("stmt: if");
-                                                      s.addChild((ParseNode) $1.obj);
-                                                      $$ = new ParserVal(s);
+                                                      // ParseNode s = new ParseNode("stmt");
+                                                      // s.addChild((ParseNode) $1.obj);
+                                                      // $$ = new ParserVal(s);
+                                                      $$ = $1;
                                                     }
     | dw_stmt                                       { 
-                                                      ParseNode s = new ParseNode("stmt: dw");
-                                                      s.addChild((ParseNode) $1.obj);
-                                                      $$ = new ParserVal(s);
+                                                      // ParseNode s = new ParseNode("stmt");
+                                                      // s.addChild((ParseNode) $1.obj);
+                                                      // $$ = new ParserVal(s);
+                                                      $$ = $1;
                                                     }
     | expr_stmt                                     { 
-                                                      ParseNode s = new ParseNode("stmt: expr");
-                                                      s.addChild((ParseNode) $1.obj);
-                                                      $$ = new ParserVal(s);
+                                                      // ParseNode s = new ParseNode("stmt");
+                                                      // s.addChild((ParseNode) $1.obj);
+                                                      // $$ = new ParserVal(s);
+                                                      $$ = $1;
                                                     }
     | eq_stmt                                       { 
-                                                      ParseNode s = new ParseNode("stmt: eq");
-                                                      s.addChild((ParseNode) $1.obj);
-                                                      $$ = new ParserVal(s);
+                                                      //ParseNode s = new ParseNode("stmt");
+                                                      //s.addChild((ParseNode) $1.obj);
+                                                      //$$ = new ParserVal(s);
+                                                      $$ = $1;
                                                     }
     | fun_call_stmt                                 { 
-                                                      ParseNode s = new ParseNode("stmt: fun_call");
-                                                      s.addChild((ParseNode) $1.obj);
-                                                      $$ = new ParserVal(s);
+                                                      //ParseNode s = new ParseNode("stmt");
+                                                      //s.addChild((ParseNode) $1.obj);
+                                                      //$$ = new ParserVal(s);
+                                                      $$ = $1;
                                                     }
     | meth_call_stmt                                { 
-                                                      ParseNode s = new ParseNode("stmt: meth_call");
-                                                      s.addChild((ParseNode) $1.obj);
-                                                      $$ = new ParserVal(s);
+                                                      // ParseNode s = new ParseNode("stmt");
+                                                      // s.addChild((ParseNode) $1.obj);
+                                                      // $$ = new ParserVal(s);
+                                                      $$ = $1;
                                                     }
     | prop_access_stmt                                { 
-                                                      ParseNode s = new ParseNode("stmt: prop_access");
-                                                      s.addChild((ParseNode) $1.obj);
-                                                      $$ = new ParserVal(s);
+                                                      // ParseNode s = new ParseNode("stmt");
+                                                      // s.addChild((ParseNode) $1.obj);
+                                                      // $$ = new ParserVal(s);
+                                                      $$ = $1;
                                                     }
     | return_stmt                                   { 
-                                                      ParseNode s = new ParseNode("stmt: return");
-                                                      s.addChild((ParseNode) $1.obj);
-                                                      $$ = new ParserVal(s);
+                                                      // ParseNode s = new ParseNode("stmt");
+                                                      // s.addChild((ParseNode) $1.obj);
+                                                      // $$ = new ParserVal(s);
+                                                      $$ = $1;
                                                     }
     ;
 
@@ -358,7 +366,7 @@ num_expr
     : NUMBER                                        { 
                                                       ParseNode number = new ParseNode("number");
                                                       Number n = (Number) $1.obj;
-                                                      ParseNode val = new ParseNode(n.toString());
+                                                      ParseNode val = new ParseNode(n.val.toString());
                                                       number.addChild(val);
                                                       $$ = new ParserVal(number); }
     | val                                           { $$ = $1; }
@@ -474,7 +482,7 @@ exfactor
 factor
     : COLOR                                         {
                                                         Color c = (Color) $1.obj;
-                                                        ParseNode color = new ParseNode("Color literal");
+                                                        ParseNode color = new ParseNode("Color");
                                                         color.addChild(new ParseNode(c.r.toString(), color));
                                                         color.addChild(new ParseNode(c.g.toString(), color));
                                                         color.addChild(new ParseNode(c.b.toString(), color));
@@ -483,13 +491,13 @@ factor
                                                     }
     | NUMBER                                        {
                                                         Number n = (Number) $1.obj;
-                                                        ParseNode number = new ParseNode("Number literal");
+                                                        ParseNode number = new ParseNode("Number");
                                                         number.addChild(new ParseNode(n.val.toString(), number)); 
                                                         $$ = new ParserVal(number);    
                                                     }
     | STRINGLIT                                     {
                                                         StringLit s = (StringLit) $1.obj;
-                                                        ParseNode string = new ParseNode("String literal");
+                                                        ParseNode string = new ParseNode("String");
                                                         string.addChild(new ParseNode(s.val, string)); 
                                                         $$ = new ParserVal(string); 
                                                     }
