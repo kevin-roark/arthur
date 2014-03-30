@@ -1,6 +1,6 @@
 
 /* imports */
- %{ 
+ %{
     import java.io.Reader;
     import java.io.IOException;
     import java.lang.Math;
@@ -35,16 +35,16 @@ stuff
                                                         s.addChild(f);
                                                         $$ = $1;
                                                     }
-    | func_def                                      { 
-                                                        ParseNode p = new ParseNode("arthur"); 
+    | func_def                                      {
+                                                        ParseNode p = new ParseNode("arthur");
                                                         p.addChild((ParseNode) $1.obj);
                                                         $$ = new ParserVal(p);
-                                                    }   
+                                                    }
     ;
 
 param_list
     :                                               { $$ = new ParserVal(new ParseNode("parameters")); }
-    | hard_param_list                               { $$ = $1; }  
+    | hard_param_list                               { $$ = $1; }
     ;
 
 hard_param_list
@@ -74,6 +74,23 @@ dw_stmt
                                                       dw.addChild(condition);
                                                       dw.addChild(body);
                                                       $$ = new ParserVal(dw);
+                                                    }
+    ;
+
+sugarloop_stmt
+    : NUMBER TIMES LBRACK stmt RBRACK               {
+                                                      ParseNode sl = new ParseNode("sugarloop");
+                                                      ParseNode times = new ParseNode("times");
+                                                      ParseNode number = new ParseNode("number");
+                                                      Number n = (Number) $1.obj;
+                                                      ParseNode val = new ParseNode(n.val.toString());
+                                                      number.addChild(val);
+                                                      times.addChild(number);
+                                                      ParseNode body = new ParseNode("body");
+                                                      body.addChild((ParseNode) $4.obj);
+                                                      sl.addChild(times);
+                                                      sl.addChild(body);
+                                                      $$ = new ParserVal(sl);
                                                     }
     ;
 
@@ -143,7 +160,7 @@ elfs
                                                       ParseNode elf = (ParseNode) $2.obj;
                                                       elfs.addChild(elf);
                                                       $$ = $1;
-                                                    }                                      
+                                                    }
     | elf                                           {
                                                       ParseNode elfs = new ParseNode("elves");
                                                       elfs.addChild((ParseNode) $1.obj);
@@ -165,7 +182,7 @@ elf
     ;
 
 else
-    : ELSE stmt                                     { 
+    : ELSE stmt                                     {
                                                         ParseNode elser = new ParseNode("else");
                                                         ParseNode body = new ParseNode("body");
                                                         body.addChild((ParseNode) $2.obj);
@@ -180,7 +197,7 @@ func_body
     ;
 
 func_def
-    : FUNCTION param_list RPAREN func_body          {   
+    : FUNCTION param_list RPAREN func_body          {
                                                         ParseNode funDef = new ParseNode("Function definition");
                                                         Function f = (Function) $1.obj;
                                                         funDef.addChild(new ParseNode(f.returnType, funDef));
@@ -262,52 +279,31 @@ hard_arg_list
 
 stmt
     : stmt_block                                    { $$ = $1; }
-    | if_stmt                                       { 
-                                                      // ParseNode s = new ParseNode("stmt");
-                                                      // s.addChild((ParseNode) $1.obj);
-                                                      // $$ = new ParserVal(s);
+    | if_stmt                                       {
                                                       $$ = $1;
                                                     }
-    | dw_stmt                                       { 
-                                                      // ParseNode s = new ParseNode("stmt");
-                                                      // s.addChild((ParseNode) $1.obj);
-                                                      // $$ = new ParserVal(s);
+    | dw_stmt                                       {
                                                       $$ = $1;
                                                     }
-    | expr_stmt                                     { 
-                                                      // ParseNode s = new ParseNode("stmt");
-                                                      // s.addChild((ParseNode) $1.obj);
-                                                      // $$ = new ParserVal(s);
+    | sugarloop_stmt                                {
                                                       $$ = $1;
                                                     }
-    | eq_stmt                                       { 
-                                                      //ParseNode s = new ParseNode("stmt");
-                                                      //s.addChild((ParseNode) $1.obj);
-                                                      //$$ = new ParserVal(s);
+    | expr_stmt                                     {
                                                       $$ = $1;
                                                     }
-    | fun_call_stmt                                 { 
-                                                      //ParseNode s = new ParseNode("stmt");
-                                                      //s.addChild((ParseNode) $1.obj);
-                                                      //$$ = new ParserVal(s);
+    | eq_stmt                                       {
                                                       $$ = $1;
                                                     }
-    | meth_call_stmt                                { 
-                                                      // ParseNode s = new ParseNode("stmt");
-                                                      // s.addChild((ParseNode) $1.obj);
-                                                      // $$ = new ParserVal(s);
+    | fun_call_stmt                                 {
                                                       $$ = $1;
                                                     }
-    | prop_access_stmt                                { 
-                                                      // ParseNode s = new ParseNode("stmt");
-                                                      // s.addChild((ParseNode) $1.obj);
-                                                      // $$ = new ParserVal(s);
+    | meth_call_stmt                                {
                                                       $$ = $1;
                                                     }
-    | return_stmt                                   { 
-                                                      // ParseNode s = new ParseNode("stmt");
-                                                      // s.addChild((ParseNode) $1.obj);
-                                                      // $$ = new ParserVal(s);
+    | prop_access_stmt                              {
+                                                      $$ = $1;
+                                                    }
+    | return_stmt                                   {
                                                       $$ = $1;
                                                     }
     ;
@@ -337,7 +333,7 @@ stmt_block
     ;
 
 stmt_list
-    : stmt_list stmt                                { 
+    : stmt_list stmt                                {
                                                       ParseNode list = (ParseNode) $1.obj;
                                                       ParseNode s = (ParseNode) $2.obj;
                                                       list.addChild(s);
@@ -348,7 +344,7 @@ stmt_list
                                                       ParseNode list = new ParseNode("stmt_list");
                                                       list.addChild(s);
                                                       $$ = new ParserVal(list);
-                                                    }                                                    
+                                                    }
     ;
 
 expr
@@ -362,21 +358,21 @@ bool_expr
     : TRUE                                          { ParseNode bool = new ParseNode("true"); $$ = new ParserVal(bool); }
     | FALSE                                         { ParseNode bool = new ParseNode("false"); $$ = new ParserVal(bool); }
     | num_expr                                      { $$ = $1; }
-    | bool_expr AND bool_expr                       { 
+    | bool_expr AND bool_expr                       {
                                                       ParseNode and = new ParseNode("and");
                                                       ParseNode b1 = (ParseNode) $1.obj; ParseNode b2 = (ParseNode) $3.obj;
                                                       and.addChild(b1); b1.setParent(and);
                                                       and.addChild(b2); b2.setParent(and);
                                                       $$ = new ParserVal(and);
                                                     }
-    | bool_expr OR bool_expr                        { 
+    | bool_expr OR bool_expr                        {
                                                       ParseNode or = new ParseNode("or");
                                                       ParseNode b1 = (ParseNode) $1.obj; ParseNode b2 = (ParseNode) $3.obj;
                                                       or.addChild(b1); b1.setParent(or);
                                                       or.addChild(b2); b2.setParent(or);
                                                       $$ = new ParserVal(or);
-                                                    }                                                      
-    | NOT bool_expr                                 { 
+                                                    }
+    | NOT bool_expr                                 {
                                                       ParseNode b = (ParseNode) $2.obj;
                                                       ParseNode not = new ParseNode("not");
                                                       not.addChild(b); not.setParent(b.parent); b.setParent(not);
@@ -385,7 +381,7 @@ bool_expr
     ;
 
 num_expr
-    : NUMBER                                        { 
+    : NUMBER                                        {
                                                       ParseNode number = new ParseNode("number");
                                                       Number n = (Number) $1.obj;
                                                       ParseNode val = new ParseNode(n.val.toString());
@@ -437,7 +433,7 @@ eq_stmt
                                                         id.setParent(eq); //again, can take these out later if need be
                                                         val.setParent(eq);
                                                         eq.addChild(id);
-                                                        eq.addChild(val);    
+                                                        eq.addChild(val);
                                                         $$ = new ParserVal(eq);
                                                     }
     | var EQ val SEMI                               {
@@ -453,14 +449,14 @@ eq_stmt
     ;
 
 val
-    :                             
-    | val PLUS term                                 { 
+    :
+    | val PLUS term                                 {
                                                         ParseNode plus = new ParseNode("+");
                                                         plus.addChild((ParseNode)$1.obj);
                                                         plus.addChild((ParseNode)$3.obj);
                                                         $$ = new ParserVal(plus);
                                                     }
-    | val MINUS term                                { 
+    | val MINUS term                                {
                                                         ParseNode minus = new ParseNode("-");
                                                         minus.addChild((ParseNode)$1.obj);
                                                         minus.addChild((ParseNode)$3.obj);
@@ -470,19 +466,19 @@ val
     ;
 
 term
-    : term TIMES exfactor                           { 
+    : term TIMES exfactor                           {
                                                         ParseNode times = new ParseNode("*");
                                                         times.addChild((ParseNode)$1.obj);
                                                         times.addChild((ParseNode)$3.obj);
                                                         $$ = new ParserVal(times);
                                                     }
-    | term DIV exfactor                             { 
+    | term DIV exfactor                             {
                                                         ParseNode div = new ParseNode("/");
                                                         div.addChild((ParseNode)$1.obj);
                                                         div.addChild((ParseNode)$3.obj);
                                                         $$ = new ParserVal(div);
                                                     }
-    | term MOD exfactor                             { 
+    | term MOD exfactor                             {
                                                         ParseNode mod = new ParseNode("%");
                                                         mod.addChild((ParseNode)$1.obj);
                                                         mod.addChild((ParseNode)$3.obj);
@@ -492,7 +488,7 @@ term
     ;
 
 exfactor
-    : exfactor EXP factor                           { 
+    : exfactor EXP factor                           {
                                                         ParseNode exp = new ParseNode("^");
                                                         exp.addChild((ParseNode)$1.obj);
                                                         exp.addChild((ParseNode)$3.obj);
@@ -514,14 +510,14 @@ factor
     | NUMBER                                        {
                                                         Number n = (Number) $1.obj;
                                                         ParseNode number = new ParseNode("Number");
-                                                        number.addChild(new ParseNode(n.val.toString(), number)); 
-                                                        $$ = new ParserVal(number);    
+                                                        number.addChild(new ParseNode(n.val.toString(), number));
+                                                        $$ = new ParserVal(number);
                                                     }
     | STRINGLIT                                     {
                                                         StringLit s = (StringLit) $1.obj;
                                                         ParseNode string = new ParseNode("String");
-                                                        string.addChild(new ParseNode(s.val, string)); 
-                                                        $$ = new ParserVal(string); 
+                                                        string.addChild(new ParseNode(s.val, string));
+                                                        $$ = new ParserVal(string);
                                                     }
     | TRUE                                          { ParseNode t = new ParseNode("true"); $$ = new ParserVal(t); }
     | FALSE                                         { ParseNode f = new ParseNode("false"); $$ = new ParserVal(f); }
@@ -545,15 +541,24 @@ id
     | prop_access                                   { $$ = $1; }
     | ID                                            {
                                                         Identifier i = (Identifier) $1.obj;
+
+                                                        Token check = (Token) lexer.table.get(i.name);
+                                                        if (check == null) {
+                                                          System.out.println("Identifier not declared on line " + lexer.yyline() + ": " + i.name);
+                                                          errorCount++;
+                                                        }
+
                                                         ParseNode id = new ParseNode("Identifier");
                                                         id.addChild(new ParseNode(i.name, id));
-                                                        $$ = new ParserVal(id); 
+                                                        $$ = new ParserVal(id);
                                                     }
     ;
 
 %%
 Lexer lexer;
 Token prevTok;
+
+int errorCount;
 
 void yyerror(String s) {
     System.out.println("Error: " + s);
@@ -630,8 +635,9 @@ int tokenMap(int tokenType) {
 
 void doParsing(Reader in) {
     lexer = new Lexer(in);
-    //ParserVal program = yyparse();
-    //ParseNode p = (ParseNode) program.obj;
+    errorCount = 0;
+
     int result = yyparse();
+    System.out.println("Number of errors: " + errorCount);
     System.out.println("Return value: " + result);
 }

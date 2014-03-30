@@ -13,3 +13,9 @@ the parser: http://byaccj.sourceforge.net/
 3. Compile ur java tester code, which references the Lexer produced from
    yacc.
 4. Use it!!!
+
+
+### Latex Files:
+
+LRM: https://www.writelatex.com/849859spdhtc
+Tutorial: https://www.writelatex.com/874610nwktjt

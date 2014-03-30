@@ -15,11 +15,15 @@
 
 %{
   StringBuffer string = new StringBuffer();
-  SymbolTable table = new SymbolTable();
+  SymbolTable table = SymbolTable.getGlobalTable();
+
+  public int yyline() {
+    return yyline;
+  }
 %}
 
 %eofval{
- return new Token(Tokens.EOF); 
+ return new Token(Tokens.EOF);
 %eofval}
 
 /**
