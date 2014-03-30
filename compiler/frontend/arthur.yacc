@@ -40,6 +40,18 @@ stuff
                                                         p.addChild((ParseNode) $1.obj);
                                                         $$ = new ParserVal(p);
                                                     }
+    | variable_decs                                 {
+                                                        $$ = $1;
+                                                    }
+    ;
+
+variable_decs
+    : var_dec_stmt                                  {
+                                                      ParseNode p = new ParseNode("Global variables");
+                                                      p.addChild((ParseNode) $1.obj);
+                                                      $$ = new ParserVal(p);
+                                                    }
+    | variable_decs var_dec_stmt                    { ParseNode g = (ParseNode)$1.obj; g.addChild((ParseNode) $2.obj); $$ = $1; }
     ;
 
 param_list
@@ -50,6 +62,8 @@ param_list
 hard_param_list
     : var                                           {
                                                         ParseNode params = new ParseNode("parameters");
+                                                        lexer.table = new SymbolTable(lexer.table, "function");
+                                                        lexer.startingFunction = true;
                                                         ParseNode var = (ParseNode) $1.obj;
                                                         var.setParent(params);
                                                         params.addChild(var);
@@ -78,14 +92,10 @@ dw_stmt
     ;
 
 sugarloop_stmt
-    : NUMBER TIMES LBRACK stmt RBRACK               {
+    : num_expr TIMES LBRACK stmt RBRACK             {
                                                       ParseNode sl = new ParseNode("sugarloop");
                                                       ParseNode times = new ParseNode("times");
-                                                      ParseNode number = new ParseNode("number");
-                                                      Number n = (Number) $1.obj;
-                                                      ParseNode val = new ParseNode(n.val.toString());
-                                                      number.addChild(val);
-                                                      times.addChild(number);
+                                                      times.addChild((ParseNode) $1.obj);
                                                       ParseNode body = new ParseNode("body");
                                                       body.addChild((ParseNode) $4.obj);
                                                       sl.addChild(times);
@@ -235,11 +245,32 @@ meth_call
     ;
 
 prop_access
-    : id DOT id                                     {
+    : id DOT prop                                   {
+                                                      ParseNode main = (ParseNode) $1.obj;
+                                                      ParseNode sub = (ParseNode) $3.obj;
+                                                      String pi = main.children.get(0).val;
+                                                      String ci = sub.children.get(0).val;
+                                                      Var object = (Var) lexer.table.get(pi);
+                                                      if (object != null) {
+                                                        if (! object.getVarProperties().contains(ci)) {
+                                                          System.out.println("'" + pi + "' (of type " + object.typeName() + ") does not contain property '" + ci + "'.");
+                                                          errorCount++;
+                                                        }
+                                                      }
+
                                                       ParseNode prop = new ParseNode("Property access");
-                                                      prop.addChild((ParseNode) $1.obj);
-                                                      prop.addChild((ParseNode) $3.obj);
+                                                      prop.addChild(main);
+                                                      prop.addChild(sub);
                                                       $$ = new ParserVal(prop);
+                                                    }
+    ;
+
+prop
+    : ID                                            {
+                                                      Identifier i = (Identifier) $1.obj;
+                                                      ParseNode id = new ParseNode("Property");
+                                                      id.addChild(new ParseNode(i.name, id));
+                                                      $$ = new ParserVal(id);
                                                     }
     ;
 
@@ -279,33 +310,16 @@ hard_arg_list
 
 stmt
     : stmt_block                                    { $$ = $1; }
-    | if_stmt                                       {
-                                                      $$ = $1;
-                                                    }
-    | dw_stmt                                       {
-                                                      $$ = $1;
-                                                    }
-    | sugarloop_stmt                                {
-                                                      $$ = $1;
-                                                    }
-    | expr_stmt                                     {
-                                                      $$ = $1;
-                                                    }
-    | eq_stmt                                       {
-                                                      $$ = $1;
-                                                    }
-    | fun_call_stmt                                 {
-                                                      $$ = $1;
-                                                    }
-    | meth_call_stmt                                {
-                                                      $$ = $1;
-                                                    }
-    | prop_access_stmt                              {
-                                                      $$ = $1;
-                                                    }
-    | return_stmt                                   {
-                                                      $$ = $1;
-                                                    }
+    | if_stmt                                       { $$ = $1; }
+    | dw_stmt                                       { $$ = $1; }
+    | sugarloop_stmt                                { $$ = $1; }
+    | expr_stmt                                     { $$ = $1; }
+    | eq_stmt                                       { $$ = $1; }
+    | fun_call_stmt                                 { $$ = $1; }
+    | meth_call_stmt                                { $$ = $1; }
+    | var_dec_stmt                                  { $$ = $1; }
+    | prop_access_stmt                              { $$ = $1; }
+    | return_stmt                                   { $$ = $1; }
     ;
 
 return_stmt
@@ -319,6 +333,10 @@ return_stmt
                                                       ParseNode r = new ParseNode("return");
                                                       $$ = new ParserVal(r);
                                                     }
+    ;
+
+var_dec_stmt
+    : var SEMI                                      { $$ = $1; }
     ;
 
 expr_stmt

@@ -1,3 +1,5 @@
+import java.util.HashSet;
+import java.util.Set;
 
 public class Var extends Token {
 
@@ -7,6 +9,7 @@ public class Var extends Token {
     public static final int SOUND = 3;
     public static final int VIDEO = 4;
     public static final int IMAGE = 5;
+    public static final int MEDIA = 6;
 
     public String id;
     public int type;
@@ -61,5 +64,31 @@ public class Var extends Token {
             s += " | val: " + this.val;
         }
         return s;
+    }
+
+    public Set getVarProperties() {
+      return getProperties(this.type);
+    }
+
+    public static Set getProperties(int t) {
+      HashSet<String> set = new HashSet<String>();
+      switch (t) {
+        case NUM:
+          return set;
+        case STRING:
+          return set;
+        case COLOR:
+          set.add("r"); set.add("g"); set.add("b");
+          return set;
+        case SOUND:
+          return set;
+        case VIDEO:
+          return set;
+        case IMAGE:
+          set.add("width"); set.add("height"); set.add("pixel");
+          return set;
+        default:
+          return set;
+      }
     }
 }

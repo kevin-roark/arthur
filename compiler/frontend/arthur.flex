@@ -17,6 +17,8 @@
   StringBuffer string = new StringBuffer();
   SymbolTable table = SymbolTable.getGlobalTable();
 
+  boolean startingFunction = false;
+
   public int yyline() {
     return yyline;
   }
@@ -85,7 +87,14 @@ FunDec = ({Type}|void){WS}+{Identifier}{WS}*\(
 <YYINITIAL> ";"             { return new Token(Tokens.SEMI); }
 <YYINITIAL> "("             { return new Token(Tokens.LPAREN); }
 <YYINITIAL> ")"             { return new Token(Tokens.RPAREN); }
-<YYINITIAL> "{"             { table = new SymbolTable(table); return new Token(Tokens.LCURLY); }
+<YYINITIAL> "{"             {
+                              if(!startingFunction) {
+                                table = new SymbolTable(table, "block");
+                              } else {
+                                startingFunction = false;
+                              }
+                              return new Token(Tokens.LCURLY);
+                            }
 <YYINITIAL> "}"             { table = table.getPrev(); return new Token(Tokens.RCURLY); }
 <YYINITIAL> "."             { return new Token(Tokens.DOT); }
 

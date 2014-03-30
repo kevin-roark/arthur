@@ -1,28 +1,30 @@
 /* Kevins first arthur sample program */
 
+num time;
+color screenColor;
+
 void init() {
-  color screenColor = RED;
+  screenColor = RED;
 
-  num time = ms();
+  time = ms();
 
-  arthur.add(screenColor);
+  add(screenColor);
 }
 
 void loop() {
-  if ((ms() - arthur.time) < 30) {
+  if ((ms() - time) < 30) {
     return;
   }
 
-  if (arthur.screenColor.b < 255 and arthur.screenColor.r == 255) {
-    arthur.screenColor = arthur.screenColor + <<0, 0, 1>>;
-  } elf (arthur.screenColor.b == 255 and arthur.screenColor.r > 0) {
-    arthur.screenColor = arthur.screenColor - <<1, 0, 0>>;
-  } elf (arthur.screenColor.r == 0 and arthur.screenColor.b > 0) {
-    arthur.screenColor = arthur.screenColor - <<0, 0, 1>>;
-  } elf (arthur.screenColor.b == 0 and arthur.screenColor.r < 255) {
-    arthur.screenColor = arthur.screenColor + <<1, 0, 0>>;
+  if (screenColor.b < 255 and screenColor.r == 255) {
+    screenColor = screenColor + <<0, 0, 1>>;
+  } elf (screenColor.b == 255 and screenColor.r > 0) {
+    screenColor = screenColor - <<1, 0, 0>>;
+  } elf (screenColor.r == 0 and screenColor.b > 0) {
+    screenColor = screenColor - <<0, 0, 1>>;
+  } elf (screenColor.b == 0 and screenColor.r < 255) {
+    screenColor = screenColor + <<1, 0, 0>>;
   }
 
-  arthur.time = ms();
+  time = ms();
 }
-
