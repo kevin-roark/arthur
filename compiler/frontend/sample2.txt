@@ -10,10 +10,10 @@ void init() { //hey guys!
 
 	Image dog = get("whitepoodle.jpg");
 	Image rect = /* lol ! */ get("justawhiterectangle.jpg");
-	rect = rect * 37; 
+	rect = rect * 37;
 
-	arthur.add(dog); //another wun
-	arthur.add(rect);
+	add(dog); //another wun
+	add(rect);
 
 }
 
