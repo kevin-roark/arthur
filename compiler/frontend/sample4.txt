@@ -1,0 +1,24 @@
+loop(){
+	
+	//Every 2 seconds decrement the background color
+	if(ms()-startTime>2000){
+		background-=5;
+		startTime=ms();
+	}
+}
+
+
+init(){
+
+Sound scream = get('scream.mp3');
+add(scream);
+
+Video mouth = get('vids/mouth.mp4');
+add(mouth);
+
+
+Color background= <<255,255,255>>; 
+add(background);
+
+num startTime=ms();
+}

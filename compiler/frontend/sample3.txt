@@ -1,0 +1,15 @@
+/* Hello World 2.0! */
+
+void init() {
+  string sup = "Hello World!";
+  Image smiley=get("Pics/smiley.jpg");
+  
+  smiley=smiley+sup;
+  add(smiley, 20, 250);
+  
+}
+
+void loop() {
+smiley=smiley+5;
+
+}
