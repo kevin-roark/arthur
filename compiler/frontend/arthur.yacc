@@ -429,13 +429,12 @@ bool_expr
 
 num_expr
     : NUMBER                                        {
-                                                      System.out.println("NUMBER");
                                                       ParseNode number = new ParseNode("number");
                                                       Number n = (Number) $1.obj;
                                                       ParseNode val = new ParseNode(n.val.toString());
                                                       number.addChild(val);
                                                       $$ = new ParserVal(number); }
-    | val                                           { $$ = $1; System.out.println("VAL");}
+    | val                                           { $$ = $1; }
     | num_expr LT num_expr                          {
                                                       ParseNode lt = new ParseNode("less than");
                                                       ParseNode ne1 = (ParseNode) $1.obj; ParseNode ne2 = (ParseNode) $3.obj;
@@ -451,7 +450,6 @@ num_expr
                                                       $$ = new ParserVal(lte);
                                                     }
     | num_expr GT num_expr                          {
-                                                      System.out.println("matched a greater than expression!");
                                                       ParseNode gt = new ParseNode("greater than");
                                                       ParseNode ne1 = (ParseNode) $1.obj; ParseNode ne2 = (ParseNode) $3.obj;
                                                       gt.addChild(ne1); ne1.setParent(gt);
