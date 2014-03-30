@@ -541,6 +541,13 @@ id
     | prop_access                                   { $$ = $1; }
     | ID                                            {
                                                         Identifier i = (Identifier) $1.obj;
+
+                                                        Token check = (Token) lexer.table.get(i.name);
+                                                        if (check == null) {
+                                                          System.out.println("Identifier not declared on line " + lexer.yyline() + ": " + i.name);
+                                                          errorCount++;
+                                                        }
+
                                                         ParseNode id = new ParseNode("Identifier");
                                                         id.addChild(new ParseNode(i.name, id));
                                                         $$ = new ParserVal(id);
@@ -550,6 +557,8 @@ id
 %%
 Lexer lexer;
 Token prevTok;
+
+int errorCount;
 
 void yyerror(String s) {
     System.out.println("Error: " + s);
@@ -626,8 +635,9 @@ int tokenMap(int tokenType) {
 
 void doParsing(Reader in) {
     lexer = new Lexer(in);
-    //ParserVal program = yyparse();
-    //ParseNode p = (ParseNode) program.obj;
+    errorCount = 0;
+
     int result = yyparse();
+    System.out.println("Number of errors: " + errorCount);
     System.out.println("Return value: " + result);
 }
