@@ -42,7 +42,7 @@ Comment = \/\/.*{NewLine}|\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+\/
 StringLiteral = \".*\"
 
 /* numbers */
-Number = [-+]?[0-9]*\.?[0-9]+
+Number = [-]?[0-9]*\.?[0-9]+
 Byte = {Digit}|{Digit}{2}|{Digit}{3}
 
 /* color literals */
