@@ -45,7 +45,7 @@ Digit = [0-9]
 Comment = \/\/.*{NewLine}|\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+\/
 
 /* string literal */
-StringLiteral = \".*\"
+StringLiteral = \".*\"|\'.*\'
 
 /* numbers */
 Number = [-+]?[0-9]*\.?[0-9]+

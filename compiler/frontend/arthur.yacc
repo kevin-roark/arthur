@@ -79,7 +79,7 @@ hard_param_list
     ;
 
 dw_stmt
-    : DW LPAREN expr RPAREN stmt                    {
+    : DW LPAREN cond RPAREN stmt                    {
                                                       ParseNode dw = new ParseNode("dw");
                                                       ParseNode condition = new ParseNode("condition");
                                                       ParseNode body = new ParseNode("body");
@@ -105,7 +105,7 @@ sugarloop_stmt
     ;
 
 if_stmt
-    : IF LPAREN expr RPAREN stmt elfs else           {
+    : IF LPAREN cond RPAREN stmt elfs else           {
                                                       ParseNode ifmaster = new ParseNode("if-switch");
                                                       ParseNode iffer = new ParseNode("if", ifmaster);
                                                       ParseNode condition = new ParseNode("condition");
@@ -121,7 +121,7 @@ if_stmt
                                                       ifmaster.addChild(elser);
                                                       $$ = new ParserVal(ifmaster);
                                                     }
-    | IF LPAREN expr RPAREN stmt elfs               {
+    | IF LPAREN cond RPAREN stmt elfs               {
                                                       ParseNode ifmaster = new ParseNode("if-switch");
                                                       ParseNode iffer = new ParseNode("if", ifmaster);
                                                       ParseNode condition = new ParseNode("condition");
@@ -135,7 +135,7 @@ if_stmt
                                                       ifmaster.addChild(elfer);
                                                       $$ = new ParserVal(ifmaster);
                                                     }
-    | IF LPAREN expr RPAREN stmt                    {
+    | IF LPAREN cond RPAREN stmt                    {
                                                       ParseNode ifmaster = new ParseNode("if-switch");
                                                       ParseNode iffer = new ParseNode("if", ifmaster);
                                                       ParseNode condition = new ParseNode("condition");
@@ -147,8 +147,8 @@ if_stmt
                                                       ifmaster.addChild(iffer);
                                                       $$ = new ParserVal(ifmaster);
                                                     }
-    | IF LPAREN expr RPAREN stmt else               {
-                                                     ParseNode ifmaster = new ParseNode("if-switch");
+    | IF LPAREN cond RPAREN stmt else               {
+                                                      ParseNode ifmaster = new ParseNode("if-switch");
                                                       ParseNode iffer = new ParseNode("if", ifmaster);
                                                       ParseNode condition = new ParseNode("condition");
                                                       ParseNode body = new ParseNode("body");
@@ -160,6 +160,19 @@ if_stmt
                                                       ParseNode elser = (ParseNode) $6.obj;
                                                       if (elser != null)
                                                           ifmaster.addChild(elser);
+                                                      $$ = new ParserVal(ifmaster);
+                                                    }
+    | IF error                                      { $$ = new ParserVal(new ParseNode("wrong if statement??")); }
+
+    | IF LPAREN cond RPAREN error                   { ParseNode ifmaster = new ParseNode("if-switch");
+                                                      ParseNode iffer = new ParseNode("if", ifmaster);
+                                                      ParseNode condition = new ParseNode("condition");
+                                                      ParseNode body = new ParseNode("body");
+                                                      condition.addChild((ParseNode) $3.obj);
+                                                      body.addChild(new ParseNode("bad body!"));
+                                                      iffer.addChild(condition);
+                                                      iffer.addChild(body);
+                                                      ifmaster.addChild(iffer);
                                                       $$ = new ParserVal(ifmaster);
                                                     }
     ;
@@ -179,7 +192,7 @@ elfs
     ;
 
 elf
-    : ELF LPAREN expr RPAREN stmt                   {
+    : ELF LPAREN cond RPAREN stmt                   {
                                                         ParseNode elf = new ParseNode("elf");
                                                         ParseNode condition = new ParseNode("condition");
                                                         ParseNode body = new ParseNode("body");
@@ -329,9 +342,15 @@ return_stmt
                                                       r.addChild(e);
                                                       $$ = new ParserVal(r);
                                                     }
-    | RETURN SEMI;                                  {
+    | RETURN SEMI                                   {
                                                       ParseNode r = new ParseNode("return");
                                                       $$ = new ParserVal(r);
+                                                    }
+    | RETURN error SEMI                             {
+                                                        System.out.println("ERROR: return statement must be in the form: " +
+                                                        "LOL");
+                                                        errorCount++;
+                                                        $$ = new ParserVal(new ParseNode("fucked return stmt"));
                                                     }
     ;
 
@@ -340,8 +359,12 @@ var_dec_stmt
     ;
 
 expr_stmt
-    : SEMI                                          { $$ = new ParserVal(null); }
+    : SEMI                                          { $$ = new ParserVal(new ParseNode("")); }
     | expr SEMI                                     { $$ = $1; }
+    | error SEMI                                    { System.out.println("Not an expression !!!! jesus");
+                                                      errorCount++;
+                                                      $$ = new ParserVal(new ParseNode("fucked expression stmt"));
+                                                    }
     ;
 
 stmt_block
@@ -369,7 +392,13 @@ expr
     : bool_expr                                     { $$ = $1; }
     | num_expr                                      { $$ = $1; }
     | val                                           { $$ = $1; }
-    |                                               { $$ = new ParserVal(null); }
+    |                                               { $$ = new ParserVal(new ParseNode("")); }
+    ;
+
+cond
+    : bool_expr                                     { $$ = $1; }
+    | num_expr                                      { $$ = $1; }
+    | val                                           { $$ = $1; }
     ;
 
 bool_expr
@@ -400,12 +429,13 @@ bool_expr
 
 num_expr
     : NUMBER                                        {
+                                                      System.out.println("NUMBER");
                                                       ParseNode number = new ParseNode("number");
                                                       Number n = (Number) $1.obj;
                                                       ParseNode val = new ParseNode(n.val.toString());
                                                       number.addChild(val);
                                                       $$ = new ParserVal(number); }
-    | val                                           { $$ = $1; }
+    | val                                           { $$ = $1; System.out.println("VAL");}
     | num_expr LT num_expr                          {
                                                       ParseNode lt = new ParseNode("less than");
                                                       ParseNode ne1 = (ParseNode) $1.obj; ParseNode ne2 = (ParseNode) $3.obj;
@@ -421,6 +451,7 @@ num_expr
                                                       $$ = new ParserVal(lte);
                                                     }
     | num_expr GT num_expr                          {
+                                                      System.out.println("matched a greater than expression!");
                                                       ParseNode gt = new ParseNode("greater than");
                                                       ParseNode ne1 = (ParseNode) $1.obj; ParseNode ne2 = (ParseNode) $3.obj;
                                                       gt.addChild(ne1); ne1.setParent(gt);
@@ -464,11 +495,15 @@ eq_stmt
                                                         eq.addChild(val);
                                                         $$ = new ParserVal(eq);
                                                     }
+    // Errors
+    // | id EQ error SEMI                              { System.out.println("id = NO"); errorCount++; }
+    // | var EQ error SEMI                             { System.out.println("var = NO"); errorCount++;  }
+    // | error EQ val SEMI                             { System.out.println("NO = val"); errorCount++;  }
+    // | error EQ error SEMI                           { System.out.println("NO = NO"); errorCount++;  }
     ;
 
 val
-    :
-    | val PLUS term                                 {
+    : val PLUS term                                 {
                                                         ParseNode plus = new ParseNode("+");
                                                         plus.addChild((ParseNode)$1.obj);
                                                         plus.addChild((ParseNode)$3.obj);
@@ -513,7 +548,6 @@ exfactor
                                                         $$ = new ParserVal(exp);
                                                     }
     | factor                                        { $$ = $1; }
-    ;
 
 factor
     : COLOR                                         {
