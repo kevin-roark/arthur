@@ -1,3 +1,5 @@
+package arthur.frontend;
+
 public class Tokens {
 
     public static final int DW = 0;

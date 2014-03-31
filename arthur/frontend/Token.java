@@ -1,3 +1,5 @@
+package arthur.frontend;
+
 public class Token {
 
     public int tokenType;

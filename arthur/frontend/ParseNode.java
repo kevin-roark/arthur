@@ -1,7 +1,9 @@
+package arthur.frontend;
+
 import java.util.ArrayList;
 
 public class ParseNode {
-    
+
     public String val;
     public ParseNode parent;
     public ArrayList<ParseNode> children;

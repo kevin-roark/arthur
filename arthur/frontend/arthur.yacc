@@ -1,6 +1,8 @@
 
 /* imports */
  %{
+    package arthur.frontend;
+
     import java.io.Reader;
     import java.io.IOException;
     import java.lang.Math;
@@ -24,8 +26,8 @@
 /* grammar rules */
 
 program
-    : EOF                                           { ParseNode p = new ParseNode("arthur"); $$ = new ParserVal(p); System.out.println($$.obj);}
-    | stuff EOF                                     { $$ = $1; System.out.println($1.obj); }
+    : EOF                                           { ParseNode p = new ParseNode("arthur"); $$ = new ParserVal(p); AST = p; }
+    | stuff EOF                                     { $$ = $1; AST = (ParseNode) $1.obj; }
     ;
 
 stuff
@@ -47,7 +49,7 @@ stuff
 
 variable_decs
     : var_dec_stmt                                  {
-                                                      ParseNode p = new ParseNode("Global variables");
+                                                      ParseNode p = new ParseNode("globals");
                                                       p.addChild((ParseNode) $1.obj);
                                                       $$ = new ParserVal(p);
                                                     }
@@ -430,7 +432,7 @@ bool_expr
 num_expr
     : NUMBER                                        {
                                                       ParseNode number = new ParseNode("number");
-                                                      Number n = (Number) $1.obj;
+                                                      Num n = (Num) $1.obj;
                                                       ParseNode val = new ParseNode(n.val.toString());
                                                       number.addChild(val);
                                                       $$ = new ParserVal(number); }
@@ -558,7 +560,7 @@ factor
                                                         $$ = new ParserVal(color);
                                                     }
     | NUMBER                                        {
-                                                        Number n = (Number) $1.obj;
+                                                        Num n = (Num) $1.obj;
                                                         ParseNode number = new ParseNode("Number");
                                                         number.addChild(new ParseNode(n.val.toString(), number));
                                                         $$ = new ParserVal(number);
@@ -607,6 +609,7 @@ id
 %%
 Lexer lexer;
 Token prevTok;
+ParseNode AST;
 
 int errorCount;
 
@@ -683,11 +686,21 @@ int tokenMap(int tokenType) {
     }
 }
 
-void doParsing(Reader in) {
+public ParseNode doParsing(Reader in) {
     lexer = new Lexer(in);
     errorCount = 0;
 
     int result = yyparse();
+
+    return AST;
+}
+
+public void doParsingAndPrint(Reader in) {
+    lexer = new Lexer(in);
+    errorCount = 0;
+
+    int result = yyparse();
+    System.out.println(AST);
     System.out.println("Number of errors: " + errorCount);
     System.out.println("Return value: " + result);
 }

@@ -6,7 +6,4 @@
 *.ear
 
 .DS_STORE
-Lexer.java
 Lexer.java~
-Parser.java
-ParserVal.java

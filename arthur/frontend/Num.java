@@ -1,14 +1,15 @@
+package arthur.frontend;
 
-public class Number extends Token {
+public class Num extends Token {
 
     public Double val;
 
-    public Number(Double val) {
+    public Num(Double val) {
         super(Tokens.NUMBER);
         this.val = val;
     }
 
-    public Number(Double val, int line) {
+    public Num(Double val, int line) {
         super(Tokens.NUMBER, line);
         this.val = val;
     }

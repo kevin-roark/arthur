@@ -1,6 +1,8 @@
 
 /** USER CODE SECTION */
 
+package arthur.frontend;
+
 %%
 
 /** OPTIONS AND DECLARATIONS SECTION */
@@ -138,7 +140,7 @@ FunDec = ({Type}|void){WS}+{Identifier}{WS}*\(
                               return fun;
                             }
 
-    {Number}                { Double val = Double.parseDouble(yytext()); return new Number(val, yyline); }
+    {Number}                { Double val = Double.parseDouble(yytext()); return new Num(val, yyline); }
 
     {StringLiteral}         { return new StringLit(yytext(), yyline); }
 

@@ -1,3 +1,4 @@
+package arthur.frontend;
 
 public class StringLit extends Token {
 
