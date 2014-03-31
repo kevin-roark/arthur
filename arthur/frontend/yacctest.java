@@ -26,8 +26,6 @@ public class yacctest {
             return;
         }
 
-        System.out.println("lol");
-
         Parser parser = new Parser(false);
         parser.doParsingAndPrint(reader);
     }

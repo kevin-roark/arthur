@@ -1,8 +1,7 @@
 package arthur.backend.java;
 
-public class JavaArthurVar {
+public class JavaArthurVar extends JavaArthurType {
 
-  String name;
   String type;
 
   public JavaArthurVar(String name, String type) {

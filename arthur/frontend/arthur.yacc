@@ -62,7 +62,7 @@ param_list
     ;
 
 hard_param_list
-    : var                                           {
+    : param                                           {
                                                         ParseNode params = new ParseNode("parameters");
                                                         lexer.table = new SymbolTable(lexer.table, "function");
                                                         lexer.startingFunction = true;
@@ -71,7 +71,7 @@ hard_param_list
                                                         params.addChild(var);
                                                         $$ = new ParserVal(params);
                                                     }
-    | hard_param_list COMMA var                     {
+    | hard_param_list COMMA param                     {
                                                         ParseNode params = (ParseNode) $1.obj;
                                                         ParseNode var = (ParseNode) $3.obj;
                                                         var.setParent(params);
@@ -223,7 +223,7 @@ func_body
 
 func_def
     : FUNCTION param_list RPAREN func_body          {
-                                                        ParseNode funDef = new ParseNode("Function definition");
+                                                        ParseNode funDef = new ParseNode("Function");
                                                         Function f = (Function) $1.obj;
                                                         funDef.addChild(new ParseNode(f.returnType, funDef));
                                                         funDef.addChild(new ParseNode(f.name, funDef));
@@ -239,7 +239,7 @@ func_def
 
 fun_call
     : id LPAREN arg_list RPAREN                     {
-                                                      ParseNode funCall = new ParseNode("Function call");
+                                                      ParseNode funCall = new ParseNode("Fun call");
                                                       ParseNode name = (ParseNode) $1.obj;
                                                       funCall.addChild(name);
                                                       ParseNode args = (ParseNode) $3.obj;
@@ -581,6 +581,16 @@ var
     : VAR                                           {
                                                         Var v = (Var) $1.obj;
                                                         ParseNode var = new ParseNode("variable");
+                                                        var.addChild(new ParseNode(v.typeName(), var));
+                                                        var.addChild(new ParseNode(v.id, var));
+                                                        $$ = new ParserVal(var);
+                                                    }
+    ;
+
+param
+    : VAR                                           {
+                                                        Var v = (Var) $1.obj;
+                                                        ParseNode var = new ParseNode("parameter");
                                                         var.addChild(new ParseNode(v.typeName(), var));
                                                         var.addChild(new ParseNode(v.id, var));
                                                         $$ = new ParserVal(var);
