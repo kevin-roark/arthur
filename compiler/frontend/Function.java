@@ -12,8 +12,22 @@ public class Function extends Token {
         this.returnType = returnType;
     }
 
+    public Function(String name, String returnType, int line) {
+        super(Tokens.FUNCTION, line);
+        this.name = name;
+        this.params = "";
+        this.returnType = returnType;
+    }
+
     public Function(String name, String params, String returnType) {
         super(Tokens.FUNCTION);
+        this.name = name;
+        this.params = params;
+        this.returnType = returnType;
+    }
+
+    public Function(String name, String params, String returnType, int line) {
+        super(Tokens.FUNCTION, line);
         this.name = name;
         this.params = params;
         this.returnType = returnType;

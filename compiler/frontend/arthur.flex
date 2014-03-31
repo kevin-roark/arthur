@@ -18,10 +18,6 @@
   SymbolTable table = SymbolTable.getGlobalTable();
 
   boolean startingFunction = false;
-
-  public int yyline() {
-    return yyline;
-  }
 %}
 
 %eofval{
@@ -82,53 +78,53 @@ FunDec = ({Type}|void){WS}+{Identifier}{WS}*\(
 /** LEXICAL RULES SECTION */
 
 /* weird keywords */
-<YYINITIAL> "->"            { return new Token(Tokens.ARROW); }
-<YYINITIAL> ","             { return new Token(Tokens.COMMA); }
-<YYINITIAL> ";"             { return new Token(Tokens.SEMI); }
-<YYINITIAL> "("             { return new Token(Tokens.LPAREN); }
-<YYINITIAL> ")"             { return new Token(Tokens.RPAREN); }
+<YYINITIAL> "->"            { return new Token(Tokens.ARROW, yyline); }
+<YYINITIAL> ","             { return new Token(Tokens.COMMA, yyline); }
+<YYINITIAL> ";"             { return new Token(Tokens.SEMI, yyline); }
+<YYINITIAL> "("             { return new Token(Tokens.LPAREN, yyline); }
+<YYINITIAL> ")"             { return new Token(Tokens.RPAREN, yyline); }
 <YYINITIAL> "{"             {
                               if(!startingFunction) {
                                 table = new SymbolTable(table, "block");
                               } else {
                                 startingFunction = false;
                               }
-                              return new Token(Tokens.LCURLY);
+                              return new Token(Tokens.LCURLY, yyline);
                             }
-<YYINITIAL> "}"             { table = table.getPrev(); return new Token(Tokens.RCURLY); }
-<YYINITIAL> "."             { return new Token(Tokens.DOT); }
+<YYINITIAL> "}"             { table = table.getPrev(); return new Token(Tokens.RCURLY, yyline); }
+<YYINITIAL> "."             { return new Token(Tokens.DOT, yyline); }
 
 /* control flow */
-<YYINITIAL> "if"            { return new Token(Tokens.IF); }
-<YYINITIAL> "elf"           { return new Token(Tokens.ELF); }
-<YYINITIAL> "else"          { return new Token(Tokens.ELSE); }
-<YYINITIAL> "dw"            { return new Token(Tokens.DW); }
-<YYINITIAL> "return"        { return new Token(Tokens.RETURN); }
+<YYINITIAL> "if"            { return new Token(Tokens.IF, yyline); }
+<YYINITIAL> "elf"           { return new Token(Tokens.ELF, yyline); }
+<YYINITIAL> "else"          { return new Token(Tokens.ELSE, yyline); }
+<YYINITIAL> "dw"            { return new Token(Tokens.DW, yyline); }
+<YYINITIAL> "return"        { return new Token(Tokens.RETURN, yyline); }
 
 /* logics */
-<YYINITIAL> "and"           { return new Token(Tokens.AND); }
-<YYINITIAL> "or"            { return new Token(Tokens.OR); }
-<YYINITIAL> "not"           { return new Token(Tokens.NOT); }
-<YYINITIAL> "=="            { return new Token(Tokens.EQX2); }
-<YYINITIAL> "<"             { return new Token(Tokens.LT); }
-<YYINITIAL> "<="            { return new Token(Tokens.LTE); }
-<YYINITIAL> ">"             { return new Token(Tokens.GT); }
-<YYINITIAL> ">="            { return new Token(Tokens.GTE); }
+<YYINITIAL> "and"           { return new Token(Tokens.AND, yyline); }
+<YYINITIAL> "or"            { return new Token(Tokens.OR, yyline); }
+<YYINITIAL> "not"           { return new Token(Tokens.NOT, yyline); }
+<YYINITIAL> "=="            { return new Token(Tokens.EQX2, yyline); }
+<YYINITIAL> "<"             { return new Token(Tokens.LT, yyline); }
+<YYINITIAL> "<="            { return new Token(Tokens.LTE, yyline); }
+<YYINITIAL> ">"             { return new Token(Tokens.GT, yyline); }
+<YYINITIAL> ">="            { return new Token(Tokens.GTE, yyline); }
 
 /* maths */
-<YYINITIAL> "+"             { return new Token(Tokens.PLUS); }
-<YYINITIAL> "-"             { return new Token(Tokens.MINUS); }
-<YYINITIAL> "*"             { return new Token(Tokens.TIMES); }
-<YYINITIAL> "/"             { return new Token(Tokens.DIV); }
-<YYINITIAL> "%"             { return new Token(Tokens.MOD); }
-<YYINITIAL> "^"             { return new Token(Tokens.EXP); }
-<YYINITIAL> "="             { return new Token(Tokens.EQ); }
+<YYINITIAL> "+"             { return new Token(Tokens.PLUS, yyline); }
+<YYINITIAL> "-"             { return new Token(Tokens.MINUS, yyline); }
+<YYINITIAL> "*"             { return new Token(Tokens.TIMES, yyline); }
+<YYINITIAL> "/"             { return new Token(Tokens.DIV, yyline); }
+<YYINITIAL> "%"             { return new Token(Tokens.MOD, yyline); }
+<YYINITIAL> "^"             { return new Token(Tokens.EXP, yyline); }
+<YYINITIAL> "="             { return new Token(Tokens.EQ, yyline); }
 
 <YYINITIAL> {
     {VarDec}                { String[] arr = yytext().split("\\s+");
                               String type = arr[0];
                               String name = arr[1];
-                              Var var = new Var(name, type);
+                              Var var = new Var(name, type, yyline);
                               table.getMap().put(name, var);
                               return var;
                             }
@@ -137,14 +133,14 @@ FunDec = ({Type}|void){WS}+{Identifier}{WS}*\(
                               String[] arr = text.split("\\s+");
                               String returnType = arr[0];
                               String name = arr[1];
-                              Function fun = new Function(name, returnType);
+                              Function fun = new Function(name, returnType, yyline);
                               table.getMap().put(name, fun);
                               return fun;
                             }
 
-    {Number}                { Double val = Double.parseDouble(yytext()); return new Number(val); }
+    {Number}                { Double val = Double.parseDouble(yytext()); return new Number(val, yyline); }
 
-    {StringLiteral}         { return new StringLit(yytext()); }
+    {StringLiteral}         { return new StringLit(yytext(), yyline); }
 
     {RGB}                   { String rgb = yytext().replace("<<", "").replace(">>", "");
                               String[] arr = rgb.split(",");
@@ -163,9 +159,9 @@ FunDec = ({Type}|void){WS}+{Identifier}{WS}*\(
                               return new Color(r, g, b, a);
                             }
 
-    {Identifier}            { return new Identifier(yytext()); }
+    {Identifier}            { return new Identifier(yytext(), yyline); }
 
-    /* {Value}                 { return new Value(yytext()); } */
+    /* {Value}                 { return new Value(yytext(), yyline); } */
 
     {WS}                    { /* do nothing */ }
 
@@ -176,7 +172,7 @@ FunDec = ({Type}|void){WS}+{Identifier}{WS}*\(
                               String[] arr2 = arr[0].split("\\s+");
                               String returnType = arr2[0];
                               String name = arr2[1];
-                              Function fun = new Function(name, params, returnType);
+                              Function fun = new Function(name, params, returnType, yyline);
                               table.getMap().put(name, fun);
                               return fun;
                             }*/
@@ -192,7 +188,7 @@ FunDec = ({Type}|void){WS}+{Identifier}{WS}*\(
                               String type = arr2[0];
                               String name = arr2[1];
                               String value = arr[1].trim();
-                              Var var = new Var(name, type, value);
+                              Var var = new Var(name, type, value, yyline);
                               symbolTable.put(name, var);
                               return var;
                             }*/

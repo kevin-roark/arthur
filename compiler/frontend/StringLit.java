@@ -8,6 +8,11 @@ public class StringLit extends Token {
         this.val = val;
     }
 
+    public StringLit(String val, int line) {
+        super(Tokens.STRINGLIT, line);
+        this.val = val;
+    }
+
     public String toString() {
     	return "String literal with val: " + val;
     }

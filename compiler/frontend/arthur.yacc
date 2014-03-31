@@ -594,7 +594,7 @@ id
 
                                                         Token check = (Token) lexer.table.get(i.name);
                                                         if (check == null) {
-                                                          System.out.println("Identifier not declared on line " + lexer.yyline() + ": " + i.name);
+                                                          System.out.println("Identifier not declared on line " + i.line + ": " + i.name);
                                                           errorCount++;
                                                         }
 

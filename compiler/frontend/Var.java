@@ -22,6 +22,13 @@ public class Var extends Token {
         this.val = null;
     }
 
+    public Var(String id, String t, int line) {
+        super(Tokens.VAR, line);
+        this.id = id;
+        this.type = Var.getType(t);
+        this.val = null;
+    }
+
     public static int getType(String t) {
         if (t.equals("num")) {
             return NUM;

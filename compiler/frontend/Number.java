@@ -8,6 +8,11 @@ public class Number extends Token {
         this.val = val;
     }
 
+    public Number(Double val, int line) {
+        super(Tokens.NUMBER, line);
+        this.val = val;
+    }
+
     public String toString() {
     	return "Number token with value: " + this.val;
     }

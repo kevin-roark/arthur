@@ -14,6 +14,7 @@ yacctest:
 	javac yacctest.java
 
 test:
+	javac yacctest.java
 	java yacctest ../../samples/sample1.art
 	java yacctest ../../samples/sample2.art
 	java yacctest ../../samples/sample3.art
