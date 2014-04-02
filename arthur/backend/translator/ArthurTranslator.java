@@ -14,6 +14,7 @@ public abstract class ArthurTranslator {
   public boolean isStatement;
 
   public abstract String getIntro();
+  public abstract String getOutro();
   public abstract String createAndTranslate(ParseNode source, boolean statement);
   public abstract String functionCode(ParseNode n);
   public abstract String varCode(ParseNode n);
@@ -151,9 +152,9 @@ public abstract class ArthurTranslator {
   private String endNode(ParseNode n) {
     switch (n.val) {
       case "globals":
-        return "\n}\n";
+        return getOutro();
       case "arthur":
-        return "\n}\n";
+        return getOutro();
       case "Function":
         blockDepth--;
         return "\n}\n";
