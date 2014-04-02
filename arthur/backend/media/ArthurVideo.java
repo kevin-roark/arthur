@@ -5,8 +5,10 @@ package arthur.backend.media;
  */
 public class ArthurVideo extends ArthurMedia {
 
+  public static String VIDEO = "video";
+
   public ArthurVideo() {
-    this.type = "video";
+    this.type = VIDEO;
   }
 
 }
