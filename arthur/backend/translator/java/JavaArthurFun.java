@@ -4,17 +4,19 @@ import java.util.ArrayList;
 
 import arthur.backend.translator.ArthurFun;
 import arthur.backend.translator.ArthurVar;
+import arthur.backend.media.*;
 
 public class JavaArthurFun extends ArthurFun {
 
-  public JavaArthurFun(String name, String type) {
+  public JavaArthurFun(String name, String type, ArthurMedia value) {
     this.name = name;
     this.returnType = type;
     this.parameters = new ArrayList<ArthurVar>();
+    this.value = value;
   }
 
   public String getFunDec() {
-    String s = "public static ";
+    String s = "public ";
     switch (this.returnType) {
       case "num":
         return s + "JavaArthurNum " + this.name + "(";

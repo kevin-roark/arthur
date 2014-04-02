@@ -24,12 +24,18 @@ public class JavaArthurTranslator extends ArthurTranslator {
     String s = "/**\n";
     s += " * An automatically generated translation from arthur to java.\n";
     s += " */\n\n";
-    s += "public class ArthurTranslation {\n";
+    s += "import arthur.backend.media.*;\n";
+    s += "import arthur.backend.whisperer.*;\n";
+    s += "import static arthur.backend.builtins.java.JavaBuiltins.*;\n";
+    s += "\npublic class ArthurTranslation {\n";
+    s += "public ArthurTranslation() { init(); JsWhisperer.printGlobals(); }\n\n";
     return s;
   }
 
   public String getOutro() {
-    return "\n}\n";
+    String s = "";
+    s += "\n}\n";
+    return s;
   }
 
   public String functionCode(ParseNode n) {

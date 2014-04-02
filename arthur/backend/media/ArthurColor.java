@@ -6,13 +6,13 @@ package arthur.backend.media;
 public class ArthurColor extends ArthurMedia {
 
   public static String COLOR = "color";
-  public int r, g, b, a;
+  public ArthurNumber r, g, b, a;
 
   public ArthurColor() {
-    this(0,0,0,0);
+    this(new ArthurNumber(0), new ArthurNumber(0), new ArthurNumber(0), new ArthurNumber(0));
   }
 
-  public ArthurColor(int r, int g, int b, int a) {
+  public ArthurColor(ArthurNumber r, ArthurNumber g, ArthurNumber b, ArthurNumber a) {
     this.type = COLOR;
     this.r=r;
     this.g=g;

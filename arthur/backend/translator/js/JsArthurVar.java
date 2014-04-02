@@ -2,12 +2,14 @@ package arthur.backend.translator.js;
 
 import arthur.frontend.ParseNode;
 import arthur.backend.translator.ArthurVar;
+import arthur.backend.media.*;
 
 public class JsArthurVar extends ArthurVar {
 
-  public JsArthurVar(String name, String type) {
+  public JsArthurVar(String name, String type, ArthurMedia value) {
     this.name = name;
     this.type = type;
+    this.value = value;
   }
 
   public String getVarDec() {

@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 import arthur.backend.translator.ArthurFun;
 import arthur.backend.translator.ArthurVar;
+import arthur.backend.media.*;
 
 public class JsArthurFun extends ArthurFun {
 
-  public JsArthurFun(String name, String type) {
+  public JsArthurFun(String name, String type, ArthurMedia value) {
     this.name = name;
     this.returnType = type;
     this.parameters = new ArrayList<ArthurVar>();
+    this.value = value;
   }
 
   public String getFunDec() {
