@@ -1,0 +1,117 @@
+./compile_tests.sh
+./run_tests.sh
+/**
+ * An automatically generated translation from arthur to java.
+ */
+
+public class ArthurTranslation {
+JavaArthurNum time;
+JavaArthurColor screenColor;
+
+public static void init() {
+ screenColor =  RED;
+ time = ms();
+add( screenColor);
+
+}
+
+public static void loop() {
+if (ms().minus( time).lessThan(new JavaArthurNum(30.0))) {
+return ;
+}
+if ( screenColor.b.lessThan(new JavaArthurNum(255.0)) &&  screenColor.r.arthurEquals(new JavaArthurNum(255.0))) {
+ screenColor =  screenColor.plus(new JavaArthurColor(0, 0, 1, 1.0));
+}
+else if ( screenColor.b.arthurEquals(new JavaArthurNum(255.0)) &&  screenColor.r.greaterThan(new JavaArthurNum(0.0))) {
+ screenColor =  screenColor.minus(new JavaArthurColor(1, 0, 0, 1.0));
+}
+else if ( screenColor.r.arthurEquals(new JavaArthurNum(0.0)) &&  screenColor.b.greaterThan(new JavaArthurNum(0.0))) {
+ screenColor =  screenColor.minus(new JavaArthurColor(0, 0, 1, 1.0));
+}
+else if ( screenColor.b.arthurEquals(new JavaArthurNum(0.0)) &&  screenColor.r.lessThan(new JavaArthurNum(255.0))) {
+ screenColor =  screenColor.plus(new JavaArthurColor(1, 0, 0, 1.0));
+}
+ time = ms();
+
+}
+
+}
+
+/**
+ * An automatically generated translation from arthur to java.
+ */
+
+public class ArthurTranslation {
+
+public static void init() {
+JavaArthurColor white = new JavaArthurColor(0, 0, 0, 1.0);
+JavaArthurColor mystery = new JavaArthurColor(127, 127, 30, 1.0);
+JavaArthurImage dog = get(new JavaArthurString("whitepoodle.jpg"));
+JavaArthurImage rect = get(new JavaArthurString("justawhiterectangle.jpg"));
+ rect =  rect.multiply(new JavaArthurNum(37.0));
+add( dog);
+add( rect);
+
+}
+
+public static void loop(JavaArthurNum x, JavaArthurColor y) {
+
+}
+
+public static JavaArthurVideo make_it_blue_and_z(JavaArthurVideo vid, JavaArthurColor z) {
+return  vid.plus( BLUE).plus( z);
+
+}
+
+}
+
+Identifier not declared on line 16: pixel
+Identifier not declared on line 17: pixel
+/**
+ * An automatically generated translation from arthur to java.
+ */
+
+public class ArthurTranslation {
+JavaArthurColor mystery;
+JavaArthurImage dog;
+JavaArthurImage rect;
+
+public static void color_replace(JavaArthurImage image, JavaArthurColor badColor, JavaArthurColor goodColor) {
+JavaArthurNum i = new JavaArthurNum(0.0);
+JavaArthurNum j = new JavaArthurNum(0.0);
+while ( i.lessThan( image.width)) {
+while ( j.lessThan( image.height)) {
+if ( image.pixel( i,  j).arthurEquals( badColor)) {
+ image.pixel( i,  j,  goodColor);
+}
+ j =  j.plus(new JavaArthurNum(1.0));
+}
+ i =  i.plus(new JavaArthurNum(1.0));
+}
+
+}
+
+public static void init() {
+ mystery = new JavaArthurColor(127, 127, 30, 1.0);
+ dog = get(new JavaArthurString("whitepoodle.jpg"));
+ rect = get(new JavaArthurString("justawhiterectangle.jpg"));
+ rect =  rect.multiply(new JavaArthurNum(37.0));
+JavaArthurNum i = new JavaArthurNum(1.0);
+while ( i.lessThan(new JavaArthurNum(5.0))) {
+ i =  i.plus(new JavaArthurNum(1.0));
+}
+add( dog);
+add( rect);
+
+}
+
+public static void loop() {
+if (ms().greaterThan(new JavaArthurNum(10000.0))) {
+color_replace( dog,  WHITE,  mystery);
+color_replace( rect,  WHITE,  mystery.plus(new JavaArthurColor(100, 100, 100, 1.0)));
+}
+
+}
+
+}
+

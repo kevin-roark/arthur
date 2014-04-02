@@ -1,22 +1,26 @@
-/* 
+
+color mystery;
+Image dog;
+Image rect;
+
+/*
  * color_replace.art
  * Finds all instances of one color and replaces it with another lol
  */
 
-void color_replace(color mything, color badColor, color goodColor) {
+void color_replace(Image image, color badColor, color goodColor) {
+  num i = 0;
+  num j = 0;
+  dw (i < image.width) {
+    dw (j < image.height) {
+      if (image->pixel(i, j) == badColor) {
+        image->pixel(i, j, goodColor); // in reality, prob use some threshold
+      }
+      j = j + 1;
+    }
+    i = i + 1;
+  }
 
-	if (media.isImage()) {
-          // image.w() * {
-          //   image.h() * {
-              if (image.get(i,j).color() == badColor) {
-	          	image.get(i,j).color() = goodColor; // in reality, prob use some threshold
-	     	  }
-          //   }
-          // }
-	}
-
-	// else
-	// 	IDK YET;
 }
 
 
@@ -26,15 +30,12 @@ void color_replace(color mything, color badColor, color goodColor) {
 
 void init() {
 
-	/* The one we don't want no more: white */
-	color white = <<0, 0, 0>>;
-
 	/* The one we wanna replace it with: idk */
-	color mystery = <<127, 127, 30>>;
+	mystery = <<127, 127, 30>>;
 
 	/* Media */
-	Image dog = get("whitepoodle.jpg");
-	Image rect = get("justawhiterectangle.jpg");
+	dog = get("whitepoodle.jpg");
+	rect = get("justawhiterectangle.jpg");
 	rect = rect * 37; /* big one */
 
 	num i = 1;
@@ -43,8 +44,8 @@ void init() {
 	}
 
 	/* Add */
-	arthur.add(dog);
-	arthur.add(rect);
+	add(dog);
+	add(rect);
 
 }
 
@@ -53,9 +54,9 @@ void loop() {
 	if (ms() > 10000) { 	// after 10 sec
 
 		/* NO MORE WHITE IN THE DOG */
-		color_replace(dog, white, mystery);
+		color_replace(dog, WHITE, mystery);
 
 	 	/* Even more mysterious color fills that whole rectangle */
-		color_replace(rect, white, mystery + <<100,100,100>>);
+		color_replace(rect, WHITE, mystery + <<100,100,100>>);
 	}
 }
