@@ -1,18 +1,13 @@
-package arthur.backend.java;
+package arthur.backend.translator.java;
 
 import arthur.frontend.ParseNode;
+import arthur.backend.translator.ArthurVar;
 
-public class JavaArthurVar extends JavaArthurType {
-
-  String type;
+public class JavaArthurVar extends ArthurVar {
 
   public JavaArthurVar(String name, String type) {
     this.name = name;
     this.type = type;
-  }
-
-  public String toString() {
-    return "Variable named \"" + name + "\" of type \"" + type  + "\"";
   }
 
   public String getVarDec() {

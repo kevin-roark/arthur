@@ -6,6 +6,6 @@ test:
 	./run_tests.sh
 
 clean:
-	cd ../../../; ./supercleaner.sh;
+	cd ../../../../; ./supercleaner.sh;
 
 all: clean arthur test
