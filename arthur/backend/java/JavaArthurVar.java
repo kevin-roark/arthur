@@ -23,9 +23,9 @@ public class JavaArthurVar extends JavaArthurType {
         return "JavaArthurString " + this.name;
       case "color":
         return "JavaArthurColor " + this.name;
-      case "Image":
+      case "image":
         return "JavaArthurImage " + this.name;
-      case "Video":
+      case "video":
         return "JavaArthurVideo " + this.name;
       case "Sound":
         return "JavaArthurSound " + this.name;
@@ -45,6 +45,10 @@ public class JavaArthurVar extends JavaArthurType {
     c += color.children.get(2).val + ", ";
     c += color.children.get(3).val;
     return c + ")";
+  }
+
+  public static String stringLiteral(String val) {
+    return "new JavaArthurString(" + val + ")";
   }
 
 }

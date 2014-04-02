@@ -244,7 +244,7 @@ Parse node:
             \_*
                \_Identifier
                   \_rect
-               \_Number
+               \_number
                   \_37.0
          \_Fun call
             \_Identifier
@@ -319,13 +319,13 @@ Parse node:
             \_variable
                \_num
                \_i
-            \_Number
+            \_number
                \_0.0
          \_=
             \_variable
                \_num
                \_j
-            \_Number
+            \_number
                \_0.0
          \_dw
             \_condition
@@ -398,7 +398,7 @@ Parse node:
                               \_+
                                  \_Identifier
                                     \_j
-                                 \_Number
+                                 \_number
                                     \_1.0
                   \_=
                      \_Identifier
@@ -406,7 +406,7 @@ Parse node:
                      \_+
                         \_Identifier
                            \_i
-                        \_Number
+                        \_number
                            \_1.0
    \_Function
       \_void
@@ -445,13 +445,13 @@ Parse node:
             \_*
                \_Identifier
                   \_rect
-               \_Number
+               \_number
                   \_37.0
          \_=
             \_variable
                \_num
                \_i
-            \_Number
+            \_number
                \_1.0
          \_dw
             \_condition
@@ -468,7 +468,7 @@ Parse node:
                      \_+
                         \_Identifier
                            \_i
-                        \_Number
+                        \_number
                            \_1.0
          \_Fun call
             \_Identifier

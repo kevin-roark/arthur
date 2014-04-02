@@ -1572,7 +1572,7 @@ case 93:
 //#line 562 "arthur.yacc"
 {
                                                         Num n = (Num) val_peek(0).obj;
-                                                        ParseNode number = new ParseNode("Number");
+                                                        ParseNode number = new ParseNode("number");
                                                         number.addChild(new ParseNode(n.val.toString(), number));
                                                         yyval = new ParserVal(number);
                                                     }

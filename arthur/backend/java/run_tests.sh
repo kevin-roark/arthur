@@ -6,5 +6,5 @@ cd ../../../
 D=arthur/backend/java
 
 java $D/JavaTranslatorTester samples/sample1.art
-#java $D/JavaTranslatorTester samples/sample2.art
+java $D/JavaTranslatorTester samples/sample2.art
 #java $D/JavaTranslatorTester samples/sample3.art

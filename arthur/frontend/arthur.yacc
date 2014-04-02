@@ -561,7 +561,7 @@ factor
                                                     }
     | NUMBER                                        {
                                                         Num n = (Num) $1.obj;
-                                                        ParseNode number = new ParseNode("Number");
+                                                        ParseNode number = new ParseNode("number");
                                                         number.addChild(new ParseNode(n.val.toString(), number));
                                                         $$ = new ParserVal(number);
                                                     }
