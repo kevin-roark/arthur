@@ -1,5 +1,7 @@
 package arthur.backend.java;
 
+import arthur.frontend.ParseNode;
+
 public class JavaArthurVar extends JavaArthurType {
 
   String type;
@@ -30,6 +32,19 @@ public class JavaArthurVar extends JavaArthurType {
       default:
         return "unknown variable!!";
     }
+  }
+
+  public static String numLiteral(String val) {
+    return "new JavaArthurNum(" + val + ")";
+  }
+
+  public static String colorLiteral(ParseNode color) {
+    String c = "new JavaArthurColor(";
+    c += color.children.get(0).val + ", ";
+    c += color.children.get(1).val + ", ";
+    c += color.children.get(2).val + ", ";
+    c += color.children.get(3).val;
+    return c + ")";
   }
 
 }

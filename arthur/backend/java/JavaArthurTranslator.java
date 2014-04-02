@@ -11,12 +11,18 @@ public class JavaArthurTranslator {
   int blockDepth;
   JavaArthurFun activeFunction;
   boolean ignoreChildren;
+  boolean isStatement;
 
   public JavaArthurTranslator(ParseNode source) {
+    this(source, true);
+  }
+
+  public JavaArthurTranslator(ParseNode source, boolean isStatement) {
     this.source = source;
     this.globals = new ArrayList<JavaArthurType>();
     this.blockDepth = 0;
     this.ignoreChildren = false;
+    this.isStatement = isStatement;
   }
 
   public String translateTree() {
@@ -41,7 +47,6 @@ public class JavaArthurTranslator {
   }
 
   private String startNode(ParseNode n) {
-    JavaArthurTranslator subTranslator;
     String s = "";
     switch (n.val) {
       case "globals":
@@ -62,13 +67,19 @@ public class JavaArthurTranslator {
           this.globals.add(fun);
         blockDepth++;
         activeFunction = fun;
-        return fun.getFunDec();
+        return "\n" + fun.getFunDec();
       case "parameter":
         ParseNode ptype = n.children.get(0);
         ParseNode pname = n.children.get(1);
         JavaArthurVar p = new JavaArthurVar(pname.val, ptype.val);
         activeFunction.addParameter(p);
         return p.getVarDec();
+      case "if":
+        return ifStyle(n, "if");
+      case "elf":
+        return ifStyle(n, "else if");
+      case "else":
+        return ifStyle(n, "else");
       case "Identifier":
         return " " + n.children.get(0).val;
       case "Fun call":
@@ -77,22 +88,65 @@ public class JavaArthurTranslator {
         ParseNode arguments = n.children.get(1);
         s += fcname.val + "(";
         for (ParseNode arg : arguments.children) {
-          subTranslator = new JavaArthurTranslator(arg);
-          s += subTranslator.translateTree();
+          s += createAndTranslate(arg, false);
           if (arg != arguments.children.get(arguments.children.size() - 1))
             s += ", ";
         }
         s += ")";
         return s;
+      case "Property access":
+        return twoSideOp(n, ".");
+      case "Property":
+        return n.children.get(0).val;
+      case "Color":
+        return JavaArthurVar.colorLiteral(n);
       case "=":
-        this.ignoreChildren = true;
-        subTranslator = new JavaArthurTranslator(n.children.get(0));
-        s += subTranslator.translateTree();
-        subTranslator = new JavaArthurTranslator(n.children.get(1));
-        return s + " = " + subTranslator.translateTree();
+        return twoSideOp(n, " = ");
+      case "is equal to":
+        return twoSideOp(n, ".arthurEquals(");
+      case "less than":
+        return twoSideOp(n, ".lessThan(");
+      case "greater than":
+        return twoSideOp(n, ".greaterThan(");
+      case "and":
+        return twoSideOp(n, " && ");
+      case "-":
+        return twoSideOp(n, ".minus(");
+      case "+":
+        return twoSideOp(n, ".plus(");
+      case "number":
+        ParseNode num = n.children.get(0);
+        return JavaArthurVar.numLiteral(num.val);
+      case "return":
+        if (n.children.size() > 0) {
+          s += createAndTranslate(n.children.get(0), false);
+        }
+        return "return " + s + ";\n";
       default:
         return "";
     }
+  }
+
+  /* like '=' or '<' */
+  private String twoSideOp(ParseNode n, String op) {
+    this.ignoreChildren = true;
+    String one = createAndTranslate(n.children.get(0), false);
+    String two = createAndTranslate(n.children.get(1), false);
+    String s = one + op + two;
+    return s;
+  }
+
+  /* like 'if' or 'elf' or 'while' */
+  private String ifStyle(ParseNode n, String stmt) {
+    this.ignoreChildren = true;
+    ParseNode cond = n.children.get(0);
+    ParseNode body = n.children.get(1);
+
+    String s = stmt + " (";
+    s += createAndTranslate(cond, false);
+    s += ") {\n";
+    s += createAndTranslate(body, true);
+    return s;
   }
 
   private String endNode(ParseNode n) {
@@ -106,18 +160,56 @@ public class JavaArthurTranslator {
         return ") {\n";
       case "parameter":
         return ", ";
+      case "if":
+        this.ignoreChildren = false;
+        return "}\n";
+      case "elf":
+        this.ignoreChildren = false;
+        return "}\n";
+      case "else":
+        this.ignoreChildren = false;
+        return "}\n";
       case "Identifier":
-        return " ";
+        return "";
       case "Fun call":
-        this.ignoreChildren = false;
-        return ";";
+        return ender(false);
+      case "Property access":
+        return ender(false);
       case "=":
-        this.ignoreChildren = false;
-        return ";\n";
+        return ender(false);
+      case "is equal to":
+        return ")" + ender(false);
+      case "less than":
+        return ")" + ender(false);
+      case "greater than":
+        return ")" + ender(false);
+      case "and":
+        return ender(false);
+      case "-":
+        return ")" + ender(false);
+      case "+":
+        return ")" + ender(false);
       case "variable":
-        return ";\n";
+        return ender(null);
       default:
         return "";
+    }
+  }
+
+  public static String createAndTranslate(ParseNode source, boolean statement) {
+    JavaArthurTranslator t = new JavaArthurTranslator(source, statement);
+    return t.translateTree();
+  }
+
+  private String ender(Boolean ignoreVal) {
+    if (ignoreVal != null) {
+      this.ignoreChildren = ignoreVal;
+    }
+
+    if (this.isStatement) {
+      return ";\n";
+    } else {
+      return "";
     }
   }
 

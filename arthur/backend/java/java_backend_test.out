@@ -3,17 +3,31 @@
 public class ArthurTranslation {
 JavaArthurNum time;
 JavaArthurColor screenColor;
+
 public static void init() {
- screenColor  =  RED ;
- time  = ms();;
-add( screenColor );
+ screenColor =  RED;
+ time = ms();
+add( screenColor);
+
 }
+
 public static void loop() {
-ms(); time  screenColor  screenColor  screenColor  =  screenColor ;
- screenColor  screenColor  screenColor  =  screenColor ;
- screenColor  screenColor  screenColor  =  screenColor ;
- screenColor  screenColor  screenColor  =  screenColor ;
- time  = ms();;
+if (ms().minus( time).lessThan(new JavaArthurNum(30.0))) {
+return ;
+}
+if ( screenColor.b.lessThan(new JavaArthurNum(255.0)) &&  screenColor.r.arthurEquals(new JavaArthurNum(255.0))) {
+ screenColor =  screenColor.plus(new JavaArthurColor(0, 0, 1, 1.0));
+}
+else if ( screenColor.b.arthurEquals(new JavaArthurNum(255.0)) &&  screenColor.r.greaterThan(new JavaArthurNum(0.0))) {
+ screenColor =  screenColor.minus(new JavaArthurColor(1, 0, 0, 1.0));
+}
+else if ( screenColor.r.arthurEquals(new JavaArthurNum(0.0)) &&  screenColor.b.greaterThan(new JavaArthurNum(0.0))) {
+ screenColor =  screenColor.minus(new JavaArthurColor(0, 0, 1, 1.0));
+}
+else if ( screenColor.b.arthurEquals(new JavaArthurNum(0.0)) &&  screenColor.r.lessThan(new JavaArthurNum(255.0))) {
+ screenColor =  screenColor.plus(new JavaArthurColor(1, 0, 0, 1.0));
+}
+ time = ms();
 
 }
 
