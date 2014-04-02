@@ -1,24 +1,16 @@
-package arthur.backend.java;
+package arthur.backend.translator.java;
 
 import java.util.ArrayList;
 
-public class JavaArthurFun extends JavaArthurType {
+import arthur.backend.translator.ArthurFun;
+import arthur.backend.translator.ArthurVar;
 
-  String returnType;
-  ArrayList<JavaArthurVar> parameters;
+public class JavaArthurFun extends ArthurFun {
 
   public JavaArthurFun(String name, String type) {
     this.name = name;
     this.returnType = type;
-    this.parameters = new ArrayList<JavaArthurVar>();
-  }
-
-  public String toString() {
-    return "Function named \"" + name + "\" returning \"" + returnType  + "\"";
-  }
-
-  public void addParameter(JavaArthurVar var) {
-    this.parameters.add(var);
+    this.parameters = new ArrayList<ArthurVar>();
   }
 
   public String getFunDec() {

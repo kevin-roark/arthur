@@ -1,4 +1,4 @@
-package arthur.backend.java;
+package arthur.backend.translator.java;
 
 import java.io.FileReader;
 import java.io.FileNotFoundException;
