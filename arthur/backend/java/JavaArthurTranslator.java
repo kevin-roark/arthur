@@ -88,6 +88,8 @@ public class JavaArthurTranslator {
         return ifStyle(n, "else if");
       case "else":
         return ifStyle(n, "else");
+      case "dw":
+        return ifStyle(n, "while");
       case "Identifier":
         return " " + n.children.get(0).val;
       case "Fun call":
@@ -102,6 +104,8 @@ public class JavaArthurTranslator {
         }
         s += ")";
         return s;
+      case "Method call":
+        return twoSideOp(n, ".");
       case "Property access":
         return twoSideOp(n, ".");
       case "Property":
@@ -194,9 +198,14 @@ public class JavaArthurTranslator {
       case "else":
         this.ignoreChildren = false;
         return "}\n";
+      case "dw":
+        this.ignoreChildren = false;
+        return "}\n";
       case "Identifier":
         return "";
       case "Fun call":
+        return ender(false);
+      case "Method call":
         return ender(false);
       case "Property access":
         return ender(false);

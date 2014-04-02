@@ -290,6 +290,8 @@ Parse node:
                \_z
 Number of errors: 0
 Return value: 0
+Identifier not declared on line 16: pixel
+Identifier not declared on line 17: pixel
 Parse node:
 \_globals
    \_variable
@@ -355,43 +357,34 @@ Parse node:
                               \_if
                                  \_condition
                                     \_is equal to
-                                       \_Fun call
-                                          \_Property access
-                                             \_Fun call
-                                                \_Property access
-                                                   \_Identifier
-                                                      \_image
-                                                   \_Property
-                                                      \_pixel
-                                                \_arguments
-                                                   \_Identifier
-                                                      \_i
-                                                   \_Identifier
-                                                      \_j
-                                             \_Property
-                                                \_color
-                                          \_arguments
+                                       \_Method call
+                                          \_Identifier
+                                             \_image
+                                          \_Fun call
+                                             \_Identifier
+                                                \_pixel
+                                             \_arguments
+                                                \_Identifier
+                                                   \_i
+                                                \_Identifier
+                                                   \_j
                                        \_Identifier
                                           \_badColor
                                  \_body
                                     \_stmt_list
-                                       \_=
-                                          \_Property access
-                                             \_Fun call
-                                                \_Property access
-                                                   \_Identifier
-                                                      \_image
-                                                   \_Property
-                                                      \_pixel
-                                                \_arguments
-                                                   \_Identifier
-                                                      \_i
-                                                   \_Identifier
-                                                      \_j
-                                             \_Property
-                                                \_color
+                                       \_Method call
                                           \_Identifier
-                                             \_goodColor
+                                             \_image
+                                          \_Fun call
+                                             \_Identifier
+                                                \_pixel
+                                             \_arguments
+                                                \_Identifier
+                                                   \_i
+                                                \_Identifier
+                                                   \_j
+                                                \_Identifier
+                                                   \_goodColor
                            \_=
                               \_Identifier
                                  \_j
@@ -524,5 +517,5 @@ Parse node:
                               \_100
                               \_100
                               \_1.0
-Number of errors: 0
+Number of errors: 2
 Return value: 0

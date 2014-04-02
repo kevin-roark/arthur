@@ -249,7 +249,7 @@ fun_call
     ;
 
 meth_call
-    : id DOT fun_call                               {
+    : id ARROW fun_call                             {
                                                       ParseNode methCall = new ParseNode("Method call");
                                                       ParseNode ob = (ParseNode) $1.obj;
                                                       methCall.addChild(ob);

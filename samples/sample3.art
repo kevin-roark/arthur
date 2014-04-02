@@ -13,8 +13,8 @@ void color_replace(Image image, color badColor, color goodColor) {
   num j = 0;
   dw (i < image.width) {
     dw (j < image.height) {
-      if (image.pixel(i,j).color() == badColor) {
-        image.pixel(i,j).color = goodColor; // in reality, prob use some threshold
+      if (image->pixel(i, j) == badColor) {
+        image->pixel(i, j, goodColor); // in reality, prob use some threshold
       }
       j = j + 1;
     }

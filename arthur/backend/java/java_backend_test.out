@@ -65,3 +65,53 @@ return  vid.plus( BLUE).plus( z);
 
 }
 
+Identifier not declared on line 16: pixel
+Identifier not declared on line 17: pixel
+/**
+ * An automatically generated translation from arthur to java.
+ */
+
+public class ArthurTranslation {
+JavaArthurColor mystery;
+JavaArthurImage dog;
+JavaArthurImage rect;
+
+public static void color_replace(JavaArthurImage image, JavaArthurColor badColor, JavaArthurColor goodColor) {
+JavaArthurNum i = new JavaArthurNum(0.0);
+JavaArthurNum j = new JavaArthurNum(0.0);
+while ( i.lessThan( image.width)) {
+while ( j.lessThan( image.height)) {
+if ( image.pixel( i,  j).arthurEquals( badColor)) {
+ image.pixel( i,  j,  goodColor);
+}
+ j =  j.plus(new JavaArthurNum(1.0));
+}
+ i =  i.plus(new JavaArthurNum(1.0));
+}
+
+}
+
+public static void init() {
+ mystery = new JavaArthurColor(127, 127, 30, 1.0);
+ dog = get(new JavaArthurString("whitepoodle.jpg"));
+ rect = get(new JavaArthurString("justawhiterectangle.jpg"));
+ rect =  rect.multiply(new JavaArthurNum(37.0));
+JavaArthurNum i = new JavaArthurNum(1.0);
+while ( i.lessThan(new JavaArthurNum(5.0))) {
+ i =  i.plus(new JavaArthurNum(1.0));
+}
+add( dog);
+add( rect);
+
+}
+
+public static void loop() {
+if (ms().greaterThan(new JavaArthurNum(10000.0))) {
+color_replace( dog,  WHITE,  mystery);
+color_replace( rect,  WHITE,  mystery.plus(new JavaArthurColor(100, 100, 100, 1.0)));
+}
+
+}
+
+}
+
