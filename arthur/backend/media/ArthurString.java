@@ -20,7 +20,7 @@ public class ArthurString extends ArthurMedia {
     if (two.type.equals(STRING)) {
       return JavaStringMath.add(one, (ArthurString) two);
     } else if (two.type.equals(NUMBER)) {
-      
+      return JavaStringMath.add(one, (ArthurNumber) two);
     } else {
       // coerce later
       return null;
