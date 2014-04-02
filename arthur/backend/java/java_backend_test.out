@@ -1,0 +1,21 @@
+./compile_tests.sh
+./run_tests.sh
+public class ArthurTranslation {
+JavaArthurNum time;
+JavaArthurColor screenColor;
+public static void init() {
+ screenColor  =  RED ;
+ time  = ms();;
+add( screenColor );
+}
+public static void loop() {
+ms(); time  screenColor  screenColor  screenColor  =  screenColor ;
+ screenColor  screenColor  screenColor  =  screenColor ;
+ screenColor  screenColor  screenColor  =  screenColor ;
+ screenColor  screenColor  screenColor  =  screenColor ;
+ time  = ms();;
+
+}
+
+}
+

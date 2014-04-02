@@ -22,21 +22,22 @@ public class JavaArthurFun extends JavaArthurType {
   }
 
   public String getFunDec() {
+    String s = "public static ";
     switch (this.returnType) {
       case "num":
-        return "JavaArthurNum " + this.name + "(";
+        return s + "JavaArthurNum " + this.name + "(";
       case "string":
-        return "JavaArthurString " + this.name + "(";
+        return s + "JavaArthurString " + this.name + "(";
       case "color":
-        return "JavaArthurColor " + this.name + "(";
+        return s + "JavaArthurColor " + this.name + "(";
       case "Image":
-        return "JavaArthurImage " + this.name + "(";
+        return s + "JavaArthurImage " + this.name + "(";
       case "Video":
-        return "JavaArthurVideo " + this.name + "(";
+        return s + "JavaArthurVideo " + this.name + "(";
       case "Sound":
-        return "JavaArthurSound " + this.name + "(";
+        return s + "JavaArthurSound " + this.name + "(";
       case "void":
-        return "void " + this.name + "(";
+        return s + "void " + this.name + "(";
       default:
         return "unknown funciton!!";
     }

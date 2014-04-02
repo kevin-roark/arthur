@@ -1,0 +1,528 @@
+./compile_tests.sh
+./run_tests.sh
+/Users/kevinroark/code/arthur
+
+Parse node:
+\_globals
+   \_variable
+      \_num
+      \_time
+   \_variable
+      \_color
+      \_screenColor
+   \_Function
+      \_void
+      \_init
+      \_parameters
+      \_stmt_list
+         \_=
+            \_Identifier
+               \_screenColor
+            \_Identifier
+               \_RED
+         \_=
+            \_Identifier
+               \_time
+            \_Fun call
+               \_Identifier
+                  \_ms
+               \_arguments
+         \_Fun call
+            \_Identifier
+               \_add
+            \_arguments
+               \_Identifier
+                  \_screenColor
+   \_Function
+      \_void
+      \_loop
+      \_parameters
+      \_stmt_list
+         \_if-switch
+            \_if
+               \_condition
+                  \_less than
+                     \_-
+                        \_Fun call
+                           \_Identifier
+                              \_ms
+                           \_arguments
+                        \_Identifier
+                           \_time
+                     \_number
+                        \_30.0
+               \_body
+                  \_stmt_list
+                     \_return
+         \_if-switch
+            \_if
+               \_condition
+                  \_and
+                     \_less than
+                        \_Property access
+                           \_Identifier
+                              \_screenColor
+                           \_Property
+                              \_b
+                        \_number
+                           \_255.0
+                     \_is equal to
+                        \_Property access
+                           \_Identifier
+                              \_screenColor
+                           \_Property
+                              \_r
+                        \_number
+                           \_255.0
+               \_body
+                  \_stmt_list
+                     \_=
+                        \_Identifier
+                           \_screenColor
+                        \_+
+                           \_Identifier
+                              \_screenColor
+                           \_Color
+                              \_0
+                              \_0
+                              \_1
+                              \_1.0
+            \_elves
+               \_elf
+                  \_condition
+                     \_and
+                        \_is equal to
+                           \_Property access
+                              \_Identifier
+                                 \_screenColor
+                              \_Property
+                                 \_b
+                           \_number
+                              \_255.0
+                        \_greater than
+                           \_Property access
+                              \_Identifier
+                                 \_screenColor
+                              \_Property
+                                 \_r
+                           \_number
+                              \_0.0
+                  \_body
+                     \_stmt_list
+                        \_=
+                           \_Identifier
+                              \_screenColor
+                           \_-
+                              \_Identifier
+                                 \_screenColor
+                              \_Color
+                                 \_1
+                                 \_0
+                                 \_0
+                                 \_1.0
+               \_elf
+                  \_condition
+                     \_and
+                        \_is equal to
+                           \_Property access
+                              \_Identifier
+                                 \_screenColor
+                              \_Property
+                                 \_r
+                           \_number
+                              \_0.0
+                        \_greater than
+                           \_Property access
+                              \_Identifier
+                                 \_screenColor
+                              \_Property
+                                 \_b
+                           \_number
+                              \_0.0
+                  \_body
+                     \_stmt_list
+                        \_=
+                           \_Identifier
+                              \_screenColor
+                           \_-
+                              \_Identifier
+                                 \_screenColor
+                              \_Color
+                                 \_0
+                                 \_0
+                                 \_1
+                                 \_1.0
+               \_elf
+                  \_condition
+                     \_and
+                        \_is equal to
+                           \_Property access
+                              \_Identifier
+                                 \_screenColor
+                              \_Property
+                                 \_b
+                           \_number
+                              \_0.0
+                        \_less than
+                           \_Property access
+                              \_Identifier
+                                 \_screenColor
+                              \_Property
+                                 \_r
+                           \_number
+                              \_255.0
+                  \_body
+                     \_stmt_list
+                        \_=
+                           \_Identifier
+                              \_screenColor
+                           \_+
+                              \_Identifier
+                                 \_screenColor
+                              \_Color
+                                 \_1
+                                 \_0
+                                 \_0
+                                 \_1.0
+         \_=
+            \_Identifier
+               \_time
+            \_Fun call
+               \_Identifier
+                  \_ms
+               \_arguments
+Number of errors: 0
+Return value: 0
+Parse node:
+\_arthur
+   \_Function
+      \_void
+      \_init
+      \_parameters
+      \_stmt_list
+         \_=
+            \_variable
+               \_color
+               \_white
+            \_Color
+               \_0
+               \_0
+               \_0
+               \_1.0
+         \_=
+            \_variable
+               \_color
+               \_mystery
+            \_Color
+               \_127
+               \_127
+               \_30
+               \_1.0
+         \_=
+            \_variable
+               \_image
+               \_dog
+            \_Fun call
+               \_Identifier
+                  \_get
+               \_arguments
+                  \_String
+                     \_"whitepoodle.jpg"
+         \_=
+            \_variable
+               \_image
+               \_rect
+            \_Fun call
+               \_Identifier
+                  \_get
+               \_arguments
+                  \_String
+                     \_"justawhiterectangle.jpg"
+         \_=
+            \_Identifier
+               \_rect
+            \_*
+               \_Identifier
+                  \_rect
+               \_Number
+                  \_37.0
+         \_Fun call
+            \_Identifier
+               \_add
+            \_arguments
+               \_Identifier
+                  \_dog
+         \_Fun call
+            \_Identifier
+               \_add
+            \_arguments
+               \_Identifier
+                  \_rect
+   \_Function
+      \_void
+      \_loop
+      \_parameters
+         \_parameter
+            \_num
+            \_x
+         \_parameter
+            \_color
+            \_y
+      \_
+   \_Function
+      \_Video
+      \_make_it_blue_and_z
+      \_parameters
+         \_parameter
+            \_video
+            \_vid
+         \_parameter
+            \_color
+            \_z
+      \_return
+         \_+
+            \_+
+               \_Identifier
+                  \_vid
+               \_Identifier
+                  \_BLUE
+            \_Identifier
+               \_z
+Number of errors: 0
+Return value: 0
+Parse node:
+\_globals
+   \_variable
+      \_color
+      \_mystery
+   \_variable
+      \_image
+      \_dog
+   \_variable
+      \_image
+      \_rect
+   \_Function
+      \_void
+      \_color_replace
+      \_parameters
+         \_parameter
+            \_image
+            \_image
+         \_parameter
+            \_color
+            \_badColor
+         \_parameter
+            \_color
+            \_goodColor
+      \_stmt_list
+         \_=
+            \_variable
+               \_num
+               \_i
+            \_Number
+               \_0.0
+         \_=
+            \_variable
+               \_num
+               \_j
+            \_Number
+               \_0.0
+         \_dw
+            \_condition
+               \_less than
+                  \_Identifier
+                     \_i
+                  \_Property access
+                     \_Identifier
+                        \_image
+                     \_Property
+                        \_width
+            \_body
+               \_stmt_list
+                  \_dw
+                     \_condition
+                        \_less than
+                           \_Identifier
+                              \_j
+                           \_Property access
+                              \_Identifier
+                                 \_image
+                              \_Property
+                                 \_height
+                     \_body
+                        \_stmt_list
+                           \_if-switch
+                              \_if
+                                 \_condition
+                                    \_is equal to
+                                       \_Fun call
+                                          \_Property access
+                                             \_Fun call
+                                                \_Property access
+                                                   \_Identifier
+                                                      \_image
+                                                   \_Property
+                                                      \_pixel
+                                                \_arguments
+                                                   \_Identifier
+                                                      \_i
+                                                   \_Identifier
+                                                      \_j
+                                             \_Property
+                                                \_color
+                                          \_arguments
+                                       \_Identifier
+                                          \_badColor
+                                 \_body
+                                    \_stmt_list
+                                       \_=
+                                          \_Property access
+                                             \_Fun call
+                                                \_Property access
+                                                   \_Identifier
+                                                      \_image
+                                                   \_Property
+                                                      \_pixel
+                                                \_arguments
+                                                   \_Identifier
+                                                      \_i
+                                                   \_Identifier
+                                                      \_j
+                                             \_Property
+                                                \_color
+                                          \_Identifier
+                                             \_goodColor
+                           \_=
+                              \_Identifier
+                                 \_j
+                              \_+
+                                 \_Identifier
+                                    \_j
+                                 \_Number
+                                    \_1.0
+                  \_=
+                     \_Identifier
+                        \_i
+                     \_+
+                        \_Identifier
+                           \_i
+                        \_Number
+                           \_1.0
+   \_Function
+      \_void
+      \_init
+      \_parameters
+      \_stmt_list
+         \_=
+            \_Identifier
+               \_mystery
+            \_Color
+               \_127
+               \_127
+               \_30
+               \_1.0
+         \_=
+            \_Identifier
+               \_dog
+            \_Fun call
+               \_Identifier
+                  \_get
+               \_arguments
+                  \_String
+                     \_"whitepoodle.jpg"
+         \_=
+            \_Identifier
+               \_rect
+            \_Fun call
+               \_Identifier
+                  \_get
+               \_arguments
+                  \_String
+                     \_"justawhiterectangle.jpg"
+         \_=
+            \_Identifier
+               \_rect
+            \_*
+               \_Identifier
+                  \_rect
+               \_Number
+                  \_37.0
+         \_=
+            \_variable
+               \_num
+               \_i
+            \_Number
+               \_1.0
+         \_dw
+            \_condition
+               \_less than
+                  \_Identifier
+                     \_i
+                  \_number
+                     \_5.0
+            \_body
+               \_stmt_list
+                  \_=
+                     \_Identifier
+                        \_i
+                     \_+
+                        \_Identifier
+                           \_i
+                        \_Number
+                           \_1.0
+         \_Fun call
+            \_Identifier
+               \_add
+            \_arguments
+               \_Identifier
+                  \_dog
+         \_Fun call
+            \_Identifier
+               \_add
+            \_arguments
+               \_Identifier
+                  \_rect
+   \_Function
+      \_void
+      \_loop
+      \_parameters
+      \_if-switch
+         \_if
+            \_condition
+               \_greater than
+                  \_Fun call
+                     \_Identifier
+                        \_ms
+                     \_arguments
+                  \_number
+                     \_10000.0
+            \_body
+               \_stmt_list
+                  \_Fun call
+                     \_Identifier
+                        \_color_replace
+                     \_arguments
+                        \_Identifier
+                           \_dog
+                        \_Identifier
+                           \_WHITE
+                        \_Identifier
+                           \_mystery
+                  \_Fun call
+                     \_Identifier
+                        \_color_replace
+                     \_arguments
+                        \_Identifier
+                           \_rect
+                        \_Identifier
+                           \_WHITE
+                        \_+
+                           \_Identifier
+                              \_mystery
+                           \_Color
+                              \_100
+                              \_100
+                              \_100
+                              \_1.0
+Number of errors: 0
+Return value: 0

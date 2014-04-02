@@ -86,12 +86,9 @@ public class JavaArthurTranslator {
         return s;
       case "=":
         this.ignoreChildren = true;
-        ParseNode first = n.children.get(0);
-        subTranslator = new JavaArthurTranslator(first);
+        subTranslator = new JavaArthurTranslator(n.children.get(0));
         s += subTranslator.translateTree();
-
-        ParseNode second = n.children.get(1);
-        subTranslator = new JavaArthurTranslator(second);
+        subTranslator = new JavaArthurTranslator(n.children.get(1));
         return s + " = " + subTranslator.translateTree();
       default:
         return "";
