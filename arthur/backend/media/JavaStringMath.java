@@ -7,6 +7,10 @@ package arthur.backend.media;
 public class JavaStringMath {
 
   public static ArthurString add(ArthurString one, ArthurString two) {
+    return new ArthurString(one.str + two.str);
+  }
+
+  public static ArthurString add(ArthurString one, ArthurNumber two) {
 
   }
 
@@ -15,6 +19,10 @@ public class JavaStringMath {
   }
 
   public static ArthurString multiply(ArthurString one, ArthurString two) {
+
+  }
+
+  public static ArthurString multiply(ArthurString one, ArthurNumber two) {
 
   }
 

@@ -9,7 +9,7 @@ public class JavaNumberMath {
   public static ArthurNumber add(ArthurNumber one, ArthurNumber two) {
     return new ArthurNumber(one.val + two.val);
   }
-
+  
   public static ArthurNumber minus(ArthurNumber one, ArthurNumber two) {
     return new ArthurNumber(one.val - two.val);
   }
