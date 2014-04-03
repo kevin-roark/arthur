@@ -54,4 +54,8 @@ public class ArthurNumber extends ArthurMedia {
     }
   }
 
+  public String toString() {
+    return "" + this.val;
+  }
+
 }

@@ -56,7 +56,7 @@ public class ArthurCompiler {
   }
 
   public static void removeTranslationFile() throws IOException {
-    //Runtime.getRuntime().exec("rm -f " + TNAME + ".java");
+    Runtime.getRuntime().exec("rm -f " + TNAME + ".java");
     Runtime.getRuntime().exec("rm -f " + TNAME + ".class");
   }
 

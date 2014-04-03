@@ -18,7 +18,7 @@ public class ArthurString extends ArthurMedia {
     this.str = str;
   }
 
-  public ArthurMedia add(ArthurMedia two) {
+  public ArthurString add(ArthurMedia two) {
     if (two.type.equals(STRING)) {
       return JavaStringMath.add(this, (ArthurString) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
@@ -29,7 +29,7 @@ public class ArthurString extends ArthurMedia {
     }
   }
 
-  public ArthurMedia minus(ArthurMedia two) {
+  public ArthurString minus(ArthurMedia two) {
     if (two.type.equals(STRING)) {
       return JavaStringMath.minus(this, (ArthurString) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
@@ -40,7 +40,7 @@ public class ArthurString extends ArthurMedia {
     }
   }
 
-  public ArthurMedia multiply(ArthurMedia two) {
+  public ArthurString multiply(ArthurMedia two) {
     if (two.type.equals(STRING)) {
       return JavaStringMath.multiply(this, (ArthurString) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
@@ -51,7 +51,7 @@ public class ArthurString extends ArthurMedia {
     }
   }
 
-  public ArthurMedia divide(ArthurMedia two) {
+  public ArthurString divide(ArthurMedia two) {
     if (two.type.equals(STRING)) {
       return JavaStringMath.divide(this, (ArthurString) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
@@ -60,6 +60,10 @@ public class ArthurString extends ArthurMedia {
       // coerce later
       return this;
     }
+  }
+
+  public String toString() {
+    return this.str;
   }
 
 }

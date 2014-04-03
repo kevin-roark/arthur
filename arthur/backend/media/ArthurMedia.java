@@ -6,7 +6,7 @@ package arthur.backend.media;
  * They will extend this class and overwrite the methods, along with adding
  * their own when appropriate.
  */
-public class ArthurMedia {
+public class ArthurMedia implements java.io.Serializable {
 
   public String type;
 

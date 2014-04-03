@@ -87,7 +87,7 @@ public class ArthurColor extends ArthurMedia {
   }
 
   public String toString() {
-    return this.r + "," + this.g + "," + this.b;
+    return "<<" + this.r + ", " + this.g + ", " + this.b + ">>";
   }
 
 }

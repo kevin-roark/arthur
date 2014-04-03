@@ -5,7 +5,7 @@ import arthur.backend.media.*;
 public class GlobalMedia implements java.io.Serializable {
 
   public String name;
-  public transient ArthurMedia value;
+  public ArthurMedia value;
   public String type;
 
   public GlobalMedia(String name, ArthurMedia value) {
@@ -15,7 +15,7 @@ public class GlobalMedia implements java.io.Serializable {
   }
 
   public String toString() {
-    return "media variable named " + name + " with value type " + type;
+    return "media variable named " + name + " with value type " + type + " and value " + value;
   }
 
 }
