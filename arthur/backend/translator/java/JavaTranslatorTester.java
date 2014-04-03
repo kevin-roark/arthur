@@ -29,9 +29,7 @@ public class JavaTranslatorTester {
     Parser parser = new Parser(false);
     ParseNode s = parser.doParsing(reader);
 
-    JsWhisperer whisperer = new JsWhisperer();
-
-    JavaArthurTranslator translator = new JavaArthurTranslator(s, whisperer);
+    JavaArthurTranslator translator = new JavaArthurTranslator(s);
     String translation = translator.translateTree();
     System.out.println(translation);
   }

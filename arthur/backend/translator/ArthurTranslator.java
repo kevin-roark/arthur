@@ -3,17 +3,14 @@ package arthur.backend.translator;
 import java.util.ArrayList;
 
 import arthur.frontend.ParseNode;
-import arthur.backend.whisperer.JsWhisperer;
 
 public abstract class ArthurTranslator {
 
   public ParseNode source;
-  public ArrayList<ArthurType> globals;
   public int blockDepth;
   public ArthurFun activeFunction;
   public boolean ignoreChildren;
   public boolean isStatement;
-  public JsWhisperer whisperer;
 
   public abstract String getIntro();
   public abstract String getOutro();

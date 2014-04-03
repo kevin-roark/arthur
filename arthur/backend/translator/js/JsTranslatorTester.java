@@ -29,9 +29,7 @@ public class JsTranslatorTester {
     Parser parser = new Parser(false);
     ParseNode s = parser.doParsing(reader);
 
-    JsWhisperer whisperer = new JsWhisperer();
-
-    JsArthurTranslator translator = new JsArthurTranslator(s, whisperer);
+    JsArthurTranslator translator = new JsArthurTranslator(s);
     String translation = translator.translateTree();
     System.out.println(translation);
   }

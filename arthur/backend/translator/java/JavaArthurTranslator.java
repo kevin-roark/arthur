@@ -5,33 +5,44 @@ import java.util.ArrayList;
 import arthur.frontend.ParseNode;
 import arthur.backend.translator.ArthurTranslator;
 import arthur.backend.translator.ArthurType;
-import arthur.backend.whisperer.JsWhisperer;
 
 public class JavaArthurTranslator extends ArthurTranslator {
 
-  public JavaArthurTranslator(ParseNode source, JsWhisperer whisperer) {
-    this(source, true, whisperer, 0);
+  public JavaArthurTranslator(ParseNode source) {
+    this(source, true, 0);
   }
 
-  public JavaArthurTranslator(ParseNode source, boolean isStatement, JsWhisperer whisperer, int bd) {
+  public JavaArthurTranslator(ParseNode source, boolean isStatement, int bd) {
     this.source = source;
-    this.globals = whisperer.globals;
     this.blockDepth = bd;
     this.ignoreChildren = false;
     this.isStatement = isStatement;
-    this.whisperer = whisperer;
   }
 
   public String getIntro() {
     String s = "/**\n";
     s += " * An automatically generated translation from arthur to java.\n";
     s += " */\n\n";
+
+    // imports
     s += "import arthur.backend.media.*;\n";
     s += "import arthur.backend.whisperer.*;\n";
     s += "import static arthur.backend.builtins.java.JavaBuiltins.*;\n";
+    s += "import java.lang.reflect.Field;";
+
+
+    // class and main
     s += "\npublic class ArthurTranslation {\n";
-    s += "\npublic static void main(String[] args) { ArthurTranslation a = new ArthurTranslation(); }";
-    s += "public ArthurTranslation() { init(); JsWhisperer.writeToBlob(); }\n\n";
+    s += "\npublic static void main(String[] args) { ArthurTranslation a = new ArthurTranslation(); }\n";
+
+    // addFields
+    s += "\npublic void addFields(Field[] fields) { for (Field f : fields) {\n";
+    s += "try {\n";
+    s += "Object val = f.get(this); JsWhisperer.addGlobal(f.getName(), val);\n";
+    s += "} catch(IllegalAccessException e) { e.printStackTrace(); }\n }\n }\n";
+
+    // constructor
+    s += "public ArthurTranslation() { init(); addFields(getClass().getDeclaredFields()); JsWhisperer.writeToBlob(); }\n\n";
     return s;
   }
 
@@ -46,8 +57,6 @@ public class JavaArthurTranslator extends ArthurTranslator {
     ParseNode fname = n.children.get(1);
     ParseNode parameters = n.children.get(2);
     JavaArthurFun fun = new JavaArthurFun(fname.val, returnType.val);
-    if (blockDepth == 0)
-      this.globals.add(fun);
     activeFunction = fun;
     return "\n" + fun.getFunDec();
   }
@@ -56,8 +65,6 @@ public class JavaArthurTranslator extends ArthurTranslator {
     ParseNode type = n.children.get(0);
     ParseNode name = n.children.get(1);
     JavaArthurVar var = new JavaArthurVar(name.val, type.val);
-    if (blockDepth == 0)
-      this.globals.add(var);
     return var.getVarDec();
   }
 
@@ -84,7 +91,7 @@ public class JavaArthurTranslator extends ArthurTranslator {
   }
 
   public String createAndTranslate(ParseNode source, boolean statement) {
-    JavaArthurTranslator t = new JavaArthurTranslator(source, statement, this.whisperer, this.blockDepth);
+    JavaArthurTranslator t = new JavaArthurTranslator(source, statement, this.blockDepth);
     return t.translateTree();
   }
 

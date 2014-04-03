@@ -34,14 +34,13 @@ public class ArthurCompiler {
     Parser parser = new Parser(false);
     ParseNode s = parser.doParsing(reader);
 
-    JsWhisperer whisperer = new JsWhisperer();
-    JavaArthurTranslator translator = new JavaArthurTranslator(s, whisperer);
+    JavaArthurTranslator translator = new JavaArthurTranslator(s);
     String translation = translator.translateTree();
     writeTranslation(translation);
 
     runTranslation();
 
-    whisperer = restoreWhisperer();
+    JsWhisperer whisperer = restoreWhisperer();
     System.out.println(whisperer);
 
   }

@@ -8,16 +8,15 @@ import java.io.ObjectInputStream;
 import java.io.IOException;
 
 import arthur.backend.media.*;
-import arthur.backend.translator.ArthurType;
 
 public class JsWhisperer implements java.io.Serializable {
 
   public static final String BLOBNAME = "whisperblob.ser";
 
   public static transient MediaMaster master = new MediaMaster();
-  public static transient ArrayList<ArthurType> globals = new ArrayList<ArthurType>();
+  public static transient ArrayList<GlobalMedia> globals = new ArrayList<GlobalMedia>();
 
-  public ArrayList<ArthurType> localGlobals;
+  public ArrayList<GlobalMedia> localGlobals;
   public ArrayList<String> localMediaFiles;
 
   public JsWhisperer() {
@@ -35,14 +34,17 @@ public class JsWhisperer implements java.io.Serializable {
     }
 
     s += "Globals:\n";
-    for (ArthurType t : localGlobals) {
-      s += "  " + t.toString() + "\n";
+    for (GlobalMedia g : localGlobals) {
+      s += "  " + g.toString() + "\n";
     }
     return s;
   }
 
-  public static void addVar(ArthurType var) {
-    globals.add(var);
+  public static void addGlobal(String name, Object val) {
+    System.out.println("adding field!");
+    ArthurMedia media = (ArthurMedia) val;
+    GlobalMedia g = new GlobalMedia(name, media);
+    globals.add(g);
   }
 
   public static void addMedia(ArthurMedia media) {
