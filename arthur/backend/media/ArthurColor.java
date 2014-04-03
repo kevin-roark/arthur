@@ -1,5 +1,8 @@
 package arthur.backend.media;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 /**
  * Java implementation of arthur color!
  */
@@ -97,6 +100,23 @@ public class ArthurColor extends ArthurMedia {
     js += "new ArthurNumber(" + this.b.val + "),";
     js += "new ArthurNumber(" + this.a.val + "))";
     return js;
+  }
+
+  /* saves state of current media to filename */
+  public void writeToFile(String filename) {
+    String json = "{\n'r': " + r.val + ",\n";
+    json += "'g': " + g.val + ",\n";
+    json += "'b': " + b.val + ",\n";
+    json += "'a': " + a.val + "\n}";
+    json = json.replace("'", "\"");
+
+    try {
+      PrintWriter out = new PrintWriter(filename);
+      out.println(json);
+      out.close();
+    } catch(FileNotFoundException e) {
+      e.printStackTrace();
+    }
   }
 
 }

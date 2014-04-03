@@ -2,6 +2,8 @@ package arthur.backend.whisperer;
 
 import arthur.backend.media.*;
 
+import arthur.backend.ArthurCompiler;
+
 public class MediaContainer {
 
   public String name;
@@ -15,26 +17,28 @@ public class MediaContainer {
   }
 
   private void setFilename() {
+    String n = ArthurCompiler.MEDIA_DIR + "/" + this.name;
     switch (this.media.type) {
       case ArthurColor.COLOR:
-        this.filename = this.name + "__color.txt"; break;
+        this.filename = n + "__color__.json"; break;
       case ArthurImage.IMAGE:
-        this.filename = this.name + "__image.png"; break;
+        this.filename = n + "__image__.png"; break;
       case ArthurNumber.NUMBER:
-        this.filename = this.name + "__number.txt"; break;
+        this.filename = n + "__number__.json"; break;
       case ArthurSound.SOUND:
-        this.filename = this.name + "__sound.mp3"; break;
+        this.filename = n + "__sound__.mp3"; break;
       case ArthurString.STRING:
-        this.filename = this.name + "__string.txt"; break;
+        this.filename = n + "__string__.json"; break;
       case ArthurVideo.VIDEO:
-        this.filename = this.name + "__video.mp4"; break;
+        this.filename = n + "__video__.mp4"; break;
       default:
-        this.filename = this.name + "_void";
+        this.filename = n + "_void";
     }
   }
 
   public void storeMedia() {
-    this.media.writeToFile(this.filename);
+    // when we write add the parent folder
+    this.media.writeToFile(ArthurCompiler.DEFAULT_OUT_NAME + "/" + this.filename);
   }
 
 }

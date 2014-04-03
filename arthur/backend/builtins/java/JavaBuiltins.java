@@ -3,6 +3,8 @@ package arthur.backend.builtins.java;
 import arthur.backend.media.*;
 import arthur.backend.whisperer.*;
 
+import java.lang.reflect.Field;
+
 public class JavaBuiltins {
 
   public static ArthurMedia get(ArthurString filename) {
@@ -25,12 +27,12 @@ public class JavaBuiltins {
     return new ArthurNumber();
   }
 
-  public static void add(ArthurMedia media) {
-    JsWhisperer.addMedia(media);
+  public static void _addMedia(ArthurMedia media, String name) {
+    JsWhisperer.addMedia(media, name);
   }
 
-  public static final ArthurColor RED = new ArthurColor(255, 0, 0, 255);
-  public static final ArthurColor WHITE = new ArthurColor(255, 255, 255, 255);
-  public static final ArthurColor BLUE = new ArthurColor(0, 0, 255, 255);
+  public static final ArthurColor RED = new ArthurColor(255, 0, 0, 1.0);
+  public static final ArthurColor WHITE = new ArthurColor(255, 255, 255, 1.0);
+  public static final ArthurColor BLUE = new ArthurColor(0, 0, 255, 1.0);
 
 }

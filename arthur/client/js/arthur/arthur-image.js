@@ -8,7 +8,7 @@ module.exports = ArthurImage;
 
 function ArthurImage(filename, frame) {
   this.type = types.IMAGE;
-  this.filename = filename;
+  this.medfile = filename;
   if (frame) {
     this.frame = frame;
   }

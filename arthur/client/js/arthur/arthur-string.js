@@ -39,7 +39,7 @@ ArthurString.prototype.multiply = function(s) {
 
   // average the strings
   var product = "";
-  for (int i = 0; i < shorter.length(); i++) {
+  for (var i = 0; i < shorter.length(); i++) {
     var avg = (longer.charCodeAt(i) + shorter.charCodeAt(i)) / 2;
     product += String.fromCharCode(avg);
   }

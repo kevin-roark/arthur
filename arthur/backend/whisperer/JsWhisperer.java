@@ -1,6 +1,8 @@
 package arthur.backend.whisperer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileInputStream;
@@ -14,6 +16,8 @@ public class JsWhisperer implements java.io.Serializable {
   public static final String BLOBNAME = "whisperblob.ser";
 
   public static transient MediaMaster master = new MediaMaster();
+  public static HashMap<String, GlobalMedia> mediaMap = new HashMap<String, GlobalMedia>();
+  public static HashMap<String, MediaContainer> globalMap = new HashMap<String, MediaContainer>();
   public static transient ArrayList<GlobalMedia> globals = new ArrayList<GlobalMedia>();
 
   public ArrayList<GlobalMedia> localGlobals;
@@ -41,15 +45,34 @@ public class JsWhisperer implements java.io.Serializable {
   }
 
   public static void addGlobal(String name, Object val) {
-    System.out.println("adding field!");
     ArthurMedia media = (ArthurMedia) val;
     GlobalMedia g = new GlobalMedia(name, media);
     globals.add(g);
+    mediaMap.put(name, g);
+    MediaContainer mc = globalMap.get(name);
+    if (mc != null) {
+      g.setMediaFile(mc);
+    }
   }
 
-  public static void addMedia(ArthurMedia media) {
-    String id = "" + (master.finalMedia.size() + 1);
-    master.addMedia(id, media);
+  public static GlobalMedia getGlobalMedia(String varname) {
+    GlobalMedia gm = mediaMap.get(varname);
+    return gm;
+  }
+
+  public static void addMedia(ArthurMedia media, String name) {
+    if (name != null) {
+      MediaContainer c = master.addMedia(name, media);
+      GlobalMedia gm = getGlobalMedia(name);
+      if (gm != null) {
+        gm.setMediaFile(c);
+      }
+      globalMap.put(name, c);
+    } else {
+      String id = "" + (master.finalMedia.size() + 1);
+      MediaContainer c = master.addMedia(id, media);
+      globalMap.put(name, c);
+    }
   }
 
   public static void writeToBlob() {

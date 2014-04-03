@@ -36,10 +36,26 @@ public class JavaArthurTranslator extends ArthurTranslator {
     s += "\npublic static void main(String[] args) { ArthurTranslation a = new ArthurTranslation(); }\n";
 
     // addFields
-    s += "\npublic void addFields(Field[] fields) { for (Field f : fields) {\n";
-    s += "try {\n";
-    s += "Object val = f.get(this); JsWhisperer.addGlobal(f.getName(), val);\n";
-    s += "} catch(IllegalAccessException e) { e.printStackTrace(); }\n }\n }\n";
+    s += "\npublic void addFields(Field[] fields) {\n for (Field f : fields) {\n";
+    s += "  try {\n";
+    s += "    Object val = f.get(this); JsWhisperer.addGlobal(f.getName(), val);\n";
+    s += "  } catch(IllegalAccessException e) { e.printStackTrace(); }\n }\n }\n";
+
+    // isField
+    s += "public static String _isField(Object o, Object v) {\n";
+    s += "  for (Field f : o.getClass().getDeclaredFields()) {\n";
+    s += "    try {\n";
+    s += "      Object val = f.get(o);\n";
+    s += "      if (val == v) { return f.getName(); }\n";
+    s += "    } catch(IllegalAccessException e) { e.printStackTrace(); }\n";
+    s += "  }\n";
+    s += "  return null;\n";
+    s += "}\n";
+
+    // add
+    s += "\npublic void add(ArthurMedia media) {\n";
+    s += "  String name = _isField(this, media);\n";
+    s += "  _addMedia(media, name); \n}\n";
 
     // constructor
     s += "public ArthurTranslation() { init(); addFields(getClass().getDeclaredFields()); JsWhisperer.writeToBlob(); }\n\n";

@@ -25,7 +25,7 @@ public class JsMiddleMan {
     int lastAfterIdx = 0;
     for (GlobalMedia gm : this.whisperer.localGlobals) {
       String dec = "var " + gm.name;
-      String decVal = dec + " = " + gm.value.jsLiteral();
+      String decVal = dec + " = " + literalWrapper(gm, gm.value.jsLiteral());
       decVal.replace("\n", "");
       int idx = this.translation.indexOf(dec);
       if (idx != -1) {
@@ -38,6 +38,13 @@ public class JsMiddleMan {
     return Math.max(lastAfterIdx + 1, MIN_LEN);
   }
 
+  private String literalWrapper(GlobalMedia gm, String literal) {
+    if (gm.mediaFile != null)
+      return "literalWrapper(" + literal + ", '" + gm.mediaFile + "')";
+    else
+      return "literalWrapper(" + literal + ")";
+  }
+
   private void removeStupidFunctions() {
 
   }
@@ -47,17 +54,17 @@ public class JsMiddleMan {
     String after = this.translation.substring(idx);
     String additions = "\n";
     for (String s : this.whisperer.localMediaFiles) {
-      if (s.indexOf("color") != -1) {
+      if (s.indexOf("__color__") != -1) {
         additions += "addArthurColor('" + s + "');";
-      } else if (s.indexOf("image") != -1) {
+      } else if (s.indexOf("__image__") != -1) {
         additions += "addArthurImage('" + s + "');";
-      } else if (s.indexOf("number") != -1) {
+      } else if (s.indexOf("__number__") != -1) {
         additions += "addArthurNumber('" + s + "');";
-      } else if (s.indexOf("sound") != -1) {
+      } else if (s.indexOf("__sound__") != -1) {
         additions += "addArthurSound('" + s + "');";
-      } else if (s.indexOf("video") != -1) {
+      } else if (s.indexOf("__video__") != -1) {
         additions += "addArthurVideo('" + s + "');";
-      } else if (s.indexOf("string") != -1) {
+      } else if (s.indexOf("__string__") != -1) {
         additions += "addArthurString('" + s + "');";
       }
 
