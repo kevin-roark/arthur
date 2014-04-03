@@ -12,6 +12,10 @@ public class ArthurColor extends ArthurMedia {
     this(new ArthurNumber(0), new ArthurNumber(0), new ArthurNumber(0), new ArthurNumber(0));
   }
 
+  public ArthurColor(double r, double g, double b, double a) {
+    this(new ArthurNumber(r), new ArthurNumber(g), new ArthurNumber(b), new ArthurNumber(a));
+  }
+
   public ArthurColor(ArthurNumber r, ArthurNumber g, ArthurNumber b, ArthurNumber a) {
     this.type = COLOR;
     this.r=r;
@@ -20,7 +24,7 @@ public class ArthurColor extends ArthurMedia {
     this.a=a;
   }
 
-  public ArthurMedia add(ArthurMedia two) {
+  public ArthurColor add(ArthurMedia two) {
     if (two.type.equals(COLOR)) {
       return JavaColorMath.add(this, (ArthurColor)two);
     } else if (two.type.equals(ArthurImage.IMAGE)) {
@@ -43,7 +47,7 @@ public class ArthurColor extends ArthurMedia {
     }
   }
 
-  public ArthurMedia minus(ArthurMedia two) {
+  public ArthurColor minus(ArthurMedia two) {
     if (two.type.equals(COLOR)) {
       return JavaColorMath.minus(this, (ArthurColor)two);
     } else if (two.type.equals(ArthurImage.IMAGE)) {
@@ -64,7 +68,7 @@ public class ArthurColor extends ArthurMedia {
     return null;
   }
 
-  public ArthurMedia multiply(ArthurMedia two) {
+  public ArthurColor multiply(ArthurMedia two) {
     if (two.type.equals(COLOR)) {
       return JavaColorMath.multiply(this, (ArthurColor) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
@@ -73,7 +77,7 @@ public class ArthurColor extends ArthurMedia {
     return null;
   }
 
-  public ArthurMedia divide(ArthurMedia two) {
+  public ArthurColor divide(ArthurMedia two) {
     if (two.type.equals(COLOR)) {
       return JavaColorMath.divide(this, (ArthurColor) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {

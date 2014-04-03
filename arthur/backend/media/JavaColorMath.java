@@ -15,15 +15,15 @@ public static ArthurColor add(ArthurColor one, ArthurColor two) {
 }
 
 public static ArthurColor add(ArthurColor one, ArthurImage two) {
-
+	return null;
 }
 
 public static ArthurColor add(ArthurColor one, ArthurVideo two) {
-
+	return null;
 }
 
 public static ArthurColor add(ArthurColor one, ArthurSound two) {
-
+	return null;
 }
 
 public static ArthurColor add(ArthurColor one, ArthurNumber two) {
@@ -35,7 +35,7 @@ public static ArthurColor add(ArthurColor one, ArthurNumber two) {
 }
 
 public static ArthurColor add(ArthurColor one, ArthurString two) {
-
+	return null;
 }
 
 public static ArthurColor minus(ArthurColor one, ArthurColor two) {
@@ -47,15 +47,15 @@ public static ArthurColor minus(ArthurColor one, ArthurColor two) {
 }
 
 public static ArthurColor minus(ArthurColor one, ArthurImage two) {
-
+	return null;
 }
 
 public static ArthurColor minus(ArthurColor one, ArthurVideo two) {
-
+	return null;
 }
 
 public static ArthurColor minus(ArthurColor one, ArthurSound two) {
-
+	return null;
 }
 
 public static ArthurColor minus(ArthurColor one, ArthurNumber two) {
@@ -67,7 +67,7 @@ public static ArthurColor minus(ArthurColor one, ArthurNumber two) {
 }
 
 public static ArthurColor minus(ArthurColor one, ArthurString two) {
-
+	return null;
 }
 
 public static ArthurColor multiply(ArthurColor one, ArthurColor two) {
@@ -79,15 +79,15 @@ public static ArthurColor multiply(ArthurColor one, ArthurColor two) {
 }
 
 public static ArthurColor multiply(ArthurColor one, ArthurImage two) {
-
+	return null;
 }
 
 public static ArthurColor multiply(ArthurColor one, ArthurVideo two) {
-
+	return null;
 }
 
 public static ArthurColor multiply(ArthurColor one, ArthurSound two) {
-
+	return null;
 }
 
 public static ArthurColor multiply(ArthurColor one, ArthurNumber two) {
@@ -99,7 +99,7 @@ public static ArthurColor multiply(ArthurColor one, ArthurNumber two) {
 }
 
 public static ArthurColor multiply(ArthurColor one, ArthurString two) {
-
+	return null;
 }
 
 public static ArthurColor divide(ArthurColor one, ArthurColor two) {
@@ -111,15 +111,15 @@ public static ArthurColor divide(ArthurColor one, ArthurColor two) {
 }
 
 public static ArthurColor divide(ArthurColor one, ArthurImage two) {
-
+	return null;
 }
 
 public static ArthurColor divide(ArthurColor one, ArthurVideo two) {
-
+	return null;
 }
 
 public static ArthurColor divide(ArthurColor one, ArthurSound two) {
-
+	return null;
 }
 
 public static ArthurColor divide(ArthurColor one, ArthurNumber two) {
@@ -131,7 +131,7 @@ public static ArthurColor divide(ArthurColor one, ArthurNumber two) {
 }
 
 public static ArthurColor divide(ArthurColor one, ArthurString two) {
-
+	return null;
 }
 
 }

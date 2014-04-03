@@ -30,6 +30,7 @@ public class JavaArthurTranslator extends ArthurTranslator {
     s += "import arthur.backend.whisperer.*;\n";
     s += "import static arthur.backend.builtins.java.JavaBuiltins.*;\n";
     s += "\npublic class ArthurTranslation {\n";
+    s += "\npublic static void main(String[] args) { ArthurTranslation a = new ArthurTranslation(); }";
     s += "public ArthurTranslation() { init(); JsWhisperer.writeToBlob(); }\n\n";
     return s;
   }

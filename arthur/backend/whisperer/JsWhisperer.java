@@ -25,6 +25,22 @@ public class JsWhisperer implements java.io.Serializable {
     localMediaFiles = null;
   }
 
+  public String toString() {
+    String s = "";
+    if (localMediaFiles != null) {
+      s += "Media files:\n";
+      for (String m : localMediaFiles) {
+        s += "  " + m + "\n";
+      }
+    }
+
+    s += "Globals:\n";
+    for (ArthurType t : localGlobals) {
+      s += "  " + t.toString() + "\n";
+    }
+    return s;
+  }
+
   public static void addVar(ArthurType var) {
     globals.add(var);
   }
@@ -49,13 +65,22 @@ public class JsWhisperer implements java.io.Serializable {
          in.close();
          fileIn.close();
     } catch(IOException e) {
-         e.printStackTrace();
-         return blob;
+         System.out.println("file not found");
+         return new JsWhisperer();
     } catch(ClassNotFoundException e) {
          e.printStackTrace();
          return blob;
     }
     return blob;
+  }
+
+  public static void removeBlobFile() {
+    try {
+      Process p = Runtime.getRuntime().exec("rm -f " + BLOBNAME);
+      p.waitFor();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   public void writeOut(String filename) {

@@ -11,8 +11,8 @@ import static arthur.backend.builtins.java.JavaBuiltins.*;
 public class ArthurTranslation {
 public ArthurTranslation() { init(); JsWhisperer.writeToBlob(); }
 
-JavaArthurNum time;
-JavaArthurColor screenColor;
+ArthurNum time;
+ArthurColor screenColor;
 
 public void init() {
  screenColor =  RED;
@@ -56,21 +56,21 @@ public ArthurTranslation() { init(); JsWhisperer.writeToBlob(); }
 
 
 public void init() {
-JavaArthurColor white = new JavaArthurColor(0, 0, 0, 1.0);
-JavaArthurColor mystery = new JavaArthurColor(127, 127, 30, 1.0);
-JavaArthurImage dog = get(new JavaArthurString("whitepoodle.jpg"));
-JavaArthurImage rect = get(new JavaArthurString("justawhiterectangle.jpg"));
+ArthurColor white = new JavaArthurColor(0, 0, 0, 1.0);
+ArthurColor mystery = new JavaArthurColor(127, 127, 30, 1.0);
+ArthurImage dog = get(new JavaArthurString("whitepoodle.jpg"));
+ArthurImage rect = get(new JavaArthurString("justawhiterectangle.jpg"));
  rect =  rect.multiply(new JavaArthurNum(37.0));
 add( dog);
 add( rect);
 
 }
 
-public void loop(JavaArthurNum x, JavaArthurColor y) {
+public void loop(ArthurNum x, ArthurColor y) {
 
 }
 
-public JavaArthurVideo make_it_blue_and_z(JavaArthurVideo vid, JavaArthurColor z) {
+public ArthurVideo make_it_blue_and_z(ArthurVideo vid, ArthurColor z) {
 return  vid.plus( BLUE).plus( z);
 
 }
@@ -90,13 +90,13 @@ import static arthur.backend.builtins.java.JavaBuiltins.*;
 public class ArthurTranslation {
 public ArthurTranslation() { init(); JsWhisperer.writeToBlob(); }
 
-JavaArthurColor mystery;
-JavaArthurImage dog;
-JavaArthurImage rect;
+ArthurColor mystery;
+ArthurImage dog;
+ArthurImage rect;
 
-public void color_replace(JavaArthurImage image, JavaArthurColor badColor, JavaArthurColor goodColor) {
-JavaArthurNum i = new JavaArthurNum(0.0);
-JavaArthurNum j = new JavaArthurNum(0.0);
+public void color_replace(ArthurImage image, ArthurColor badColor, ArthurColor goodColor) {
+ArthurNum i = new JavaArthurNum(0.0);
+ArthurNum j = new JavaArthurNum(0.0);
 while ( i.lessThan( image.width)) {
 while ( j.lessThan( image.height)) {
 if ( image.pixel( i,  j).arthurEquals( badColor)) {
@@ -114,7 +114,7 @@ public void init() {
  dog = get(new JavaArthurString("whitepoodle.jpg"));
  rect = get(new JavaArthurString("justawhiterectangle.jpg"));
  rect =  rect.multiply(new JavaArthurNum(37.0));
-JavaArthurNum i = new JavaArthurNum(1.0);
+ArthurNum i = new JavaArthurNum(1.0);
 while ( i.lessThan(new JavaArthurNum(5.0))) {
  i =  i.plus(new JavaArthurNum(1.0));
 }

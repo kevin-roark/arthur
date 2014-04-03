@@ -18,7 +18,7 @@ public class ArthurNumber extends ArthurMedia {
     this.val = val;
   }
 
-  public ArthurMedia add(ArthurMedia two) {
+  public ArthurNumber add(ArthurMedia two) {
     if (two.type.equals(NUMBER)) {
       return JavaNumberMath.add(this, (ArthurNumber) two);
     } else {
@@ -27,7 +27,7 @@ public class ArthurNumber extends ArthurMedia {
     }
   }
 
-  public ArthurMedia minus(ArthurMedia two) {
+  public ArthurNumber minus(ArthurMedia two) {
     if (two.type.equals(NUMBER)) {
       return JavaNumberMath.minus(this, (ArthurNumber) two);
     } else {
@@ -36,7 +36,7 @@ public class ArthurNumber extends ArthurMedia {
     }
   }
 
-  public ArthurMedia multiply(ArthurMedia two) {
+  public ArthurNumber multiply(ArthurMedia two) {
     if (two.type.equals(NUMBER)) {
       return JavaNumberMath.multiply(this, (ArthurNumber) two);
     } else {
@@ -45,7 +45,7 @@ public class ArthurNumber extends ArthurMedia {
     }
   }
 
-  public ArthurMedia divide(ArthurMedia two) {
+  public ArthurNumber divide(ArthurMedia two) {
     if (two.type.equals(NUMBER)) {
       return JavaNumberMath.divide(this, (ArthurNumber) two);
     } else {

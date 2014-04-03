@@ -75,7 +75,7 @@ public abstract class ArthurTranslator {
       case "dw":
         return ifStyle(n, "while");
       case "Identifier":
-        return " " + n.children.get(0).val;
+        return identifierVal(n.children.get(0).val);
       case "Fun call":
         this.ignoreChildren = true;
         ParseNode fcname = n.children.get(0).children.get(0);
@@ -113,7 +113,7 @@ public abstract class ArthurTranslator {
       case "-":
         return twoSideOp(n, ".minus(");
       case "+":
-        return twoSideOp(n, ".plus(");
+        return twoSideOp(n, ".add(");
       case "*":
         return twoSideOp(n, ".multiply(");
       case "/":
@@ -127,6 +127,10 @@ public abstract class ArthurTranslator {
       default:
         return "";
     }
+  }
+
+  public String identifierVal(String val) {
+    return " " + val;
   }
 
   /* like '=' or '<' */

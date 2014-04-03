@@ -34,6 +34,14 @@ public class ArthurMedia {
     return false;
   }
 
+  public boolean lessThan(ArthurMedia two) {
+    return false;
+  }
+
+  public boolean greaterThan(ArthurMedia two) {
+    return false;
+  }
+
   public ArthurMedia castTo(String mediaType) {
     return null;
   }

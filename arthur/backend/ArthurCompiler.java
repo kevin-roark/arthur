@@ -3,6 +3,7 @@ package arthur.backend;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.io.IOException;
 
 import arthur.frontend.ParseNode;
 import arthur.frontend.Parser;
@@ -12,7 +13,9 @@ import arthur.backend.translator.java.JavaArthurTranslator;
 
 public class ArthurCompiler {
 
-  public static void main(String[] args) {
+  public static final String TNAME = "ArthurTranslation";
+
+  public static void main(String[] args) throws IOException, InterruptedException {
     if (args.length != 1) {
       System.out.println("usage: java ArthurCompiler <arthur_source_program_file>");
       return;
@@ -32,21 +35,44 @@ public class ArthurCompiler {
     ParseNode s = parser.doParsing(reader);
 
     JsWhisperer whisperer = new JsWhisperer();
-
     JavaArthurTranslator translator = new JavaArthurTranslator(s, whisperer);
     String translation = translator.translateTree();
     writeTranslation(translation);
+
+    runTranslation();
+
+    whisperer = restoreWhisperer();
+    System.out.println(whisperer);
 
   }
 
   public static void writeTranslation(String translation) {
     try {
-      PrintWriter out = new PrintWriter("ArthurTranslation.java");
+      PrintWriter out = new PrintWriter(TNAME + ".java");
       out.println(translation);
       out.close();
     } catch(FileNotFoundException e) {
       e.printStackTrace();
     }
+  }
+
+  public static void removeTranslationFile() throws IOException {
+    //Runtime.getRuntime().exec("rm -f " + TNAME + ".java");
+    Runtime.getRuntime().exec("rm -f " + TNAME + ".class");
+  }
+
+  public static void runTranslation() throws IOException, InterruptedException {
+    Process p = Runtime.getRuntime().exec("javac " + TNAME + ".java");
+    p.waitFor();
+    p = Runtime.getRuntime().exec("java " + TNAME);
+    p.waitFor();
+  }
+
+  public static JsWhisperer restoreWhisperer() throws IOException {
+    JsWhisperer w = JsWhisperer.restoreFromBlob();
+    JsWhisperer.removeBlobFile();
+    removeTranslationFile();
+    return w;
   }
 
   public ArthurCompiler() {

@@ -8,5 +8,6 @@ rm -f arthur/backend/translator/java/*.class;
 rm -f arthur/backend/translator/js/*.class;
 
 rm -rf arthur/*.class;
+rm -rf ./*.class
 
-rm ArthurTranslation.java
+rm -f ArthurTranslation.java
