@@ -20,11 +20,11 @@ public class JsArthurVar extends ArthurVar {
   }
 
   public static String numLiteral(String val) {
-    return "new JsArthurNum(" + val + ")";
+    return "new ArthurNumber(" + val + ")";
   }
 
   public static String colorLiteral(ParseNode color) {
-    String c = "new JsArthurColor(";
+    String c = "new ArthurColor(";
     c += color.children.get(0).val + ", ";
     c += color.children.get(1).val + ", ";
     c += color.children.get(2).val + ", ";
@@ -33,7 +33,7 @@ public class JsArthurVar extends ArthurVar {
   }
 
   public static String stringLiteral(String val) {
-    return "new JsArthurString(" + val + ")";
+    return "new ArthurString(" + val + ")";
   }
 
 }

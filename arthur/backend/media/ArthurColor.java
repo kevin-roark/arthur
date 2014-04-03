@@ -90,4 +90,13 @@ public class ArthurColor extends ArthurMedia {
     return "<<" + this.r + ", " + this.g + ", " + this.b + ">>";
   }
 
+  public String jsLiteral() {
+    String js = "new ArthurColor(";
+    js += "new ArthurNumber(" + this.r.val + "),";
+    js += "new ArthurNumber(" + this.g.val + "),";
+    js += "new ArthurNumber(" + this.b.val + "),";
+    js += "new ArthurNumber(" + this.a.val + "))";
+    return js;
+  }
+
 }

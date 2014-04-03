@@ -9,7 +9,9 @@ import arthur.frontend.ParseNode;
 import arthur.frontend.Parser;
 
 import arthur.backend.whisperer.JsWhisperer;
+import arthur.backend.whisperer.JsMiddleMan;
 import arthur.backend.translator.java.JavaArthurTranslator;
+import arthur.backend.translator.js.JsArthurTranslator;
 
 public class ArthurCompiler {
 
@@ -34,15 +36,20 @@ public class ArthurCompiler {
     Parser parser = new Parser(false);
     ParseNode s = parser.doParsing(reader);
 
-    JavaArthurTranslator translator = new JavaArthurTranslator(s);
-    String translation = translator.translateTree();
-    writeTranslation(translation);
+    JavaArthurTranslator javaTranslator = new JavaArthurTranslator(s);
+    String javaTranslation = javaTranslator.translateTree();
+    writeTranslation(javaTranslation);
 
     runTranslation();
 
     JsWhisperer whisperer = restoreWhisperer();
-    System.out.println(whisperer);
 
+    JsArthurTranslator jsTranslator = new JsArthurTranslator(s);
+    String jsTranslation = jsTranslator.translateTree();
+
+    JsMiddleMan meddler = new JsMiddleMan(jsTranslation, whisperer);
+    String meddledJs = meddler.augment();
+    System.out.println(meddledJs);
   }
 
   public static void writeTranslation(String translation) {

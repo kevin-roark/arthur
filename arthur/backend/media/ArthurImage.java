@@ -68,4 +68,8 @@ public class ArthurImage extends ArthurMedia {
     return "image width " + width + "px, height " + height + "px";
   }
 
+  public String jsLiteral() {
+    return "new ArthurImage()";
+  }
+
 }

@@ -50,4 +50,8 @@ public class ArthurMedia implements java.io.Serializable {
 
   }
 
+  public String jsLiteral() {
+    return "";
+  }
+
 }

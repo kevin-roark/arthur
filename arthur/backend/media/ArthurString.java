@@ -66,4 +66,8 @@ public class ArthurString extends ArthurMedia {
     return this.str;
   }
 
+  public String jsLiteral() {
+    return "new ArthurString('" + this.str + "')";
+  }
+
 }

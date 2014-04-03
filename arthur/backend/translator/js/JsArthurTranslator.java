@@ -8,11 +8,11 @@ import arthur.backend.translator.ArthurType;
 
 public class JsArthurTranslator extends ArthurTranslator {
 
-  public JavaArthurTranslator(ParseNode source) {
+  public JsArthurTranslator(ParseNode source) {
     this(source, true, 0);
   }
 
-  public JavaArthurTranslator(ParseNode source, boolean isStatement, int bd) {
+  public JsArthurTranslator(ParseNode source, boolean isStatement, int bd) {
     this.source = source;
     this.blockDepth = bd;
     this.ignoreChildren = false;

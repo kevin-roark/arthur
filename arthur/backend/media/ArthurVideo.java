@@ -27,4 +27,8 @@ public class ArthurVideo extends ArthurMedia {
     return this;
   }
 
+  public String jsLiteral() {
+    return "new ArthurVideo()";
+  }
+
 }

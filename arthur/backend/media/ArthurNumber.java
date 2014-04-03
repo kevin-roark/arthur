@@ -58,4 +58,8 @@ public class ArthurNumber extends ArthurMedia {
     return "" + this.val;
   }
 
+  public String jsLiteral() {
+    return "new ArthurNumber(" + this.val + ")";
+  }
+
 }

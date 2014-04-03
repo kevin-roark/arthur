@@ -27,4 +27,8 @@ public class ArthurSound extends ArthurMedia {
     return this;
   }
 
+  public String jsLiteral() {
+    return "new ArthurSound()";
+  }
+
 }
