@@ -1,4 +1,4 @@
-package arthur.backend.media;
+//package arthur.backend.media;
 
 /**
  * The base class for all of the media types like JavaArthurImage.
@@ -21,7 +21,7 @@ public class ArthurMedia {
   public ArthurMedia minus(ArthurMedia two) {
     return null;
   }
-
+  
   public ArthurMedia multiply(ArthurMedia two) {
     return null;
   }
@@ -29,6 +29,8 @@ public class ArthurMedia {
   public ArthurMedia divide(ArthurMedia two) {
     return null;
   }
+
+  /*
 
   public boolean arthurEquals(ArthurMedia two) {
     return false;
@@ -38,4 +40,5 @@ public class ArthurMedia {
     return null;
   }
 
+  */
 }
