@@ -30,7 +30,8 @@ module.exports.addArthurString = function(filename, frame) {
 }
 
 module.exports.addArthurImage = function(filename, frame) {
-  return new ArthurImage(filename, frame);
+  var ai = new ArthurImage(filename, frame);
+  ai.draw();
 }
 
 module.exports.addArthurSound = function(filename, frame) {
