@@ -5,19 +5,22 @@ import java.util.ArrayList;
 import arthur.frontend.ParseNode;
 import arthur.backend.translator.ArthurTranslator;
 import arthur.backend.translator.ArthurType;
+import arthur.backend.whisperer.JsWhisperer;
+
 
 public class JsArthurTranslator extends ArthurTranslator {
 
-  public JsArthurTranslator(ParseNode source) {
-    this(source, true);
+  public JavaArthurTranslator(ParseNode source, JsWhisperer whisperer) {
+    this(source, true, whisperer, 0);
   }
 
-  public JsArthurTranslator(ParseNode source, boolean isStatement) {
+  public JavaArthurTranslator(ParseNode source, boolean isStatement, JsWhisperer whisperer, int bd) {
     this.source = source;
-    this.globals = new ArrayList<ArthurType>();
-    this.blockDepth = 0;
+    this.globals = whisperer.globals;
+    this.blockDepth = bd;
     this.ignoreChildren = false;
     this.isStatement = isStatement;
+    this.whisperer = whisperer;
   }
 
   public String getIntro() {
@@ -75,7 +78,7 @@ public class JsArthurTranslator extends ArthurTranslator {
   }
 
   public String createAndTranslate(ParseNode source, boolean statement) {
-    JsArthurTranslator t = new JsArthurTranslator(source, statement);
+    JsArthurTranslator t = new JsArthurTranslator(source, statement, null, this.blockDepth);
     return t.translateTree();
   }
 

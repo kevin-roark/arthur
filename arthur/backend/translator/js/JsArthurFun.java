@@ -8,11 +8,10 @@ import arthur.backend.media.*;
 
 public class JsArthurFun extends ArthurFun {
 
-  public JsArthurFun(String name, String type, ArthurMedia value) {
+  public JsArthurFun(String name, String type) {
     this.name = name;
     this.returnType = type;
     this.parameters = new ArrayList<ArthurVar>();
-    this.value = value;
   }
 
   public String getFunDec() {

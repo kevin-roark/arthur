@@ -7,19 +7,19 @@ package arthur.backend.media;
 public class JavaImageMath {
 
   public static ArthurImage add(ArthurImage one, ArthurImage two) {
-
+    return null;
   }
 
   public static ArthurImage minus(ArthurImage one, ArthurImage two) {
-
+    return null;
   }
 
   public static ArthurImage multiply(ArthurImage one, ArthurImage two) {
-
+    return null;
   }
 
   public static ArthurImage divide(ArthurImage one, ArthurImage two) {
-
+    return null;
   }
 
 }

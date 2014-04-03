@@ -6,15 +6,15 @@ import arthur.backend.whisperer.*;
 public class JavaBuiltins {
 
   public static ArthurMedia get(String filename) {
-
+    return null;
   }
 
   public static ArthurNumber ms() {
-
+    return null;
   }
 
   public static void add(ArthurMedia media) {
-    JsWhisperer.add(media);
+    JsWhisperer.addMedia(media);
   }
 
 }

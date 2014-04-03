@@ -38,4 +38,8 @@ public class ArthurMedia {
     return null;
   }
 
+  public void writeToFile(String filename) {
+
+  }
+
 }

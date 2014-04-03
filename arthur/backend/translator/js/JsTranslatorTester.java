@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import arthur.frontend.Parser;
 import arthur.frontend.ParseNode;
+import arthur.backend.whisperer.JsWhisperer;
 
 public class JsTranslatorTester {
 
@@ -28,7 +29,9 @@ public class JsTranslatorTester {
     Parser parser = new Parser(false);
     ParseNode s = parser.doParsing(reader);
 
-    JsArthurTranslator translator = new JsArthurTranslator(s);
+    JsWhisperer whisperer = new JsWhisperer();
+
+    JsArthurTranslator translator = new JsArthurTranslator(s, whisperer);
     String translation = translator.translateTree();
     System.out.println(translation);
   }

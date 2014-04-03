@@ -5,7 +5,7 @@ package arthur.backend.media;
  */
 public class ArthurSound extends ArthurMedia {
 
-  public static String SOUND = "sound";
+  public static final String SOUND = "sound";
 
   public ArthurSound() {
     this.type = SOUND;

@@ -5,7 +5,9 @@ package arthur.backend.media;
  */
 public class ArthurString extends ArthurMedia {
 
-  public static String STRING = "string";
+  public static final String STRING = "string";
+
+  public String str;
 
   public ArthurString() {
     this("");
@@ -18,9 +20,9 @@ public class ArthurString extends ArthurMedia {
 
   public ArthurMedia add(ArthurMedia two) {
     if (two.type.equals(STRING)) {
-      return JavaStringMath.add(one, (ArthurString) two);
+      return JavaStringMath.add(this, (ArthurString) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
-      return JavaStringMath.add(one, (ArthurNumber) two);
+      return JavaStringMath.add(this, (ArthurNumber) two);
     } else {
       // coerce later
       return null;
@@ -29,9 +31,9 @@ public class ArthurString extends ArthurMedia {
 
   public ArthurMedia minus(ArthurMedia two) {
     if (two.type.equals(STRING)) {
-      return JavaStringMath.minus(one, (ArthurString) two);
+      return JavaStringMath.minus(this, (ArthurString) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
-      return JavaStringMath.minus(one, (ArthurNumber) two);
+      return JavaStringMath.minus(this, (ArthurNumber) two);
     } else {
       // coerce later
       return null;
@@ -40,9 +42,9 @@ public class ArthurString extends ArthurMedia {
 
   public ArthurMedia multiply(ArthurMedia two) {
     if (two.type.equals(STRING)) {
-      return JavaStringMath.multiply(one, (ArthurString) two);
+      return JavaStringMath.multiply(this, (ArthurString) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
-      return JavaStringMath.multiply(one, (ArthurNumber) two);
+      return JavaStringMath.multiply(this, (ArthurNumber) two);
     } else {
       // coerce later
       return null;
@@ -51,9 +53,9 @@ public class ArthurString extends ArthurMedia {
 
   public ArthurMedia divide(ArthurMedia two) {
     if (two.type.equals(STRING)) {
-      return JavaStringMath.divide(one, (ArthurString) two);
+      return JavaStringMath.divide(this, (ArthurString) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
-      return JavaStringMath.divide(one, (ArthurNumber) two);
+      return JavaStringMath.divide(this, (ArthurNumber) two);
     } else {
       // coerce later
       return null;

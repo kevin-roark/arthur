@@ -6,10 +6,9 @@ import arthur.backend.media.*;
 
 public class JavaArthurVar extends ArthurVar {
 
-  public JavaArthurVar(String name, String type, ArthurMedia value) {
+  public JavaArthurVar(String name, String type) {
     this.name = name;
     this.type = type;
-    this.value = value;
   }
 
   public String getVarDec() {

@@ -5,7 +5,7 @@ package arthur.backend.media;
  */
 public class ArthurColor extends ArthurMedia {
 
-  public static String COLOR = "color";
+  public static final String COLOR = "color";
   public ArthurNumber r, g, b, a;
 
   public ArthurColor() {
@@ -23,22 +23,22 @@ public class ArthurColor extends ArthurMedia {
   public ArthurMedia add(ArthurMedia two) {
     if (two.type.equals(COLOR)) {
       return JavaColorMath.add(this, (ArthurColor)two);
-    } else if (two.type.equals(IMAGE)) {
+    } else if (two.type.equals(ArthurImage.IMAGE)) {
       return JavaColorMath.add(this, (ArthurImage)two);
     }
-    else if (two.type.equals(SOUND)) {
+    else if (two.type.equals(ArthurSound.SOUND)) {
       return JavaColorMath.add(this, (ArthurSound)two);
     }
-    else if (two.type.equals(VIDEO)) {
+    else if (two.type.equals(ArthurVideo.VIDEO)) {
       return JavaColorMath.add(this, (ArthurVideo)two);
     }
-    else if (two.type.equals(STRING)) {
+    else if (two.type.equals(ArthurString.STRING)) {
       return JavaColorMath.add(this, (ArthurString)two);
     }
-    else if (two.type.equals(NUMBER)) {
+    else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaColorMath.add(this, (ArthurNumber)two);
     }
-    else
+    else {
       return null;
     }
   }
@@ -46,47 +46,44 @@ public class ArthurColor extends ArthurMedia {
   public ArthurMedia minus(ArthurMedia two) {
     if (two.type.equals(COLOR)) {
       return JavaColorMath.minus(this, (ArthurColor)two);
-    } else if (two.type.equals(IMAGE)) {
+    } else if (two.type.equals(ArthurImage.IMAGE)) {
       return JavaColorMath.minus(this, (ArthurImage)two);
     }
-    else if (two.type.equals(SOUND)) {
+    else if (two.type.equals(ArthurSound.SOUND)) {
       return JavaColorMath.minus(this, (ArthurSound)two);
     }
-    else if (two.type.equals(VIDEO)) {
+    else if (two.type.equals(ArthurVideo.VIDEO)) {
       return JavaColorMath.minus(this, (ArthurVideo)two);
     }
-    else if (two.type.equals(STRING)) {
+    else if (two.type.equals(ArthurString.STRING)) {
       return JavaColorMath.minus(this, (ArthurString)two);
     }
-    else if (two.type.equals(NUMBER)) {
+    else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaColorMath.minus(this, (ArthurNumber)two);
     }
+    return null;
   }
 
   public ArthurMedia multiply(ArthurMedia two) {
     if (two.type.equals(COLOR)) {
-      return JavaColorMath.multiply(this, (ArthurColor)two);
-    } else if (two.type.equals(NUMBER)) {
-        JavaColorMath.multiply(this, (ArthurNumber)two)
+      return JavaColorMath.multiply(this, (ArthurColor) two);
+    } else if (two.type.equals(ArthurNumber.NUMBER)) {
+      JavaColorMath.multiply(this, (ArthurNumber) two);
     }
-    else
-      // OP NOT ALLOWED
-      return null;
-    }
+    return null;
   }
 
   public ArthurMedia divide(ArthurMedia two) {
     if (two.type.equals(COLOR)) {
-      return JavaColorMath.divide(this, (ArthurColor)two);
-    } else if (two.type.equals(NUMBER)) {
-        JavaColorMath.divide(this, (ArthurNumber)two)
-    } else {
-      // coerce to Color?
-      return null;
+      return JavaColorMath.divide(this, (ArthurColor) two);
+    } else if (two.type.equals(ArthurNumber.NUMBER)) {
+      JavaColorMath.divide(this, (ArthurNumber) two);
     }
+    return null;
   }
 
-public String toString(){
-  return this.r+","+this.g+","+this.b;
-}
+  public String toString() {
+    return this.r + "," + this.g + "," + this.b;
+  }
+
 }

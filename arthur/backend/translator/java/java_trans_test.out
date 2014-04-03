@@ -9,7 +9,7 @@ import arthur.backend.whisperer.*;
 import static arthur.backend.builtins.java.JavaBuiltins.*;
 
 public class ArthurTranslation {
-public ArthurTranslation() { init(); JsWhisperer.printGlobals(); }
+public ArthurTranslation() { init(); JsWhisperer.writeToBlob(); }
 
 JavaArthurNum time;
 JavaArthurColor screenColor;
@@ -52,7 +52,7 @@ import arthur.backend.whisperer.*;
 import static arthur.backend.builtins.java.JavaBuiltins.*;
 
 public class ArthurTranslation {
-public ArthurTranslation() { init(); JsWhisperer.printGlobals(); }
+public ArthurTranslation() { init(); JsWhisperer.writeToBlob(); }
 
 
 public void init() {
@@ -88,7 +88,7 @@ import arthur.backend.whisperer.*;
 import static arthur.backend.builtins.java.JavaBuiltins.*;
 
 public class ArthurTranslation {
-public ArthurTranslation() { init(); JsWhisperer.printGlobals(); }
+public ArthurTranslation() { init(); JsWhisperer.writeToBlob(); }
 
 JavaArthurColor mystery;
 JavaArthurImage dog;

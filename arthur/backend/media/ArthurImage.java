@@ -5,7 +5,7 @@ package arthur.backend.media;
  */
 public class ArthurImage extends ArthurMedia {
 
-  public static String IMAGE = "image";
+  public static final String IMAGE = "image";
 
   public ArthurImage() {
     this.type = IMAGE;
@@ -13,7 +13,7 @@ public class ArthurImage extends ArthurMedia {
 
   public ArthurMedia add(ArthurMedia two) {
     if (two.type.equals(IMAGE)) {
-      return JavaImageMath.add(this, two);
+      return JavaImageMath.add(this, (ArthurImage) two);
     } else {
       // coerce to Image?
       return null;
@@ -22,7 +22,7 @@ public class ArthurImage extends ArthurMedia {
 
   public ArthurMedia minus(ArthurMedia two) {
     if (two.type.equals(IMAGE)) {
-      return JavaImageMath.minus(this, two);
+      return JavaImageMath.minus(this, (ArthurImage) two);
     } else {
       // coerce to Image?
       return null;
@@ -31,7 +31,7 @@ public class ArthurImage extends ArthurMedia {
 
   public ArthurMedia multiply(ArthurMedia two) {
     if (two.type.equals(IMAGE)) {
-      return JavaImageMath.multiply(this, two);
+      return JavaImageMath.multiply(this, (ArthurImage) two);
     } else {
       // coerce to Image?
       return null;
@@ -40,7 +40,7 @@ public class ArthurImage extends ArthurMedia {
 
   public ArthurMedia divide(ArthurMedia two) {
     if (two.type.equals(IMAGE)) {
-      return JavaImageMath.divide(this, two);
+      return JavaImageMath.divide(this, (ArthurImage) two);
     } else {
       // coerce to Image?
       return null;

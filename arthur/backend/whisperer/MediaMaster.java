@@ -17,4 +17,14 @@ public class MediaMaster {
     this.finalMedia.add(c);
   }
 
+  /* writes medias to file and returns list of filenames */
+  public ArrayList<String> storeMedias() {
+    ArrayList<String> names = new ArrayList<String>();
+    for (MediaContainer mc : this.finalMedia) {
+      mc.storeMedia();
+      names.add(mc.filename);
+    }
+    return names;
+  }
+
 }

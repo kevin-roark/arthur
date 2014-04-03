@@ -5,19 +5,21 @@ import java.util.ArrayList;
 import arthur.frontend.ParseNode;
 import arthur.backend.translator.ArthurTranslator;
 import arthur.backend.translator.ArthurType;
+import arthur.backend.whisperer.JsWhisperer;
 
 public class JavaArthurTranslator extends ArthurTranslator {
 
-  public JavaArthurTranslator(ParseNode source) {
-    this(source, true);
+  public JavaArthurTranslator(ParseNode source, JsWhisperer whisperer) {
+    this(source, true, whisperer, 0);
   }
 
-  public JavaArthurTranslator(ParseNode source, boolean isStatement) {
+  public JavaArthurTranslator(ParseNode source, boolean isStatement, JsWhisperer whisperer, int bd) {
     this.source = source;
-    this.globals = new ArrayList<ArthurType>();
-    this.blockDepth = 0;
+    this.globals = whisperer.globals;
+    this.blockDepth = bd;
     this.ignoreChildren = false;
     this.isStatement = isStatement;
+    this.whisperer = whisperer;
   }
 
   public String getIntro() {
@@ -28,7 +30,7 @@ public class JavaArthurTranslator extends ArthurTranslator {
     s += "import arthur.backend.whisperer.*;\n";
     s += "import static arthur.backend.builtins.java.JavaBuiltins.*;\n";
     s += "\npublic class ArthurTranslation {\n";
-    s += "public ArthurTranslation() { init(); JsWhisperer.printGlobals(); }\n\n";
+    s += "public ArthurTranslation() { init(); JsWhisperer.writeToBlob(); }\n\n";
     return s;
   }
 
@@ -81,7 +83,7 @@ public class JavaArthurTranslator extends ArthurTranslator {
   }
 
   public String createAndTranslate(ParseNode source, boolean statement) {
-    JavaArthurTranslator t = new JavaArthurTranslator(source, statement);
+    JavaArthurTranslator t = new JavaArthurTranslator(source, statement, this.whisperer, this.blockDepth);
     return t.translateTree();
   }
 

@@ -5,7 +5,7 @@ package arthur.backend.media;
  */
 public class ArthurVideo extends ArthurMedia {
 
-  public static String VIDEO = "video";
+  public static final String VIDEO = "video";
 
   public ArthurVideo() {
     this.type = VIDEO;
