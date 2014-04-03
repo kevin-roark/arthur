@@ -43,7 +43,7 @@ public class ArthurColor extends ArthurMedia {
       return JavaColorMath.add(this, (ArthurNumber)two);
     }
     else {
-      return null;
+      return this;
     }
   }
 
@@ -65,7 +65,7 @@ public class ArthurColor extends ArthurMedia {
     else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaColorMath.minus(this, (ArthurNumber)two);
     }
-    return null;
+    return this;
   }
 
   public ArthurColor multiply(ArthurMedia two) {
@@ -74,7 +74,7 @@ public class ArthurColor extends ArthurMedia {
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       JavaColorMath.multiply(this, (ArthurNumber) two);
     }
-    return null;
+    return this;
   }
 
   public ArthurColor divide(ArthurMedia two) {
@@ -83,7 +83,7 @@ public class ArthurColor extends ArthurMedia {
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       JavaColorMath.divide(this, (ArthurNumber) two);
     }
-    return null;
+    return this;
   }
 
   public String toString() {

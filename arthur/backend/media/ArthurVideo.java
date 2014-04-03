@@ -11,4 +11,20 @@ public class ArthurVideo extends ArthurMedia {
     this.type = VIDEO;
   }
 
+  public ArthurVideo add(ArthurMedia two) {
+    return this;
+  }
+
+  public ArthurVideo minus(ArthurMedia two) {
+    return this;
+  }
+
+  public ArthurVideo multiply(ArthurMedia two) {
+    return this;
+  }
+
+  public ArthurVideo divide(ArthurMedia two) {
+    return this;
+  }
+
 }

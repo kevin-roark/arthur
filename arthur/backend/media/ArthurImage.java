@@ -15,7 +15,7 @@ public class ArthurImage extends ArthurMedia {
   }
 
   public ArthurNumber pixel(ArthurNumber i, ArthurNumber j) {
-    return null;
+    return new ArthurNumber(0);
   }
 
   public void pixel(ArthurNumber i, ArthurNumber j, ArthurColor c) {
@@ -27,7 +27,7 @@ public class ArthurImage extends ArthurMedia {
       return JavaImageMath.add(this, (ArthurImage) two);
     } else {
       // coerce to Image?
-      return null;
+      return this;
     }
   }
 
@@ -36,7 +36,7 @@ public class ArthurImage extends ArthurMedia {
       return JavaImageMath.minus(this, (ArthurImage) two);
     } else {
       // coerce to Image?
-      return null;
+      return this;
     }
   }
 
@@ -45,7 +45,7 @@ public class ArthurImage extends ArthurMedia {
       return JavaImageMath.multiply(this, (ArthurImage) two);
     } else {
       // coerce to Image?
-      return null;
+      return this;
     }
   }
 
@@ -54,7 +54,7 @@ public class ArthurImage extends ArthurMedia {
       return JavaImageMath.divide(this, (ArthurImage) two);
     } else {
       // coerce to Image?
-      return null;
+      return this;
     }
   }
 

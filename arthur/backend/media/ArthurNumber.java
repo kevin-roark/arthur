@@ -23,7 +23,7 @@ public class ArthurNumber extends ArthurMedia {
       return JavaNumberMath.add(this, (ArthurNumber) two);
     } else {
       // coerce to Number?
-      return null;
+      return this;
     }
   }
 
@@ -32,7 +32,7 @@ public class ArthurNumber extends ArthurMedia {
       return JavaNumberMath.minus(this, (ArthurNumber) two);
     } else {
       // coerce to Number?
-      return null;
+      return this;
     }
   }
 
@@ -41,7 +41,7 @@ public class ArthurNumber extends ArthurMedia {
       return JavaNumberMath.multiply(this, (ArthurNumber) two);
     } else {
       // coerce to Number?
-      return null;
+      return this;
     }
   }
 
@@ -50,7 +50,7 @@ public class ArthurNumber extends ArthurMedia {
       return JavaNumberMath.divide(this, (ArthurNumber) two);
     } else {
       // coerce to Number?
-      return null;
+      return this;
     }
   }
 

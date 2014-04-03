@@ -25,7 +25,7 @@ public class ArthurString extends ArthurMedia {
       return JavaStringMath.add(this, (ArthurNumber) two);
     } else {
       // coerce later
-      return null;
+      return this;
     }
   }
 
@@ -36,7 +36,7 @@ public class ArthurString extends ArthurMedia {
       return JavaStringMath.minus(this, (ArthurNumber) two);
     } else {
       // coerce later
-      return null;
+      return this;
     }
   }
 
@@ -47,7 +47,7 @@ public class ArthurString extends ArthurMedia {
       return JavaStringMath.multiply(this, (ArthurNumber) two);
     } else {
       // coerce later
-      return null;
+      return this;
     }
   }
 
@@ -58,7 +58,7 @@ public class ArthurString extends ArthurMedia {
       return JavaStringMath.divide(this, (ArthurNumber) two);
     } else {
       // coerce later
-      return null;
+      return this;
     }
   }
 

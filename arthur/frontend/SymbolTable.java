@@ -82,6 +82,15 @@ public class SymbolTable {
       Function get = new Function("get", "Media");
       table.put("get", get);
 
+      Function img = new Function("image", "Image");
+      table.put("image", img);
+
+      Function vid = new Function("vid", "Video");
+      table.put("video", vid);
+
+      Function sound = new Function("sound", "Sound");
+      table.put("sound", sound);
+
       Function add = new Function("add", "void");
       table.put("add", add);
 

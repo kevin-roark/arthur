@@ -11,4 +11,20 @@ public class ArthurSound extends ArthurMedia {
     this.type = SOUND;
   }
 
+  public ArthurSound add(ArthurMedia two) {
+    return this;
+  }
+
+  public ArthurSound minus(ArthurMedia two) {
+    return this;
+  }
+
+  public ArthurSound multiply(ArthurMedia two) {
+    return this;
+  }
+
+  public ArthurSound divide(ArthurMedia two) {
+    return this;
+  }
+
 }

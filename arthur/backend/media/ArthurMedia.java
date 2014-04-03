@@ -15,19 +15,19 @@ public class ArthurMedia {
   }
 
   public ArthurMedia add(ArthurMedia two) {
-    return null;
+    return this;
   }
 
   public ArthurMedia minus(ArthurMedia two) {
-    return null;
+    return this;
   }
 
   public ArthurMedia multiply(ArthurMedia two) {
-    return null;
+    return this;
   }
 
   public ArthurMedia divide(ArthurMedia two) {
-    return null;
+    return this;
   }
 
   public boolean arthurEquals(ArthurMedia two) {
@@ -43,7 +43,7 @@ public class ArthurMedia {
   }
 
   public ArthurMedia castTo(String mediaType) {
-    return null;
+    return this;
   }
 
   public void writeToFile(String filename) {
