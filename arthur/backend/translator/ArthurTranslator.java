@@ -17,6 +17,8 @@ public abstract class ArthurTranslator {
   public abstract String createAndTranslate(ParseNode source, boolean statement);
   public abstract String functionCode(ParseNode n);
   public abstract String varCode(ParseNode n);
+  public abstract String setToSymbol();
+  public abstract String setToEndSymbol();
   public abstract String parameterCode(ParseNode param);
   public abstract String colorLiteral(ParseNode n);
   public abstract String numberLiteral(ParseNode n);
@@ -98,7 +100,7 @@ public abstract class ArthurTranslator {
       case "String":
         return stringLiteral(n);
       case "=":
-        return twoSideOp(n, " = ");
+        return twoSideOp(n, setToSymbol());
       case "is equal to":
         return twoSideOp(n, ".arthurEquals(");
       case "less than":
@@ -185,7 +187,7 @@ public abstract class ArthurTranslator {
       case "Property access":
         return ender(false);
       case "=":
-        return ender(false);
+        return setToEndSymbol() + ender(false);
       case "is equal to":
         return ")" + ender(false);
       case "less than":

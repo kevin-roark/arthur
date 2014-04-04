@@ -7,6 +7,7 @@ public class GlobalMedia implements java.io.Serializable {
   public String name;
   public ArthurMedia value;
   public String type;
+  public String mediaFile;
 
   public GlobalMedia(String name, ArthurMedia value) {
     this.name = name;
@@ -14,8 +15,16 @@ public class GlobalMedia implements java.io.Serializable {
     this.type = value.type;
   }
 
+  public void setMediaFile(MediaContainer c) {
+    this.mediaFile = c.filename;
+  }
+
   public String toString() {
-    return "media variable named " + name + " with value type " + type + " and value " + value;
+    String s = "media: " + name + " | type: " + type + " | value: " + value;
+    if (this.mediaFile != null) {
+      s += " | file: " + this.mediaFile;
+    }
+    return s;
   }
 
 }

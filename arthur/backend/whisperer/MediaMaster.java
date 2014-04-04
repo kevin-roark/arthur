@@ -12,9 +12,10 @@ public class MediaMaster {
     this.finalMedia = new ArrayList<MediaContainer>();
   }
 
-  public void addMedia(String name, ArthurMedia media) {
+  public MediaContainer addMedia(String name, ArthurMedia media) {
     MediaContainer c = new MediaContainer(name, media);
     this.finalMedia.add(c);
+    return c;
   }
 
   /* writes medias to file and returns list of filenames */

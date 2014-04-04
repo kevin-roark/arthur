@@ -1,10 +1,16 @@
 package arthur.backend.whisperer;
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 import arthur.backend.media.*;
+import arthur.backend.translator.js.JsArthurTranslator;
 
 public class JsMiddleMan {
 
-  public static int MIN_LEN = 93;
+  public static int MIN_LEN = JsArthurTranslator.introLength();
+
+  public static final Pattern DECP = Pattern.compile("var [a-zA-Z_0-9]+\\.set\\((.*?)\\)");
 
   public String translation;
   public JsWhisperer whisperer;
@@ -16,6 +22,7 @@ public class JsMiddleMan {
 
   public String augment() {
     this.removeStupidFunctions();
+    this.fixVarDeclarations();
     int placeToAdd = this.addGlobalValue();
     this.addArthurMedia(placeToAdd);
     return this.translation;
@@ -25,7 +32,7 @@ public class JsMiddleMan {
     int lastAfterIdx = 0;
     for (GlobalMedia gm : this.whisperer.localGlobals) {
       String dec = "var " + gm.name;
-      String decVal = dec + " = " + gm.value.jsLiteral();
+      String decVal = dec + " = " + literalWrapper(gm, gm.value.jsLiteral());
       decVal.replace("\n", "");
       int idx = this.translation.indexOf(dec);
       if (idx != -1) {
@@ -38,8 +45,39 @@ public class JsMiddleMan {
     return Math.max(lastAfterIdx + 1, MIN_LEN);
   }
 
+  private String literalWrapper(GlobalMedia gm, String literal) {
+    if (gm.mediaFile != null)
+      return "literalWrapper(" + literal + ", '" + gm.mediaFile + "')";
+    else
+      return "literalWrapper(" + literal + ")";
+  }
+
   private void removeStupidFunctions() {
 
+  }
+
+  /* replaces var x.set with var x = new Media(); x.set */
+  private void fixVarDeclarations() {
+    while (true) {
+      Matcher m = DECP.matcher(this.translation);
+      if (m.find()) {
+          String setter = m.group();
+          int transIdx = this.translation.indexOf(setter);
+          int afterIdx = transIdx + setter.length();
+          String before = this.translation.substring(0, transIdx);
+          String after = this.translation.substring(afterIdx);
+
+          int setIdx = setter.indexOf(".set(");
+          int spaceIdx = setter.indexOf(" ");
+          String varname = setter.substring(spaceIdx + 1, setIdx);
+          String fix = "var " + varname + " = new ArthurMedia();\n";
+          fix += varname + setter.substring(setIdx);
+
+          this.translation = before + fix + after;
+      } else {
+        return;
+      }
+    }
   }
 
   private void addArthurMedia(int idx) {
@@ -47,17 +85,17 @@ public class JsMiddleMan {
     String after = this.translation.substring(idx);
     String additions = "\n";
     for (String s : this.whisperer.localMediaFiles) {
-      if (s.indexOf("color") != -1) {
+      if (s.indexOf("__color__") != -1) {
         additions += "addArthurColor('" + s + "');";
-      } else if (s.indexOf("image") != -1) {
+      } else if (s.indexOf("__image__") != -1) {
         additions += "addArthurImage('" + s + "');";
-      } else if (s.indexOf("number") != -1) {
+      } else if (s.indexOf("__number__") != -1) {
         additions += "addArthurNumber('" + s + "');";
-      } else if (s.indexOf("sound") != -1) {
+      } else if (s.indexOf("__sound__") != -1) {
         additions += "addArthurSound('" + s + "');";
-      } else if (s.indexOf("video") != -1) {
+      } else if (s.indexOf("__video__") != -1) {
         additions += "addArthurVideo('" + s + "');";
-      } else if (s.indexOf("string") != -1) {
+      } else if (s.indexOf("__string__") != -1) {
         additions += "addArthurString('" + s + "');";
       }
 
