@@ -1,0 +1,117 @@
+./compile_tests.sh
+./run_tests.sh
+/**
+ * An automatically generated translation from arthur to javascript.
+ */
+
+$(function() {
+var time;
+var screenColor;
+
+function init() {
+ screenColor =  RED;
+ time = ms();
+add( screenColor);
+
+}
+
+function loop() {
+if (ms().minus( time).lessThan(new JsArthurNum(30.0))) {
+return ;
+}
+if ( screenColor.b.lessThan(new JsArthurNum(255.0)) &&  screenColor.r.arthurEquals(new JsArthurNum(255.0))) {
+ screenColor =  screenColor.plus(new JsArthurColor(0, 0, 1, 1.0));
+}
+else if ( screenColor.b.arthurEquals(new JsArthurNum(255.0)) &&  screenColor.r.greaterThan(new JsArthurNum(0.0))) {
+ screenColor =  screenColor.minus(new JsArthurColor(1, 0, 0, 1.0));
+}
+else if ( screenColor.r.arthurEquals(new JsArthurNum(0.0)) &&  screenColor.b.greaterThan(new JsArthurNum(0.0))) {
+ screenColor =  screenColor.minus(new JsArthurColor(0, 0, 1, 1.0));
+}
+else if ( screenColor.b.arthurEquals(new JsArthurNum(0.0)) &&  screenColor.r.lessThan(new JsArthurNum(255.0))) {
+ screenColor =  screenColor.plus(new JsArthurColor(1, 0, 0, 1.0));
+}
+ time = ms();
+
+}
+
+});
+
+/**
+ * An automatically generated translation from arthur to javascript.
+ */
+
+$(function() {
+
+function init() {
+var white = new JsArthurColor(0, 0, 0, 1.0);
+var mystery = new JsArthurColor(127, 127, 30, 1.0);
+var dog = get(new JsArthurString("whitepoodle.jpg"));
+var rect = get(new JsArthurString("justawhiterectangle.jpg"));
+ rect =  rect.multiply(new JsArthurNum(37.0));
+add( dog);
+add( rect);
+
+}
+
+function loop(x, y) {
+
+}
+
+function make_it_blue_and_z(vid, z) {
+return  vid.plus( BLUE).plus( z);
+
+}
+
+});
+
+Identifier not declared on line 16: pixel
+Identifier not declared on line 17: pixel
+/**
+ * An automatically generated translation from arthur to javascript.
+ */
+
+$(function() {
+var mystery;
+var dog;
+var rect;
+
+function color_replace(image, badColor, goodColor) {
+var i = new JsArthurNum(0.0);
+var j = new JsArthurNum(0.0);
+while ( i.lessThan( image.width)) {
+while ( j.lessThan( image.height)) {
+if ( image.pixel( i,  j).arthurEquals( badColor)) {
+ image.pixel( i,  j,  goodColor);
+}
+ j =  j.plus(new JsArthurNum(1.0));
+}
+ i =  i.plus(new JsArthurNum(1.0));
+}
+
+}
+
+function init() {
+ mystery = new JsArthurColor(127, 127, 30, 1.0);
+ dog = get(new JsArthurString("whitepoodle.jpg"));
+ rect = get(new JsArthurString("justawhiterectangle.jpg"));
+ rect =  rect.multiply(new JsArthurNum(37.0));
+var i = new JsArthurNum(1.0);
+while ( i.lessThan(new JsArthurNum(5.0))) {
+ i =  i.plus(new JsArthurNum(1.0));
+}
+add( dog);
+add( rect);
+
+}
+
+function loop() {
+if (ms().greaterThan(new JsArthurNum(10000.0))) {
+color_replace( dog,  WHITE,  mystery);
+color_replace( rect,  WHITE,  mystery.plus(new JsArthurColor(100, 100, 100, 1.0)));
+}
+
+}
+
+});
+

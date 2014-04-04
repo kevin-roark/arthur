@@ -6,7 +6,7 @@
  * They will extend this class and overwrite the methods, along with adding
  * their own when appropriate.
  */
-public class ArthurMedia {
+public class ArthurMedia implements java.io.Serializable {
 
   public String type;
 
@@ -15,19 +15,19 @@ public class ArthurMedia {
   }
 
   public ArthurMedia add(ArthurMedia two) {
-    return null;
+    return this;
   }
 
   public ArthurMedia minus(ArthurMedia two) {
-    return null;
+    return this;
   }
   
   public ArthurMedia multiply(ArthurMedia two) {
-    return null;
+    return this;
   }
 
   public ArthurMedia divide(ArthurMedia two) {
-    return null;
+    return this;
   }
 
   /*
@@ -36,8 +36,24 @@ public class ArthurMedia {
     return false;
   }
 
+  public boolean lessThan(ArthurMedia two) {
+    return false;
+  }
+
+  public boolean greaterThan(ArthurMedia two) {
+    return false;
+  }
+
   public ArthurMedia castTo(String mediaType) {
-    return null;
+    return this;
+  }
+
+  public void writeToFile(String filename) {
+
+  }
+
+  public String jsLiteral() {
+    return "";
   }
 
   */

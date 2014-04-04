@@ -8,8 +8,8 @@ void init() { //hey guys!
 
 	color mystery = <<127, 127, 30>>;
 
-	Image dog = get("whitepoodle.jpg");
-	Image rect = /* lol ! */ get("justawhiterectangle.jpg");
+	Image dog = image("whitepoodle.jpg");
+	Image rect = /* lol ! */ image("justawhiterectangle.jpg");
 	rect = rect * 37;
 
 	add(dog); //another wun
@@ -21,7 +21,7 @@ void init() { //hey guys!
 * comment
 */
 
-void loop(num x, color y) {
+void loop() {
 
 }
 

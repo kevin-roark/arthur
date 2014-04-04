@@ -5,7 +5,7 @@ package arthur.backend.media;
  */
 public class ArthurNumber extends ArthurMedia {
 
-  public static String NUMBER = "number";
+  public static final String NUMBER = "number";
 
   public Double val;
 
@@ -18,40 +18,48 @@ public class ArthurNumber extends ArthurMedia {
     this.val = val;
   }
 
-  public ArthurMedia add(ArthurMedia two) {
+  public ArthurNumber add(ArthurMedia two) {
     if (two.type.equals(NUMBER)) {
-      return JavaNumberMath.add(this, two);
+      return JavaNumberMath.add(this, (ArthurNumber) two);
     } else {
       // coerce to Number?
-      return null;
+      return this;
     }
   }
 
-  public ArthurMedia minus(ArthurMedia two) {
+  public ArthurNumber minus(ArthurMedia two) {
     if (two.type.equals(NUMBER)) {
-      return JavaNumberMath.minus(this, two);
+      return JavaNumberMath.minus(this, (ArthurNumber) two);
     } else {
       // coerce to Number?
-      return null;
+      return this;
     }
   }
 
-  public ArthurMedia multiply(ArthurMedia two) {
+  public ArthurNumber multiply(ArthurMedia two) {
     if (two.type.equals(NUMBER)) {
-      return JavaNumberMath.multiply(this, two);
+      return JavaNumberMath.multiply(this, (ArthurNumber) two);
     } else {
       // coerce to Number?
-      return null;
+      return this;
     }
   }
 
-  public ArthurMedia divide(ArthurMedia two) {
+  public ArthurNumber divide(ArthurMedia two) {
     if (two.type.equals(NUMBER)) {
-      return JavaNumberMath.divide(this, two);
+      return JavaNumberMath.divide(this, (ArthurNumber) two);
     } else {
       // coerce to Number?
-      return null;
+      return this;
     }
+  }
+
+  public String toString() {
+    return "" + this.val;
+  }
+
+  public String jsLiteral() {
+    return "new ArthurNumber(" + this.val + ")";
   }
 
 }

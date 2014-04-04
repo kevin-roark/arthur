@@ -1,45 +1,41 @@
-package arthur.backend.java;
+package arthur.backend.translator.java;
 
 import arthur.frontend.ParseNode;
+import arthur.backend.translator.ArthurVar;
+import arthur.backend.media.*;
 
-public class JavaArthurVar extends JavaArthurType {
-
-  String type;
+public class JavaArthurVar extends ArthurVar {
 
   public JavaArthurVar(String name, String type) {
     this.name = name;
     this.type = type;
   }
 
-  public String toString() {
-    return "Variable named \"" + name + "\" of type \"" + type  + "\"";
-  }
-
   public String getVarDec() {
     switch (this.type) {
       case "num":
-        return "JavaArthurNum " + this.name;
+        return "ArthurNumber " + this.name;
       case "string":
-        return "JavaArthurString " + this.name;
+        return "ArthurString " + this.name;
       case "color":
-        return "JavaArthurColor " + this.name;
+        return "ArthurColor " + this.name;
       case "image":
-        return "JavaArthurImage " + this.name;
+        return "ArthurImage " + this.name;
       case "video":
-        return "JavaArthurVideo " + this.name;
+        return "ArthurVideo " + this.name;
       case "Sound":
-        return "JavaArthurSound " + this.name;
+        return "ArthurSound " + this.name;
       default:
         return "unknown variable!!";
     }
   }
 
   public static String numLiteral(String val) {
-    return "new JavaArthurNum(" + val + ")";
+    return "new ArthurNumber(" + val + ")";
   }
 
   public static String colorLiteral(ParseNode color) {
-    String c = "new JavaArthurColor(";
+    String c = "new ArthurColor(";
     c += color.children.get(0).val + ", ";
     c += color.children.get(1).val + ", ";
     c += color.children.get(2).val + ", ";
@@ -48,7 +44,7 @@ public class JavaArthurVar extends JavaArthurType {
   }
 
   public static String stringLiteral(String val) {
-    return "new JavaArthurString(" + val + ")";
+    return "new ArthurString(" + val + ")";
   }
 
 }

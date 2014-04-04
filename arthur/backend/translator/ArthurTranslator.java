@@ -1,29 +1,26 @@
-package arthur.backend.java;
+package arthur.backend.translator;
 
 import java.util.ArrayList;
 
 import arthur.frontend.ParseNode;
 
-public class JavaArthurTranslator {
+public abstract class ArthurTranslator {
 
-  ParseNode source;
-  ArrayList<JavaArthurType> globals;
-  int blockDepth;
-  JavaArthurFun activeFunction;
-  boolean ignoreChildren;
-  boolean isStatement;
+  public ParseNode source;
+  public int blockDepth;
+  public ArthurFun activeFunction;
+  public boolean ignoreChildren;
+  public boolean isStatement;
 
-  public JavaArthurTranslator(ParseNode source) {
-    this(source, true);
-  }
-
-  public JavaArthurTranslator(ParseNode source, boolean isStatement) {
-    this.source = source;
-    this.globals = new ArrayList<JavaArthurType>();
-    this.blockDepth = 0;
-    this.ignoreChildren = false;
-    this.isStatement = isStatement;
-  }
+  public abstract String getIntro();
+  public abstract String getOutro();
+  public abstract String createAndTranslate(ParseNode source, boolean statement);
+  public abstract String functionCode(ParseNode n);
+  public abstract String varCode(ParseNode n);
+  public abstract String parameterCode(ParseNode param);
+  public abstract String colorLiteral(ParseNode n);
+  public abstract String numberLiteral(ParseNode n);
+  public abstract String stringLiteral(ParseNode n);
 
   public String translateTree() {
     String translation = translate(this.source);
@@ -54,30 +51,14 @@ public class JavaArthurTranslator {
       case "arthur":
         return getIntro();
       case "variable":
-        ParseNode type = n.children.get(0);
-        ParseNode name = n.children.get(1);
-        JavaArthurVar var = new JavaArthurVar(name.val, type.val);
-        if (blockDepth == 0)
-          this.globals.add(var);
-        return var.getVarDec();
+        return varCode(n);
       case "Function":
-        ParseNode returnType = n.children.get(0);
-        ParseNode fname = n.children.get(1);
-        ParseNode parameters = n.children.get(2);
-        JavaArthurFun fun = new JavaArthurFun(fname.val, returnType.val);
-        if (blockDepth == 0)
-          this.globals.add(fun);
         blockDepth++;
-        activeFunction = fun;
-        return "\n" + fun.getFunDec();
+        return functionCode(n);
       case "parameters":
         this.ignoreChildren = true;
         for (ParseNode param : n.children) {
-          ParseNode ptype = param.children.get(0);
-          ParseNode pname = param.children.get(1);
-          JavaArthurVar p = new JavaArthurVar(pname.val, ptype.val);
-          activeFunction.addParameter(p);
-          s += p.getVarDec();
+          s += parameterCode(param);
           if (param != n.children.get(n.children.size() - 1))
             s += ", ";
         }
@@ -91,7 +72,7 @@ public class JavaArthurTranslator {
       case "dw":
         return ifStyle(n, "while");
       case "Identifier":
-        return " " + n.children.get(0).val;
+        return identifierVal(n.children.get(0).val);
       case "Fun call":
         this.ignoreChildren = true;
         ParseNode fcname = n.children.get(0).children.get(0);
@@ -111,13 +92,11 @@ public class JavaArthurTranslator {
       case "Property":
         return n.children.get(0).val;
       case "Color":
-        return JavaArthurVar.colorLiteral(n);
+        return colorLiteral(n);
       case "number":
-        ParseNode num = n.children.get(0);
-        return JavaArthurVar.numLiteral(num.val);
+        return numberLiteral(n);
       case "String":
-        ParseNode str = n.children.get(0);
-        return JavaArthurVar.stringLiteral(str.val);
+        return stringLiteral(n);
       case "=":
         return twoSideOp(n, " = ");
       case "is equal to":
@@ -131,7 +110,7 @@ public class JavaArthurTranslator {
       case "-":
         return twoSideOp(n, ".minus(");
       case "+":
-        return twoSideOp(n, ".plus(");
+        return twoSideOp(n, ".add(");
       case "*":
         return twoSideOp(n, ".multiply(");
       case "/":
@@ -145,6 +124,10 @@ public class JavaArthurTranslator {
       default:
         return "";
     }
+  }
+
+  public String identifierVal(String val) {
+    return " " + val;
   }
 
   /* like '=' or '<' */
@@ -169,20 +152,12 @@ public class JavaArthurTranslator {
     return s;
   }
 
-  private String getIntro() {
-    String s = "/**\n";
-    s += " * An automatically generated translation from arthur to java.\n";
-    s += " */\n\n";
-    s += "public class ArthurTranslation {\n";
-    return s;
-  }
-
   private String endNode(ParseNode n) {
     switch (n.val) {
       case "globals":
-        return "\n}\n";
+        return getOutro();
       case "arthur":
-        return "\n}\n";
+        return getOutro();
       case "Function":
         blockDepth--;
         return "\n}\n";
@@ -235,11 +210,6 @@ public class JavaArthurTranslator {
       default:
         return "";
     }
-  }
-
-  public static String createAndTranslate(ParseNode source, boolean statement) {
-    JavaArthurTranslator t = new JavaArthurTranslator(source, statement);
-    return t.translateTree();
   }
 
   private String ender(Boolean ignoreVal) {

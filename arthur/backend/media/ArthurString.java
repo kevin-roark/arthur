@@ -5,7 +5,9 @@ package arthur.backend.media;
  */
 public class ArthurString extends ArthurMedia {
 
-  public static String STRING = "string";
+  public static final String STRING = "string";
+
+  public String str;
 
   public ArthurString() {
     this("");
@@ -16,15 +18,56 @@ public class ArthurString extends ArthurMedia {
     this.str = str;
   }
 
-  public ArthurMedia add(ArthurMedia two) {
+  public ArthurString add(ArthurMedia two) {
     if (two.type.equals(STRING)) {
-      return JavaStringMath.add(one, (ArthurString) two);
-    } else if (two.type.equals(NUMBER)) {
-      return JavaStringMath.add(one, (ArthurNumber) two);
+      return JavaStringMath.add(this, (ArthurString) two);
+    } else if (two.type.equals(ArthurNumber.NUMBER)) {
+      return JavaStringMath.add(this, (ArthurNumber) two);
     } else {
       // coerce later
-      return null;
+      return this;
     }
+  }
+
+  public ArthurString minus(ArthurMedia two) {
+    if (two.type.equals(STRING)) {
+      return JavaStringMath.minus(this, (ArthurString) two);
+    } else if (two.type.equals(ArthurNumber.NUMBER)) {
+      return JavaStringMath.minus(this, (ArthurNumber) two);
+    } else {
+      // coerce later
+      return this;
+    }
+  }
+
+  public ArthurString multiply(ArthurMedia two) {
+    if (two.type.equals(STRING)) {
+      return JavaStringMath.multiply(this, (ArthurString) two);
+    } else if (two.type.equals(ArthurNumber.NUMBER)) {
+      return JavaStringMath.multiply(this, (ArthurNumber) two);
+    } else {
+      // coerce later
+      return this;
+    }
+  }
+
+  public ArthurString divide(ArthurMedia two) {
+    if (two.type.equals(STRING)) {
+      return JavaStringMath.divide(this, (ArthurString) two);
+    } else if (two.type.equals(ArthurNumber.NUMBER)) {
+      return JavaStringMath.divide(this, (ArthurNumber) two);
+    } else {
+      // coerce later
+      return this;
+    }
+  }
+
+  public String toString() {
+    return this.str;
+  }
+
+  public String jsLiteral() {
+    return "new ArthurString('" + this.str + "')";
   }
 
 }

@@ -1,4 +1,4 @@
-package arthur.backend.java;
+package arthur.backend.translator.java;
 
 import java.io.FileReader;
 import java.io.FileNotFoundException;
@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import arthur.frontend.Parser;
 import arthur.frontend.ParseNode;
+import arthur.backend.whisperer.JsWhisperer;
 
 public class JavaTranslatorTester {
 
