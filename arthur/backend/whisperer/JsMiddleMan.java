@@ -1,10 +1,16 @@
 package arthur.backend.whisperer;
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 import arthur.backend.media.*;
+import arthur.backend.translator.js.JsArthurTranslator;
 
 public class JsMiddleMan {
 
-  public static int MIN_LEN = 93;
+  public static int MIN_LEN = JsArthurTranslator.introLength();
+
+  public static final Pattern DECP = Pattern.compile("var [a-zA-Z_0-9]+\\.set\\((.*?)\\)");
 
   public String translation;
   public JsWhisperer whisperer;
@@ -16,6 +22,7 @@ public class JsMiddleMan {
 
   public String augment() {
     this.removeStupidFunctions();
+    this.fixVarDeclarations();
     int placeToAdd = this.addGlobalValue();
     this.addArthurMedia(placeToAdd);
     return this.translation;
@@ -47,6 +54,30 @@ public class JsMiddleMan {
 
   private void removeStupidFunctions() {
 
+  }
+
+  /* replaces var x.set with var x = new Media(); x.set */
+  private void fixVarDeclarations() {
+    while (true) {
+      Matcher m = DECP.matcher(this.translation);
+      if (m.find()) {
+          String setter = m.group();
+          int transIdx = this.translation.indexOf(setter);
+          int afterIdx = transIdx + setter.length();
+          String before = this.translation.substring(0, transIdx);
+          String after = this.translation.substring(afterIdx);
+
+          int setIdx = setter.indexOf(".set(");
+          int spaceIdx = setter.indexOf(" ");
+          String varname = setter.substring(spaceIdx + 1, setIdx);
+          String fix = "var " + varname + " = new ArthurMedia();\n";
+          fix += varname + setter.substring(setIdx);
+
+          this.translation = before + fix + after;
+      } else {
+        return;
+      }
+    }
   }
 
   private void addArthurMedia(int idx) {

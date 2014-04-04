@@ -27,6 +27,7 @@ public class JsArthurTranslator extends ArthurTranslator {
 
     // types
     s += "var arthur = require('./arthur/index');\n";
+    s += "var ArthurMedia = arthur.ArthurMedia;\n";
     s += "var ArthurColor = arthur.ArthurColor;\n";
     s += "var ArthurNumber = arthur.ArthurNumber;\n";
     s += "var ArthurString = arthur.ArthurString;\n";
@@ -50,6 +51,11 @@ public class JsArthurTranslator extends ArthurTranslator {
     s += "function looper() { requestAnimationFrame(looper); loop(); updateMedia(); }\n";
 
     return s + "\n";
+  }
+
+  public static int introLength() {
+    JsArthurTranslator t = new JsArthurTranslator(null);
+    return t.getIntro().length();
   }
 
   public String getOutro() {
@@ -79,6 +85,14 @@ public class JsArthurTranslator extends ArthurTranslator {
     JsArthurVar p = new JsArthurVar(pname.val, ptype.val);
     activeFunction.addParameter(p);
     return p.getParamDec();
+  }
+
+  public String setToSymbol() {
+    return ".set(";
+  }
+
+  public String setToEndSymbol() {
+    return ")";
   }
 
   public String colorLiteral(ParseNode n) {

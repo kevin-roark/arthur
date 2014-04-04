@@ -92,6 +92,14 @@ public class JavaArthurTranslator extends ArthurTranslator {
     return p.getVarDec();
   }
 
+  public String setToSymbol() {
+    return " = ";
+  }
+
+  public String setToEndSymbol() {
+    return "";
+  }
+
   public String colorLiteral(ParseNode n) {
     return JavaArthurVar.colorLiteral(n);
   }
