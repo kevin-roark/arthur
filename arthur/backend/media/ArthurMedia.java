@@ -49,6 +49,8 @@ public class ArthurMedia implements java.io.Serializable {
   }
 
   /* saves state of current media to filename */
+
+  /*
   public void writeToFile(String filename) {
 
   }
