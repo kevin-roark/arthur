@@ -16,52 +16,40 @@ public class JavaImageMath {
 
 	static int counter = 0; 
 
-	public static ArthurImage add(ArthurImage one, ArthurImage two) {
-		return JavaImageMath.addition(one, two, 0);
-	}
+	/*
+	public static ArthurImage add(ArthurImage one, ArthurColor two) {
+		int r = two.r.val;
+		int g = two.g.val;
+		int b = two.g.val;
 
-	public static ArthurImage minus(ArthurImage one, ArthurImage two) {
-		return JavaImageMath.addition(two, one, 1);
-	}
-
-	public static ArthurImage addition(ArthurImage one, ArthurImage two, int op) {
-		//fetch image operands and store each in a BufferedImage
+		//get image
 		BufferedImage image = null;
 		try {
 			image = ImageIO.read(new File(one.filename));
 		} catch (IOException e) {
-
+			
 		}
 		if (image == null) {
-			System.out.println("Error - couldn't retrieve image 1.");
+			System.out.println("Error - couldn't retrieve image.");
 		}
 
-		BufferedImage image2 = null;
-		try {
-			image2 = ImageIO.read(new File(two.filename));
-		} catch (IOException e) {
-
+		//manipulate image
+		WritableRaster raster = image.getRaster();
+		int[] pixelArray = new int[3];
+		for (int y = 0; y < raster.getHeight(); y++) {
+			for (int x = 0; x < raster.getWidth(); x++) {
+				pixelArray = raster.getPixel(x, y, pixelArray);
+				pixelArray[0] += r;
+				pixelArray[1] += g;
+				pixelArray[2] += b;
+				raster.setPixel(x, y, pixelArray);
+			}
 		}
-		if (image2 == null) {
-			System.out.println("Error - couldn't retrieve image 2.");
-		}
-
-		WritableRaster r1 = image.getRaster();
-		WritableRaster r2 = image2.getRaster();
-		int newWidth = r1.getWidth() + r2.getWidth();
-		int newHeight = Math.max(r1.getHeight(), r2.getHeight());
-
-		BufferedImage collage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
-		Graphics2D g2d = collage.createGraphics();
-		//g2d.setBackground(Color.BLACK);
-		g2d.drawImage(image, 0, 0, null);
-		g2d.drawImage(image2, r1.getWidth(), 0, null);
-		g2d.dispose();
 
 		//save image
 		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) + 
-								(op == 0 ? "+" : "-") +
-								two.filename.substring(0, two.filename.indexOf(".jpg")) + 
+								"+" +
+								"(" + two.r.val + "," + two.g.val + "," + two.b.val + ")" + 
 								counter +
 								".jpg";
 		counter++;
@@ -77,26 +65,57 @@ public class JavaImageMath {
 		return result;
 	}
 
+	*/
+
+	public static ArthurImage add(ArthurImage one, ArthurImage two) {
+		return JavaImageMath.addition(one, two, 0);
+	}
+
+	public static ArthurImage minus(ArthurImage one, ArthurImage two) {
+		return JavaImageMath.addition(two, one, 1);
+	}
+
+	public static ArthurImage addition(ArthurImage one, ArthurImage two, int op) {
+		BufferedImage image = art2bf(one);
+		BufferedImage image2 = art2bf(two);
+
+		WritableRaster r1 = image.getRaster();
+		WritableRaster r2 = image2.getRaster();
+		int newWidth = r1.getWidth() + r2.getWidth();
+		int newHeight = Math.max(r1.getHeight(), r2.getHeight());
+
+		BufferedImage collage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2d = collage.createGraphics();
+		//g2d.setBackground(Color.BLACK);
+		g2d.drawImage(image, 0, 0, null);
+		g2d.drawImage(image2, r1.getWidth(), 0, null);
+		g2d.dispose();
+
+		//save image
+		String outputFn;
+		if (op == 0) {
+			outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) + 
+						"+" +
+						two.filename.substring(0, two.filename.indexOf(".jpg")) + 
+						counter +
+						".jpg";
+		}
+		else {
+			outputFn = two.filename.substring(0, two.filename.indexOf(".jpg")) + 
+						"-" +
+						one.filename.substring(0, one.filename.indexOf(".jpg")) + 
+						counter +
+						".jpg";
+		}
+
+		counter++;
+		
+		return bf2art(collage, outputFn);
+	}
+
 	public static ArthurImage multiply(ArthurImage one, ArthurImage two) {
-		BufferedImage image = null;
-		try {
-			image = ImageIO.read(new File(one.filename));
-		} catch (IOException e) {
-			
-		}
-		if (image == null) {
-			System.out.println("Error - couldn't retrieve image 1.");
-		}
-
-		BufferedImage image2 = null;
-		try {
-			image2 = ImageIO.read(new File(two.filename));
-		} catch (IOException e) {
-
-		}
-		if (image2 == null) {
-			System.out.println("Error - couldn't retrieve image 2.");
-		}
+		BufferedImage image = art2bf(one);
+		BufferedImage image2 = art2bf(two);
 
 		WritableRaster r1 = image.getRaster();
 		WritableRaster r2 = image2.getRaster();
@@ -147,38 +166,13 @@ public class JavaImageMath {
 								counter +
 								".jpg";
 		counter++;
-		ArthurImage result = null;
-		try {
-			File outputFile = new File(outputFn);
-			ImageIO.write(collage, "jpg", outputFile);
-			result = new ArthurImage(outputFn);
-		} catch (IOException e) {
-			
-		}
-
-		return result;
+		
+		return bf2art(collage, outputFn);
 	}	
 
 	public static ArthurImage divide(ArthurImage one, ArthurImage two) {
-		BufferedImage image = null;
-		try {
-			image = ImageIO.read(new File(one.filename));
-		} catch (IOException e) {
-			
-		}
-		if (image == null) {
-			System.out.println("Error - couldn't retrieve image 1.");
-		}
-
-		BufferedImage image2 = null;
-		try {
-			image2 = ImageIO.read(new File(two.filename));
-		} catch (IOException e) {
-
-		}
-		if (image2 == null) {
-			System.out.println("Error - couldn't retrieve image 2.");
-		}
+		BufferedImage image = art2bf(one);
+		BufferedImage image2 = art2bf(two);
 
 		WritableRaster r1 = image.getRaster();
 		int width = r1.getWidth();
@@ -215,10 +209,67 @@ public class JavaImageMath {
 								counter +
 								".jpg";
 		counter++;
+		
+		return bf2art(collage, outputFn);
+	}
+
+	public static ArthurImage divide (ArthurImage one, int two) { //change to ArthurNumber later
+		int f = two;
+		//get image
+		BufferedImage image = art2bf(one);
+
+		//manipulate image
+		WritableRaster raster = image.getRaster();
+		int width0 = raster.getWidth();
+		int height0 = raster.getHeight();
+		int width = width0 / f;
+		int height = height0 / f;
+
+		BufferedImage temp = new BufferedImage(width * f, height * f, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2d = temp.createGraphics();
+		for (int i = 0; i < f; i++) {
+			for (int j = 0; j < f; j++) {
+				g2d.drawImage(image, j * width, i * height, width, height, null);
+			}
+		}
+		g2d.dispose();
+		BufferedImage collage = new BufferedImage(width0, height0, BufferedImage.TYPE_INT_RGB);
+		g2d = collage.createGraphics();
+		g2d.drawImage(temp, 0, 0, width0, height0, null);
+		g2d.dispose();
+
+		//save image
+		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) + 
+								"D" + //filename can't contain the / or *characters; decide later
+								f + 
+								counter +
+								".jpg";
+		counter++;
+
+		return bf2art(collage, outputFn);
+	}
+
+	public static BufferedImage art2bf(ArthurImage artImage) {
+		BufferedImage image = null;
+		
+		try {
+			image = ImageIO.read(new File(artImage.filename));
+		} catch (IOException e) {
+			
+		}
+		if (image == null) {
+			System.out.println("Error - couldn't retrieve image.");
+		}
+
+		return image;
+	}
+
+	public static ArthurImage bf2art(BufferedImage buffImage, String outputFn) {
 		ArthurImage result = null;
+
 		try {
 			File outputFile = new File(outputFn);
-			ImageIO.write(collage, "jpg", outputFile);
+			ImageIO.write(buffImage, "jpg", outputFile);
 			result = new ArthurImage(outputFn);
 		} catch (IOException e) {
 			
