@@ -19,5 +19,14 @@ public class imagetester {
 
 		ArthurImage image6 = image1.divide(image2);
 		System.out.println(image6.filename);
+
+		ArthurImage image7 = JavaImageMath.divide(image1, 2);
+		System.out.println(image7.filename);
+
+		ArthurImage image8 = JavaImageMath.multiply(image1, 3);
+		System.out.println(image8.filename);
+
+		ArthurImage image9 = JavaImageMath.multiply(image1, 0.25);
+		System.out.println(image9.filename);
 	}
 }

@@ -170,6 +170,32 @@ public class JavaImageMath {
 		return bf2art(collage, outputFn);
 	}	
 
+	public static ArthurImage multiply (ArthurImage one, double two) { //change to ArthurNumber later
+		double f = two;
+		//get image
+		BufferedImage image = art2bf(one);
+
+		//manipulate image
+		WritableRaster raster = image.getRaster();
+		int width = (int) (raster.getWidth() * f);
+		int height = (int) (raster.getHeight() * f);
+
+		BufferedImage collage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2d = collage.createGraphics();
+		g2d.drawImage(image, 0, 0, width, height, null);
+		g2d.dispose();
+
+		//save image
+		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) + 
+								"X" + //filename can't contain the / or *characters; decide later
+								f + 
+								counter +
+								".jpg";
+		counter++;
+
+		return bf2art(collage, outputFn);
+	}
+
 	public static ArthurImage divide(ArthurImage one, ArthurImage two) {
 		BufferedImage image = art2bf(one);
 		BufferedImage image2 = art2bf(two);
