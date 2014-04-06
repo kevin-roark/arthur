@@ -1,4 +1,4 @@
-//package arthur.backend.media;
+package arthur.backend.media;
 
 import java.io.*;
 import java.awt.image.*;
@@ -76,8 +76,8 @@ public class JavaImageMath {
 	}
 
 	public static ArthurImage addition(ArthurImage one, ArthurImage two, int op) {
-		BufferedImage image = art2bf(one);
-		BufferedImage image2 = art2bf(two);
+		BufferedImage image = one.bf;
+		BufferedImage image2 = two.bf;
 
 		WritableRaster r1 = image.getRaster();
 		WritableRaster r2 = image2.getRaster();
@@ -110,12 +110,12 @@ public class JavaImageMath {
 
 		counter++;
 		
-		return bf2art(collage, outputFn);
+		return new ArthurImage(collage, outputFn);
 	}
 
 	public static ArthurImage multiply(ArthurImage one, ArthurImage two) {
-		BufferedImage image = art2bf(one);
-		BufferedImage image2 = art2bf(two);
+		BufferedImage image = one.bf;
+		BufferedImage image2 = two.bf;
 
 		WritableRaster r1 = image.getRaster();
 		WritableRaster r2 = image2.getRaster();
@@ -167,13 +167,13 @@ public class JavaImageMath {
 								".jpg";
 		counter++;
 		
-		return bf2art(collage, outputFn);
+		return new ArthurImage(collage, outputFn);
 	}	
 
 	public static ArthurImage multiply (ArthurImage one, double two) { //change to ArthurNumber later
 		double f = two;
 		//get image
-		BufferedImage image = art2bf(one);
+		BufferedImage image = one.bf;
 
 		//manipulate image
 		WritableRaster raster = image.getRaster();
@@ -193,12 +193,12 @@ public class JavaImageMath {
 								".jpg";
 		counter++;
 
-		return bf2art(collage, outputFn);
+		return new ArthurImage(collage, outputFn);
 	}
 
 	public static ArthurImage divide(ArthurImage one, ArthurImage two) {
-		BufferedImage image = art2bf(one);
-		BufferedImage image2 = art2bf(two);
+		BufferedImage image = one.bf;
+		BufferedImage image2 = two.bf;
 
 		WritableRaster r1 = image.getRaster();
 		int width = r1.getWidth();
@@ -236,13 +236,13 @@ public class JavaImageMath {
 								".jpg";
 		counter++;
 		
-		return bf2art(collage, outputFn);
+		return new ArthurImage(collage, outputFn);
 	}
 
 	public static ArthurImage divide (ArthurImage one, int two) { //change to ArthurNumber later
 		int f = two;
 		//get image
-		BufferedImage image = art2bf(one);
+		BufferedImage image = one.bf;
 
 		//manipulate image
 		WritableRaster raster = image.getRaster();
@@ -272,8 +272,9 @@ public class JavaImageMath {
 								".jpg";
 		counter++;
 
-		return bf2art(collage, outputFn);
+		return new ArthurImage(collage, outputFn);
 	}
+	/*
 
 	public static BufferedImage art2bf(ArthurImage artImage) {
 		BufferedImage image = null;
@@ -303,4 +304,5 @@ public class JavaImageMath {
 
 		return result;
 	}
+	*/
 }

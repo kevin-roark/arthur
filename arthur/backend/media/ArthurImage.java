@@ -1,12 +1,22 @@
-//package arthur.backend.media;
+package arthur.backend.media;
 
 /**
  * Java implementation of arthur image!
  */
+import java.io.*;
+import java.awt.image.*;
+import java.awt.Graphics2D;
+import java.awt.Color;
+import javax.imageio.*;
+import java.lang.*;
+
 public class ArthurImage extends ArthurMedia {
 
   public static String IMAGE = "image";
   public String filename;
+  public BufferedImage bf;
+  public ArthurNumber height;
+  public ArthurNumber width;
 
   /*
   public ArthurNumber height;
@@ -31,9 +41,30 @@ public class ArthurImage extends ArthurMedia {
   }
   */
 
+  public ArthurImage(BufferedImage buff, String fn) {
+    filename = fn + ".jpg";
+    this.type = IMAGE;
+    bf = buff;
+    WritableRaster raster = bf.getRaster();
+    height = new ArthurNumber(raster.getHeight());
+    width = new ArthurNumber(raster.getWidth());
+  }
+
   public ArthurImage(String fn) {
     this.type = IMAGE;
-    this.filename = fn;
+    bf = null;
+    filename = fn;
+    try {
+      bf = ImageIO.read(new File(fn));
+    } catch (IOException e) {
+      
+    }
+    if (bf == null) {
+      System.out.println("Error - couldn't get that image.");
+    }
+    WritableRaster raster = bf.getRaster();
+    height = new ArthurNumber(raster.getHeight());
+    width = new ArthurNumber(raster.getWidth());
   }
   
   public ArthurImage add(ArthurMedia two) {

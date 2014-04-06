@@ -1,4 +1,4 @@
-//package arthur.backend.media;
+package arthur.backend.media;
 
 /**
  * The base class for all of the media types like JavaArthurImage.
