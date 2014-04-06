@@ -21,7 +21,7 @@ public class ArthurMedia implements java.io.Serializable {
   public ArthurMedia minus(ArthurMedia two) {
     return this;
   }
-  
+
   public ArthurMedia multiply(ArthurMedia two) {
     return this;
   }
@@ -29,8 +29,6 @@ public class ArthurMedia implements java.io.Serializable {
   public ArthurMedia divide(ArthurMedia two) {
     return this;
   }
-
-  /*
 
   public boolean arthurEquals(ArthurMedia two) {
     return false;
@@ -48,9 +46,7 @@ public class ArthurMedia implements java.io.Serializable {
     return this;
   }
 
-  /* saves state of current media to filename */
-
-  /*
+  //saves state of current media to filename
   public void writeToFile(String filename) {
 
   }
@@ -59,5 +55,4 @@ public class ArthurMedia implements java.io.Serializable {
     return "";
   }
 
-  */
 }

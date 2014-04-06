@@ -19,21 +19,8 @@ public class ArthurImage extends ArthurMedia {
   public ArthurNumber width;
 
   /*
-  public ArthurNumber height;
-  public ArthurNumber width;
-
-  public ArthurImage() {
-    this(new ArthurNumber(0), new ArthurNumber(0));
-  }
-
-  public ArthurImage(ArthurNumber w, ArthurNumber h) {
-    this.type = IMAGE;
-    this.width = w;
-    this.height = h;
-  }
-
-  public ArthurNumber pixel(ArthurNumber i, ArthurNumber j) {
-    return new ArthurNumber(0);
+  public ArthurColor pixel(ArthurNumber i, ArthurNumber j) {
+    return null;
   }
 
   public void pixel(ArthurNumber i, ArthurNumber j, ArthurColor c) {
@@ -57,7 +44,7 @@ public class ArthurImage extends ArthurMedia {
     try {
       bf = ImageIO.read(new File(fn));
     } catch (IOException e) {
-      
+
     }
     if (bf == null) {
       System.out.println("Error - couldn't get that image.");
@@ -66,12 +53,11 @@ public class ArthurImage extends ArthurMedia {
     height = new ArthurNumber(raster.getHeight());
     width = new ArthurNumber(raster.getWidth());
   }
-  
+
   public ArthurImage add(ArthurMedia two) {
     if (two.type.equals(IMAGE)) {
       return JavaImageMath.add(this, (ArthurImage) two);
     } else {
-      // coerce to Image?
       return this;
     }
   }
@@ -88,8 +74,9 @@ public class ArthurImage extends ArthurMedia {
   public ArthurImage multiply(ArthurMedia two) {
     if (two.type.equals(IMAGE)) {
       return JavaImageMath.multiply(this, (ArthurImage) two);
+    } else if (two.type.equals(ArthurNumber.NUMBER) {
+      return JavaImageMath.multiply(this, (ArthurNumber) two);
     } else {
-      // coerce to Image?
       return this;
     }
   }
@@ -97,8 +84,9 @@ public class ArthurImage extends ArthurMedia {
   public ArthurImage divide(ArthurMedia two) {
     if (two.type.equals(IMAGE)) {
       return JavaImageMath.divide(this, (ArthurImage) two);
+    } else if (two.type.equals(ArthurNumber.NUMBER) {
+      return JavaImageMath.divide(this, (ArthurNumber) two);
     } else {
-      // coerce to Image?
       return this;
     }
   }

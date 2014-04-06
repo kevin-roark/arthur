@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class JavaImageMath {
 
-	static int counter = 0; 
+	static int counter = 0;
 
 	/*
 	public static ArthurImage add(ArthurImage one, ArthurColor two) {
@@ -27,7 +27,7 @@ public class JavaImageMath {
 		try {
 			image = ImageIO.read(new File(one.filename));
 		} catch (IOException e) {
-			
+
 		}
 		if (image == null) {
 			System.out.println("Error - couldn't retrieve image.");
@@ -47,9 +47,9 @@ public class JavaImageMath {
 		}
 
 		//save image
-		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) + 
+		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) +
 								"+" +
-								"(" + two.r.val + "," + two.g.val + "," + two.b.val + ")" + 
+								"(" + two.r.val + "," + two.g.val + "," + two.b.val + ")" +
 								counter +
 								".jpg";
 		counter++;
@@ -59,7 +59,7 @@ public class JavaImageMath {
 			ImageIO.write(collage, "jpg", outputFile);
 			result = new ArthurImage(outputFn);
 		} catch (IOException e) {
-			
+
 		}
 
 		return result;
@@ -94,22 +94,22 @@ public class JavaImageMath {
 		//save image
 		String outputFn;
 		if (op == 0) {
-			outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) + 
+			outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) +
 						"+" +
-						two.filename.substring(0, two.filename.indexOf(".jpg")) + 
+						two.filename.substring(0, two.filename.indexOf(".jpg")) +
 						counter +
 						".jpg";
 		}
 		else {
-			outputFn = two.filename.substring(0, two.filename.indexOf(".jpg")) + 
+			outputFn = two.filename.substring(0, two.filename.indexOf(".jpg")) +
 						"-" +
-						one.filename.substring(0, one.filename.indexOf(".jpg")) + 
+						one.filename.substring(0, one.filename.indexOf(".jpg")) +
 						counter +
 						".jpg";
 		}
 
 		counter++;
-		
+
 		return new ArthurImage(collage, outputFn);
 	}
 
@@ -160,18 +160,18 @@ public class JavaImageMath {
 		}
 
 		//save image
-		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) + 
+		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) +
 								"X" + //filename can't contain the / or *characters; decide later
-								two.filename.substring(0, two.filename.indexOf(".jpg")) + 
+								two.filename.substring(0, two.filename.indexOf(".jpg")) +
 								counter +
 								".jpg";
 		counter++;
-		
-		return new ArthurImage(collage, outputFn);
-	}	
 
-	public static ArthurImage multiply (ArthurImage one, double two) { //change to ArthurNumber later
-		double f = two;
+		return new ArthurImage(collage, outputFn);
+	}
+
+	public static ArthurImage multiply (ArthurImage one, ArthurNumber two) { //change to ArthurNumber later
+		double f = two.val;
 		//get image
 		BufferedImage image = one.bf;
 
@@ -186,9 +186,9 @@ public class JavaImageMath {
 		g2d.dispose();
 
 		//save image
-		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) + 
+		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) +
 								"X" + //filename can't contain the / or *characters; decide later
-								f + 
+								f +
 								counter +
 								".jpg";
 		counter++;
@@ -203,7 +203,7 @@ public class JavaImageMath {
 		WritableRaster r1 = image.getRaster();
 		int width = r1.getWidth();
 		int height = r1.getHeight();
-		
+
 		BufferedImage r2resize = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2d = r2resize.createGraphics();
 		g2d.drawImage(image2, 0, 0, width, height, null);
@@ -229,18 +229,18 @@ public class JavaImageMath {
 		}
 
 		//save image
-		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) + 
+		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) +
 								"D" + //filename can't contain the / or *characters; decide later
-								two.filename.substring(0, two.filename.indexOf(".jpg")) + 
+								two.filename.substring(0, two.filename.indexOf(".jpg")) +
 								counter +
 								".jpg";
 		counter++;
-		
+
 		return new ArthurImage(collage, outputFn);
 	}
 
-	public static ArthurImage divide (ArthurImage one, int two) { //change to ArthurNumber later
-		int f = two;
+	public static ArthurImage divide (ArthurImage one, ArthurNumber two) { //change to ArthurNumber later
+		int f = two.int();
 		//get image
 		BufferedImage image = one.bf;
 
@@ -265,9 +265,9 @@ public class JavaImageMath {
 		g2d.dispose();
 
 		//save image
-		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) + 
+		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) +
 								"D" + //filename can't contain the / or *characters; decide later
-								f + 
+								f +
 								counter +
 								".jpg";
 		counter++;
@@ -278,11 +278,11 @@ public class JavaImageMath {
 
 	public static BufferedImage art2bf(ArthurImage artImage) {
 		BufferedImage image = null;
-		
+
 		try {
 			image = ImageIO.read(new File(artImage.filename));
 		} catch (IOException e) {
-			
+
 		}
 		if (image == null) {
 			System.out.println("Error - couldn't retrieve image.");
@@ -299,7 +299,7 @@ public class JavaImageMath {
 			ImageIO.write(buffImage, "jpg", outputFile);
 			result = new ArthurImage(outputFn);
 		} catch (IOException e) {
-			
+
 		}
 
 		return result;
