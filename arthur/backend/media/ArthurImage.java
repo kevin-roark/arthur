@@ -75,6 +75,15 @@ public class ArthurImage extends ArthurMedia {
       //error message
     }
   }
+
+  public void writeToFile() {
+        try {
+      File outputFile = new File(this.filename);
+      ImageIO.write(this.bf, "jpg", outputFile);
+    } catch (IOException e) {
+      //error message
+    }
+  }
   
   public ArthurImage add(ArthurMedia two) {
     if (two.type.equals(IMAGE)) {
