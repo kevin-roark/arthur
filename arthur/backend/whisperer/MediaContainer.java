@@ -22,7 +22,7 @@ public class MediaContainer {
       case ArthurColor.COLOR:
         this.filename = n + "__color__.json"; break;
       case ArthurImage.IMAGE:
-        this.filename = n + "__image__.png"; break;
+        this.filename = n + "__image__.jpg"; break;
       case ArthurNumber.NUMBER:
         this.filename = n + "__number__.json"; break;
       case ArthurSound.SOUND:

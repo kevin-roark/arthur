@@ -61,6 +61,7 @@ public class ArthurCompiler {
     String javaTranslation = javaTranslator.translateTree();
     writeTranslation(javaTranslation);
 
+
     // run the java translation
     if (verbose)
       System.out.println("running the java translation");

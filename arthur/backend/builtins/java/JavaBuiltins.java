@@ -12,7 +12,7 @@ public class JavaBuiltins {
   }
 
   public static ArthurImage image(ArthurString filename) {
-    return new ArthurImage();
+    return new ArthurImage(filename);
   }
 
   public static ArthurVideo video(ArthurString filename) {
