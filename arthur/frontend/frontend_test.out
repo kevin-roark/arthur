@@ -3,197 +3,6 @@
 /Users/kevinroark/code/arthur
 
 Parse node:
-\_globals
-   \_variable
-      \_num
-      \_time
-   \_variable
-      \_color
-      \_screenColor
-   \_Function
-      \_void
-      \_init
-      \_parameters
-      \_stmt_list
-         \_=
-            \_Identifier
-               \_screenColor
-            \_Identifier
-               \_RED
-         \_=
-            \_Identifier
-               \_time
-            \_Fun call
-               \_Identifier
-                  \_ms
-               \_arguments
-         \_Fun call
-            \_Identifier
-               \_add
-            \_arguments
-               \_Identifier
-                  \_screenColor
-   \_Function
-      \_void
-      \_loop
-      \_parameters
-      \_stmt_list
-         \_if-switch
-            \_if
-               \_condition
-                  \_less than
-                     \_-
-                        \_Fun call
-                           \_Identifier
-                              \_ms
-                           \_arguments
-                        \_Identifier
-                           \_time
-                     \_number
-                        \_30.0
-               \_body
-                  \_stmt_list
-                     \_return
-         \_if-switch
-            \_if
-               \_condition
-                  \_and
-                     \_less than
-                        \_Property access
-                           \_Identifier
-                              \_screenColor
-                           \_Property
-                              \_b
-                        \_number
-                           \_255.0
-                     \_is equal to
-                        \_Property access
-                           \_Identifier
-                              \_screenColor
-                           \_Property
-                              \_r
-                        \_number
-                           \_255.0
-               \_body
-                  \_stmt_list
-                     \_=
-                        \_Identifier
-                           \_screenColor
-                        \_+
-                           \_Identifier
-                              \_screenColor
-                           \_Color
-                              \_0
-                              \_0
-                              \_1
-                              \_1.0
-            \_elves
-               \_elf
-                  \_condition
-                     \_and
-                        \_is equal to
-                           \_Property access
-                              \_Identifier
-                                 \_screenColor
-                              \_Property
-                                 \_b
-                           \_number
-                              \_255.0
-                        \_greater than
-                           \_Property access
-                              \_Identifier
-                                 \_screenColor
-                              \_Property
-                                 \_r
-                           \_number
-                              \_0.0
-                  \_body
-                     \_stmt_list
-                        \_=
-                           \_Identifier
-                              \_screenColor
-                           \_-
-                              \_Identifier
-                                 \_screenColor
-                              \_Color
-                                 \_1
-                                 \_0
-                                 \_0
-                                 \_1.0
-               \_elf
-                  \_condition
-                     \_and
-                        \_is equal to
-                           \_Property access
-                              \_Identifier
-                                 \_screenColor
-                              \_Property
-                                 \_r
-                           \_number
-                              \_0.0
-                        \_greater than
-                           \_Property access
-                              \_Identifier
-                                 \_screenColor
-                              \_Property
-                                 \_b
-                           \_number
-                              \_0.0
-                  \_body
-                     \_stmt_list
-                        \_=
-                           \_Identifier
-                              \_screenColor
-                           \_-
-                              \_Identifier
-                                 \_screenColor
-                              \_Color
-                                 \_0
-                                 \_0
-                                 \_1
-                                 \_1.0
-               \_elf
-                  \_condition
-                     \_and
-                        \_is equal to
-                           \_Property access
-                              \_Identifier
-                                 \_screenColor
-                              \_Property
-                                 \_b
-                           \_number
-                              \_0.0
-                        \_less than
-                           \_Property access
-                              \_Identifier
-                                 \_screenColor
-                              \_Property
-                                 \_r
-                           \_number
-                              \_255.0
-                  \_body
-                     \_stmt_list
-                        \_=
-                           \_Identifier
-                              \_screenColor
-                           \_+
-                              \_Identifier
-                                 \_screenColor
-                              \_Color
-                                 \_1
-                                 \_0
-                                 \_0
-                                 \_1.0
-         \_=
-            \_Identifier
-               \_time
-            \_Fun call
-               \_Identifier
-                  \_ms
-               \_arguments
-Number of errors: 0
-Return value: 0
-Parse node:
 \_arthur
    \_Function
       \_void
@@ -224,7 +33,7 @@ Parse node:
                \_dog
             \_Fun call
                \_Identifier
-                  \_get
+                  \_image
                \_arguments
                   \_String
                      \_"whitepoodle.jpg"
@@ -234,7 +43,7 @@ Parse node:
                \_rect
             \_Fun call
                \_Identifier
-                  \_get
+                  \_image
                \_arguments
                   \_String
                      \_"justawhiterectangle.jpg"
@@ -262,12 +71,6 @@ Parse node:
       \_void
       \_loop
       \_parameters
-         \_parameter
-            \_num
-            \_x
-         \_parameter
-            \_color
-            \_y
       \_
    \_Function
       \_Video
@@ -419,7 +222,7 @@ Parse node:
                \_dog
             \_Fun call
                \_Identifier
-                  \_get
+                  \_image
                \_arguments
                   \_String
                      \_"whitepoodle.jpg"
@@ -428,7 +231,7 @@ Parse node:
                \_rect
             \_Fun call
                \_Identifier
-                  \_get
+                  \_image
                \_arguments
                   \_String
                      \_"justawhiterectangle.jpg"

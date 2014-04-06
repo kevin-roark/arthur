@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import arthur.frontend.Parser;
 import arthur.frontend.ParseNode;
+import arthur.backend.whisperer.JsWhisperer;
 
 public class JavaTranslatorTester {
 

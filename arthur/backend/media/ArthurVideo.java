@@ -5,10 +5,30 @@ package arthur.backend.media;
  */
 public class ArthurVideo extends ArthurMedia {
 
-  public static String VIDEO = "video";
+  public static final String VIDEO = "video";
 
   public ArthurVideo() {
     this.type = VIDEO;
+  }
+
+  public ArthurVideo add(ArthurMedia two) {
+    return this;
+  }
+
+  public ArthurVideo minus(ArthurMedia two) {
+    return this;
+  }
+
+  public ArthurVideo multiply(ArthurMedia two) {
+    return this;
+  }
+
+  public ArthurVideo divide(ArthurMedia two) {
+    return this;
+  }
+
+  public String jsLiteral() {
+    return "new ArthurVideo()";
   }
 
 }

@@ -84,7 +84,7 @@ public class JavaStringMath {
     }
 
     // average the strings
-    String product = new StringBuffer(shorter.length());
+    StringBuffer product = new StringBuffer(shorter.length());
     for (int i = 0; i < shorter.length(); i++) {
       int avg = (longer.codePointAt(i) + shorter.codePointAt(i)) / 2;
       product.appendCodePoint(avg);
@@ -121,7 +121,7 @@ public class JavaStringMath {
 
   /* reverses the second string and then calls multiply */
   public static ArthurString divide(ArthurString one, ArthurString two) {
-    String twoReverse = new StringBuilder(two).reverse().toString();
+    String twoReverse = new StringBuilder(two.str).reverse().toString();
     return multiply(one, new ArthurString(twoReverse));
   }
 

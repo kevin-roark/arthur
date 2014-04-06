@@ -8,20 +8,25 @@ void init() { //hey guys!
 
 	color mystery = <<127, 127, 30>>;
 
-	Image dog = get("whitepoodle.jpg");
-	Image rect = /* lol ! */ get("justawhiterectangle.jpg");
-	rect = rect * 37;
+	Image dog = image("whitepoodle.jpg");
+	Image rect = /* lol ! */ image("justawhiterectangle.jpg");
+	rect = rect * 2;
 
+	Image dog2 = dog / 10;
+	rect = rect / 15;
+
+	dog = dog2 / dog;
+	dog = dog / rect;
+
+	add(rect);
 	add(dog); //another wun
-  add(rect);
-
 }
 
 /* Nother
 * comment
 */
 
-void loop(num x, color y) {
+void loop() {
 
 }
 

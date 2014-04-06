@@ -12,9 +12,11 @@ void init() {
 }
 
 void loop() {
-  if ((ms() - time) < 30) {
+  if ((ms() - time) < 20) {
     return;
   }
+
+  string x = "lol";
 
   if (screenColor.b < 255 and screenColor.r == 255) {
     screenColor = screenColor + <<0, 0, 1>>;

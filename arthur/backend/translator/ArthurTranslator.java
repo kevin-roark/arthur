@@ -7,16 +7,18 @@ import arthur.frontend.ParseNode;
 public abstract class ArthurTranslator {
 
   public ParseNode source;
-  public ArrayList<ArthurType> globals;
   public int blockDepth;
   public ArthurFun activeFunction;
   public boolean ignoreChildren;
   public boolean isStatement;
 
   public abstract String getIntro();
+  public abstract String getOutro();
   public abstract String createAndTranslate(ParseNode source, boolean statement);
   public abstract String functionCode(ParseNode n);
   public abstract String varCode(ParseNode n);
+  public abstract String setToSymbol();
+  public abstract String setToEndSymbol();
   public abstract String parameterCode(ParseNode param);
   public abstract String colorLiteral(ParseNode n);
   public abstract String numberLiteral(ParseNode n);
@@ -72,7 +74,7 @@ public abstract class ArthurTranslator {
       case "dw":
         return ifStyle(n, "while");
       case "Identifier":
-        return " " + n.children.get(0).val;
+        return identifierVal(n.children.get(0).val);
       case "Fun call":
         this.ignoreChildren = true;
         ParseNode fcname = n.children.get(0).children.get(0);
@@ -98,7 +100,7 @@ public abstract class ArthurTranslator {
       case "String":
         return stringLiteral(n);
       case "=":
-        return twoSideOp(n, " = ");
+        return twoSideOp(n, setToSymbol());
       case "is equal to":
         return twoSideOp(n, ".arthurEquals(");
       case "less than":
@@ -110,7 +112,7 @@ public abstract class ArthurTranslator {
       case "-":
         return twoSideOp(n, ".minus(");
       case "+":
-        return twoSideOp(n, ".plus(");
+        return twoSideOp(n, ".add(");
       case "*":
         return twoSideOp(n, ".multiply(");
       case "/":
@@ -124,6 +126,10 @@ public abstract class ArthurTranslator {
       default:
         return "";
     }
+  }
+
+  public String identifierVal(String val) {
+    return " " + val;
   }
 
   /* like '=' or '<' */
@@ -151,9 +157,9 @@ public abstract class ArthurTranslator {
   private String endNode(ParseNode n) {
     switch (n.val) {
       case "globals":
-        return "\n}\n";
+        return getOutro();
       case "arthur":
-        return "\n}\n";
+        return getOutro();
       case "Function":
         blockDepth--;
         return "\n}\n";
@@ -181,7 +187,7 @@ public abstract class ArthurTranslator {
       case "Property access":
         return ender(false);
       case "=":
-        return ender(false);
+        return setToEndSymbol() + ender(false);
       case "is equal to":
         return ")" + ender(false);
       case "less than":

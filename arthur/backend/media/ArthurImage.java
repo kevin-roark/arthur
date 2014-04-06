@@ -3,48 +3,120 @@ package arthur.backend.media;
 /**
  * Java implementation of arthur image!
  */
+import java.io.*;
+import java.awt.image.*;
+import java.awt.Graphics2D;
+import java.awt.Color;
+import javax.imageio.*;
+import java.lang.*;
+
 public class ArthurImage extends ArthurMedia {
 
-  public static String IMAGE = "image";
+  public static final String IMAGE = "image";
+  public String filename;
+  public BufferedImage bf;
+  public ArthurNumber height;
+  public ArthurNumber width;
 
-  public ArthurImage() {
+  /*
+  public ArthurColor pixel(ArthurNumber i, ArthurNumber j) {
+    return null;
+  }
+
+  public void pixel(ArthurNumber i, ArthurNumber j, ArthurColor c) {
+
+  }
+  */
+
+  public ArthurImage(BufferedImage buff, ArthurString fn) {
+    this(buff, fn.str);
+  }
+
+  public ArthurImage(BufferedImage buff, String fn) {
+    filename = fn;
     this.type = IMAGE;
+    bf = buff;
+    WritableRaster raster = bf.getRaster();
+    height = new ArthurNumber(raster.getHeight());
+    width = new ArthurNumber(raster.getWidth());
   }
 
-  public ArthurMedia add(ArthurMedia two) {
+  public ArthurImage(ArthurString fn) {
+    this(fn.str);
+  }
+
+  public ArthurImage(String fn) {
+    this.type = IMAGE;
+    bf = null;
+    filename = fn;
+    try {
+      bf = ImageIO.read(new File(fn));
+    } catch (IOException e) {
+
+    }
+    if (bf == null) {
+      System.out.println("Error - couldn't get that image.");
+    }
+    WritableRaster raster = bf.getRaster();
+    height = new ArthurNumber(raster.getHeight());
+    width = new ArthurNumber(raster.getWidth());
+  }
+
+  public ArthurImage add(ArthurMedia two) {
     if (two.type.equals(IMAGE)) {
-      return JavaImageMath.add(this, two);
+      return JavaImageMath.add(this, (ArthurImage) two);
     } else {
-      // coerce to Image?
-      return null;
+      return this;
     }
   }
 
-  public ArthurMedia minus(ArthurMedia two) {
+  public ArthurImage minus(ArthurMedia two) {
     if (two.type.equals(IMAGE)) {
-      return JavaImageMath.minus(this, two);
+      return JavaImageMath.minus(this, (ArthurImage) two);
     } else {
       // coerce to Image?
-      return null;
+      return this;
     }
   }
 
-  public ArthurMedia multiply(ArthurMedia two) {
+  public ArthurImage multiply(ArthurMedia two) {
     if (two.type.equals(IMAGE)) {
-      return JavaImageMath.multiply(this, two);
+      return JavaImageMath.multiply(this, (ArthurImage) two);
+    } else if (two.type.equals(ArthurNumber.NUMBER)) {
+      return JavaImageMath.multiply(this, (ArthurNumber) two);
     } else {
-      // coerce to Image?
-      return null;
+      return this;
     }
   }
 
-  public ArthurMedia divide(ArthurMedia two) {
+  public ArthurImage divide(ArthurMedia two) {
     if (two.type.equals(IMAGE)) {
-      return JavaImageMath.divide(this, two);
+      return JavaImageMath.divide(this, (ArthurImage) two);
+    } else if (two.type.equals(ArthurNumber.NUMBER)) {
+      return JavaImageMath.divide(this, (ArthurNumber) two);
     } else {
-      // coerce to Image?
-      return null;
+      return this;
     }
   }
+
+  public void writeToFile(String filename) {
+    try {
+      File outputFile = new File(filename);
+      ImageIO.write(this.bf, "jpg", outputFile);
+    } catch (IOException e) {
+      //error message
+      e.printStackTrace();
+    }
+  }
+
+  /*
+  public String toString() {
+    return "image width " + width + "px, height " + height + "px";
+  }
+
+  public String jsLiteral() {
+    return "new ArthurImage()";
+  }
+  */
 
 }
