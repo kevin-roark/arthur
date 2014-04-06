@@ -91,6 +91,9 @@ public class SymbolTable {
       Function sound = new Function("sound", "Sound");
       table.put("sound", sound);
 
+      Function frame = new Function("frame", "Frame");
+      table.put("frame", frame);
+
       Function add = new Function("add", "void");
       table.put("add", add);
 

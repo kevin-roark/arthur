@@ -57,6 +57,11 @@ public class JavaArthurTranslator extends ArthurTranslator {
     s += "  String name = _isField(this, media);\n";
     s += "  _addMedia(media, name); \n}\n";
 
+    // add with frame
+    s += "\npublic void add(ArthurMedia media, ArthurFrame frame) {\n";
+    s += "  String name = _isField(this, media);\n";
+    s += "  _addMedia(media, name, frame); \n}\n";
+
     // constructor
     s += "public ArthurTranslation() { init(); addFields(getClass().getDeclaredFields()); JsWhisperer.writeToBlob(); }\n\n";
     return s;

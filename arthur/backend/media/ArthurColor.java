@@ -95,21 +95,26 @@ public class ArthurColor extends ArthurMedia {
 
   public String jsLiteral() {
     String js = "new ArthurColor(";
-    js += "new ArthurNumber(" + this.r.val + "),";
-    js += "new ArthurNumber(" + this.g.val + "),";
-    js += "new ArthurNumber(" + this.b.val + "),";
-    js += "new ArthurNumber(" + this.a.val + "))";
+    js += "'" + json() + "'";
+    js += ")";
     return js;
+  }
+
+  public String json() {
+    String json = "{'r': " + r.val + ", ";
+    json += "'g': " + g.val + ", ";
+    json += "'b': " + b.val + ", ";
+    if (this.frame != null) {
+      json += "'frame': " + this.frame.json();
+    }
+    json += "'a': " + a.val + "}";
+    json = json.replace("'", "\"");
+    return json;
   }
 
   /* saves state of current media to filename */
   public void writeToFile(String filename) {
-    String json = "{\n'r': " + r.val + ",\n";
-    json += "'g': " + g.val + ",\n";
-    json += "'b': " + b.val + ",\n";
-    json += "'a': " + a.val + "\n}";
-    json = json.replace("'", "\"");
-
+    String json = json();
     try {
       PrintWriter out = new PrintWriter(filename);
       out.println(json);
