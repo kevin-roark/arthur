@@ -54,7 +54,7 @@ public class ArthurNumber extends ArthurMedia {
     }
   }
 
-  public int int() {
+  public int intval() {
     return (int) Math.round(this.val);
   }
 

@@ -12,7 +12,7 @@ import java.lang.*;
 
 public class ArthurImage extends ArthurMedia {
 
-  public static String IMAGE = "image";
+  public static final String IMAGE = "image";
   public String filename;
   public BufferedImage bf;
   public ArthurNumber height;
@@ -28,22 +28,21 @@ public class ArthurImage extends ArthurMedia {
   }
   */
 
-  public void writeToFile(String filename) {
-    try {
-      File outputFile = new File(filename);
-      ImageIO.write(this.bf, "jpg", outputFile);
-    } catch (IOException e) {
-      //error message
-    }
+  public ArthurImage(BufferedImage buff, ArthurString fn) {
+    this(buff, fn.str);
   }
 
   public ArthurImage(BufferedImage buff, String fn) {
-    filename = fn + ".jpg";
+    filename = fn;
     this.type = IMAGE;
     bf = buff;
     WritableRaster raster = bf.getRaster();
     height = new ArthurNumber(raster.getHeight());
     width = new ArthurNumber(raster.getWidth());
+  }
+
+  public ArthurImage(ArthurString fn) {
+    this(fn.str);
   }
 
   public ArthurImage(String fn) {
@@ -83,7 +82,7 @@ public class ArthurImage extends ArthurMedia {
   public ArthurImage multiply(ArthurMedia two) {
     if (two.type.equals(IMAGE)) {
       return JavaImageMath.multiply(this, (ArthurImage) two);
-    } else if (two.type.equals(ArthurNumber.NUMBER) {
+    } else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaImageMath.multiply(this, (ArthurNumber) two);
     } else {
       return this;
@@ -93,10 +92,20 @@ public class ArthurImage extends ArthurMedia {
   public ArthurImage divide(ArthurMedia two) {
     if (two.type.equals(IMAGE)) {
       return JavaImageMath.divide(this, (ArthurImage) two);
-    } else if (two.type.equals(ArthurNumber.NUMBER) {
+    } else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaImageMath.divide(this, (ArthurNumber) two);
     } else {
       return this;
+    }
+  }
+
+  public void writeToFile(String filename) {
+    try {
+      File outputFile = new File(filename);
+      ImageIO.write(this.bf, "jpg", outputFile);
+    } catch (IOException e) {
+      //error message
+      e.printStackTrace();
     }
   }
 

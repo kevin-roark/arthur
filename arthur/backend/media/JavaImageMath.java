@@ -240,7 +240,7 @@ public class JavaImageMath {
 	}
 
 	public static ArthurImage divide (ArthurImage one, ArthurNumber two) { //change to ArthurNumber later
-		int f = two.int();
+		int f = two.intval();
 		//get image
 		BufferedImage image = one.bf;
 
