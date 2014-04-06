@@ -62,24 +62,6 @@ public class ArthurImage extends ArthurMedia {
     width = new ArthurNumber(raster.getWidth());
   }
 
-  public void writeToFile(String filename) {
-    try {
-      File outputFile = new File(filename);
-      ImageIO.write(this.bf, "jpg", outputFile);
-    } catch (IOException e) {
-      //error message
-    }
-  }
-
-  public void writeToFile() {
-        try {
-      File outputFile = new File(this.filename);
-      ImageIO.write(this.bf, "jpg", outputFile);
-    } catch (IOException e) {
-      //error message
-    }
-  }
-
   public ArthurImage add(ArthurMedia two) {
     if (two.type.equals(IMAGE)) {
       return JavaImageMath.add(this, (ArthurImage) two);
