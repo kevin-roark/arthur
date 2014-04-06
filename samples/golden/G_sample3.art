@@ -1,0 +1,229 @@
+Identifier not declared on line 16: pixel
+Identifier not declared on line 17: pixel
+Parse node:
+\_globals
+   \_variable
+      \_color
+      \_mystery
+   \_variable
+      \_image
+      \_dog
+   \_variable
+      \_image
+      \_rect
+   \_Function
+      \_void
+      \_color_replace
+      \_parameters
+         \_parameter
+            \_image
+            \_image
+         \_parameter
+            \_color
+            \_badColor
+         \_parameter
+            \_color
+            \_goodColor
+      \_stmt_list
+         \_=
+            \_variable
+               \_num
+               \_i
+            \_number
+               \_0.0
+         \_=
+            \_variable
+               \_num
+               \_j
+            \_number
+               \_0.0
+         \_dw
+            \_condition
+               \_less than
+                  \_Identifier
+                     \_i
+                  \_Property access
+                     \_Identifier
+                        \_image
+                     \_Property
+                        \_width
+            \_body
+               \_stmt_list
+                  \_dw
+                     \_condition
+                        \_less than
+                           \_Identifier
+                              \_j
+                           \_Property access
+                              \_Identifier
+                                 \_image
+                              \_Property
+                                 \_height
+                     \_body
+                        \_stmt_list
+                           \_if-switch
+                              \_if
+                                 \_condition
+                                    \_is equal to
+                                       \_Method call
+                                          \_Identifier
+                                             \_image
+                                          \_Fun call
+                                             \_Identifier
+                                                \_pixel
+                                             \_arguments
+                                                \_Identifier
+                                                   \_i
+                                                \_Identifier
+                                                   \_j
+                                       \_Identifier
+                                          \_badColor
+                                 \_body
+                                    \_stmt_list
+                                       \_Method call
+                                          \_Identifier
+                                             \_image
+                                          \_Fun call
+                                             \_Identifier
+                                                \_pixel
+                                             \_arguments
+                                                \_Identifier
+                                                   \_i
+                                                \_Identifier
+                                                   \_j
+                                                \_Identifier
+                                                   \_goodColor
+                           \_=
+                              \_Identifier
+                                 \_j
+                              \_+
+                                 \_Identifier
+                                    \_j
+                                 \_number
+                                    \_1.0
+                  \_=
+                     \_Identifier
+                        \_i
+                     \_+
+                        \_Identifier
+                           \_i
+                        \_number
+                           \_1.0
+   \_Function
+      \_void
+      \_init
+      \_parameters
+      \_stmt_list
+         \_=
+            \_Identifier
+               \_mystery
+            \_Color
+               \_127
+               \_127
+               \_30
+               \_1.0
+         \_=
+            \_Identifier
+               \_dog
+            \_Fun call
+               \_Identifier
+                  \_get
+               \_arguments
+                  \_String
+                     \_"whitepoodle.jpg"
+         \_=
+            \_Identifier
+               \_rect
+            \_Fun call
+               \_Identifier
+                  \_get
+               \_arguments
+                  \_String
+                     \_"justawhiterectangle.jpg"
+         \_=
+            \_Identifier
+               \_rect
+            \_*
+               \_Identifier
+                  \_rect
+               \_number
+                  \_37.0
+         \_=
+            \_variable
+               \_num
+               \_i
+            \_number
+               \_1.0
+         \_dw
+            \_condition
+               \_less than
+                  \_Identifier
+                     \_i
+                  \_number
+                     \_5.0
+            \_body
+               \_stmt_list
+                  \_=
+                     \_Identifier
+                        \_i
+                     \_+
+                        \_Identifier
+                           \_i
+                        \_number
+                           \_1.0
+         \_Fun call
+            \_Identifier
+               \_add
+            \_arguments
+               \_Identifier
+                  \_dog
+         \_Fun call
+            \_Identifier
+               \_add
+            \_arguments
+               \_Identifier
+                  \_rect
+   \_Function
+      \_void
+      \_loop
+      \_parameters
+      \_if-switch
+         \_if
+            \_condition
+               \_greater than
+                  \_Fun call
+                     \_Identifier
+                        \_ms
+                     \_arguments
+                  \_number
+                     \_10000.0
+            \_body
+               \_stmt_list
+                  \_Fun call
+                     \_Identifier
+                        \_color_replace
+                     \_arguments
+                        \_Identifier
+                           \_dog
+                        \_Identifier
+                           \_WHITE
+                        \_Identifier
+                           \_mystery
+                  \_Fun call
+                     \_Identifier
+                        \_color_replace
+                     \_arguments
+                        \_Identifier
+                           \_rect
+                        \_Identifier
+                           \_WHITE
+                        \_+
+                           \_Identifier
+                              \_mystery
+                           \_Color
+                              \_100
+                              \_100
+                              \_100
+                              \_1.0
+Number of errors: 2
+Return value: 0
