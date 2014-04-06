@@ -41,17 +41,8 @@ public class ArthurImage extends ArthurMedia {
   }
   */
 
-  public void writeToFile(String filename) {
-    try {
-      File outputFile = new File(filename);
-      ImageIO.write(this.bf, "jpg", outputFile);
-    } catch (IOException e) {
-      //error message
-    }
-  }
-
   public ArthurImage(BufferedImage buff, String fn) {
-    filename = fn + ".jpg";
+    filename = fn;
     this.type = IMAGE;
     bf = buff;
     WritableRaster raster = bf.getRaster();
@@ -74,6 +65,15 @@ public class ArthurImage extends ArthurMedia {
     WritableRaster raster = bf.getRaster();
     height = new ArthurNumber(raster.getHeight());
     width = new ArthurNumber(raster.getWidth());
+  }
+
+  public void writeToFile(String filename) {
+    try {
+      File outputFile = new File(filename);
+      ImageIO.write(this.bf, "jpg", outputFile);
+    } catch (IOException e) {
+      //error message
+    }
   }
   
   public ArthurImage add(ArthurMedia two) {
