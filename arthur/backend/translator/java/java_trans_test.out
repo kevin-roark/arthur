@@ -4,18 +4,24 @@
  * An automatically generated translation from arthur to java.
  */
 
-public class ArthurTranslation {
-JavaArthurNum time;
-JavaArthurColor screenColor;
+import arthur.backend.media.*;
+import arthur.backend.whisperer.*;
+import static arthur.backend.builtins.java.JavaBuiltins.*;
 
-public static void init() {
+public class ArthurTranslation {
+public ArthurTranslation() { init(); JsWhisperer.writeToBlob(); }
+
+ArthurNum time;
+ArthurColor screenColor;
+
+public void init() {
  screenColor =  RED;
  time = ms();
 add( screenColor);
 
 }
 
-public static void loop() {
+public void loop() {
 if (ms().minus( time).lessThan(new JavaArthurNum(30.0))) {
 return ;
 }
@@ -41,24 +47,30 @@ else if ( screenColor.b.arthurEquals(new JavaArthurNum(0.0)) &&  screenColor.r.l
  * An automatically generated translation from arthur to java.
  */
 
-public class ArthurTranslation {
+import arthur.backend.media.*;
+import arthur.backend.whisperer.*;
+import static arthur.backend.builtins.java.JavaBuiltins.*;
 
-public static void init() {
-JavaArthurColor white = new JavaArthurColor(0, 0, 0, 1.0);
-JavaArthurColor mystery = new JavaArthurColor(127, 127, 30, 1.0);
-JavaArthurImage dog = get(new JavaArthurString("whitepoodle.jpg"));
-JavaArthurImage rect = get(new JavaArthurString("justawhiterectangle.jpg"));
+public class ArthurTranslation {
+public ArthurTranslation() { init(); JsWhisperer.writeToBlob(); }
+
+
+public void init() {
+ArthurColor white = new JavaArthurColor(0, 0, 0, 1.0);
+ArthurColor mystery = new JavaArthurColor(127, 127, 30, 1.0);
+ArthurImage dog = get(new JavaArthurString("whitepoodle.jpg"));
+ArthurImage rect = get(new JavaArthurString("justawhiterectangle.jpg"));
  rect =  rect.multiply(new JavaArthurNum(37.0));
 add( dog);
 add( rect);
 
 }
 
-public static void loop(JavaArthurNum x, JavaArthurColor y) {
+public void loop(ArthurNum x, ArthurColor y) {
 
 }
 
-public static JavaArthurVideo make_it_blue_and_z(JavaArthurVideo vid, JavaArthurColor z) {
+public ArthurVideo make_it_blue_and_z(ArthurVideo vid, ArthurColor z) {
 return  vid.plus( BLUE).plus( z);
 
 }
@@ -71,14 +83,20 @@ Identifier not declared on line 17: pixel
  * An automatically generated translation from arthur to java.
  */
 
-public class ArthurTranslation {
-JavaArthurColor mystery;
-JavaArthurImage dog;
-JavaArthurImage rect;
+import arthur.backend.media.*;
+import arthur.backend.whisperer.*;
+import static arthur.backend.builtins.java.JavaBuiltins.*;
 
-public static void color_replace(JavaArthurImage image, JavaArthurColor badColor, JavaArthurColor goodColor) {
-JavaArthurNum i = new JavaArthurNum(0.0);
-JavaArthurNum j = new JavaArthurNum(0.0);
+public class ArthurTranslation {
+public ArthurTranslation() { init(); JsWhisperer.writeToBlob(); }
+
+ArthurColor mystery;
+ArthurImage dog;
+ArthurImage rect;
+
+public void color_replace(ArthurImage image, ArthurColor badColor, ArthurColor goodColor) {
+ArthurNum i = new JavaArthurNum(0.0);
+ArthurNum j = new JavaArthurNum(0.0);
 while ( i.lessThan( image.width)) {
 while ( j.lessThan( image.height)) {
 if ( image.pixel( i,  j).arthurEquals( badColor)) {
@@ -91,12 +109,12 @@ if ( image.pixel( i,  j).arthurEquals( badColor)) {
 
 }
 
-public static void init() {
+public void init() {
  mystery = new JavaArthurColor(127, 127, 30, 1.0);
  dog = get(new JavaArthurString("whitepoodle.jpg"));
  rect = get(new JavaArthurString("justawhiterectangle.jpg"));
  rect =  rect.multiply(new JavaArthurNum(37.0));
-JavaArthurNum i = new JavaArthurNum(1.0);
+ArthurNum i = new JavaArthurNum(1.0);
 while ( i.lessThan(new JavaArthurNum(5.0))) {
  i =  i.plus(new JavaArthurNum(1.0));
 }
@@ -105,7 +123,7 @@ add( rect);
 
 }
 
-public static void loop() {
+public void loop() {
 if (ms().greaterThan(new JavaArthurNum(10000.0))) {
 color_replace( dog,  WHITE,  mystery);
 color_replace( rect,  WHITE,  mystery.plus(new JavaArthurColor(100, 100, 100, 1.0)));

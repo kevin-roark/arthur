@@ -1,0 +1,51 @@
+
+color bg;
+
+void init() {
+  bg = <<255, 255, 0, 0.5>>;
+
+  Image starwars = image("starwars.jpg");
+  Image dyl1 = image("dyl1.jpg");
+  Image dyl2 = image("dyl2.jpg");
+  Image flames = image("flames.jpg");
+  Image gold = image("gold.jpg");
+  Image katana = image("katana.jpg");
+
+  dyl1 = dyl1 / flames;
+
+  Image multigold = gold / 10;
+  multigold = multigold * 2;
+
+  Image smalld = dyl1 * 0.3;
+  Image stacks = smalld;
+  Image smallk = katana * 0.3;
+
+  num i = 0;
+  dw (i < 4) {
+    stacks = stacks + smallk;
+    stacks = stacks + smalld;
+    i = i + 1;
+  }
+
+  starwars = starwars - starwars;
+  starwars = starwars;
+
+  dyl2 = dyl2 * gold;
+
+  add(stacks);
+  add(starwars);
+  //add(dyl2);
+  add(multigold);
+  //add(dyl1);
+
+  //last step add purple overlay
+  add(bg);
+}
+
+void loop() {
+  if (bg.r > 0) {
+    bg = bg - <<1, 1, 1>>;
+  } elf (bg.r == 0) {
+    bg = <<255, 255, 0, 0.5>>;
+  }
+}

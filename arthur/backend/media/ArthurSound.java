@@ -5,10 +5,30 @@ package arthur.backend.media;
  */
 public class ArthurSound extends ArthurMedia {
 
-  public static String SOUND = "sound";
+  public static final String SOUND = "sound";
 
   public ArthurSound() {
     this.type = SOUND;
+  }
+
+  public ArthurSound add(ArthurMedia two) {
+    return this;
+  }
+
+  public ArthurSound minus(ArthurMedia two) {
+    return this;
+  }
+
+  public ArthurSound multiply(ArthurMedia two) {
+    return this;
+  }
+
+  public ArthurSound divide(ArthurMedia two) {
+    return this;
+  }
+
+  public String jsLiteral() {
+    return "new ArthurSound()";
   }
 
 }

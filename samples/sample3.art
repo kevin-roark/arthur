@@ -34,8 +34,8 @@ void init() {
 	mystery = <<127, 127, 30>>;
 
 	/* Media */
-	dog = get("whitepoodle.jpg");
-	rect = get("justawhiterectangle.jpg");
+	dog = image("whitepoodle.jpg");
+	rect = image("justawhiterectangle.jpg");
 	rect = rect * 37; /* big one */
 
 	num i = 1;
