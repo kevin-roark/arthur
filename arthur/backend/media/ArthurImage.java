@@ -10,11 +10,11 @@ import java.awt.Color;
 import javax.imageio.*;
 import java.lang.*;
 
-public class ArthurImage extends ArthurMedia {
+public class ArthurImage extends ArthurMedia implements java.io.Serializable {
 
   public static final String IMAGE = "image";
   public String filename;
-  public BufferedImage bf;
+  public transient BufferedImage bf;
   public ArthurNumber height;
   public ArthurNumber width;
 
@@ -46,6 +46,7 @@ public class ArthurImage extends ArthurMedia {
   }
 
   public ArthurImage(String fn) {
+    System.out.println("image construction!");
     this.type = IMAGE;
     bf = null;
     filename = fn;
@@ -63,7 +64,9 @@ public class ArthurImage extends ArthurMedia {
   }
 
   public ArthurImage add(ArthurMedia two) {
+    System.out.println("image adding!");
     if (two.type.equals(IMAGE)) {
+      System.out.println("image on image adding!");
       return JavaImageMath.add(this, (ArthurImage) two);
     } else {
       return this;
@@ -71,6 +74,7 @@ public class ArthurImage extends ArthurMedia {
   }
 
   public ArthurImage minus(ArthurMedia two) {
+    System.out.println("image subtraction!");
     if (two.type.equals(IMAGE)) {
       return JavaImageMath.minus(this, (ArthurImage) two);
     } else {
@@ -80,6 +84,7 @@ public class ArthurImage extends ArthurMedia {
   }
 
   public ArthurImage multiply(ArthurMedia two) {
+    System.out.println("image mult!");
     if (two.type.equals(IMAGE)) {
       return JavaImageMath.multiply(this, (ArthurImage) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
@@ -90,6 +95,7 @@ public class ArthurImage extends ArthurMedia {
   }
 
   public ArthurImage divide(ArthurMedia two) {
+    System.out.println("image div!");
     if (two.type.equals(IMAGE)) {
       return JavaImageMath.divide(this, (ArthurImage) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
@@ -99,24 +105,34 @@ public class ArthurImage extends ArthurMedia {
     }
   }
 
-  public void writeToFile(String filename) {
+  public void writeToFile(String fname) {
     try {
-      File outputFile = new File(filename);
+      File outputFile = new File(fname);
       ImageIO.write(this.bf, "jpg", outputFile);
+      this.filename = fname.substring(fname.indexOf('/') + 1); // remove 'buster'
     } catch (IOException e) {
       //error message
       e.printStackTrace();
     }
   }
 
-  /*
+  public String json() {
+    String js = "{";
+    js += "'filename': '" + this.filename + "'";
+    if (this.frame != null) {
+      js += ", 'frame': " + this.frame.json() + "";
+    }
+    js += "}";
+    js = js.replace("'", "\"");
+    return js;
+  }
+
   public String toString() {
-    return "image width " + width + "px, height " + height + "px";
+    return "image width " + width.val + "px, height " + height.val + "px";
   }
 
   public String jsLiteral() {
-    return "new ArthurImage()";
+    return "new ArthurImage(" + json() + ")";
   }
-  */
 
 }

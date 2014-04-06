@@ -1,26 +1,31 @@
 
 var types = require('./types');
 var ArthurMedia = require('./arthur-media');
+var ArthurFrame = require('./arthur-frame');
 
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 
 module.exports = ArthurImage;
 
-function ArthurImage(filename, frame) {
+function ArthurImage(json) {
+  var ob = JSON.parse(json);
+
   this.type = types.IMAGE;
-  this.medfile = filename;
-  if (frame) {
-    this.frame = frame;
+  this.medfile = ob.filename;
+  if (ob.frame) {
+    this.frame = new ArthurFrame(ob.frame);
   }
 
-  var img = $('<img class="arthur-image" id="' + filename + '">');
-  img.attr('src', filename);
+  var img = $('<img class="arthur-image" id="' + this.medfile + '">');
+  img.attr('src', this.medfile);
   this.img = img;
 
   var dom = this.img.get(0);
   this.width = dom.naturalWidth;
   this.height = dom.naturalHeight;
+
+  console.log(this);
 }
 
 ArthurImage.prototype.__proto__ = ArthurMedia.prototype;
@@ -38,7 +43,7 @@ ArthurImage.prototype.draw = function() {
   }
 
   if (this.frame) {
-    context.drawImage(this.img.get(0), frame.x, frame.y, frame.w, frame.h);
+    context.drawImage(this.img.get(0), this.frame.x, this.frame.y, this.frame.w, this.frame.h);
   } else {
     context.drawImage(this.img.get(0), 0, 0);
   }

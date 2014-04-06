@@ -109,7 +109,6 @@ public class JavaImageMath {
 		}
 
 		counter++;
-
 		return new ArthurImage(collage, outputFn);
 	}
 

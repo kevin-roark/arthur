@@ -21,7 +21,7 @@ public class JsWhisperer implements java.io.Serializable {
   public static transient ArrayList<GlobalMedia> globals = new ArrayList<GlobalMedia>();
 
   public ArrayList<GlobalMedia> localGlobals;
-  public ArrayList<String> localMediaFiles;
+  public MediaMaster localMediaFiles;
 
   public JsWhisperer() {
     localGlobals = globals;
@@ -32,8 +32,8 @@ public class JsWhisperer implements java.io.Serializable {
     String s = "";
     if (localMediaFiles != null) {
       s += "Media files:\n";
-      for (String m : localMediaFiles) {
-        s += "  " + m + "\n";
+      for (MediaContainer mc : localMediaFiles.finalMedia) {
+        s += "  " + mc + "\n";
       }
     }
 

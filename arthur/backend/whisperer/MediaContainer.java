@@ -4,7 +4,7 @@ import arthur.backend.media.*;
 
 import arthur.backend.ArthurCompiler;
 
-public class MediaContainer {
+public class MediaContainer implements java.io.Serializable {
 
   public String name;
   public ArthurMedia media;

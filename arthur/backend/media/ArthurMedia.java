@@ -9,12 +9,15 @@ package arthur.backend.media;
 public class ArthurMedia implements java.io.Serializable {
 
   public String type;
+  public ArthurFrame frame;
+  public String filename;
 
   public ArthurMedia() {
     this.type = "untyped";
   }
 
   public ArthurMedia add(ArthurMedia two) {
+    System.out.println("media adding!");
     return this;
   }
 
@@ -52,6 +55,10 @@ public class ArthurMedia implements java.io.Serializable {
   }
 
   public String jsLiteral() {
+    return "";
+  }
+
+  public String json() {
     return "";
   }
 
