@@ -28,6 +28,15 @@ public class ArthurImage extends ArthurMedia {
   }
   */
 
+  public void writeToFile(String filename) {
+    try {
+      File outputFile = new File(filename);
+      ImageIO.write(this.bf, "jpg", outputFile);
+    } catch (IOException e) {
+      //error message
+    }
+  }
+
   public ArthurImage(BufferedImage buff, String fn) {
     filename = fn + ".jpg";
     this.type = IMAGE;
