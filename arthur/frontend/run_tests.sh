@@ -6,6 +6,21 @@ cd ../../
 echo $PWD
 echo $CLASSPATH
 
-java arthur/frontend/yacctest samples/sample1.art > ./samples/golden/sample1G.txt 2>&1
-java arthur/frontend/yacctest samples/sample2.art
-java arthur/frontend/yacctest samples/sample3.art
+# clear log
+> arthur/frontend/frontend.log
+
+for i in samples/sample*; do
+	a=`echo $i | cut -c 9-`
+	java arthur/frontend/yacctest $i > samples/suite/X_$a
+	DIFF=$(diff samples/suite/X_$a samples/golden/G_$a)
+	if [ "$DIFF" == "" ]
+	then
+		echo $i ".......... OK" >> arthur/frontend/frontend.log
+	else
+		echo $i ".......... NONO" >> arthur/frontend/frontend.log
+	fi
+	rm -f samples/suite/X_$a
+
+done
+
+echo "check frontend.log!!"

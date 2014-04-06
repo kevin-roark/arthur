@@ -1,5 +1,5 @@
 
-compiler:
+compiler:	.FORCE
 	javac arthur/backend/ArthurCompiler.java
 
 jsbuild:
@@ -7,3 +7,5 @@ jsbuild:
 
 clean:
 	./supercleaner.sh
+
+.PHONY: .FORCE
