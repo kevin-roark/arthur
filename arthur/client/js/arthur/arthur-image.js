@@ -40,6 +40,6 @@ ArthurImage.prototype.draw = function() {
   if (this.frame) {
     context.drawImage(this.img.get(0), frame.x, frame.y, frame.w, frame.h);
   } else {
-    context.drawImage(this.img.get(0), 0, 0, this.width, this.height);
+    context.drawImage(this.img.get(0), 0, 0);
   }
 }
