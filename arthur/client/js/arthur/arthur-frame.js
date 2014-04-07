@@ -1,17 +1,19 @@
 
+var ArthurNumber = require('./arthur-number');
+
 module.exports = ArthurFrame;
 
 function ArthurFrame(frameob) {
-  this.x = frameob.x;
-  this.y = frameob.y;
+  this.x = new ArthurNumber(frameob.x);
+  this.y = new ArthurNumber(frameob.y);
   if (frameob.w < 0) {
-    this.w = $(window).width();
+    this.w = new ArthurNumber($(window).width());
   } else {
-    this.w = frameob.w;
+    this.w = new ArthurNumber(frameob.w);
   }
   if (frameob.h < 0) {
-    this.h = $(window).height();
+    this.h = new ArthurNumber($(window).height());
   } else {
-    this.h = frameob.h;
+    this.h = new ArthurNumber(frameob.h);
   }
 }

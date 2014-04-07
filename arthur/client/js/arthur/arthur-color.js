@@ -49,7 +49,7 @@ ArthurColor.prototype.rgba = function() {
 ArthurColor.prototype.draw = function() {
   context.fillStyle = this.rgba();
   if (this.frame) {
-    context.fillRect(this.frame.x, this.frame.y, this.frame.w, this.frame.h);
+    context.fillRect(this.frame.x.int(), this.frame.y.int(), this.frame.w.int(), this.frame.h.int());
   } else {
     context.fillRect(0, 0, canvas.width, canvas.height);
   }

@@ -1,12 +1,16 @@
 
 color bg;
+Image dyl2;
+num left;
 
 void init() {
   bg = <<255, 0, 255, 0.5>>;
 
+  left = 0;
+
   Image starwars = image("starwars.jpg");
   Image dyl1 = image("dyl1.jpg");
-  Image dyl2 = image("dyl2.jpg");
+  dyl2 = image("dyl2.jpg");
   Image flames = image("flames.jpg");
   Image gold = image("gold.jpg");
   Image katana = image("katana.jpg");
@@ -33,6 +37,8 @@ void init() {
   Image bottomflames = superflames * 1;
   Image bottomtana = supertana * 1;
 
+  dyl2.murk = 0.6;
+
   add(starwars, frame("fill"));
   add(superflames);
   add(supertana);
@@ -45,10 +51,30 @@ void init() {
   add(bg);
 }
 
-void loop() {
+void bgcolor() {
   if (bg.r > 0) {
     bg = bg - <<1, 1, 1>>;
   } elf (bg.r == 0) {
     bg = <<255, 0, 255, 0.5>>;
   }
+}
+
+void dylanpos() {
+  if (left < 1) {
+    dyl2.frame.x = dyl2.frame.x + 1;
+    if (dyl2.frame.x > 800) {
+      left = 2;
+    }
+  } elf (left > 1) {
+    dyl2.frame.x = dyl2.frame.x - 1;
+    if (dyl2.frame.x < 1) {
+      left = 0;
+    }
+  }
+}
+
+void loop() {
+  bgcolor();
+
+  dylanpos();
 }

@@ -50,7 +50,7 @@ ArthurColor.prototype.rgba = function() {
 ArthurColor.prototype.draw = function() {
   context.fillStyle = this.rgba();
   if (this.frame) {
-    context.fillRect(this.frame.x, this.frame.y, this.frame.w, this.frame.h);
+    context.fillRect(this.frame.x.int(), this.frame.y.int(), this.frame.w.int(), this.frame.h.int());
   } else {
     context.fillRect(0, 0, canvas.width, canvas.height);
   }
@@ -74,28 +74,31 @@ ArthurColor.prototype.minus = function(color) {
 
 },{"./arthur-frame":2,"./arthur-media":4,"./arthur-number":5,"./types":11}],2:[function(require,module,exports){
 
+var ArthurNumber = require('./arthur-number');
+
 module.exports = ArthurFrame;
 
 function ArthurFrame(frameob) {
-  this.x = frameob.x;
-  this.y = frameob.y;
+  this.x = new ArthurNumber(frameob.x);
+  this.y = new ArthurNumber(frameob.y);
   if (frameob.w < 0) {
-    this.w = $(window).width();
+    this.w = new ArthurNumber($(window).width());
   } else {
-    this.w = frameob.w;
+    this.w = new ArthurNumber(frameob.w);
   }
   if (frameob.h < 0) {
-    this.h = $(window).height();
+    this.h = new ArthurNumber($(window).height());
   } else {
-    this.h = frameob.h;
+    this.h = new ArthurNumber(frameob.h);
   }
 }
 
-},{}],3:[function(require,module,exports){
+},{"./arthur-number":5}],3:[function(require,module,exports){
 
 var types = require('./types');
 var ArthurMedia = require('./arthur-media');
 var ArthurFrame = require('./arthur-frame');
+var ArthurNumber = require('./arthur-number');
 
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
@@ -103,12 +106,19 @@ var context = canvas.getContext('2d');
 module.exports = ArthurImage;
 
 function ArthurImage(json) {
-  var ob = JSON.parse(json);
+  var ob;
+  if (typeof json == 'string')
+    ob = JSON.parse(json);
+  else
+    ob = json;
 
   this.type = types.IMAGE;
   this.medfile = ob.filename;
   if (ob.frame) {
     this.frame = new ArthurFrame(ob.frame);
+  }
+  if (ob.murk) {
+    this.murk = new ArthurNumber(ob.murk);
   }
 
   var img = $('<img class="arthur-image" id="' + this.medfile + '">');
@@ -118,8 +128,6 @@ function ArthurImage(json) {
   var dom = this.img.get(0);
   this.width = dom.naturalWidth;
   this.height = dom.naturalHeight;
-
-  console.log(this);
 }
 
 ArthurImage.prototype.__proto__ = ArthurMedia.prototype;
@@ -136,14 +144,19 @@ ArthurImage.prototype.draw = function() {
     this.height = dom.naturalHeight;
   }
 
+  if (this.murk) {
+    context.globalAlpha = this.murk.val;
+  }
+
   if (this.frame) {
-    context.drawImage(this.img.get(0), this.frame.x, this.frame.y, this.frame.w, this.frame.h);
+    context.drawImage(this.img.get(0), this.frame.x.int(), this.frame.y.int(), this.frame.w.int(), this.frame.h.int());
   } else {
     context.drawImage(this.img.get(0), 0, 0);
   }
+  context.globalAlpha = 1.0;
 }
 
-},{"./arthur-frame":2,"./arthur-media":4,"./types":11}],4:[function(require,module,exports){
+},{"./arthur-frame":2,"./arthur-media":4,"./arthur-number":5,"./types":11}],4:[function(require,module,exports){
 
 module.exports = ArthurMedia;
 
@@ -449,25 +462,27 @@ var updateMedia = arthur.updateMedia;
 function looper() { requestAnimationFrame(looper); loop(); updateMedia(); }
 
 var bg = literalWrapper(new ArthurColor('{"r": 255.0, "g": 0.0, "b": 255.0, "a": 0.5}'), 'media/bg__color__.json');
+var dyl2 = literalWrapper(new ArthurImage({"filename": "media/dyl2__image__.jpg", "frame": {"x": 250.0, "y": 100.0, "w": 700.0, "h": 500.0}, "murk": 0.6}), 'media/dyl2__image__.jpg');
+var left = literalWrapper(new ArthurNumber(0.0));
 addArthurImage('{"filename": "media/1__image__.jpg", "frame": {"x": 0.0, "y": 0.0, "w": -1.0, "h": -1.0}}', 'media/1__image__.jpg')
 addArthurImage('{"filename": "media/2__image__.jpg"}', 'media/2__image__.jpg')
 addArthurImage('{"filename": "media/3__image__.jpg"}', 'media/3__image__.jpg')
 addArthurImage('{"filename": "media/4__image__.jpg", "frame": {"x": 0.0, "y": 500.0, "w": -1.0, "h": 100.0}}', 'media/4__image__.jpg')
 addArthurImage('{"filename": "media/5__image__.jpg", "frame": {"x": 0.0, "y": 600.0, "w": -1.0, "h": 100.0}}', 'media/5__image__.jpg')
 addArthurImage('{"filename": "media/6__image__.jpg", "frame": {"x": 100.0, "y": 50.0, "w": 1000.0, "h": 600.0}}', 'media/6__image__.jpg')
-addArthurImage('{"filename": "media/7__image__.jpg", "frame": {"x": 250.0, "y": 100.0, "w": 700.0, "h": 500.0}}', 'media/7__image__.jpg')
+addArthurImage('{"filename": "media/dyl2__image__.jpg", "frame": {"x": 250.0, "y": 100.0, "w": 700.0, "h": 500.0}, "murk": 0.6}', 'media/dyl2__image__.jpg')
 addArthurColor('{"r": 255.0, "g": 0.0, "b": 255.0, "a": 0.5}', 'media/bg__color__.json')
 
 
 
 function init() {
  bg.set(new ArthurColor(255, 0, 255, 0.5));
+ left.set(new ArthurNumber(0.0));
 var starwars = new ArthurMedia();
 starwars.set(image(new ArthurString("starwars.jpg")));
 var dyl1 = new ArthurMedia();
 dyl1.set(image(new ArthurString("dyl1.jpg")));
-var dyl2 = new ArthurMedia();
-dyl2.set(image(new ArthurString("dyl2.jpg")));
+ dyl2.set(image(new ArthurString("dyl2.jpg")));
 var flames = new ArthurMedia();
 flames.set(image(new ArthurString("flames.jpg")));
 var gold = new ArthurMedia();
@@ -494,6 +509,7 @@ var bottomflames = new ArthurMedia();
 bottomflames.set( superflames.multiply(new ArthurNumber(1.0)));
 var bottomtana = new ArthurMedia();
 bottomtana.set( supertana.multiply(new ArthurNumber(1.0)));
+ dyl2.murk.set(new ArthurNumber(0.6));
 add( starwars, frame(new ArthurString("fill")));
 add( superflames);
 add( supertana);
@@ -505,13 +521,35 @@ add( bg);
 
 }
 
-function loop() {
+function bgcolor() {
 if ( bg.r.greaterThan(new ArthurNumber(0.0))) {
  bg.set( bg.minus(new ArthurColor(1, 1, 1, 1.0)));
 }
 else if ( bg.r.arthurEquals(new ArthurNumber(0.0))) {
  bg.set(new ArthurColor(255, 0, 255, 0.5));
 }
+
+}
+
+function dylanpos() {
+if ( left.lessThan(new ArthurNumber(1.0))) {
+ dyl2.frame.x.set( dyl2.frame.x.add(new ArthurNumber(1.0)));
+if ( dyl2.frame.x.greaterThan(new ArthurNumber(800.0))) {
+ left.set(new ArthurNumber(2.0));
+}
+}
+else if ( left.greaterThan(new ArthurNumber(1.0))) {
+ dyl2.frame.x.set( dyl2.frame.x.minus(new ArthurNumber(1.0)));
+if ( dyl2.frame.x.lessThan(new ArthurNumber(1.0))) {
+ left.set(new ArthurNumber(0.0));
+}
+}
+
+}
+
+function loop() {
+bgcolor();
+dylanpos();
 
 }
 

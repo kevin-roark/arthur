@@ -95,6 +95,7 @@ public class Var extends Token {
           return set;
         case IMAGE:
           set.add("width"); set.add("height"); set.add("pixel");
+          set.add("murk"); set.add("frame");
           return set;
         default:
           return set;
