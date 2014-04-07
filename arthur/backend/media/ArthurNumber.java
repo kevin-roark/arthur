@@ -3,7 +3,7 @@ package arthur.backend.media;
 /**
  * Java implementation of arthur number!
  */
-public class ArthurNumber extends ArthurMedia {
+public class ArthurNumber extends ArthurMedia implements java.io.Serializable {
 
   public static final String NUMBER = "number";
 
@@ -51,6 +51,24 @@ public class ArthurNumber extends ArthurMedia {
     } else {
       // coerce to Number?
       return this;
+    }
+  }
+
+  public boolean lessThan(ArthurMedia two) {
+    if (two.type.equals(NUMBER)) {
+      ArthurNumber t = (ArthurNumber) two;
+      return (this.val < t.val);
+    } else {
+      return false;
+    }
+  }
+
+  public boolean greaterThan(ArthurMedia two) {
+    if (two.type.equals(NUMBER)) {
+      ArthurNumber t = (ArthurNumber) two;
+      return (this.val > t.val);
+    } else {
+      return false;
     }
   }
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import arthur.backend.media.*;
 
-public class MediaMaster {
+public class MediaMaster implements java.io.Serializable {
 
   public ArrayList<MediaContainer> finalMedia;
 
@@ -19,13 +19,11 @@ public class MediaMaster {
   }
 
   /* writes medias to file and returns list of filenames */
-  public ArrayList<String> storeMedias() {
-    ArrayList<String> names = new ArrayList<String>();
+  public MediaMaster storeMedias() {
     for (MediaContainer mc : this.finalMedia) {
       mc.storeMedia();
-      names.add(mc.filename);
     }
-    return names;
+    return this;
   }
 
 }

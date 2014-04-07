@@ -11,11 +11,11 @@ function ArthurMedia() {
 
 ArthurMedia.prototype.set = function(media) {
   var g = this.glob;
-  var a = this.active;
+  var ac = this.active;
   for (var key in media) {
     this[key] = media[key];
   }
   this.glob = g;
-  this.active = a;
+  this.active = ac;
   return this;
 }

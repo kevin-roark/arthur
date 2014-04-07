@@ -52,25 +52,25 @@ module.exports.updateMedia = function() {
   }
 }
 
-module.exports.addArthurColor = function(filename, frame) {
-  var med = globalMap[filename];
-  if (med) {
-    med.active = true;
-    activeMedia.push(med);
-    return;
+module.exports.addArthurColor = function(json, filename) {
+  if (filename) {
+    var med = globalMap[filename];
+    if (med) {
+      med.active = true;
+      activeMedia.push(med);
+      console.log(med);
+      return;
+    }
   }
 
-  $.ajax({
-    url: filename,
-    success: function(cj) {
-      var color = new ArthurColor(cj.r, cj.g, cj.b, cj.a, frame);
-      color.active = true;
-      activeMedia.push(color);
-    }
-  });
+  var ob = JSON.parse(json);
+
+  var color = new ArthurColor(ob.r, ob.g, ob.b, ob.a, ob.frame);
+  color.active = true;
+  activeMedia.push(color);
 }
 
-module.exports.addArthurNumber = function(filename, frame) {
+module.exports.addArthurNumber = function(json) {
 
 }
 
@@ -78,15 +78,15 @@ module.exports.addArthurString = function(filename, frame) {
 
 }
 
-module.exports.addArthurImage = function(filename, frame) {
+module.exports.addArthurImage = function(json, filename) {
   var med = globalMap[filename];
   if (med) {
     med.active = true;
     activeMedia.push(med);
     return;
   }
-
-  var ai = new ArthurImage(filename, frame);
+  
+  var ai = new ArthurImage(json);
   ai.active = true;
   activeMedia.push(ai);
 }
