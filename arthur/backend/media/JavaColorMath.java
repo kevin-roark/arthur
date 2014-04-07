@@ -15,7 +15,10 @@ public static ArthurColor add(ArthurColor one, ArthurColor two) {
 }
 
 public static ArthurColor add(ArthurColor one, ArthurImage two) {
-	return null;
+	ArthurColor avg=two.getAverageColor();
+
+	return multiply(one, avg);
+	
 }
 
 public static ArthurColor add(ArthurColor one, ArthurVideo two) {
@@ -35,7 +38,15 @@ public static ArthurColor add(ArthurColor one, ArthurNumber two) {
 }
 
 public static ArthurColor add(ArthurColor one, ArthurString two) {
-	return null;
+	String name=two.toString();
+	for (int i = 0; i < ArthurColor.crayolas.length; i++){
+		if(name.toUpperCase().contains(ArthurColor.crayolas[i])){
+			return add(one,new ArthurColor(ArthurColor.crayolas[i]));
+		}
+
+	}
+	return new ArthurColor(0.0,0.0,0.0,1.0);
+	
 }
 
 public static ArthurColor minus(ArthurColor one, ArthurColor two) {

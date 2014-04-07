@@ -109,6 +109,29 @@ public class ArthurImage extends ArthurMedia {
     }
   }
 
+  public ArthurColor getAverageColor(){
+    int[] rgbArray=bf.getRGB(0, 0, bf.getWidth(), bf.getHeight(), null, 0, bf.getWidth());
+
+    Color c = new Color(rgbArray[(int)((Math.random()*(bf.getHeight()*bf.getWidth()))+1)]);
+    double red = c.getRed();
+    double green = c.getGreen();
+    double blue = c.getBlue();
+
+    //Random sampling to get average color of an image
+    for(int i=0;i<199;i++){
+      c = new Color(rgbArray[(int)((Math.random()*(bf.getHeight()*bf.getWidth()))+1)]);
+    red = red+ c.getRed();
+    green = green+ c.getGreen();
+    blue = blue+ c.getBlue();
+    }
+    double redAvg=red/200;
+    double greenAvg=green/200;
+    double blueAvg=blue/200;
+
+    return new ArthurColor(redAvg,greenAvg,blueAvg, 1.0);
+
+  }
+
   /*
   public String toString() {
     return "image width " + width + "px, height " + height + "px";
