@@ -84,19 +84,28 @@ public class JsMiddleMan {
     String before = this.translation.substring(0, idx);
     String after = this.translation.substring(idx);
     String additions = "\n";
-    for (String s : this.whisperer.localMediaFiles) {
-      if (s.indexOf("__color__") != -1) {
-        additions += "addArthurColor('" + s + "');";
-      } else if (s.indexOf("__image__") != -1) {
-        additions += "addArthurImage('" + s + "');";
-      } else if (s.indexOf("__number__") != -1) {
-        additions += "addArthurNumber('" + s + "');";
-      } else if (s.indexOf("__sound__") != -1) {
-        additions += "addArthurSound('" + s + "');";
-      } else if (s.indexOf("__video__") != -1) {
-        additions += "addArthurVideo('" + s + "');";
-      } else if (s.indexOf("__string__") != -1) {
-        additions += "addArthurString('" + s + "');";
+    for (MediaContainer mc : this.whisperer.localMediaFiles.finalMedia) {
+      ArthurMedia m = mc.media;
+      switch(m.type) {
+        case ArthurColor.COLOR:
+          additions += "addArthurColor('" + m.json() + "', '" + mc.filename + "')";
+          break;
+        case ArthurNumber.NUMBER:
+          additions += "addArthurNumber('" + m.json() + "', '" + mc.filename + "')";
+          break;
+        case ArthurImage.IMAGE:
+          additions += "addArthurImage('" + m.json() + "', '" + mc.filename + "')";
+          break;
+        case ArthurSound.SOUND:
+          additions += "addArthurSound('" + m.json() + "', '" + mc.filename + "')";
+          break;
+        case ArthurVideo.VIDEO:
+          additions += "addArthurVideo('" + m.json() + "', '" + mc.filename + "')";
+          break;
+        case ArthurString.STRING:
+          additions += "addArthurString('" + m.json() + "', '" + mc.filename + "')";
+          break;
+        default: break;
       }
 
       additions += "\n";

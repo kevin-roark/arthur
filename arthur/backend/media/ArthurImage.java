@@ -10,13 +10,14 @@ import java.awt.Color;
 import javax.imageio.*;
 import java.lang.*;
 
-public class ArthurImage extends ArthurMedia {
+public class ArthurImage extends ArthurMedia implements java.io.Serializable {
 
   public static final String IMAGE = "image";
   public String filename;
-  public BufferedImage bf;
+  public transient BufferedImage bf;
   public ArthurNumber height;
   public ArthurNumber width;
+  public ArthurNumber murk;
 
   /*
   public ArthurColor pixel(ArthurNumber i, ArthurNumber j) {
@@ -63,60 +64,85 @@ public class ArthurImage extends ArthurMedia {
   }
 
   public ArthurImage add(ArthurMedia two) {
+    ArthurImage res;
     if (two.type.equals(IMAGE)) {
-      return JavaImageMath.add(this, (ArthurImage) two);
+      res = JavaImageMath.add(this, (ArthurImage) two);
     } else {
-      return this;
+      res = this;
     }
+    res.murk = this.murk;
+    return res;
   }
 
   public ArthurImage minus(ArthurMedia two) {
+    ArthurImage res;
     if (two.type.equals(IMAGE)) {
-      return JavaImageMath.minus(this, (ArthurImage) two);
+      res = JavaImageMath.minus(this, (ArthurImage) two);
     } else {
       // coerce to Image?
-      return this;
+      res = this;
     }
+    res.murk = this.murk;
+    return res;
   }
 
   public ArthurImage multiply(ArthurMedia two) {
+    ArthurImage res;
     if (two.type.equals(IMAGE)) {
-      return JavaImageMath.multiply(this, (ArthurImage) two);
+      res = JavaImageMath.multiply(this, (ArthurImage) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
-      return JavaImageMath.multiply(this, (ArthurNumber) two);
+      res = JavaImageMath.multiply(this, (ArthurNumber) two);
     } else {
-      return this;
+      res = this;
     }
+    res.murk = this.murk;
+    return res;
   }
 
   public ArthurImage divide(ArthurMedia two) {
+    ArthurImage res;
     if (two.type.equals(IMAGE)) {
-      return JavaImageMath.divide(this, (ArthurImage) two);
+      res = JavaImageMath.divide(this, (ArthurImage) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
-      return JavaImageMath.divide(this, (ArthurNumber) two);
+      res = JavaImageMath.divide(this, (ArthurNumber) two);
     } else {
-      return this;
+      res = this;
     }
+    res.murk = this.murk;
+    return res;
   }
 
-  public void writeToFile(String filename) {
+  public void writeToFile(String fname) {
     try {
-      File outputFile = new File(filename);
+      File outputFile = new File(fname);
       ImageIO.write(this.bf, "jpg", outputFile);
+      this.filename = fname.substring(fname.indexOf('/') + 1); // remove 'buster'
     } catch (IOException e) {
       //error message
       e.printStackTrace();
     }
   }
 
-  /*
+  public String json() {
+    String js = "{";
+    js += "'filename': '" + this.filename + "'";
+    if (this.frame != null) {
+      js += ", 'frame': " + this.frame.json() + "";
+    }
+    if (this.murk != null) {
+      js += ", 'murk': " + this.murk.val + "";
+    }
+    js += "}";
+    js = js.replace("'", "\"");
+    return js;
+  }
+
   public String toString() {
-    return "image width " + width + "px, height " + height + "px";
+    return "image width " + width.val + "px, height " + height.val + "px";
   }
 
   public String jsLiteral() {
-    return "new ArthurImage()";
+    return "new ArthurImage(" + json() + ")";
   }
-  */
 
 }

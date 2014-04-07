@@ -110,7 +110,7 @@ public class ArthurCompiler {
 
   public static void removeTranslationFile() throws IOException, InterruptedException {
     String rm = "rm -f " + TNAME + ".java";
-    execAndPrint(rm, false);
+    //execAndPrint(rm, false);
     String rm2 = "rm -f " + TNAME + ".class";
     execAndPrint(rm2, false);
   }
