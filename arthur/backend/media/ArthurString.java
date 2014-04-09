@@ -1,5 +1,7 @@
 package arthur.backend.media;
 
+import java.io.*;
+
 /**
  * Java implementation of arthur string!!
  */
@@ -8,6 +10,8 @@ public class ArthurString extends ArthurMedia {
   public static final String STRING = "string";
 
   public String str;
+  public ArthurColor color;
+  public ArthurNumber size;
 
   public ArthurString() {
     this("");
@@ -62,12 +66,46 @@ public class ArthurString extends ArthurMedia {
     }
   }
 
+  public boolean arthurEquals(ArthurMedia two) {
+    return false;
+  }
+
   public String toString() {
     return this.str;
   }
 
   public String jsLiteral() {
-    return "new ArthurString('" + this.str + "')";
+    String js = "new ArthurString(";
+    js += "'" + json() + "'";
+    js += ")";
+    return js;
+  }
+
+  public String json() {
+    String json = "{'str': '" + this.str + "'";
+    if (this.color != null) {
+      json += ", 'color': " + this.color.json();
+    }
+    if (this.size != null) {
+      json += ", 'size': '" + this.size.val + "'";
+    }
+    if (this.frame != null) {
+      json += ", 'frame': " + this.frame.json();
+    }
+    json += "}";
+    json = json.replace("'", "\"");
+    return json;
+  }
+
+  public void writeToFile(String filename) {
+    String json = json();
+    try {
+      PrintWriter out = new PrintWriter(filename);
+      out.println(json);
+      out.close();
+    } catch(FileNotFoundException e) {
+      e.printStackTrace();
+    }
   }
 
 }
