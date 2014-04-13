@@ -1,12 +1,55 @@
 
 var types = require('./types');
 var ArthurMedia = require('./arthur-media');
+var ArthurColor = require('./arthur-color');
+var ArthurFrame = require('./arthur-frame');
+var ArthurNumber = require('./arthur-number');
+
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
 
 module.exports = ArthurString;
 
-function ArthurString(text) {
+function ArthurString(json) {
+  if (typeof json == 'string') {
+    if (json.substring(0, 1) == '{') {
+      var ob = JSON.parse(json);
+    } else {
+      var ob = {str: json};
+    }
+    return new ArthurString(ob);
+  }
+
   this.type = types.STRING;
-  this.str = text;
+
+  if (typeof json.str == 'string')
+    this.str = json.str;
+  else
+    this.str = json.str.str;
+
+  if (json.color) {
+    var color = json.color;
+    if (color.type == types.COLOR)
+      this.color = color;
+    else
+      this.color = new ArthurColor(color.r, color.g, color.b, color.a);
+  }
+
+  if (json.size) {
+    if (typeof json.size == 'object')
+      this.size = json.size;
+    else
+      this.size = new ArthurNumber(json.size);
+  }
+
+  if (json.frame) {
+    if (json.frame.type == types.FRAME)
+      this.frame = json.frame;
+    else
+      this.frame = new ArthurFrame(json.frame);
+  } else {
+    this.frame = ArthurFrame.prototype.rand();
+  }
 }
 
 ArthurString.prototype.__proto__ = ArthurMedia.prototype;
@@ -23,11 +66,11 @@ ArthurString.prototype.multiply = function(s) {
   // find longer string
   var longer, shorter;
   if (this.str.length > s.str.length) {
-    longer = one.str;
-    shorter = two.str;
+    longer = this.str;
+    shorter = s.str;
   } else {
-    longer = two.str;
-    shorter = one.str;
+    longer = s.str;
+    shorter = this.str;
   }
 
   // make shorter same length as longer
@@ -42,7 +85,7 @@ ArthurString.prototype.multiply = function(s) {
 
   // average the strings
   var product = "";
-  for (var i = 0; i < shorter.length(); i++) {
+  for (var i = 0; i < shorter.length; i++) {
     var avg = (longer.charCodeAt(i) + shorter.charCodeAt(i)) / 2;
     product += String.fromCharCode(avg);
   }
@@ -53,4 +96,18 @@ ArthurString.prototype.multiply = function(s) {
 ArthurString.prototype.divide = function(s) {
   var reversed = s.str.split("").reverse().join("");
   return this.multiply(new ArthurString(reversed));
+}
+
+ArthurString.prototype.draw = function() {
+  if (this.color)
+    context.fillStyle = this.color.rgba();
+  else
+    context.fillStyle = 'black';
+
+  if (this.size)
+    context.font = this.size.int() + "px sans-serif";
+  else
+    context.font = "16px sans-serif";
+
+  context.fillText(this.str, this.frame.x.int(), this.frame.y.int());
 }

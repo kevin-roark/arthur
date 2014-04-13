@@ -14,6 +14,8 @@ var ArthurVideo = module.exports.ArthurVideo = require('./arthur-video');
 // builtin functions like ms
 var builtins = module.exports.builtins = require('./builtins');
 
+var types = require('./types');
+
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 module.exports.canvas = canvas;
@@ -21,6 +23,18 @@ module.exports.canvas = canvas;
 var globals = [];
 var globalMap = {};
 var activeMedia = [];
+
+function checkGlobal(filename) {
+  if (filename) {
+    var med = globalMap[filename];
+    if (med) {
+      med.active = true;
+      activeMedia.push(med);
+      return true;
+    }
+  }
+  return false;
+}
 
 module.exports.literalWrapper = function(media, filename) {
   media.glob = true;
@@ -53,15 +67,8 @@ module.exports.updateMedia = function() {
 }
 
 module.exports.addArthurColor = function(json, filename) {
-  if (filename) {
-    var med = globalMap[filename];
-    if (med) {
-      med.active = true;
-      activeMedia.push(med);
-      console.log(med);
-      return;
-    }
-  }
+  var global = checkGlobal(filename);
+  if (global) return;
 
   var ob = JSON.parse(json);
 
@@ -74,18 +81,19 @@ module.exports.addArthurNumber = function(json) {
 
 }
 
-module.exports.addArthurString = function(filename, frame) {
+module.exports.addArthurString = function(json, filename) {
+  var global = checkGlobal(filename);
+  if (global) return;
 
+  var str = new ArthurString(json);
+  str.active = true;
+  activeMedia.push(str);
 }
 
 module.exports.addArthurImage = function(json, filename) {
-  var med = globalMap[filename];
-  if (med) {
-    med.active = true;
-    activeMedia.push(med);
-    return;
-  }
-  
+  var global = checkGlobal(filename);
+  if (global) return;
+
   var ai = new ArthurImage(json);
   ai.active = true;
   activeMedia.push(ai);
@@ -100,5 +108,7 @@ module.exports.addArthurVideo = function(filename, frame) {
 }
 
 module.exports.add = function(media, frame) {
-  // implement later plz vry cool
+  // finish later plz vry cool
+  media.active = true;
+  activeMedia.push(media);
 }

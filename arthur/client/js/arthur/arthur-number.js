@@ -8,11 +8,11 @@ ArthurNumber.prototype.__proto__ = ArthurMedia.prototype;
 
 function ArthurNumber(num) {
   this.type = types.NUMBER;
-  this.val = num;
+  this.val = parseFloat(num);
 }
 
 ArthurNumber.prototype.int = function() {
-  return parseInt(this.val);
+  return Math.round(this.val);
 }
 
 ArthurNumber.prototype.add = function(num) {
