@@ -1,0 +1,17 @@
+
+string lol;
+
+void init() {
+  lol = "lol ";
+  lol = lol * 3;
+  lol.color = RED;
+  lol.size = 20;
+  add(lol);
+}
+
+void loop() {
+  lol.size = lol.size + 0.2;
+
+  string temp = "cool" * lol;
+  add(temp);
+}

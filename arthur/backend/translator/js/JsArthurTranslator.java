@@ -42,6 +42,7 @@ public class JsArthurTranslator extends ArthurTranslator {
     s += "var addArthurString = arthur.addArthurString;\n";
     s += "var addArthurSound = arthur.addArthurSound;\n";
     s += "var addArthurVideo = arthur.addArthurVideo;\n";
+    s += "var add = arthur.add;\n";
 
     // builtins
     s += "var ms = arthur.builtins.ms;\n";

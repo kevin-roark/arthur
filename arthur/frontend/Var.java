@@ -85,9 +85,10 @@ public class Var extends Token {
         case NUM:
           return set;
         case STRING:
+          set.add("color"); set.add("size");
           return set;
         case COLOR:
-          set.add("r"); set.add("g"); set.add("b");
+          set.add("r"); set.add("g"); set.add("b"); set.add("a");
           return set;
         case SOUND:
           return set;
@@ -95,6 +96,7 @@ public class Var extends Token {
           return set;
         case IMAGE:
           set.add("width"); set.add("height"); set.add("pixel");
+          set.add("murk"); set.add("frame");
           return set;
         default:
           return set;
