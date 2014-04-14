@@ -1,6 +1,13 @@
 package arthur.backend.media;
 
 import java.io.*;
+import java.awt.*;
+import java.awt.image.*;
+import java.awt.geom.*;
+import java.awt.font.*;
+import java.util.*;
+
+import arthur.backend.builtins.java.*;
 
 /**
  * Java implementation of arthur string!!
@@ -71,7 +78,59 @@ public class ArthurString extends ArthurMedia {
   }
 
   public ArthurMedia castTo(String mediaType) {
+    if (mediaType.equals("color")) {
+      return this.toColor();
+    } else if (mediaType.equals("number")) {
+      return this.toNumber();
+    } else if (mediaType.equals("image")) {
+      return this.toImage();
+    }
+
     return this;
+  }
+
+  public ArthurColor toColor() {
+    String name = this.str;
+    for (int i = 0; i < JavaBuiltins.colors().size(); i++){
+      String c = JavaBuiltins.colors().get(i);
+      if(name.toUpperCase().contains(c)) {
+        ArthurColor color = JavaBuiltins.colorMap().get(c);
+        return color;
+      }
+    }
+    return JavaBuiltins.BLACK;
+  }
+
+  public ArthurNumber toNumber() {
+    double val = 0;
+    for (int i = 0; i < this.str.length(); i++) {
+      val += this.str.codePointAt(i);
+    }
+    return new ArthurNumber(val);
+  }
+
+  public ArthurImage toImage() {
+    String filename = "string-" + (new Random()).nextInt() + ".jpg";
+
+    Font font = new Font("Times New Roman", Font.PLAIN, 11);
+    FontRenderContext frc = new FontRenderContext(null, true, true);
+
+    Rectangle2D bounds = font.getStringBounds(this.str, frc);
+    int w = (int) bounds.getWidth();
+    int h = (int) bounds.getHeight();
+
+    BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+
+    Graphics2D g = image.createGraphics();
+    g.setColor(Color.WHITE);
+    g.fillRect(0, 0, w, h);
+    g.setColor(Color.BLACK);
+    g.setFont(font);
+
+    g.drawString(this.str, (float) bounds.getX(), (float) -bounds.getY());
+    g.dispose();
+
+    return new ArthurImage(image, filename);
   }
 
   public boolean arthurEquals(ArthurMedia two) {

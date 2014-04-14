@@ -40,15 +40,8 @@ public static ArthurColor add(ArthurColor one, ArthurNumber two) {
 }
 
 public static ArthurColor add(ArthurColor one, ArthurString two) {
-	String name = two.toString();
-	for (int i = 0; i < JavaBuiltins.colors().size(); i++){
-		String c = JavaBuiltins.colors().get(i);
-		if(name.toUpperCase().contains(c)) {
-			ArthurColor color = JavaBuiltins.colorMap().get(c);
-			return add(one, color);
-		}
-	}
-	return one;
+	ArthurColor color = two.toColor();
+	return add(one, color);
 }
 
 public static ArthurColor minus(ArthurColor one, ArthurColor two) {
@@ -82,15 +75,8 @@ public static ArthurColor minus(ArthurColor one, ArthurNumber two) {
 }
 
 public static ArthurColor minus(ArthurColor one, ArthurString two) {
-	String name = two.toString();
-	for (int i = 0; i < JavaBuiltins.colors().size(); i++){
-		String c = JavaBuiltins.colors().get(i);
-		if(name.toUpperCase().contains(c)) {
-			ArthurColor color = JavaBuiltins.colorMap().get(c);
-			return minus(one, color);
-		}
-	}
-	return one;
+	ArthurColor color = two.toColor();
+	return minus(one, color);
 }
 
 public static ArthurColor multiply(ArthurColor one, ArthurColor two) {

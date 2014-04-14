@@ -17,7 +17,7 @@
 %token EQ EQ2X LT LTE GT GTE
 %token PLUS MINUS TIMES DIV MOD EXP
 %token FUNCTION VAR VALUE ID
-%token COLOR NUMBER STRINGLIT TRUE FALSE
+%token COLOR NUMBER STRINGLIT TRUE FALSE TYPE
 %token EOF
 %token UNKNOWN
 
@@ -245,6 +245,19 @@ fun_call
                                                       ParseNode args = (ParseNode) $3.obj;
                                                       funCall.addChild(args);
                                                       $$ = new ParserVal(funCall);
+                                                    }
+    ;
+
+caster
+    : id ARROW TYPE                                 {
+                                                      ParseNode caster = new ParseNode("cast");
+                                                      ParseNode par = (ParseNode) $1.obj;
+                                                      caster.addChild(par);
+
+                                                      Type t = (Type) $3.obj;
+                                                      ParseNode type = new ParseNode(t.name);
+                                                      caster.addChild(type);
+                                                      $$ = new ParserVal(caster);
                                                     }
     ;
 
@@ -601,6 +614,7 @@ id
     : fun_call                                      { $$ = $1; }
     | meth_call                                     { $$ = $1; }
     | prop_access                                   { $$ = $1; }
+    | caster                                        { $$ = $1; }
     | ID                                            {
                                                         Identifier i = (Identifier) $1.obj;
 
@@ -692,6 +706,7 @@ int tokenMap(int tokenType) {
         case Tokens.STRINGLIT: return STRINGLIT;
         case Tokens.EOF: return EOF;
         case Tokens.VALUE: return VALUE;
+        case Tokens.TYPE: return TYPE;
         default: return UNKNOWN;
     }
 }
