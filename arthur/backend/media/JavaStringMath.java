@@ -1,5 +1,7 @@
 package arthur.backend.media;
 
+import arthur.backend.builtins.java.JavaBuiltins;
+
 /**
  * Contains a suite of static methods to perform math operations involving
  * colors.
@@ -24,7 +26,22 @@ public class JavaStringMath {
   }
 
   public static ArthurString add(ArthurString one, ArthurColor two) {
-    return null;
+    ArthurNumber bestDiff = new ArthurNumber(Double.POSITIVE_INFINITY);
+    ArthurNumber diff;
+    ArthurColor current;
+    ArthurString best = new ArthurString("color");
+
+    for (String c : JavaBuiltins.colors()) {
+      current = JavaBuiltins.colorMap().get(c);
+      diff = two.valDiff(current);
+
+      if (diff.val < bestDiff.val) {
+        bestDiff = diff;
+        best = new ArthurString(c);
+      }
+    }
+
+    return add(one, best);
   }
 
   public static ArthurString add(ArthurString one, ArthurVideo two) {
@@ -53,7 +70,22 @@ public class JavaStringMath {
   }
 
   public static ArthurString minus(ArthurString one, ArthurColor two) {
-    return null;
+    ArthurNumber bestDiff = new ArthurNumber(Double.NEGATIVE_INFINITY);
+    ArthurNumber diff;
+    ArthurColor current;
+    ArthurString best = new ArthurString("color");
+
+    for (String c : JavaBuiltins.colors()) {
+      current = JavaBuiltins.colorMap().get(c);
+      diff = two.valDiff(current);
+
+      if (diff.val > bestDiff.val) {
+        bestDiff = diff;
+        best = new ArthurString(c);
+      }
+    }
+
+    return add(one, best);
   }
 
   public static ArthurString minus(ArthurString one, ArthurVideo two) {

@@ -1,4 +1,4 @@
-//package arthur.backend.media;
+package arthur.backend.media;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -10,7 +10,6 @@ public class ArthurColor extends ArthurMedia {
 
   public static final String COLOR = "color";
   public ArthurNumber r, g, b, a;
-  public static String[] crayolas={"BLUE", "RED","GREEN","BLACK","WHITE","YELLOW","ORANGE","PERRYWINKLE", "ARTHURS SKIN"};
 
   public ArthurColor() {
     this(new ArthurNumber(0), new ArthurNumber(0), new ArthurNumber(0), new ArthurNumber(0));
@@ -28,56 +27,12 @@ public class ArthurColor extends ArthurMedia {
     this.a=a;
   }
 
-  public ArthurColor(ArthurString crayola){
-      this(crayola.str);
-  }
-
-  public ArthurColor(String crayola){
-    this(0.0, 0.0, 0.0, 1.0);
-    switch(crayola){
-        case "RED":
-                  this.r=new ArthurNumber(255.0);
-                  break;
-        case "BLUE":
-                  this.b=new ArthurNumber(255.0);
-                  break;
-        case "GREEN":
-                  this.g=new ArthurNumber(255.0);
-                  break;
-
-        case "ORANGE":
-                  this.r=new ArthurNumber(255.0);
-                  this.g=new ArthurNumber(128.0);
-                  break;
-
-        case "YELLOW":
-                  this.r=new ArthurNumber(255.0);
-                  this.g=new ArthurNumber(255.0);
-                  break;
-
-        case "WHITE":
-                  this.r=new ArthurNumber(255.0);
-                  this.g=new ArthurNumber(255.0);
-                  this.b=new ArthurNumber(255.0);
-                  break;
-
-        case "PERRYWINKLE":
-                  this.r=new ArthurNumber(204.0);
-                  this.g=new ArthurNumber(204.0);
-                  this.b=new ArthurNumber(255.0);
-                  break;
-
-        case "ARTHURS_SKIN":
-                  this.r=new ArthurNumber(255.0);
-                  this.g=new ArthurNumber(195.0);
-                  this.b=new ArthurNumber(34.0);
-                  break;
-
-        default:
-                  break;
-    }
-
-
+  public ArthurNumber valDiff(ArthurColor other) {
+    double rd = Math.abs(this.r.val - other.r.val);
+    double gd = Math.abs(this.g.val - other.g.val);
+    double bd = Math.abs(this.b.val - other.b.val);
+    double ad = Math.abs(this.a.val - other.a.val);
+    return new ArthurNumber(rd + gd + bd + ad);
   }
 
   public ArthurColor add(ArthurMedia two) {
