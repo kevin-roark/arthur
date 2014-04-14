@@ -114,12 +114,58 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     return res;
   }
 
+  public ArthurMedia castTo(ArthurString mediaType) {
+    return castTo(mediaType.str);
+  }
+
   public ArthurMedia castTo(String mediaType) {
-    if (mediaType.equals(ArthurString.STRING)) {
+    if (mediaType.equals("string")) {
+      return this.toArtString();
+    } else if (mediaType.equals("number")) {
+      return this.toNumber();
+    } else if (mediaType.equals("color")) {
+      return this.toColor();
+    }
+
+    return this;
+  }
+
+  public ArthurString toArtString() {
       String s = toAscii();
       return new ArthurString(s);
+  }
+
+  public ArthurNumber toNumber() {
+    return this.width.add(this.height);
+  }
+
+  public ArthurColor toColor() {
+    /*
+    double r = 0;
+    double g = 0;
+    double b = 0;
+    double a = 0;
+
+    int w = this.bf.getRaster().getWidth();
+    int h = this.bf.getRaster().getHeight();
+    for (int i = 0; i < w; i++) {
+      for (int j = 0; j < h; i++) {
+        int rgb = this.bf.getRGB(i, j);
+        Color c = new Color(rgb);
+        r += c.getRed();
+        g += c.getGreen();
+        b += c.getBlue();
+        a += c.getAlpha();
+      }
     }
-    return this;
+
+    r = r / (i * j);
+    g = g / (i * j);
+    b = b / (i * j);
+    a = a / (i * j) / 255;
+    return new ArthurColor(r, g, b, a);*/
+
+    return getAverageColor();
   }
 
   public String toAscii() {

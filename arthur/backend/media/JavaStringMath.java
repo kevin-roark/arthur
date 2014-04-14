@@ -26,22 +26,8 @@ public class JavaStringMath {
   }
 
   public static ArthurString add(ArthurString one, ArthurColor two) {
-    ArthurNumber bestDiff = new ArthurNumber(Double.POSITIVE_INFINITY);
-    ArthurNumber diff;
-    ArthurColor current;
-    ArthurString best = new ArthurString("color");
-
-    for (String c : JavaBuiltins.colors()) {
-      current = JavaBuiltins.colorMap().get(c);
-      diff = two.valDiff(current);
-
-      if (diff.val < bestDiff.val) {
-        bestDiff = diff;
-        best = new ArthurString(c);
-      }
-    }
-
-    return add(one, best);
+    ArthurString closest = two.closestString();
+    return add(one, closest);
   }
 
   public static ArthurString add(ArthurString one, ArthurVideo two) {
@@ -70,22 +56,8 @@ public class JavaStringMath {
   }
 
   public static ArthurString minus(ArthurString one, ArthurColor two) {
-    ArthurNumber bestDiff = new ArthurNumber(Double.NEGATIVE_INFINITY);
-    ArthurNumber diff;
-    ArthurColor current;
-    ArthurString best = new ArthurString("color");
-
-    for (String c : JavaBuiltins.colors()) {
-      current = JavaBuiltins.colorMap().get(c);
-      diff = two.valDiff(current);
-
-      if (diff.val > bestDiff.val) {
-        bestDiff = diff;
-        best = new ArthurString(c);
-      }
-    }
-
-    return add(one, best);
+    ArthurString furthest = two.furthestString();
+    return add(one, furthest);
   }
 
   public static ArthurString minus(ArthurString one, ArthurVideo two) {

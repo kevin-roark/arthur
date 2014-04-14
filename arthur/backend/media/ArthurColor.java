@@ -2,6 +2,13 @@ package arthur.backend.media;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.awt.*;
+import java.awt.image.*;
+import java.awt.geom.*;
+import java.awt.font.*;
+import java.util.*;
+
+import arthur.backend.builtins.java.*;
 
 /**
  * Java implementation of arthur color!
@@ -95,6 +102,89 @@ public class ArthurColor extends ArthurMedia {
       return JavaColorMath.divide(this, (ArthurNumber) two);
     }
     return this;
+  }
+
+  public ArthurMedia castTo(ArthurString mediaType) {
+    return castTo(mediaType.str);
+  }
+
+  public ArthurMedia castTo(String mediaType) {
+    if (mediaType.equals("string")) {
+      return this.toArtString();
+    } else if (mediaType.equals("number")) {
+      return this.toNumber();
+    } else if (mediaType.equals("Image")) {
+      return this.toImage();
+    }
+
+    return this;
+  }
+
+  public ArthurNumber toNumber() {
+    double val = 0;
+    val += this.g.val;
+    val += 1000 * this.b.val;
+    val += 1000000 * this.r.val;
+    return new ArthurNumber(val);
+  }
+
+  public ArthurImage toImage() {
+    String filename = "color-" + (new Random()).nextInt() + ".jpg";
+
+    int w = 300;
+    int h = 300;
+
+    BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+
+    Graphics2D g = image.createGraphics();
+    Color c = new Color(this.r.val.floatValue(), this.g.val.floatValue(), this.b.val.floatValue(), this.a.val.floatValue());
+    g.setColor(c);
+    g.fillRect(0, 0, w, h);
+    g.dispose();
+
+    return new ArthurImage(image, filename);
+  }
+
+  public ArthurString toArtString() {
+    return closestString();
+  }
+
+  public ArthurString closestString() {
+    ArthurNumber bestDiff = new ArthurNumber(Double.POSITIVE_INFINITY);
+    ArthurNumber diff;
+    ArthurColor current;
+    ArthurString best = new ArthurString("color");
+
+    for (String c : JavaBuiltins.colors()) {
+      current = JavaBuiltins.colorMap().get(c);
+      diff = this.valDiff(current);
+
+      if (diff.val < bestDiff.val) {
+        bestDiff = diff;
+        best = new ArthurString(c);
+      }
+    }
+
+    return best;
+  }
+
+  public ArthurString furthestString() {
+    ArthurNumber bestDiff = new ArthurNumber(Double.NEGATIVE_INFINITY);
+    ArthurNumber diff;
+    ArthurColor current;
+    ArthurString best = new ArthurString("color");
+
+    for (String c : JavaBuiltins.colors()) {
+      current = JavaBuiltins.colorMap().get(c);
+      diff = this.valDiff(current);
+
+      if (diff.val > bestDiff.val) {
+        bestDiff = diff;
+        best = new ArthurString(c);
+      }
+    }
+
+    return best;
   }
 
   public String toString() {

@@ -77,12 +77,16 @@ public class ArthurString extends ArthurMedia {
     }
   }
 
+  public ArthurMedia castTo(ArthurString mediaType) {
+    return castTo(mediaType.str);
+  }
+
   public ArthurMedia castTo(String mediaType) {
     if (mediaType.equals("color")) {
       return this.toColor();
     } else if (mediaType.equals("number")) {
       return this.toNumber();
-    } else if (mediaType.equals("image")) {
+    } else if (mediaType.equals("Image")) {
       return this.toImage();
     }
 
