@@ -29,12 +29,11 @@ public class ArthurColor extends ArthurMedia {
   }
 
   public ArthurColor(ArthurString crayola){
-      this(crayola.toString());
-
+      this(crayola.str);
   }
 
   public ArthurColor(String crayola){
-    this(0.0,0.0,0.0,1.0);
+    this(0.0, 0.0, 0.0, 1.0);
     switch(crayola){
         case "RED":
                   this.r=new ArthurNumber(255.0);
@@ -49,7 +48,6 @@ public class ArthurColor extends ArthurMedia {
         case "ORANGE":
                   this.r=new ArthurNumber(255.0);
                   this.g=new ArthurNumber(128.0);
-
                   break;
 
         case "YELLOW":
@@ -62,6 +60,7 @@ public class ArthurColor extends ArthurMedia {
                   this.g=new ArthurNumber(255.0);
                   this.b=new ArthurNumber(255.0);
                   break;
+
         case "PERRYWINKLE":
                   this.r=new ArthurNumber(204.0);
                   this.g=new ArthurNumber(204.0);
@@ -73,8 +72,8 @@ public class ArthurColor extends ArthurMedia {
                   this.g=new ArthurNumber(195.0);
                   this.b=new ArthurNumber(34.0);
                   break;
+
         default:
-                  
                   break;
     }
 
@@ -129,7 +128,7 @@ public class ArthurColor extends ArthurMedia {
     if (two.type.equals(COLOR)) {
       return JavaColorMath.multiply(this, (ArthurColor) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
-      JavaColorMath.multiply(this, (ArthurNumber) two);
+      return JavaColorMath.multiply(this, (ArthurNumber) two);
     }
     return this;
   }
@@ -138,7 +137,7 @@ public class ArthurColor extends ArthurMedia {
     if (two.type.equals(COLOR)) {
       return JavaColorMath.divide(this, (ArthurColor) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
-      JavaColorMath.divide(this, (ArthurNumber) two);
+      return JavaColorMath.divide(this, (ArthurNumber) two);
     }
     return this;
   }

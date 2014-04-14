@@ -27,6 +27,8 @@ public class ArthurString extends ArthurMedia {
       return JavaStringMath.add(this, (ArthurString) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaStringMath.add(this, (ArthurNumber) two);
+    } else if (two.type.equals(ArthurImage.IMAGE)) {
+      return JavaStringMath.add(this, (ArthurImage) two);
     } else {
       // coerce later
       return this;
@@ -38,6 +40,8 @@ public class ArthurString extends ArthurMedia {
       return JavaStringMath.minus(this, (ArthurString) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaStringMath.minus(this, (ArthurNumber) two);
+    } else if (two.type.equals(ArthurImage.IMAGE)) {
+      return JavaStringMath.minus(this, (ArthurImage) two);
     } else {
       // coerce later
       return this;
@@ -66,6 +70,10 @@ public class ArthurString extends ArthurMedia {
     }
   }
 
+  public ArthurMedia castTo(String mediaType) {
+    return this;
+  }
+
   public boolean arthurEquals(ArthurMedia two) {
     return false;
   }
@@ -82,7 +90,11 @@ public class ArthurString extends ArthurMedia {
   }
 
   public String json() {
-    String json = "{'str': '" + this.str + "'";
+    String json = "{'str': '" +
+      this.str.replace("\"", "`")
+      .replace("'", "`")
+      .replace("\r", "")
+      .replace("\n", "\\\\n") + "'";
     if (this.color != null) {
       json += ", 'color': " + this.color.json();
     }

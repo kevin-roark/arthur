@@ -1,0 +1,17 @@
+./com/sun/jimi/core/Jimi.java
+./com/sun/jimi/core/JimiUtils.java
+./com/sun/jimi/core/JimiProDependencies.java
+./com/sun/jimi/core/encoder/png/PNGEncoderFactory.java
+./com/sun/jimi/core/encoder/jpg/JPGEncoderFactory.java
+./com/sun/jimi/core/decoder/png/PNGDecoderFactory.java
+./com/sun/jimi/core/decoder/gif/GIFDecoderFactory.java
+./com/sun/jimi/core/decoder/builtin/BuiltinDecoderFactory.java
+./com/sun/jimi/core/util/JimiUtil.java
+./com/sun/jimi/core/util/JimiImageSerializer.java
+./com/sun/jimi/core/util/ColorReducer.java
+./com/sun/jimi/core/util/JimiImageColorReducer.java
+./com/sun/jimi/core/raster/JimiRasterImageCategorizer.java
+./com/sun/jimi/core/filters/*.java
+./com/sun/jimi/core/component/JimiCanvas.java
+./com/sun/jimi/core/component/JimiCanvasLW.java
+./com/sun/jimi/core/options/*.java

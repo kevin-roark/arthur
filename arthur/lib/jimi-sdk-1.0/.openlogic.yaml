@@ -1,0 +1,17 @@
+--- 
+name: Jimi-sdk 1.0 Binary
+platform_id: all
+platform_version: all
+distribution_file_uuid_string: openlogic-jimi-sdk-1.0-all-bin-1
+platform_vendor: all
+description: Jimi-sdk 1.0 Binary
+platform_arch: all
+distribution_file_uuid: 1f0e02e3fd32dc370ce38dff616ea0aae7c78b85adb796f6e787c3db620be446
+distribution_version: 1
+distribution_flavor: ""
+distribution_raw_file: jimi1_0.zip
+package_version: "1.0"
+package_id: jimi-sdk
+release_date: "2008-03-12"
+distribution_notes: The source files for JIMI are also included in this distribution.
+distribution_type: bin

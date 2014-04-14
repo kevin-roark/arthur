@@ -104,10 +104,34 @@ ArthurString.prototype.draw = function() {
   else
     context.fillStyle = 'black';
 
-  if (this.size)
-    context.font = this.size.int() + "px sans-serif";
-  else
-    context.font = "16px sans-serif";
+  context.textBaseline = "top";
 
-  context.fillText(this.str, this.frame.x.int(), this.frame.y.int());
+  if (this.size)
+    context.font = this.size.int() + "px monospace";
+  else
+    context.font = "12px monospace";
+
+  //context.fillText(this.str, this.frame.x.int(), this.frame.y.int());
+  drawMultiline(this.str, this.frame.x.int(), this.frame.y.int())
+}
+
+// help for multiline taken from
+// http://stackoverflow.com/questions/5026961/html5-canvas-ctx-filltext-wont-do-line-breaks
+
+function drawMultiline(text, x, y){
+    var textvalArr = toMultiLine(text);
+    var linespacing = 14;
+
+    // draw each line on canvas.
+    for(var i = 0; i < textvalArr.length; i++){
+        context.fillText(textvalArr[i], x, y);
+        y += linespacing;
+    }
+}
+
+function toMultiLine(text){
+   var textArr = new Array();
+   text = text.replace(/\n\r?/g, '<br/>');
+   textArr = text.split("<br/>");
+   return textArr;
 }

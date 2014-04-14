@@ -18,7 +18,9 @@ public class JavaStringMath {
   }
 
   public static ArthurString add(ArthurString one, ArthurImage two) {
-    return null;
+    String t = two.toAscii();
+    String result = one.str + "\n" + t;
+    return new ArthurString(result);
   }
 
   public static ArthurString add(ArthurString one, ArthurColor two) {
@@ -45,7 +47,9 @@ public class JavaStringMath {
   }
 
   public static ArthurString minus(ArthurString one, ArthurImage two) {
-    return null;
+    String t = two.toAscii();
+    String result = t + "\n" + one.str;
+    return new ArthurString(result);
   }
 
   public static ArthurString minus(ArthurString one, ArthurColor two) {

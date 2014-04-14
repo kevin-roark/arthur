@@ -9,6 +9,8 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import javax.imageio.*;
 import java.lang.*;
+import arthur.backend.*;
+import java.util.Random;
 
 public class ArthurImage extends ArthurMedia implements java.io.Serializable {
 
@@ -112,6 +114,35 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     return res;
   }
 
+  public ArthurMedia castTo(String mediaType) {
+    if (mediaType.equals(ArthurString.STRING)) {
+      String s = toAscii();
+      return new ArthurString(s);
+    }
+    return this;
+  }
+
+  public String toAscii() {
+    String filearg = "temp-" + (new Random()).nextInt() + ".jpg";
+    this.writeToFile(filearg);
+
+    try {
+      String r = "java -cp $CLASSPATH:arthur/lib/jitac.jar:arthur/lib/jimi-sdk-1.0/JimiProClasses.zip:. org.roqe.jitac.Jitac";
+      Process proc = Runtime.getRuntime().exec(r + " " + filearg);
+      InputStream in = proc.getInputStream();
+      InputStream err = proc.getErrorStream();
+      proc.waitFor();
+      String result = IoUtils.string(in);
+
+      Runtime.getRuntime().exec("rm -rf " + filearg);
+      return result;
+    } catch(Exception e) {
+      System.out.println("error with ascci conversion");
+      e.printStackTrace();
+      return "xxx";
+    }
+  }
+
   public void writeToFile(String fname) {
     try {
       File outputFile = new File(fname);
@@ -147,8 +178,6 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
 
   }
 
-  /*
-
   public String json() {
     String js = "{";
     js += "'filename': '" + this.filename + "'";
@@ -162,7 +191,6 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     js = js.replace("'", "\"");
     return js;
   }
-
 
   public String toString() {
     return "image width " + width.val + "px, height " + height.val + "px";

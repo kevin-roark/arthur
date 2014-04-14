@@ -33,7 +33,7 @@ public class JsArthurVar extends ArthurVar {
   }
 
   public static String stringLiteral(String val) {
-    return "new ArthurString(" + val + ");"
+    return "new ArthurString(" + val + ")";
   }
 
 }

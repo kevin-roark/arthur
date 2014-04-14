@@ -1,0 +1,15 @@
+
+void init() {
+  string x = "xxx";
+  string z = "zzz";
+  Image b = image("buster.jpg");
+  Image d = image("dyl2.jpg");
+
+  string y = x + b;
+  string w = z + d;
+
+  add(y, frame(5, 5));
+  add(w, frame(600, 5));
+}
+
+void loop() {}
