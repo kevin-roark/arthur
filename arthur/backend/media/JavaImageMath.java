@@ -7,6 +7,7 @@ import java.awt.Color;
 import javax.imageio.*;
 import java.lang.*;
 import java.util.Random;
+import java.awt.Font;
 
 /**
  * Contains a suite of static methods to perform math operations involving
@@ -16,59 +17,134 @@ public class JavaImageMath {
 
 	static int counter = 0;
 
-	/*
-	public static ArthurImage add(ArthurImage one, ArthurColor two) {
-		int r = two.r.val;
-		int g = two.g.val;
-		int b = two.g.val;
+	public static ArthurImage add(ArthurImage one, ArthurNumber two) {
+		BufferedImage image = JavaImageMath.clone(one.bf);
+		double number = two.val;
+		int num = (int) number;
 
-		//get image
-		BufferedImage image = null;
-		try {
-			image = ImageIO.read(new File(one.filename));
-		} catch (IOException e) {
-
-		}
-		if (image == null) {
-			System.out.println("Error - couldn't retrieve image.");
-		}
-
-		//manipulate image
 		WritableRaster raster = image.getRaster();
 		int[] pixelArray = new int[3];
 		for (int y = 0; y < raster.getHeight(); y++) {
 			for (int x = 0; x < raster.getWidth(); x++) {
 				pixelArray = raster.getPixel(x, y, pixelArray);
-				pixelArray[0] += r;
-				pixelArray[1] += g;
-				pixelArray[2] += b;
+				pixelArray[0] = pixelArray[0] + num;
+				pixelArray[1] = pixelArray[1] + num;
+				pixelArray[2] = pixelArray[2] + num;
+				for (int i = 0; i < 3; i++) {
+					if (pixelArray[i] > 255) {
+						pixelArray[i] = 255;
+					}
+				}
 				raster.setPixel(x, y, pixelArray);
 			}
 		}
 
 		//save image
 		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) +
-								"+" +
-								"(" + two.r.val + "," + two.g.val + "," + two.b.val + ")" +
+								"+" + //filename can't contain the / or *characters; decide later
+								number +
 								counter +
 								".jpg";
 		counter++;
-		ArthurImage result = null;
-		try {
-			File outputFile = new File(outputFn);
-			ImageIO.write(collage, "jpg", outputFile);
-			result = new ArthurImage(outputFn);
-		} catch (IOException e) {
 
-		}
-
-		return result;
+		return new ArthurImage(image, outputFn);
 	}
 
-	*/
+	public static ArthurImage add (ArthurImage one, ArthurString two) {
+		BufferedImage image = JavaImageMath.clone(one.bf);
+
+		Graphics2D g2d = image.createGraphics();
+		Font font = new Font("Comic Sans MS", Font.PLAIN, 96);
+		g2d.setFont(font);
+		g2d.drawString(two.str, 0, 120);
+		g2d.dispose();
+		
+		//save image
+		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) +
+								"+" + //filename can't contain the / or *characters; decide later
+								two.str +
+								counter +
+								".jpg";
+		counter++;
+
+		return new ArthurImage(image, outputFn);
+	}
+
+	public static ArthurImage add(ArthurImage one, ArthurColor two) {
+		BufferedImage image = JavaImageMath.clone(one.bf);
+
+		double r = two.r.val;
+		double g = two.g.val;
+		double b = two.g.val;
+
+		WritableRaster raster = image.getRaster();
+		int[] pixelArray = new int[3];
+		for (int y = 0; y < raster.getHeight(); y++) {
+			for (int x = 0; x < raster.getWidth(); x++) {
+				pixelArray = raster.getPixel(x, y, pixelArray);
+				pixelArray[0] = (int) (3 * pixelArray[0] + r) / 4;
+				pixelArray[1] = (int) (3 * pixelArray[1] + g) / 4;
+				pixelArray[2] = (int) (3 * pixelArray[2] + b) / 4;
+				raster.setPixel(x, y, pixelArray);
+			}
+		}
+
+		//save image
+		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) +
+								"+" + //filename can't contain the / or *characters; decide later
+								r + g + b +
+								counter +
+								".jpg";
+		counter++;
+
+		return new ArthurImage(image, outputFn);
+	}
 
 	public static ArthurImage add(ArthurImage one, ArthurImage two) {
 		return JavaImageMath.addition(one, two, 0);
+	}
+
+	public static ArthurImage minus(ArthurImage one, ArthurNumber two) {
+		BufferedImage image = JavaImageMath.clone(one.bf);
+		double number = two.val;
+		int num = (int) number;
+
+		WritableRaster raster = image.getRaster();
+		int[] pixelArray = new int[3];
+		for (int y = 0; y < raster.getHeight(); y++) {
+			for (int x = 0; x < raster.getWidth(); x++) {
+				pixelArray = raster.getPixel(x, y, pixelArray);
+				pixelArray[0] = pixelArray[0] - num;
+				pixelArray[1] = pixelArray[1] - num;
+				pixelArray[2] = pixelArray[2] - num;
+				for (int i = 0; i < 3; i++) {
+					if (pixelArray[i] < 0) {
+						pixelArray[i] = 0;
+					}
+				}
+				raster.setPixel(x, y, pixelArray);
+			}
+		}
+
+		//save image
+		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) +
+								"+" + //filename can't contain the / or *characters; decide later
+								number +
+								counter +
+								".jpg";
+		counter++;
+
+		return new ArthurImage(image, outputFn);
+	}
+
+	public static ArthurImage minus(ArthurImage one, ArthurString two) {
+		return JavaImageMath.add(one, two);
+	}
+
+	public static ArthurImage minus(ArthurImage one, ArthurColor two) {
+		//calculate complementary color and add it
+		ArthurColor complement = new ArthurColor(255.0 - two.r.val, 255.0 - two.g.val, 255.0 - two.b.val, two.a.val);
+		return JavaImageMath.add(one, complement);
 	}
 
 	public static ArthurImage minus(ArthurImage one, ArthurImage two) {
@@ -76,8 +152,8 @@ public class JavaImageMath {
 	}
 
 	public static ArthurImage addition(ArthurImage one, ArthurImage two, int op) {
-		BufferedImage image = one.bf;
-		BufferedImage image2 = two.bf;
+		BufferedImage image = JavaImageMath.clone(one.bf);
+		BufferedImage image2 = JavaImageMath.clone(two.bf);
 
 		WritableRaster r1 = image.getRaster();
 		WritableRaster r2 = image2.getRaster();
@@ -109,12 +185,13 @@ public class JavaImageMath {
 		}
 
 		counter++;
+
 		return new ArthurImage(collage, outputFn);
 	}
 
 	public static ArthurImage multiply(ArthurImage one, ArthurImage two) {
-		BufferedImage image = one.bf;
-		BufferedImage image2 = two.bf;
+		BufferedImage image = JavaImageMath.clone(one.bf);
+		BufferedImage image2 = JavaImageMath.clone(two.bf);
 
 		WritableRaster r1 = image.getRaster();
 		WritableRaster r2 = image2.getRaster();
@@ -172,7 +249,7 @@ public class JavaImageMath {
 	public static ArthurImage multiply (ArthurImage one, ArthurNumber two) { //change to ArthurNumber later
 		double f = two.val;
 		//get image
-		BufferedImage image = one.bf;
+		BufferedImage image = JavaImageMath.clone(one.bf);
 
 		//manipulate image
 		WritableRaster raster = image.getRaster();
@@ -196,8 +273,8 @@ public class JavaImageMath {
 	}
 
 	public static ArthurImage divide(ArthurImage one, ArthurImage two) {
-		BufferedImage image = one.bf;
-		BufferedImage image2 = two.bf;
+		BufferedImage image = JavaImageMath.clone(one.bf);
+		BufferedImage image2 = JavaImageMath.clone(two.bf);
 
 		WritableRaster r1 = image.getRaster();
 		int width = r1.getWidth();
@@ -241,7 +318,7 @@ public class JavaImageMath {
 	public static ArthurImage divide (ArthurImage one, ArthurNumber two) { //change to ArthurNumber later
 		int f = two.intval();
 		//get image
-		BufferedImage image = one.bf;
+		BufferedImage image = JavaImageMath.clone(one.bf);
 
 		//manipulate image
 		WritableRaster raster = image.getRaster();
@@ -273,35 +350,13 @@ public class JavaImageMath {
 
 		return new ArthurImage(collage, outputFn);
 	}
-	/*
 
-	public static BufferedImage art2bf(ArthurImage artImage) {
-		BufferedImage image = null;
-
-		try {
-			image = ImageIO.read(new File(artImage.filename));
-		} catch (IOException e) {
-
-		}
-		if (image == null) {
-			System.out.println("Error - couldn't retrieve image.");
-		}
-
-		return image;
+	public static BufferedImage clone(BufferedImage original) {
+		WritableRaster raster = original.getRaster();
+		BufferedImage clone = new BufferedImage(raster.getWidth(), raster.getHeight(), BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2d = clone.createGraphics();
+		g2d.drawImage(original, 0, 0, null);
+		g2d.dispose();
+		return clone;
 	}
-
-	public static ArthurImage bf2art(BufferedImage buffImage, String outputFn) {
-		ArthurImage result = null;
-
-		try {
-			File outputFile = new File(outputFn);
-			ImageIO.write(buffImage, "jpg", outputFile);
-			result = new ArthurImage(outputFn);
-		} catch (IOException e) {
-
-		}
-
-		return result;
-	}
-	*/
 }
