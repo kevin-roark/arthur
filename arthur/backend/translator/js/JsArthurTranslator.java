@@ -96,6 +96,10 @@ public class JsArthurTranslator extends ArthurTranslator {
     return ")";
   }
 
+  public String numDec() {
+    return "var ";
+  }
+
   public String colorLiteral(ParseNode n) {
     return JsArthurVar.colorLiteral(n);
   }

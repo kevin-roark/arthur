@@ -1,0 +1,52 @@
+
+string s;
+num n;
+num start;
+num time;
+num counter;
+
+void init() {
+  n = 1;
+
+  time = ms();
+  start = time;
+
+  counter = 0;
+
+  s = "cool * ";
+  s.wrap = true;
+  s.size = 20;
+
+  add(s, frame(10, 20));
+}
+
+void loop() {
+  num cur = ms();
+
+  if (cur - time < 100)
+    return;
+
+  time = ms();
+
+  if (counter < 1 and cur - start > 5000) {
+    s *= "lol";
+    counter += 1;
+  }
+
+  if (counter < 2 and cur - start > 10000) {
+    s *= "wow";
+    counter += 1;
+  }
+
+  if (counter < 3 and cur - start > 15000) {
+     s *= "ha ha ha";
+     counter = 0;
+     start = ms();
+  }
+
+  3 * {
+    n += 1;
+  }
+
+  s += n;
+}

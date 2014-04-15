@@ -45,8 +45,15 @@ public class JsWhisperer implements java.io.Serializable {
   }
 
   public static void addGlobal(String name, Object val) {
-    ArthurMedia media = (ArthurMedia) val;
-    GlobalMedia g = new GlobalMedia(name, media);
+    GlobalMedia g;
+    try {
+      ArthurMedia media = (ArthurMedia) val;
+      g = new GlobalMedia(name, media);
+    } catch(ClassCastException e) {
+      Boolean b = (Boolean) val;
+      g = new GlobalMedia(name, b);
+    }
+
     globals.add(g);
     mediaMap.put(name, g);
     MediaContainer mc = globalMap.get(name);

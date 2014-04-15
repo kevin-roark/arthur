@@ -24,15 +24,27 @@ public class ArthurCompiler {
   public static String mdirname = DEFAULT_OUT_NAME + "/" + MEDIA_DIR;
 
   public static void main(String[] args) throws IOException, InterruptedException {
-    if (args.length != 1) {
-      System.out.println("usage: java ArthurCompiler <arthur_source_program_file>");
+    if (args.length < 1) {
+      System.out.println("usage: java ArthurCompiler <options> <arthur_source_program_file>");
       return;
     }
 
     boolean verbose = true;
+    boolean run = true;
+
+    for (int i = 0; i < args.length - 1; i++) {
+      String arg = args[i];
+      if (arg.equals("-s")) {
+        verbose = false;
+      }
+      if (arg.equals("-trans")) {
+        run = false;
+        System.out.println("only translating");
+      }
+    }
 
     // read the source
-    String filename = args[0];
+    String filename = args[args.length - 1];
     if (verbose)
       System.out.println("reading the source from " + filename);
     FileReader reader;
@@ -60,6 +72,9 @@ public class ArthurCompiler {
     JavaArthurTranslator javaTranslator = new JavaArthurTranslator(s);
     String javaTranslation = javaTranslator.translateTree();
     writeTranslation(javaTranslation);
+
+    if (!run)
+      return;
 
     // run the java translation
     if (verbose)
@@ -161,9 +176,9 @@ public class ArthurCompiler {
       out.close();
 
       // build it with browserify
-      String endloc = dirname + "/js/artprog.js";
       String ex = "make jsbuild";
       execAndPrint(ex, true);
+
     } catch(FileNotFoundException e) {
       e.printStackTrace();
     }

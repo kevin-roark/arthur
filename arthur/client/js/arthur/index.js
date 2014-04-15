@@ -37,6 +37,8 @@ function checkGlobal(filename) {
 }
 
 module.exports.literalWrapper = function(media, filename) {
+  if (media instanceof Boolean) return media;
+
   media.glob = true;
   if (filename) {
     media.medfile = filename;

@@ -82,6 +82,10 @@ public class JavaArthurTranslator extends ArthurTranslator {
     return "\n" + fun.getFunDec();
   }
 
+  public String numDec() {
+    return "int ";
+  }
+
   public String varCode(ParseNode n) {
     ParseNode type = n.children.get(0);
     ParseNode name = n.children.get(1);
