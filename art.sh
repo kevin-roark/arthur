@@ -4,4 +4,4 @@ PROGRAM=$1;
 
 make compiler
 
-java arthur/backend/ArthurCompiler $1
+java arthur/backend/ArthurCompiler $@

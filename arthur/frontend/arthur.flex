@@ -104,6 +104,8 @@ FunDec = ({Type}|void){WS}+{Identifier}{WS}*\(
 <YYINITIAL> "return"        { return new Token(Tokens.RETURN, yyline); }
 
 /* logics */
+<YYINITIAL> "true"          { return new Token(Tokens.TRUE, yyline); }
+<YYINITIAL> "false"         { return new Token(Tokens.FALSE, yyline); }
 <YYINITIAL> "and"           { return new Token(Tokens.AND, yyline); }
 <YYINITIAL> "or"            { return new Token(Tokens.OR, yyline); }
 <YYINITIAL> "not"           { return new Token(Tokens.NOT, yyline); }

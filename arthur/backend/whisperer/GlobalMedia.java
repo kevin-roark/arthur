@@ -15,6 +15,12 @@ public class GlobalMedia implements java.io.Serializable {
     this.type = value.type;
   }
 
+  public GlobalMedia(String name, Boolean value) {
+    this.name = name;
+    this.value = new ArthurBoolean(value);
+    this.type = this.value.type;
+  }
+
   public void setMediaFile(MediaContainer c) {
     this.mediaFile = c.filename;
   }

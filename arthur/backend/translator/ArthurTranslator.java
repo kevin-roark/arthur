@@ -16,6 +16,7 @@ public abstract class ArthurTranslator {
   public abstract String getOutro();
   public abstract String createAndTranslate(ParseNode source, boolean statement);
   public abstract String functionCode(ParseNode n);
+  public abstract String numDec();
   public abstract String varCode(ParseNode n);
   public abstract String setToSymbol();
   public abstract String setToEndSymbol();
@@ -73,6 +74,29 @@ public abstract class ArthurTranslator {
         return ifStyle(n, "else");
       case "dw":
         return ifStyle(n, "while");
+      case "sugarloop":
+        this.ignoreChildren = true;
+        blockDepth++;
+
+        String precursor = "";
+        for (int i = 0; i <= blockDepth; i++)
+          precursor += "_";
+        String varname = precursor + "idx";
+
+        ParseNode times = n.children.get(0);
+        String val = times.children.get(0).val;
+
+        String forloop = "for(";
+        forloop += numDec();
+        forloop += varname + " = 0; ";
+        forloop += varname + " < " + val + "; ";
+        forloop += varname + "++";
+        forloop += ") {\n";
+
+        ParseNode body = n.children.get(1);
+        forloop += createAndTranslate(body, true);
+        forloop += "\n}\n";
+        return forloop;
       case "Identifier":
         return identifierVal(n.children.get(0).val);
       case "Fun call":
@@ -111,10 +135,18 @@ public abstract class ArthurTranslator {
         return twoSideOp(n, ".arthurEquals(");
       case "less than":
         return twoSideOp(n, ".lessThan(");
+      case "less than or equal to":
+        return twoSideOp(n, ".lessThanEquals(");
       case "greater than":
         return twoSideOp(n, ".greaterThan(");
+      case "greater than or equal to":
+        return twoSideOp(n, ".greaterThanEquals(");
       case "and":
         return twoSideOp(n, " && ");
+      case "or":
+        return twoSideOp(n, " || ");
+      case "not":
+        return "!";
       case "-":
         return twoSideOp(n, ".minus(");
       case "+":
@@ -123,6 +155,10 @@ public abstract class ArthurTranslator {
         return twoSideOp(n, ".multiply(");
       case "/":
         return twoSideOp(n, ".divide(");
+      case "true":
+        return "true";
+      case "false":
+        return "false";
       case "return":
         this.ignoreChildren = true;
         if (n.children.size() > 0) {
@@ -156,7 +192,9 @@ public abstract class ArthurTranslator {
     String s = stmt + " (";
     s += createAndTranslate(cond, false);
     s += ") {\n";
+    blockDepth++;
     s += createAndTranslate(body, true);
+    blockDepth--;
     return s;
   }
 
@@ -184,6 +222,10 @@ public abstract class ArthurTranslator {
       case "dw":
         this.ignoreChildren = false;
         return "}\n";
+      case "sugarloop":
+        blockDepth--;
+        this.ignoreChildren = false;
+        return "";
       case "Identifier":
         return "";
       case "Fun call":
@@ -200,9 +242,17 @@ public abstract class ArthurTranslator {
         return ")" + ender(false);
       case "less than":
         return ")" + ender(false);
+      case "less than or equal to":
+        return ")" + ender(false);
       case "greater than":
         return ")" + ender(false);
+      case "greater than or equal to":
+        return ")" + ender(false);
       case "and":
+        return ender(false);
+      case "or":
+        return ender(false);
+      case "not":
         return ender(false);
       case "-":
         return ")" + ender(false);

@@ -48,8 +48,10 @@ public class JsMiddleMan {
   private String literalWrapper(GlobalMedia gm, String literal) {
     if (gm.mediaFile != null)
       return "literalWrapper(" + literal + ", '" + gm.mediaFile + "')";
-    else
+    else if (gm.type != ArthurBoolean.BOOLEAN)
       return "literalWrapper(" + literal + ")";
+    else
+      return literal;
   }
 
   private void removeStupidFunctions() {
