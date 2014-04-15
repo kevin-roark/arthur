@@ -1,7 +1,14 @@
-//package arthur.backend.media;
+package arthur.backend.media;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.awt.*;
+import java.awt.image.*;
+import java.awt.geom.*;
+import java.awt.font.*;
+import java.util.*;
+
+import arthur.backend.builtins.java.*;
 
 /**
  * Java implementation of arthur color!
@@ -10,7 +17,6 @@ public class ArthurColor extends ArthurMedia {
 
   public static final String COLOR = "color";
   public ArthurNumber r, g, b, a;
-  public static String[] crayolas={"BLUE", "RED","GREEN","BLACK","WHITE","YELLOW","ORANGE","PERRYWINKLE", "ARTHURS SKIN"};
 
   public ArthurColor() {
     this(new ArthurNumber(0), new ArthurNumber(0), new ArthurNumber(0), new ArthurNumber(0));
@@ -28,57 +34,12 @@ public class ArthurColor extends ArthurMedia {
     this.a=a;
   }
 
-  public ArthurColor(ArthurString crayola){
-      this(crayola.toString());
-
-  }
-
-  public ArthurColor(String crayola){
-    this(0.0,0.0,0.0,1.0);
-    switch(crayola){
-        case "RED":
-                  this.r=new ArthurNumber(255.0);
-                  break;
-        case "BLUE":
-                  this.b=new ArthurNumber(255.0);
-                  break;
-        case "GREEN":
-                  this.g=new ArthurNumber(255.0);
-                  break;
-
-        case "ORANGE":
-                  this.r=new ArthurNumber(255.0);
-                  this.g=new ArthurNumber(128.0);
-
-                  break;
-
-        case "YELLOW":
-                  this.r=new ArthurNumber(255.0);
-                  this.g=new ArthurNumber(255.0);
-                  break;
-
-        case "WHITE":
-                  this.r=new ArthurNumber(255.0);
-                  this.g=new ArthurNumber(255.0);
-                  this.b=new ArthurNumber(255.0);
-                  break;
-        case "PERRYWINKLE":
-                  this.r=new ArthurNumber(204.0);
-                  this.g=new ArthurNumber(204.0);
-                  this.b=new ArthurNumber(255.0);
-                  break;
-
-        case "ARTHURS_SKIN":
-                  this.r=new ArthurNumber(255.0);
-                  this.g=new ArthurNumber(195.0);
-                  this.b=new ArthurNumber(34.0);
-                  break;
-        default:
-                  
-                  break;
-    }
-
-
+  public ArthurNumber valDiff(ArthurColor other) {
+    double rd = Math.abs(this.r.val - other.r.val);
+    double gd = Math.abs(this.g.val - other.g.val);
+    double bd = Math.abs(this.b.val - other.b.val);
+    double ad = Math.abs(this.a.val - other.a.val);
+    return new ArthurNumber(rd + gd + bd + ad);
   }
 
   public ArthurColor add(ArthurMedia two) {
@@ -129,7 +90,7 @@ public class ArthurColor extends ArthurMedia {
     if (two.type.equals(COLOR)) {
       return JavaColorMath.multiply(this, (ArthurColor) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
-      JavaColorMath.multiply(this, (ArthurNumber) two);
+      return JavaColorMath.multiply(this, (ArthurNumber) two);
     }
     return this;
   }
@@ -138,9 +99,92 @@ public class ArthurColor extends ArthurMedia {
     if (two.type.equals(COLOR)) {
       return JavaColorMath.divide(this, (ArthurColor) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
-      JavaColorMath.divide(this, (ArthurNumber) two);
+      return JavaColorMath.divide(this, (ArthurNumber) two);
     }
     return this;
+  }
+
+  public ArthurMedia castTo(ArthurString mediaType) {
+    return castTo(mediaType.str);
+  }
+
+  public ArthurMedia castTo(String mediaType) {
+    if (mediaType.equals("string")) {
+      return this.toArtString();
+    } else if (mediaType.equals("number")) {
+      return this.toNumber();
+    } else if (mediaType.equals("Image")) {
+      return this.toImage();
+    }
+
+    return this;
+  }
+
+  public ArthurNumber toNumber() {
+    double val = 0;
+    val += this.g.val;
+    val += 1000 * this.b.val;
+    val += 1000000 * this.r.val;
+    return new ArthurNumber(val);
+  }
+
+  public ArthurImage toImage() {
+    String filename = "color-" + (new Random()).nextInt() + ".jpg";
+
+    int w = 300;
+    int h = 300;
+
+    BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+
+    Graphics2D g = image.createGraphics();
+    Color c = new Color(this.r.val.floatValue(), this.g.val.floatValue(), this.b.val.floatValue(), this.a.val.floatValue());
+    g.setColor(c);
+    g.fillRect(0, 0, w, h);
+    g.dispose();
+
+    return new ArthurImage(image, filename);
+  }
+
+  public ArthurString toArtString() {
+    return closestString();
+  }
+
+  public ArthurString closestString() {
+    ArthurNumber bestDiff = new ArthurNumber(Double.POSITIVE_INFINITY);
+    ArthurNumber diff;
+    ArthurColor current;
+    ArthurString best = new ArthurString("color");
+
+    for (String c : JavaBuiltins.colors()) {
+      current = JavaBuiltins.colorMap().get(c);
+      diff = this.valDiff(current);
+
+      if (diff.val < bestDiff.val) {
+        bestDiff = diff;
+        best = new ArthurString(c);
+      }
+    }
+
+    return best;
+  }
+
+  public ArthurString furthestString() {
+    ArthurNumber bestDiff = new ArthurNumber(Double.NEGATIVE_INFINITY);
+    ArthurNumber diff;
+    ArthurColor current;
+    ArthurString best = new ArthurString("color");
+
+    for (String c : JavaBuiltins.colors()) {
+      current = JavaBuiltins.colorMap().get(c);
+      diff = this.valDiff(current);
+
+      if (diff.val > bestDiff.val) {
+        bestDiff = diff;
+        best = new ArthurString(c);
+      }
+    }
+
+    return best;
   }
 
   public String toString() {

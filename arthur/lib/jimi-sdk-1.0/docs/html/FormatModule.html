@@ -1,0 +1,380 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (X11; I; Linux 2.0.34 i686) [Netscape]">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+
+<center>
+<h1>
+Extending JIMI File Format Support</h1></center>
+
+<h2>
+
+<hr WIDTH="100%"></h2>
+
+<h2>
+Contents</h2>
+
+<blockquote>
+<li>
+<a href="#Overview">Overview</a></li>
+
+<li>
+<a href="#about examples">A note about examples</a></li>
+
+<li>
+<a href="#structure">Structure of a JIMI Format Module</a></li>
+
+<blockquote>
+<li>
+<a href="#decoder">Decoders</a></li>
+
+<li>
+<a href="#decoder factory">JimiDecoderFactories</a></li>
+
+<li>
+<a href="#encoder">Encoders</a></li>
+
+<li>
+<a href="#encoder factory">JimiEncoderFactories</a></li>
+
+<li>
+<a href="#extension">JimiExtensions</a></li>
+</blockquote>
+
+<li>
+<a href="#multiimage">Multi-image formats</a></li>
+
+<li>
+<a href="#tips">Tips for writing good format modules</a></li>
+
+<li>
+<a href="#categories">Categories of Image</a></li>
+</blockquote>
+
+<h2>
+<a NAME="Overview"></a>Overview</h2>
+JIMI is designed to be easily extensible to provide potential support for
+any file format through custom format modules.&nbsp; The extensions benefit
+automatically from all JIMI's features, including One-Shot production,
+Virtual Memory Management, and rich image manipulation.&nbsp; Extended
+format modules are treated in the same way as JIMI's core format set to
+ensure seamless integration.&nbsp; This document describes how to write
+encoders and decoders, and how to integrate them with JIMI.
+<h2>
+<a NAME="about examples"></a>A note about examples</h2>
+The image file format used for the example format module code in this document
+is a ficticious file format created as an example, the Activated Pseudo-Format
+(APF).&nbsp; This is a very simple format for storing 32-bit alpha/red/green/blue
+images.&nbsp; The structure is as follows:
+<p><tt>header:</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; signature&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ascii string "APF"</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; width&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+big-endian 32-bit integer value indicating the image width</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; height&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+big-endian 32-bit integer value indicating the image height</tt>
+<p><tt>pixel data:</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; series of (width * height) big-endian 32-bit
+values, each containing four 8-bit channels of image data, ordered alpha,
+red, green, blue.</tt>
+<h2>
+<a NAME="structure"></a>Structure of a JIMI Format Module</h2>
+An extended format module for JIMI consists of:
+<blockquote>
+<li>
+Any number of format decoders</li>
+
+<li>
+Any number of format encoders</li>
+
+<li>
+Factory classes for each encoder and decoder</li>
+
+<li>
+A JimiExtension class for describing the module, and using it to register
+your module with JIMI</li>
+</blockquote>
+In the following sections we step through each phase of developing a new
+Format Module.
+<h2>
+<a NAME="decoder"></a>Writing a decoder</h2>
+New format decoders for JIMI usually inherit from <a href="api/com/sun/jimi/core/JimiSingleImageRasterDecoder.html">JimiSingleImageRasterDecoder</a>,
+an abstract base class which leaves two methods to be implemented by the
+subclass for a specific format:
+<blockquote>
+<li>
+<tt>MutableJimiRasterImage doInitDecoding(JimiImageFactory, InputStream)</tt></li>
+
+<br>This method is called to&nbsp; have the decoder read and interpret
+image headers to set its options and create an appropriate type of JimiImage.&nbsp;
+This method exits as soon as the decoder is ready to start decoding pixel
+data.
+<li>
+<tt>void doImageDecode()</tt></li>
+
+<br>This method, which is called after <i>doInitDecoding</i>, decodes pixel
+data and sets it in the previously created JimiImage.&nbsp; When this method
+completes, the image is fully decoded and the decoding process has finished.</blockquote>
+These are the only methods the decoder has to implement.
+<p><b>Writing your <i>doInitDecoding</i> method</b>
+<br>The <tt>doInitDecoding</tt> method has the following signature:
+<p><tt>&nbsp;&nbsp;&nbsp; public MutableJimiRasterImage doInitDecoding(JimiImageFactory
+factory, InputStream in)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throws JimiException,
+IOException</tt>
+<p>There are several steps involved in implementing this method.&nbsp;
+Firstly, headers for the image are parsed to determine the width, height,
+and type of ColorModel required for the image.&nbsp; How this is done depends
+on the format, but these are properties of all raster-based images and
+are the only information required.&nbsp; Optionally, the decoder may also
+read additional information from the headers for parameters specific to
+the image format. These parameters typically include things like compression-type,
+whether the image was interlaced, comments embedded in the image, or anything
+else supported by the specific file format. The primary purpose of preserving
+this information with the image is so that the same options can be automatically
+re-used if the image is later encoded. If you choose to support format-specific
+options with your decoder, you must write a class implementing <tt>com.sun.jimi.core.util.FormatOptionSet,</tt>
+which provides objects representing the options available. By doing this,
+your options can be inspected in a standard way, allowing a user to interactively
+modify them when images are being saved.&nbsp; FormatOptionSet objects
+can be associated with an image by calling the setOptions method.
+<p>When these are finished, all the required information about the image
+has been gathered and it's time to create an object in which to store the
+pixel data in. JIMI provides 5 different types of these objects, each of
+which is an implementation of MutableJimiRasterImage. The type to choose
+depends on what sort of image you are decoding.&nbsp; The following is
+a guide to which type you should choose for your decoder:
+<blockquote>
+<li>
+<b><a href="api/com/sun/jimi/core/raster/IntRasterImage.html">IntRasterImage</a></b></li>
+
+<br>This type stores pixel values as <tt>ints</tt>, which provides 32 bits
+of data for storing each pixel.&nbsp; This is typically used for RGB-based
+image data where 8 bits are assigned to each color channel.&nbsp; It is
+appropriate to use this type for any image which requires 32 bit pixel
+values.
+<li>
+<b><a href="api/com/sun/jimi/core/raster/ByteRasterImage.html">ByteRasterImage</a></b></li>
+
+<br>This type stores pixel values as <tt>bytes</tt> for images which only
+require 8 bits for each pixel.&nbsp; This is typically used in conjunction
+with an IndexColorModel for palette based images with 256 colors or less.&nbsp;
+It is appropriate to use this type for any image which requires 8 bit pixel
+values.
+<li>
+<b><a href="api/com/sun/jimi/core/raster/BitRasterImage.html">BitRasterImage</a></b></li>
+
+<br>This type stores pixel values each in a single bit for reduced memory
+consumption.&nbsp; This is typically used for black and white images, but
+can be used for any type that requires only 2 different colors.
+<li>
+<b><a href="api/com/sun/jimi/core/raster/ChanneledIntRasterImage.html">ChanneledIntRasterImage</a></b></li>
+
+<br>This is an extension of <tt>IntRasterImage</tt> which allows image
+data to be set individually for each byte-channel of the image. This means
+that, for example, in several passes the alpha, red, green and blue channels
+of an image could be individually set for formats which store their data
+one channel at a time. Although this provides all the functionality of
+an <tt>IntRasterImage,</tt> it should only be used when its additional
+functionality is required because IntRasterImage can be more efficient.
+<li>
+<b><a href="api/com/sun/jimi/core/raster/LongRasterImage.html">LongRasterImage</a></b></li>
+
+<br>This type uses 64-bit <tt>longs</tt> to store individual pixels. This
+is useful for formats which have large color channels which prevent a pixel
+from being represented by a 32 bit value.&nbsp; These long-based images
+require use of special ColorModels derived from <tt>LongColorModel</tt>.</blockquote>
+By checking your needs against this list, you can determine which type
+of <tt>JimiRasterImage</tt> your decoder should use.&nbsp; Having done
+this, the desired object can be created using one of the <tt>create&lt;Type>()
+</tt>methods
+of the <tt>JimiImageFactory</tt> argument. The object created should then
+be referenced with an instance field to be accessed again by
+<tt>doImageDecode</tt>
+for setting pixel data.
+<p>Finally, you should set the "hints" of the image object you created
+using the <tt>setHints</tt> method, which it inherits from MutableRasterImage.&nbsp;
+The values of the hints are exactly the same as the ones in <tt>java.awt.image.ImageConsumer</tt>,
+and by default <tt>TOPDOWNLEFTRIGHT | COMPLETESCANLINES | SINGLEFRAME |
+SINGLEPASS</tt> will be selected.&nbsp; If you are going to set data in
+a different order, you must set more appropriate hints.&nbsp; When all
+this is complete, you simply return a reference to the image object you
+created and <tt>doInitDecoding</tt> is finished.
+<p>Here is an <a href="APFDecoder.java">example decoder</a>.
+<p><b>Writing your <i>doImageDecode</i> method</b>
+<br>This method is very straight forward. You simply read data for the
+image and incrementally set it in the image object created in <tt>doInitDecoding</tt>.
+Image data should be set in conveniently sized chunks. There is no specific
+required chunk size, though it is conventional to buffer one row at a time
+and set the entire row of data. If the format does not deal in rows, any
+more convenient chunk size can be used.
+<p>As data is set, <tt><a href="api/com/sun/jimi/core/JimiSingleImageRasterDecoder.html#setProgress(int)">setProgress</a></tt>
+(a method inherited from the <tt>JimiSingleImageRasterDecoder</tt>) should
+be called to inform any interested objects where the operation is up to.&nbsp;
+This method takes one <tt>int</tt> as its argument, which should be set
+to the percentage of the operation which is complete, a number between
+0 and 100 inclusive.
+<p>After all data has been read and set in the image object, the <tt><a href="api/com/sun/jimi/core/MutableJimiImage.html#setFinished()">setFinished()</a></tt>
+method should be called on the image.&nbsp; When this is done, the decoding
+process is complete and the method can return.
+<h3>
+<a NAME="decoder factory"></a>Writing the JimiDecoderFactory</h3>
+With a decoder implemented, the next thing to do is create a class implementing
+the <tt>JimiDecoderFactory</tt> interface which JIMI can use to access
+the decoder.&nbsp; The purpose of the <tt>JimiDecoderFactory</tt> is to
+provide information about the image format to allow JIMI to determine when
+it should be used, and to create instances of the decoder.&nbsp; Typically,
+your Factory will be a subclass of <tt>JimiDecoderFactorySupport</tt>,
+which provides default implemention of some methods of the interface.&nbsp;
+The information you need about your format is the mime-type(s) with which
+it is identified, any filename-extensions to associate with it, and, if
+available, a signature which appears near the start of the image data and
+identifies the format.
+<p>These classes are very easy to implement, as this <a href="APFDecoderFactory.java">example
+</a>illustrates.
+<h3>
+<a NAME="encoder"></a>Writing an encoder</h3>
+Writing an encoder with JIMI is even easier than writing a decoder. JIMI
+encoders inherit from the abstract base class <tt><a href="api/com/sun/jimi/core/JimiSingleImageRasterEncoder.html">JimiSingleImageRasterEncoder</a></tt>,
+which has just one method to implement: <tt>doEncodeImage</tt>. The function
+of this method is to take a <tt>JimiRasterImage</tt> and write it to an
+<tt>OutputStream.</tt>
+The exact signature is:
+<p><tt>&nbsp;&nbsp;&nbsp; public void doImageEncode(JimiRasterImage image,
+OutputStream out)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throws JimiException,
+IOException</tt>
+<p>Though formats can vary greatly, this method is usually implemented
+in three steps: getting the image into an appropriate form, writing the
+image file headers, and writing the image pixel data.&nbsp; Getting the
+image into an appropriate form involves taking the JimiRasterImage parameter
+and, if necessary, converting it into a form supported by the image format.&nbsp;
+For example, a format limited to saving 256-color images, like GIF, would
+convert the JimiRasterImage into a ByteRasterImage that uses an <tt>IndexColorModel</tt>
+with &lt;= 256 colors.&nbsp; A format which writes 24-bit RGB or 32-bit
+ARGB data, such as JPEG, would not make any conversion, since all JimiRasterImages
+support access in this way.&nbsp; More flexible formats like PNG which
+can support either type would check whether the image it had been given
+was already palette-based, and if it was then save it as such, or if not
+then save it as RGB.&nbsp; JIMI provides several categories of image and
+the ability to check for conformance, or to convert images to conform to
+a certain category.&nbsp; These categories include "palette image", "8-bit
+palette image", "mono-color image", and are easily accessible through the
+<tt><a href="api/com/sun/jimi/core/raster/JimiRasterImageCategorizer.html">JimiRasterImageCategorizer</a></tt>
+class.&nbsp; See the Categories of Images section for more information
+about these image properties.
+<p>With the image in a form appropriate for encoding, the rest of the encoding
+process is format-specific.&nbsp; The encoder must write all headers for
+the format and the image pixel data, and the encoding process is complete.&nbsp;
+Like decoders, the encoders also inherit a <tt><a href="api/com/sun/jimi/core/JimiSingleImageRasterEncoder.html#setProgress">setProgress(int
+progress)</a>
+</tt>method which should be used to allow external objects
+to track their progress.
+<p>Here is an <a href="APFEncoder.java">example encoder</a>.
+<h3>
+<a NAME="encoder factory"></a>Writing a JimiEncoderFactory</h3>
+Encoders must have a Factory class associated with them, which is very
+similar to the factory for decoders but provides slightly different information.&nbsp;
+To implement a <tt><a href="api/com/sun/jimi/core/JimiEncoderFactory.html">JimiEncoderFactory</a></tt>
+for your format, simply subclass
+ and provide implementations for the simple
+format-specific methods.&nbsp; This <a href="APFEncoderFactory.java">example</a>
+shows how easily the Factories can be implemented.
+<h3>
+<a NAME="extension"></a>Writing a JimiExtension</h3>
+Having developed any encoders and/or decoders, a <tt><a href="api/com/sun/jimi/core/JimiExtension.html">JimiExtension</a></tt>
+class is written to describe the entire module to JIMI.&nbsp; This is the
+easiest part of writing a format module, as this <a href="APFExtension.java">example
+</a>implementation
+shows.&nbsp; When the JimiExtension is written, the format module is complete
+and it need only be registered with JIMI.&nbsp; This is achieved with:
+<p><tt>&nbsp;&nbsp;&nbsp; JimiControl.addExtension(new MyJimiExtension());</tt>
+<p>With this done, your custom formats are available through JIMI in the
+exact same way as the core formats which JIMI handles.
+<h2>
+
+<hr WIDTH="100%"></h2>
+
+<h2>
+<a NAME="multiimage"></a>Multi-image formats</h2>
+Some image file formats can hold several images in a single file, TIFF
+and animated GIFs for example.&nbsp; Encoders and decoders for these formats
+are very similar to those of single image formats, but deal with series'
+of images.&nbsp; When dealing with these formats, use <a href="api/com/sun/jimi/core/JimiMultiImageRasterDecoder.html">JimiMultiImageRasterDecoder</a>
+and <a href="api/com/sun/jimi/core/JimiMultiImageRasterEncoder.html">JimiMultiImageRasterEncoder</a>.
+<h2>
+<a NAME="tips"></a>Tips for writing good format modules</h2>
+Here are some things you can do to help make your format modules fit in
+and perform well.
+<blockquote>
+<li>
+<b>Don't Buffer Decoders</b></li>
+
+<br>Decoders in JIMI should not use BufferedInputStreams for reading their
+input data.&nbsp; JIMI will pass streams which are already buffered to
+the decoder if buffering is appropriate, so a second buffer in the decoder
+will degrade performance.
+<li>
+<b>Finish reading at the end of the image</b></li>
+
+<br>Decoders should finish decoding at the end of the data relevant to
+the image file.&nbsp; Assume that there is important data in the stream
+beyond the image, and that you should read exactly the amount of image
+data that is there, leaving the stream aligned at the data which follows
+the image.</blockquote>
+
+<h2>
+<a NAME="categories"></a>Categories of image</h2>
+In JIMI, there are certain types of <tt>JimiRasterImage </tt>and <tt>java.awt.ColorModel
+</tt>pairs
+which are adopted as standard for certain types of image.&nbsp; Through
+these conventions, different format modules in JIMI have common forms for
+image exchange to avoid unnecessary conversions of unrecognised types.&nbsp;
+The categories are as follows.
+<br>&nbsp;
+<table BORDER COLS=2 WIDTH="100%" NOSAVE >
+<tr>
+<td>&lt;= 8-bit palette image</td>
+
+<td>ByteRasterImage with java.awt.IndexColorModel</td>
+</tr>
+
+<tr>
+<td>Palette image</td>
+
+<td>Any JimiRasterImage with a java.awt.image.IndexColorModel</td>
+</tr>
+
+<tr>
+<td>Black and white</td>
+
+<td>BitRasterImage or ByteRasterImage with IndexColorModel containing 2
+entries</td>
+</tr>
+
+<tr>
+<td>Grayscale (any bitsize)</td>
+
+<td>java.awt.image.DirectColorModel with an identical mask for each of
+the R,G,B channels</td>
+</tr>
+
+<tr>
+<td>> 32-bits per pixel</td>
+
+<td>LongRasterImage with subclass of com.sun.jimi.core.raster.LongColorModel</td>
+</tr>
+
+<tr>
+<td>RGB</td>
+
+<td>Any JimiRasterImage with any java.awt.ColorModel</td>
+</tr>
+</table>
+
+<br>&nbsp;
+</body>
+</html>

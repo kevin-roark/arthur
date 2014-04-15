@@ -1,5 +1,7 @@
 package arthur.backend.media;
 
+import arthur.backend.builtins.java.JavaBuiltins;
+
 /**
  * Contains a suite of static methods to perform math operations involving
  * colors.
@@ -18,11 +20,14 @@ public class JavaStringMath {
   }
 
   public static ArthurString add(ArthurString one, ArthurImage two) {
-    return null;
+    String t = two.toAscii();
+    String result = one.str + "\n" + t;
+    return new ArthurString(result);
   }
 
   public static ArthurString add(ArthurString one, ArthurColor two) {
-    return null;
+    ArthurString closest = two.closestString();
+    return add(one, closest);
   }
 
   public static ArthurString add(ArthurString one, ArthurVideo two) {
@@ -45,11 +50,14 @@ public class JavaStringMath {
   }
 
   public static ArthurString minus(ArthurString one, ArthurImage two) {
-    return null;
+    String t = two.toAscii();
+    String result = t + "\n" + one.str;
+    return new ArthurString(result);
   }
 
   public static ArthurString minus(ArthurString one, ArthurColor two) {
-    return null;
+    ArthurString furthest = two.furthestString();
+    return add(one, furthest);
   }
 
   public static ArthurString minus(ArthurString one, ArthurVideo two) {

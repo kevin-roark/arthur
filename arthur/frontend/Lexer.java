@@ -62,9 +62,9 @@ public class Lexer {
     "\1\16\1\17\1\20\1\21\1\22\1\23\1\24\4\0"+
     "\1\25\1\0\1\25\1\4\1\0\1\26\1\27\3\3"+
     "\1\30\3\3\1\31\1\3\1\32\5\3\1\33\1\34"+
-    "\2\0\1\3\1\35\7\3\1\36\1\3\1\37\1\3"+
-    "\4\0\5\3\1\40\2\3\1\0\1\41\2\3\5\0"+
-    "\1\42\1\43\11\0\1\44\3\0\1\45";
+    "\2\0\1\35\1\36\7\3\1\37\1\3\1\40\1\3"+
+    "\4\0\5\3\1\41\2\3\1\0\1\42\2\3\5\0"+
+    "\1\43\1\44\11\0\1\45\3\0\1\46";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[119];
@@ -696,63 +696,63 @@ public class Lexer {
         case 1: 
           { throw new Error("Illegal character: " + yytext());
           }
-        case 38: break;
+        case 39: break;
         case 2: 
           { /* do nothing */
           }
-        case 39: break;
+        case 40: break;
         case 3: 
           { return new Identifier(yytext(), yyline);
           }
-        case 40: break;
+        case 41: break;
         case 4: 
           { Double val = Double.parseDouble(yytext()); return new Num(val, yyline);
           }
-        case 41: break;
+        case 42: break;
         case 5: 
           { return new Token(Tokens.DIV, yyline);
           }
-        case 42: break;
+        case 43: break;
         case 6: 
           { return new Token(Tokens.TIMES, yyline);
           }
-        case 43: break;
+        case 44: break;
         case 7: 
           { return new Token(Tokens.PLUS, yyline);
           }
-        case 44: break;
+        case 45: break;
         case 8: 
           { return new Token(Tokens.DOT, yyline);
           }
-        case 45: break;
+        case 46: break;
         case 9: 
           { return new Token(Tokens.LT, yyline);
           }
-        case 46: break;
+        case 47: break;
         case 10: 
           { return new Token(Tokens.COMMA, yyline);
           }
-        case 47: break;
+        case 48: break;
         case 11: 
           { return new Token(Tokens.GT, yyline);
           }
-        case 48: break;
+        case 49: break;
         case 12: 
           { return new Token(Tokens.LPAREN, yyline);
           }
-        case 49: break;
+        case 50: break;
         case 13: 
           { return new Token(Tokens.MINUS, yyline);
           }
-        case 50: break;
+        case 51: break;
         case 14: 
           { return new Token(Tokens.SEMI, yyline);
           }
-        case 51: break;
+        case 52: break;
         case 15: 
           { return new Token(Tokens.RPAREN, yyline);
           }
-        case 52: break;
+        case 53: break;
         case 16: 
           { if(!startingFunction) {
                                 table = new SymbolTable(table, "block");
@@ -761,72 +761,76 @@ public class Lexer {
                               }
                               return new Token(Tokens.LCURLY, yyline);
           }
-        case 53: break;
+        case 54: break;
         case 17: 
           { table = table.getPrev(); return new Token(Tokens.RCURLY, yyline);
           }
-        case 54: break;
+        case 55: break;
         case 18: 
           { return new Token(Tokens.EQ, yyline);
           }
-        case 55: break;
+        case 56: break;
         case 19: 
           { return new Token(Tokens.MOD, yyline);
           }
-        case 56: break;
+        case 57: break;
         case 20: 
           { return new Token(Tokens.EXP, yyline);
           }
-        case 57: break;
+        case 58: break;
         case 21: 
           { return new StringLit(yytext(), yyline);
           }
-        case 58: break;
+        case 59: break;
         case 22: 
           { return new Token(Tokens.LTE, yyline);
           }
-        case 59: break;
+        case 60: break;
         case 23: 
           { return new Token(Tokens.GTE, yyline);
           }
-        case 60: break;
+        case 61: break;
         case 24: 
           { return new Token(Tokens.OR, yyline);
           }
-        case 61: break;
+        case 62: break;
         case 25: 
           { return new Token(Tokens.IF, yyline);
           }
-        case 62: break;
+        case 63: break;
         case 26: 
           { return new Token(Tokens.DW, yyline);
           }
-        case 63: break;
+        case 64: break;
         case 27: 
           { return new Token(Tokens.ARROW, yyline);
           }
-        case 64: break;
+        case 65: break;
         case 28: 
           { return new Token(Tokens.EQX2, yyline);
           }
-        case 65: break;
-        case 29: 
-          { return new Token(Tokens.NOT, yyline);
-          }
         case 66: break;
-        case 30: 
-          { return new Token(Tokens.ELF, yyline);
+        case 29: 
+          { return new Type(yytext(), yyline);
           }
         case 67: break;
-        case 31: 
-          { return new Token(Tokens.AND, yyline);
+        case 30: 
+          { return new Token(Tokens.NOT, yyline);
           }
         case 68: break;
-        case 32: 
-          { return new Token(Tokens.ELSE, yyline);
+        case 31: 
+          { return new Token(Tokens.ELF, yyline);
           }
         case 69: break;
+        case 32: 
+          { return new Token(Tokens.AND, yyline);
+          }
+        case 70: break;
         case 33: 
+          { return new Token(Tokens.ELSE, yyline);
+          }
+        case 71: break;
+        case 34: 
           { String[] arr = yytext().split("\\s+");
                               String type = arr[0];
                               String name = arr[1];
@@ -834,8 +838,8 @@ public class Lexer {
                               table.getMap().put(name, var);
                               return var;
           }
-        case 70: break;
-        case 34: 
+        case 72: break;
+        case 35: 
           { String text = yytext().replace("(", "");
                               String[] arr = text.split("\\s+");
                               String returnType = arr[0];
@@ -844,12 +848,12 @@ public class Lexer {
                               table.getMap().put(name, fun);
                               return fun;
           }
-        case 71: break;
-        case 35: 
+        case 73: break;
+        case 36: 
           { return new Token(Tokens.RETURN, yyline);
           }
-        case 72: break;
-        case 36: 
+        case 74: break;
+        case 37: 
           { String rgb = yytext().replace("<<", "").replace(">>", "");
                               String[] arr = rgb.split(",");
                               int r = Integer.parseInt(arr[0].trim());
@@ -857,8 +861,8 @@ public class Lexer {
                               int b = Integer.parseInt(arr[2].trim());
                               return new Color(r, g, b);
           }
-        case 73: break;
-        case 37: 
+        case 75: break;
+        case 38: 
           { String rgb = yytext().replace("<<", "").replace(">>", "");
                               String[] arr = rgb.split(",");
                               int r = Integer.parseInt(arr[0].trim());
@@ -867,7 +871,7 @@ public class Lexer {
                               double a = Double.parseDouble(arr[3].trim());
                               return new Color(r, g, b, a);
           }
-        case 74: break;
+        case 76: break;
         default: 
           if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
             zzAtEOF = true;

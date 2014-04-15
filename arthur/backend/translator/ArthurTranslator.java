@@ -87,6 +87,12 @@ public abstract class ArthurTranslator {
         }
         s += ")";
         return s;
+      case "cast":
+        this.ignoreChildren = true;
+        ParseNode id = n.children.get(0);
+        ParseNode type = n.children.get(1);
+        s += id.val + ".castTo(" + type.val + ")";
+        return s;
       case "Method call":
         return twoSideOp(n, ".");
       case "Property access":
@@ -181,6 +187,8 @@ public abstract class ArthurTranslator {
       case "Identifier":
         return "";
       case "Fun call":
+        return ender(false);
+      case "cast":
         return ender(false);
       case "Method call":
         return ender(false);

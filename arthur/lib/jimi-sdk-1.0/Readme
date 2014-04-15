@@ -1,0 +1,49 @@
+Jimi Contents
+
+This document describes the contents of the Jimi archive file (tar or 
+ZIP).
+
+Jimi/ReadMe.txt - this file.
+
+Jimi/JimiProClasses.zip - the set of .class files that compose the Jimi 
+library. This is referenced by the example applications, and can be 
+included in the class path of any application that uses Jimi.
+
+Jimi/docs - Jimi documentation. See the section titled Documentation 
+below.
+
+Jimi/src - the root of the Jimi source and class file trees.
+
+Jimi/src/com/sun/jimi - The top-level Jimi package directory under which 
+all the Jimi .java files lie.
+
+Jimi/src/classes - The root of the compiled versions of the .java files
+
+Jimi/src/compile.{bat,src} - DOS_shell and UNIX(tm) shell scripts to 
+compile the Jimi sources.
+
+Jimi/src/main_classes.txt - The list of 'root' classes used by the above 
+scripts.
+
+Jimi/examples - Example applications, applets and code fragments 
+illustrating the use of Jimi.
+
+Jimi/examples/AppletDemo - this directory contains JimiProClasses.jar, 
+which is the jar version of JimiProClasses.zip. Launch a web browser on 
+the file index.html to see a list of applets.
+
+Documentation
+
+This directory contains two Word-format files. JIMI_overview.doc 
+contains an overview of the Jimi architecture, and JIMI_technical.doc 
+covers some technical issues in more depth.
+
+The directory html contains HTML version of the two files mentioned 
+above, plus information about the file formats supported by Jimi in the 
+files Formats.html and FormatModule.html.
+
+Finally, the JavaDoc-generated documentation based on the Jimi source 
+code comments can be found in the api sub-directory (the 
+FormatModule.html file also contains links to certain key pages in the 
+API documentation).
+
