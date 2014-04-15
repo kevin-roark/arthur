@@ -73,6 +73,12 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     else if (two.type.equals(ArthurColor.COLOR)) {
       res = JavaImageMath.add(this, (ArthurColor) two);
     }
+    else if (two.type.equals(ArthurString.STRING)) {
+      res = JavaImageMath.add(this, (ArthurString) two);
+    }
+    else if (two.type.equals(ArthurNumber.NUMBER)) {
+      res = JavaImageMath.add(this, (ArthurNumber) two);
+    }
     else {
       res = this;
     }
@@ -87,6 +93,12 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     } 
     else if (two.type.equals(ArthurColor.COLOR)) {
       res = JavaImageMath.minus(this, (ArthurColor) two);
+    }
+    else if (two.type.equals(ArthurString.STRING)) {
+      res = JavaImageMath.minus(this, (ArthurString) two);
+    }
+    else if (two.type.equals(ArthurNumber.NUMBER)) {
+      res = JavaImageMath.minus(this, (ArthurNumber) two);
     }
     else {
       // coerce to Image?
