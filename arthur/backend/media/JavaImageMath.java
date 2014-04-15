@@ -16,59 +16,44 @@ public class JavaImageMath {
 
 	static int counter = 0;
 
-	/*
 	public static ArthurImage add(ArthurImage one, ArthurColor two) {
-		int r = two.r.val;
-		int g = two.g.val;
-		int b = two.g.val;
+		BufferedImage image = one.bf;
 
-		//get image
-		BufferedImage image = null;
-		try {
-			image = ImageIO.read(new File(one.filename));
-		} catch (IOException e) {
+		double r = two.r.val;
+		double g = two.g.val;
+		double b = two.g.val;
 
-		}
-		if (image == null) {
-			System.out.println("Error - couldn't retrieve image.");
-		}
-
-		//manipulate image
 		WritableRaster raster = image.getRaster();
 		int[] pixelArray = new int[3];
 		for (int y = 0; y < raster.getHeight(); y++) {
 			for (int x = 0; x < raster.getWidth(); x++) {
 				pixelArray = raster.getPixel(x, y, pixelArray);
-				pixelArray[0] += r;
-				pixelArray[1] += g;
-				pixelArray[2] += b;
+				pixelArray[0] = (int) (pixelArray[0] + r) / 2;
+				pixelArray[1] = (int) (pixelArray[1] + g) / 2;
+				pixelArray[2] = (int) (pixelArray[2] + b) / 2;
 				raster.setPixel(x, y, pixelArray);
 			}
 		}
 
 		//save image
 		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) +
-								"+" +
-								"(" + two.r.val + "," + two.g.val + "," + two.b.val + ")" +
+								"+" + //filename can't contain the / or *characters; decide later
+								r + g + b +
 								counter +
 								".jpg";
 		counter++;
-		ArthurImage result = null;
-		try {
-			File outputFile = new File(outputFn);
-			ImageIO.write(collage, "jpg", outputFile);
-			result = new ArthurImage(outputFn);
-		} catch (IOException e) {
 
-		}
-
-		return result;
+		return new ArthurImage(image, outputFn);
 	}
-
-	*/
 
 	public static ArthurImage add(ArthurImage one, ArthurImage two) {
 		return JavaImageMath.addition(one, two, 0);
+	}
+
+	public static ArthurImage minus(ArthurImage one, ArthurColor two) {
+		//calculate complementary color and add it
+		ArthurColor complement = new ArthurColor(255.0 - two.r.val, 255.0 - two.g.val, 255.0 - two.b.val, two.a.val);
+		return JavaImageMath.add(one, complement);
 	}
 
 	public static ArthurImage minus(ArthurImage one, ArthurImage two) {
@@ -109,6 +94,7 @@ public class JavaImageMath {
 		}
 
 		counter++;
+
 		return new ArthurImage(collage, outputFn);
 	}
 

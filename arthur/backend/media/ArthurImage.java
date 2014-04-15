@@ -69,7 +69,11 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     ArthurImage res;
     if (two.type.equals(IMAGE)) {
       res = JavaImageMath.add(this, (ArthurImage) two);
-    } else {
+    } 
+    else if (two.type.equals(ArthurColor.COLOR)) {
+      res = JavaImageMath.add(this, (ArthurColor) two);
+    }
+    else {
       res = this;
     }
     res.murk = this.murk;
@@ -80,7 +84,11 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     ArthurImage res;
     if (two.type.equals(IMAGE)) {
       res = JavaImageMath.minus(this, (ArthurImage) two);
-    } else {
+    } 
+    else if (two.type.equals(ArthurColor.COLOR)) {
+      res = JavaImageMath.minus(this, (ArthurColor) two);
+    }
+    else {
       // coerce to Image?
       res = this;
     }
