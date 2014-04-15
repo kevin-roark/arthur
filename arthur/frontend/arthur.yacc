@@ -17,7 +17,7 @@
 %token EQ EQ2X LT LTE GT GTE
 %token PLUS MINUS TIMES DIV MOD EXP
 %token FUNCTION VAR VALUE ID
-%token COLOR NUMBER STRINGLIT TRUE FALSE
+%token COLOR NUMBER STRINGLIT TRUE FALSE TYPE
 %token EOF
 %token UNKNOWN
 
@@ -248,6 +248,19 @@ fun_call
                                                     }
     ;
 
+caster
+    : id ARROW TYPE                                 {
+                                                      ParseNode caster = new ParseNode("cast");
+                                                      ParseNode par = (ParseNode) $1.obj;
+                                                      caster.addChild(par);
+
+                                                      Type t = (Type) $3.obj;
+                                                      ParseNode type = new ParseNode(t.name);
+                                                      caster.addChild(type);
+                                                      $$ = new ParserVal(caster);
+                                                    }
+    ;
+
 meth_call
     : id ARROW fun_call                             {
                                                       ParseNode methCall = new ParseNode("Method call");
@@ -393,6 +406,7 @@ stmt_list
 expr
     : bool_expr                                     { $$ = $1; }
     | num_expr                                      { $$ = $1; }
+    | eq_expr                                       { $$ = $1; }
     | val                                           { $$ = $1; }
     |                                               { $$ = new ParserVal(new ParseNode("")); }
     ;
@@ -474,8 +488,8 @@ num_expr
                                                     }
     ;
 
-eq_stmt
-    : id EQ val SEMI                                {
+eq_expr
+    : id EQ val                                    {
                                                         ParseNode eq = new ParseNode("=");
                                                         ParseNode id = (ParseNode) $1.obj;
                                                         ParseNode val = (ParseNode) $3.obj;
@@ -485,7 +499,51 @@ eq_stmt
                                                         eq.addChild(val);
                                                         $$ = new ParserVal(eq);
                                                     }
-    | var EQ val SEMI                               {
+    | id PLUS EQ val                                {
+                                                        ParseNode eq = new ParseNode("=");
+                                                        ParseNode id = (ParseNode) $1.obj;
+                                                        ParseNode val = (ParseNode) $4.obj;
+                                                        ParseNode plus = new ParseNode("+");
+                                                        plus.addChild(id);
+                                                        plus.addChild(val);
+                                                        eq.addChild(id);
+                                                        eq.addChild(plus);
+                                                        $$ = new ParserVal(eq);
+                                                    }
+    | id MINUS EQ val                               {
+                                                        ParseNode eq = new ParseNode("=");
+                                                        ParseNode id = (ParseNode) $1.obj;
+                                                        ParseNode val = (ParseNode) $4.obj;
+                                                        ParseNode minus = new ParseNode("-");
+                                                        minus.addChild(id);
+                                                        minus.addChild(val);
+                                                        eq.addChild(id);
+                                                        eq.addChild(minus);
+                                                        $$ = new ParserVal(eq);
+                                                    }
+    | id TIMES EQ val                               {
+                                                        ParseNode eq = new ParseNode("=");
+                                                        ParseNode id = (ParseNode) $1.obj;
+                                                        ParseNode val = (ParseNode) $4.obj;
+                                                        ParseNode mult = new ParseNode("*");
+                                                        mult.addChild(id);
+                                                        mult.addChild(val);
+                                                        eq.addChild(id);
+                                                        eq.addChild(mult);
+                                                        $$ = new ParserVal(eq);
+                                                    }
+    | id DIV EQ val                                 {
+                                                        ParseNode eq = new ParseNode("=");
+                                                        ParseNode id = (ParseNode) $1.obj;
+                                                        ParseNode val = (ParseNode) $4.obj;
+                                                        ParseNode div = new ParseNode("/");
+                                                        div.addChild(id);
+                                                        div.addChild(val);
+                                                        eq.addChild(id);
+                                                        eq.addChild(div);
+                                                        $$ = new ParserVal(eq);
+                                                    }
+    | var EQ val                                    {
                                                         ParseNode eq = new ParseNode("=");
                                                         ParseNode var = (ParseNode) $1.obj;
                                                         ParseNode val = (ParseNode) $3.obj;
@@ -500,6 +558,10 @@ eq_stmt
     // | var EQ error SEMI                             { System.out.println("var = NO"); errorCount++;  }
     // | error EQ val SEMI                             { System.out.println("NO = val"); errorCount++;  }
     // | error EQ error SEMI                           { System.out.println("NO = NO"); errorCount++;  }
+    ;
+
+eq_stmt
+    : eq_expr SEMI                                  { $$ = $1; }
     ;
 
 val
@@ -601,6 +663,7 @@ id
     : fun_call                                      { $$ = $1; }
     | meth_call                                     { $$ = $1; }
     | prop_access                                   { $$ = $1; }
+    | caster                                        { $$ = $1; }
     | ID                                            {
                                                         Identifier i = (Identifier) $1.obj;
 
@@ -692,6 +755,7 @@ int tokenMap(int tokenType) {
         case Tokens.STRINGLIT: return STRINGLIT;
         case Tokens.EOF: return EOF;
         case Tokens.VALUE: return VALUE;
+        case Tokens.TYPE: return TYPE;
         default: return UNKNOWN;
     }
 }

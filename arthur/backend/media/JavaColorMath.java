@@ -1,5 +1,7 @@
 package arthur.backend.media;
 
+import arthur.backend.builtins.java.JavaBuiltins;
+
 /**
 * Contains a suite of static methods to perform math operations involving
 * colors.
@@ -18,7 +20,7 @@ public static ArthurColor add(ArthurColor one, ArthurImage two) {
 	ArthurColor avg=two.getAverageColor();
 
 	return multiply(one, avg);
-	
+
 }
 
 public static ArthurColor add(ArthurColor one, ArthurVideo two) {
@@ -38,15 +40,8 @@ public static ArthurColor add(ArthurColor one, ArthurNumber two) {
 }
 
 public static ArthurColor add(ArthurColor one, ArthurString two) {
-	String name=two.toString();
-	for (int i = 0; i < ArthurColor.crayolas.length; i++){
-		if(name.toUpperCase().contains(ArthurColor.crayolas[i])){
-			return add(one,new ArthurColor(ArthurColor.crayolas[i]));
-		}
-
-	}
-	return one;
-	
+	ArthurColor color = two.toColor();
+	return add(one, color);
 }
 
 public static ArthurColor minus(ArthurColor one, ArthurColor two) {
@@ -80,14 +75,8 @@ public static ArthurColor minus(ArthurColor one, ArthurNumber two) {
 }
 
 public static ArthurColor minus(ArthurColor one, ArthurString two) {
-	String name=two.toString();
-	for (int i = 0; i < ArthurColor.crayolas.length; i++){
-		if(name.toUpperCase().contains(ArthurColor.crayolas[i])){
-			return minus(one,new ArthurColor(ArthurColor.crayolas[i]));
-		}
-
-	}
-	return one;
+	ArthurColor color = two.toColor();
+	return minus(one, color);
 }
 
 public static ArthurColor multiply(ArthurColor one, ArthurColor two) {

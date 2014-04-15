@@ -161,6 +161,8 @@ FunDec = ({Type}|void){WS}+{Identifier}{WS}*\(
                               return new Color(r, g, b, a);
                             }
 
+    {Type}                  { return new Type(yytext(), yyline); }
+
     {Identifier}            { return new Identifier(yytext(), yyline); }
 
     /* {Value}                 { return new Value(yytext(), yyline); } */

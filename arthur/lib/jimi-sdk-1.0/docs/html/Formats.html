@@ -1,0 +1,563 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (X11; I; Linux 2.0.34 i686) [Netscape]">
+   <title>1 File Format Overview</title>
+<!-- This document was created from RTF source by rtftohtml version 3.9.3 -->
+</head>
+<body text="#000000" bgcolor="#FFFFFF">
+
+<h1>
+<font face="Arial,Helvetica">JIMI<sup><font size=+1>TM</font></sup> Image
+File Format Support</font></h1>
+
+<h1>
+<font face="Arial,Helvetica">Contents</font></h1>
+
+<ul>
+<li>
+<font face="Arial,Helvetica"><a href="#OverviewDecoders">1 Decoder overview</a></font></li>
+
+<li>
+<font face="Arial,Helvetica"><a href="#OverviewEncoders">2 Encoder overview</a></font></li>
+</ul>
+
+<hr SIZE=1 NOSHADE WIDTH="100%">
+<br>&nbsp;
+<h1>
+<a NAME="OverviewDecoders"></a><font face="Arial,Helvetica">1 Decoder Overview</font></h1>
+
+<table CELLSPACING=0 CELLPADDING=0 WIDTH="100%" NOSAVE >
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#663366">
+<td ALIGN=LEFT><b><font face="Arial,Helvetica"><font color="#FFFFFF">Image
+File Format&nbsp;</font></font></b></td>
+
+<td ALIGN=LEFT><b><font face="Arial,Helvetica"><font color="#FFFFFF">Decoder
+supports</font></font></b></td>
+
+<td><b><font face="Arial,Helvetica"><font color="#FFFFFF">Decoder does
+not yet support</font></font></b></td>
+
+<td><b><font face="Arial,Helvetica"><font color="#FFFFFF">Notes</font></font></b></td>
+</tr>
+
+<tr BGCOLOR="#FFFFCC">
+<td>DIB</td>
+
+<td>&nbsp;</td>
+
+<td>&nbsp;</td>
+
+<td>&nbsp;</td>
+</tr>
+
+<tr BGCOLOR="#C0C0C0">
+<td>DDB</td>
+
+<td>&nbsp;</td>
+
+<td>&nbsp;</td>
+
+<td>&nbsp;</td>
+</tr>
+
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#FFFFCC">
+<td ALIGN=LEFT>BMP</td>
+
+<td ALIGN=LEFT>
+<ul>
+<li>
+BMP v2.x v3.x and v4.x BMP Files [ the most common variant ]&nbsp;</li>
+
+<li>
+OS/2 Variant</li>
+
+<li>
+Palette and True Color images</li>
+
+<li>
+RLE8 and RLE4 compressed images&nbsp;</li>
+</ul>
+</td>
+
+<td>&nbsp;</td>
+
+<td>&nbsp;</td>
+</tr>
+
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#CCCCCC">
+<td ALIGN=LEFT>GIF</td>
+
+<td ALIGN=LEFT>
+<ul>
+<li>
+Interlaced images</li>
+
+<li>
+Images with transparency information set&nbsp;</li>
+
+<li>
+Loading of a multi-frame GIF using the multi-frame frame load mechanism.&nbsp;</li>
+</ul>
+</td>
+
+<td>&nbsp;</td>
+
+<td></td>
+</tr>
+
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#FFFFCC">
+<td ALIGN=LEFT>JPEG</td>
+
+<td ALIGN=LEFT>&nbsp;</td>
+
+<td>&nbsp;</td>
+
+<td>Native JPEG decoding is used via the Java core API, which depends on
+the AWT&nbsp;and does not gain the full benefit of VMM.</td>
+</tr>
+
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#CCCCCC">
+<td ALIGN=LEFT>PICT</td>
+
+<td ALIGN=LEFT>
+<ul>
+<li>
+Black &amp; White up to and including 32 bit Color PICT images</li>
+
+<li>
+Compressed PICT images&nbsp;</li>
+</ul>
+</td>
+
+<td>&nbsp;</td>
+
+<td>&nbsp;</td>
+</tr>
+
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#FFFFCC">
+<td ALIGN=LEFT>PNG</td>
+
+<td ALIGN=LEFT>
+<ul>
+<li>
+Palette/Greyscale/True Color images&nbsp;</li>
+
+<li>
+Transparency chunk for Palette based images.&nbsp;</li>
+</ul>
+</td>
+
+<td>
+<ul>
+<li>
+Some extension chunks (such as ALPHA)</li>
+</ul>
+</td>
+
+<td>16 bit depth images are truncated down to 8 bit depth on loading.</td>
+</tr>
+
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#CCCCCC">
+<td ALIGN=LEFT>PSD</td>
+
+<td ALIGN=LEFT>
+<ul>
+<li>
+Photoshop v 2.5 file format images.&nbsp;</li>
+
+<li>
+Bitmap/Grayscale/Pallette/RGB images</li>
+
+<li>
+Packbits compressed images&nbsp;</li>
+
+<li>
+Uncompressed images&nbsp;</li>
+</ul>
+</td>
+
+<td>&nbsp;</td>
+
+<td>&nbsp;</td>
+</tr>
+
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#FFFFCC">
+<td ALIGN=LEFT>Sun Raster</td>
+
+<td ALIGN=LEFT>
+<ul>
+<li>
+4, 8, 16, 24 and 32 bit images&nbsp;</li>
+
+<li>
+Old type</li>
+
+<li>
+Standard type</li>
+
+<li>
+Byte encoded type</li>
+
+<li>
+RGB format type</li>
+
+<li>
+TIFF format type</li>
+
+<li>
+IFF format type</li>
+</ul>
+</td>
+
+<td>
+<ul>
+<li>
+RAW Colormap</li>
+
+<li>
+Experimental type images</li>
+</ul>
+</td>
+
+<td>&nbsp;</td>
+</tr>
+
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#CCCCCC">
+<td ALIGN=LEFT>TGA</td>
+
+<td ALIGN=LEFT>
+<ul>
+<li>
+Black and White / Palette / True Color uncompressed images</li>
+
+<li>
+True Color variants supported include 16 bit, 24 bit and 32 bits which
+includes loading of alpha channel&nbsp;</li>
+</ul>
+</td>
+
+<td>&nbsp;</td>
+
+<td>&nbsp;</td>
+</tr>
+
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#FFFFCC">
+<td ALIGN=LEFT>TIFF</td>
+
+<td ALIGN=LEFT>
+<ul>
+<li>
+Bi-level / Greyscale / Palette / True Color images</li>
+
+<li>
+Uncompressed images&nbsp;</li>
+
+<li>
+CCITT compressed Bi-level images with CCITT RLE, CCITT Group 3 1D Fax,
+CCITT Group 3 2D Fax, CCITT Group 4 Fax, CCITT Class F&nbsp;Fax</li>
+
+<li>
+Packbits compressed images&nbsp;</li>
+
+<li>
+LZW Compressed images&nbsp;</li>
+
+<li>
+Tiled TIFF files&nbsp;</li>
+
+<li>
+Handles all values of Orientation</li>
+</ul>
+</td>
+
+<td>
+<ul>
+<li>
+TIFF / JPG compression variant&nbsp;</li>
+
+<li>
+any color space except RGB&nbsp;</li>
+
+<li>
+True Color images not of Red/Green/Blue format&nbsp;</li>
+</ul>
+</td>
+
+<td>&nbsp;</td>
+</tr>
+
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#CCCCCC">
+<td ALIGN=LEFT>XBM</td>
+
+<td ALIGN=LEFT>
+<ul>
+<li>
+Full XBM support</li>
+</ul>
+</td>
+
+<td>&nbsp;</td>
+
+<td>&nbsp;</td>
+</tr>
+
+<tr BGCOLOR="#FFFFCC">
+<td>XPM</td>
+
+<td>
+<ul>
+<li>
+XPM support with 2 or less characters per pixel</li>
+</ul>
+</td>
+
+<td>&nbsp;3 or more characters per pixel</td>
+
+<td>This should be adequate support for most cases.&nbsp;</td>
+</tr>
+
+<tr BGCOLOR="#C0C0C0">
+<td>ICO</td>
+
+<td>
+<ul>
+<li>
+ICO support.</li>
+</ul>
+</td>
+
+<td>&nbsp;</td>
+
+<td>&nbsp;</td>
+</tr>
+
+<tr BGCOLOR="#FFFFCC">
+<td>CUR</td>
+
+<td>
+<ul>
+<li>
+CUR support.</li>
+</ul>
+</td>
+
+<td>&nbsp;</td>
+
+<td>&nbsp;</td>
+</tr>
+
+<tr BGCOLOR="#CCCCCC" NOSAVE>
+<td>PCX</td>
+
+<td NOSAVE>
+<blockquote>
+<li>
+PCX&nbsp;support.</li>
+</blockquote>
+</td>
+
+<td></td>
+
+<td></td>
+</tr>
+</table>
+
+<h1>
+
+<hr SIZE=1 NOSHADE WIDTH="100%"><a NAME="OverviewEncoders"></a><font face="Arial,Helvetica">2
+Encoder Overview</font></h1>
+
+<table CELLSPACING=0 CELLPADDING=0 BGCOLOR="#CCCCCC" NOSAVE >
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#663366">
+<td ALIGN=LEFT><b><font face="Arial,Helvetica"><font color="#FFFFFF">Image
+File Format&nbsp;</font></font></b></td>
+
+<td ALIGN=LEFT><b><font face="Arial,Helvetica"><font color="#FFFFFF">Encoder
+Notes&nbsp;</font></font></b></td>
+</tr>
+
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#FFFFCC">
+<td ALIGN=LEFT>BMP</td>
+
+<td ALIGN=LEFT>
+<ul>
+<li>
+IndexColorModel images encoded as uncompressed BMP palette format&nbsp;</li>
+
+<li>
+Other ColorModel images encoded as uncompressed 24 bit BMP format&nbsp;</li>
+</ul>
+</td>
+</tr>
+
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#CCCCCC">
+<td ALIGN=LEFT>JPEG</td>
+
+<td ALIGN=LEFT>
+<ul>
+<li>
+Any ColorModel is encoded&nbsp;</li>
+
+<li>
+Now supports JPG Quality option for control of JPEG image save quality&nbsp;</li>
+
+<li>
+Does not support Progressive format.</li>
+</ul>
+</td>
+</tr>
+
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#FFFFCC">
+<td ALIGN=LEFT>PICT</td>
+
+<td ALIGN=LEFT>
+<ul>
+<li>
+Encodes Black &amp; White images as bitmap mode PICTs&nbsp;</li>
+
+<li>
+Encodes gray scale picts from 2 to 8 bits as Palette mode PICTs as PICT
+doesn't have a gray scale mode&nbsp;</li>
+
+<li>
+Encodes Palette images as Palette mode picts&nbsp;</li>
+
+<li>
+Encodes any other image as a 24 bit 3 component direct bits PICT&nbsp;</li>
+
+<li>
+Pict are Packbits compressed as and when format requires&nbsp;</li>
+</ul>
+</td>
+</tr>
+
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#CCCCCC">
+<td ALIGN=LEFT>PNG</td>
+
+<td ALIGN=LEFT>
+<ul>
+<li>
+IndexColorModel images are encoded as palette PNG&nbsp;</li>
+
+<li>
+Gray scale format image - which include GrayscaleColorModel images and
+DirectColorModel images with all the bit masks are saved in Grayscale file
+format&nbsp;</li>
+
+<li>
+DirectColorModel and RGB Default ColorModel are output as RGB images with
+an Alpha mask if it is available from Image&nbsp;</li>
+</ul>
+</td>
+</tr>
+
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#FFFFCC">
+<td ALIGN=LEFT>PSD</td>
+
+<td ALIGN=LEFT>
+<ul>
+<li>
+Any ColorModel is encoded&nbsp;</li>
+
+<li>
+Specifically saves BITMAP, GRAYSCALE, RGB and INDEXED format PSD files
+based on the ColorModel of the input image.&nbsp;</li>
+
+<li>
+Supports RLE compression for all image variants&nbsp;</li>
+
+<li>
+There is no support for Alpha saving&nbsp;</li>
+</ul>
+</td>
+</tr>
+
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#CCCCCC">
+<td ALIGN=LEFT>Sun Raster</td>
+
+<td ALIGN=LEFT>
+<ul>
+<li>
+Writes 8-bit IndexColorModel images, with or without RLE compression, or
+RGB format for other color models</li>
+</ul>
+</td>
+</tr>
+
+<tr ALIGN=LEFT VALIGN=TOP BGCOLOR="#FFFFCC">
+<td ALIGN=LEFT>TGA</td>
+
+<td ALIGN=LEFT>
+<ul>
+<li>
+IndexColorModel images output in an uncompressed TGA palette format&nbsp;</li>
+
+<li>
+Other ColorModel images output in an uncompressed 24 bit TGA format&nbsp;</li>
+</ul>
+</td>
+</tr>
+
+<tr BGCOLOR="#CCCCCC" NOSAVE>
+<td>CUR</td>
+
+<td NOSAVE>
+<blockquote>
+<li>
+Windows CUR file support</li>
+</blockquote>
+</td>
+</tr>
+
+<tr NOSAVE BGCOLOR="#FFFFCC">
+<td>XPM</td>
+
+<td NOSAVE>
+<blockquote>
+<li>
+X&nbsp;PixelMap format support for palette images</li>
+</blockquote>
+</td>
+</tr>
+
+<tr BGCOLOR="#CCCCCC" NOSAVE>
+<td>XBM</td>
+
+<td NOSAVE>
+<blockquote>
+<li>
+X&nbsp;BitMap format support for 2-color images</li>
+</blockquote>
+</td>
+</tr>
+
+<tr BGCOLOR="#FFFFCC">
+<td>ICO</td>
+
+<td>
+<blockquote>
+<li>
+Icon file support</li>
+</blockquote>
+</td>
+</tr>
+
+<tr BGCOLOR="#CCCCCC" NOSAVE>
+<td>PCX</td>
+
+<td NOSAVE>
+<blockquote>
+<li>
+Uncompressed and RLE-compressed support</li>
+</blockquote>
+</td>
+</tr>
+</table>
+
+<h1>
+
+<hr SIZE=1 NOSHADE WIDTH="100%"></h1>
+</body>
+</html>

@@ -1,0 +1,10 @@
+Note that Swing 1.1 is required.
+
+There are known problems with Swing 1.1 which affect this
+demonstration:
+
+- Focus is not shared between the toolbar and the selected image.
+
+- If the "Apply" button is pressed while the toolbar does not have
+  focus, it may appear to get "stuck".  Clicking it again once the
+  toolbar has focus will 
