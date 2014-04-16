@@ -69,7 +69,17 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     ArthurImage res;
     if (two.type.equals(IMAGE)) {
       res = JavaImageMath.add(this, (ArthurImage) two);
-    } else {
+    } 
+    else if (two.type.equals(ArthurColor.COLOR)) {
+      res = JavaImageMath.add(this, (ArthurColor) two);
+    }
+    else if (two.type.equals(ArthurString.STRING)) {
+      res = JavaImageMath.add(this, (ArthurString) two);
+    }
+    else if (two.type.equals(ArthurNumber.NUMBER)) {
+      res = JavaImageMath.add(this, (ArthurNumber) two);
+    }
+    else {
       res = this;
     }
     res.murk = this.murk;
@@ -80,7 +90,17 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     ArthurImage res;
     if (two.type.equals(IMAGE)) {
       res = JavaImageMath.minus(this, (ArthurImage) two);
-    } else {
+    } 
+    else if (two.type.equals(ArthurColor.COLOR)) {
+      res = JavaImageMath.minus(this, (ArthurColor) two);
+    }
+    else if (two.type.equals(ArthurString.STRING)) {
+      res = JavaImageMath.minus(this, (ArthurString) two);
+    }
+    else if (two.type.equals(ArthurNumber.NUMBER)) {
+      res = JavaImageMath.minus(this, (ArthurNumber) two);
+    }
+    else {
       // coerce to Image?
       res = this;
     }
@@ -221,7 +241,22 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     double blueAvg=blue/200;
 
     return new ArthurColor(redAvg,greenAvg,blueAvg, 1.0);
+  }
 
+  public boolean arthurEquals(ArthurMedia two) {
+    if (two.type.equals(IMAGE)) {
+      ArthurImage t = (ArthurImage) two;
+
+      if (this.bf.equals(t.bf) &&
+          this.width.arthurEquals(t.width) &&
+          this.height.arthurEquals(t.height) &&
+          this.murk.arthurEquals(t.murk))
+          return true;
+
+      return false;
+    }
+
+    return false;
   }
 
   public String json() {

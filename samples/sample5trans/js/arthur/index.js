@@ -14,7 +14,13 @@ var ArthurVideo = module.exports.ArthurVideo = require('./arthur-video');
 // builtin functions like ms
 var builtins = module.exports.builtins = require('./builtins');
 
+// variable types
 var types = require('./types');
+
+// add a set to the global Boolean
+//Boolean.prototype.set = function(b) {
+//  this = new Boolean(b);
+//}
 
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
