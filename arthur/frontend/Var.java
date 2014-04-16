@@ -12,6 +12,7 @@ public class Var extends Token {
     public static final int VIDEO = 4;
     public static final int IMAGE = 5;
     public static final int MEDIA = 6;
+    public static final int BOOL = 7;
 
     public String id;
     public int type;
@@ -38,6 +39,8 @@ public class Var extends Token {
             return STRING;
         } else if (t.equals("color")) {
             return COLOR;
+        } else if (t.equals("bool")) {
+            return BOOL;
         } else if (t.equals("Sound")) {
             return SOUND;
         } else if (t.equals("Video")) {
@@ -54,6 +57,7 @@ public class Var extends Token {
             case NUM: return "num";
             case STRING: return "string";
             case COLOR: return "color";
+            case BOOL: return "bool";
             case SOUND: return "sound";
             case VIDEO: return "video";
             case IMAGE: return "image";
@@ -85,10 +89,12 @@ public class Var extends Token {
         case NUM:
           return set;
         case STRING:
-          set.add("color"); set.add("size");
+          set.add("tint"); set.add("size"); set.add("wrap");
           return set;
         case COLOR:
           set.add("r"); set.add("g"); set.add("b"); set.add("a");
+          return set;
+        case BOOL:
           return set;
         case SOUND:
           return set;

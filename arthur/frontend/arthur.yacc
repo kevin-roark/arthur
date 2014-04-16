@@ -94,10 +94,12 @@ dw_stmt
     ;
 
 sugarloop_stmt
-    : num_expr TIMES LBRACK stmt RBRACK             {
+    : NUMBER TIMES LCURLY stmt RCURLY               {
                                                       ParseNode sl = new ParseNode("sugarloop");
                                                       ParseNode times = new ParseNode("times");
-                                                      times.addChild((ParseNode) $1.obj);
+                                                      Num n = (Num) $1.obj;
+                                                      ParseNode val = new ParseNode(n.val.toString());
+                                                      times.addChild(val);
                                                       ParseNode body = new ParseNode("body");
                                                       body.addChild((ParseNode) $4.obj);
                                                       sl.addChild(times);
@@ -376,7 +378,7 @@ var_dec_stmt
 expr_stmt
     : SEMI                                          { $$ = new ParserVal(new ParseNode("")); }
     | expr SEMI                                     { $$ = $1; }
-    | error SEMI                                    { System.out.println("Not an expression !!!! jesus");
+    | error SEMI                                    { System.out.println($1.obj); System.out.println("Not an expression !!!! jesus");
                                                       errorCount++;
                                                       $$ = new ParserVal(new ParseNode("fucked expression stmt"));
                                                     }

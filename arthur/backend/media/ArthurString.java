@@ -17,8 +17,9 @@ public class ArthurString extends ArthurMedia {
   public static final String STRING = "string";
 
   public String str;
-  public ArthurColor color;
+  public ArthurColor tint;
   public ArthurNumber size;
+  public Boolean wrap;
 
   public ArthurString() {
     this("");
@@ -27,6 +28,10 @@ public class ArthurString extends ArthurMedia {
   public ArthurString(String str) {
     this.type = STRING;
     this.str = str;
+  }
+
+  public ArthurNumber len() {
+    return new ArthurNumber(this.str.length());
   }
 
   public ArthurString add(ArthurMedia two) {
@@ -60,10 +65,15 @@ public class ArthurString extends ArthurMedia {
       return JavaStringMath.multiply(this, (ArthurString) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaStringMath.multiply(this, (ArthurNumber) two);
-    } else {
-      // coerce later
-      return this;
+    } else if (two.type.equals(ArthurImage.IMAGE)) {
+      ArthurImage img = (ArthurImage) two;
+      return JavaStringMath.multiply(this, img.toArtString());
+    } else if (two.type.equals(ArthurColor.COLOR)) {
+      ArthurColor color = (ArthurColor) two;
+      return JavaStringMath.multiply(this, color.toArtString());
     }
+
+    return this;
   }
 
   public ArthurString divide(ArthurMedia two) {
@@ -71,10 +81,15 @@ public class ArthurString extends ArthurMedia {
       return JavaStringMath.divide(this, (ArthurString) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaStringMath.divide(this, (ArthurNumber) two);
-    } else {
-      // coerce later
-      return this;
+    } else if (two.type.equals(ArthurImage.IMAGE)) {
+      ArthurImage img = (ArthurImage) two;
+      return JavaStringMath.divide(this, img.toArtString());
+    } else if (two.type.equals(ArthurColor.COLOR)) {
+      ArthurColor color = (ArthurColor) two;
+      return JavaStringMath.divide(this, color.toArtString());
     }
+
+    return this;
   }
 
   public ArthurMedia castTo(ArthurString mediaType) {
@@ -138,6 +153,11 @@ public class ArthurString extends ArthurMedia {
   }
 
   public boolean arthurEquals(ArthurMedia two) {
+    if (two.type.equals(STRING)) {
+      ArthurString t = (ArthurString) two;
+      return this.str.equals(t.str);
+    }
+
     return false;
   }
 
@@ -158,11 +178,14 @@ public class ArthurString extends ArthurMedia {
       .replace("'", "`")
       .replace("\r", "")
       .replace("\n", "\\\\n") + "'";
-    if (this.color != null) {
-      json += ", 'color': " + this.color.json();
+    if (this.tint != null) {
+      json += ", 'color': " + this.tint.json();
     }
     if (this.size != null) {
       json += ", 'size': '" + this.size.val + "'";
+    }
+    if (this.wrap != null) {
+      json +=", 'wrap': '" + this.wrap.toString() + "'";
     }
     if (this.frame != null) {
       json += ", 'frame': " + this.frame.json();

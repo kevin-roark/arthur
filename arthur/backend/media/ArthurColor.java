@@ -91,6 +91,12 @@ public class ArthurColor extends ArthurMedia {
       return JavaColorMath.multiply(this, (ArthurColor) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaColorMath.multiply(this, (ArthurNumber) two);
+    } else if (two.type.equals(ArthurImage.IMAGE)) {
+      ArthurImage img = (ArthurImage) two;
+      return JavaColorMath.multiply(this, img.toColor());
+    } else if (two.type.equals(ArthurString.STRING)) {
+      ArthurString str = (ArthurString) two;
+      return JavaColorMath.multiply(this, str.toColor());
     }
     return this;
   }
@@ -100,6 +106,12 @@ public class ArthurColor extends ArthurMedia {
       return JavaColorMath.divide(this, (ArthurColor) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaColorMath.divide(this, (ArthurNumber) two);
+    } else if (two.type.equals(ArthurImage.IMAGE)) {
+      ArthurImage img = (ArthurImage) two;
+      return JavaColorMath.divide(this, img.toColor());
+    } else if (two.type.equals(ArthurString.STRING)) {
+      ArthurString str = (ArthurString) two;
+      return JavaColorMath.divide(this, str.toColor());
     }
     return this;
   }
@@ -185,6 +197,21 @@ public class ArthurColor extends ArthurMedia {
     }
 
     return best;
+  }
+
+  public boolean arthurEquals(ArthurMedia two) {
+    if (two.type.equals(COLOR)) {
+      ArthurColor t = (ArthurColor) two;
+      if (this.r.arthurEquals(t.r) &&
+          this.g.arthurEquals(t.g) &&
+          this.b.arthurEquals(t.b) &&
+          this.a.arthurEquals(t.a))
+          return true;
+
+      return false;
+    }
+
+    return false;
   }
 
   public String toString() {

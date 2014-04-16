@@ -83,8 +83,9 @@ public class JavaStringMath {
 
     // make shorter same length as longer
     int diff = longer.length() - shorter.length();
-    while(diff >= shorter.length()) {
-      shorter += shorter;
+    String orig = shorter;
+    while(diff >= orig.length()) {
+      shorter += orig;
       diff = longer.length() - shorter.length();
     }
     if (diff != 0) {
