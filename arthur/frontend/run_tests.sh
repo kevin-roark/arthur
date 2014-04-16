@@ -9,6 +9,8 @@ echo $CLASSPATH
 # clear log
 > arthur/frontend/frontend.log
 
+echo "ASTs" >> arthur/frontend/frontend.log
+
 for i in samples/sample*; do
 	a=`echo $i | cut -c 9-`
 	java arthur/frontend/yacctest $i > samples/suite/X_$a
@@ -20,7 +22,13 @@ for i in samples/sample*; do
 		echo $i ".......... NONO" >> arthur/frontend/frontend.log
 	fi
 	rm -f samples/suite/X_$a
-
 done
+
+
+for i in samples/suite/test*; do
+	a = `echo $i | cut -c 19-`
+# TODO::: java compile actual tests
+
+done 
 
 echo "check frontend.log!!"
