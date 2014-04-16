@@ -1,5 +1,7 @@
 package arthur.backend.media;
 
+import com.google.gson.*;
+
 import java.io.*;
 import java.awt.*;
 import java.awt.image.*;
@@ -41,6 +43,8 @@ public class ArthurString extends ArthurMedia {
       return JavaStringMath.add(this, (ArthurNumber) two);
     } else if (two.type.equals(ArthurImage.IMAGE)) {
       return JavaStringMath.add(this, (ArthurImage) two);
+    } else if (two.type.equals(ArthurColor.COLOR)) {
+      return JavaStringMath.add(this, (ArthurColor) two);
     } else {
       // coerce later
       return this;
@@ -54,6 +58,8 @@ public class ArthurString extends ArthurMedia {
       return JavaStringMath.minus(this, (ArthurNumber) two);
     } else if (two.type.equals(ArthurImage.IMAGE)) {
       return JavaStringMath.minus(this, (ArthurImage) two);
+    } else if (two.type.equals(ArthurColor.COLOR)) {
+      return JavaStringMath.minus(this, (ArthurColor) two);
     } else {
       // coerce later
       return this;
@@ -173,25 +179,24 @@ public class ArthurString extends ArthurMedia {
   }
 
   public String json() {
-    String json = "{'str': '" +
-      this.str.replace("\"", "`")
-      .replace("'", "`")
-      .replace("\r", "")
-      .replace("\n", "\\\\n") + "'";
+    Gson gson = new Gson();
+    String jsonStr = gson.toJson(this.str);
+
+    String json = "{\"str\": " + jsonStr.replace("\\", "\\\\");
+
     if (this.tint != null) {
-      json += ", 'color': " + this.tint.json();
+      json += ", \"color\": " + this.tint.json();
     }
     if (this.size != null) {
-      json += ", 'size': '" + this.size.val + "'";
+      json += ", \"size\": \"" + this.size.val + "\"";
     }
     if (this.wrap != null) {
-      json +=", 'wrap': '" + this.wrap.toString() + "'";
+      json +=", \"wrap\": \"" + this.wrap.toString() + "\"";
     }
     if (this.frame != null) {
-      json += ", 'frame': " + this.frame.json();
+      json += ", \"frame\": " + this.frame.json();
     }
     json += "}";
-    json = json.replace("'", "\"");
     return json;
   }
 

@@ -112,22 +112,6 @@ public class JavaStringMath {
     return new ArthurString(product);
   }
 
-  public static ArthurString multiply(ArthurString one, ArthurImage two) {
-    return null;
-  }
-
-  public static ArthurString multiply(ArthurString one, ArthurColor two) {
-    return null;
-  }
-
-  public static ArthurString multiply(ArthurString one, ArthurVideo two) {
-    return null;
-  }
-
-  public static ArthurString multiply(ArthurString one, ArthurSound two) {
-    return null;
-  }
-
   /* reverses the second string and then calls multiply */
   public static ArthurString divide(ArthurString one, ArthurString two) {
     String twoReverse = new StringBuilder(two.str).reverse().toString();
@@ -140,22 +124,6 @@ public class JavaStringMath {
     int lastPos = Math.max(0, one.str.length() - x);
     String cut = one.str.substring(lastPos);
     return new ArthurString(cut);
-  }
-
-  public static ArthurString divide(ArthurString one, ArthurImage two) {
-    return null;
-  }
-
-  public static ArthurString divide(ArthurString one, ArthurColor two) {
-    return null;
-  }
-
-  public static ArthurString divide(ArthurString one, ArthurVideo two) {
-    return null;
-  }
-
-  public static ArthurString divide(ArthurString one, ArthurSound two) {
-    return null;
   }
 
 }

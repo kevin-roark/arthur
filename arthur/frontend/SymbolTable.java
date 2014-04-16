@@ -110,5 +110,6 @@ public class SymbolTable {
       table.put("GREEN", new Color(0, 255, 0));
       table.put("RED", new Color(255, 0, 0));
       table.put("WHITE", new Color(255, 255, 255));
+      table.put("YELLOW", new Color(255, 255, 0));
     }
 }
