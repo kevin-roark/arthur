@@ -84,12 +84,12 @@ function ArthurFrame(frameob) {
   this.x = new ArthurNumber(frameob.x);
   this.y = new ArthurNumber(frameob.y);
   if (frameob.w < 0) {
-    this.w = new ArthurNumber($(window).width());
+    this.w = new ArthurNumber($(window).width() - 10);
   } else {
     this.w = new ArthurNumber(frameob.w);
   }
   if (frameob.h < 0) {
-    this.h = new ArthurNumber($(window).height());
+    this.h = new ArthurNumber($(window).height() - 10);
   } else {
     this.h = new ArthurNumber(frameob.h);
   }
@@ -258,12 +258,22 @@ var ArthurColor = require('./arthur-color');
 var ArthurFrame = require('./arthur-frame');
 var ArthurNumber = require('./arthur-number');
 
+var canwrap = require('../lib/wrap');
+
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 
 module.exports = ArthurString;
 
-function ArthurString(json) {
+function ArthurString(json, raw) {
+
+  this.type = types.STRING;
+
+  if (raw) {
+    this.str = json;
+    return this;
+  }
+
   if (typeof json == 'string') {
     if (json.substring(0, 1) == '{') {
       var ob = JSON.parse(json);
@@ -272,8 +282,6 @@ function ArthurString(json) {
     }
     return new ArthurString(ob);
   }
-
-  this.type = types.STRING;
 
   if (typeof json.str == 'string')
     this.str = json.str;
@@ -293,6 +301,14 @@ function ArthurString(json) {
       this.size = json.size;
     else
       this.size = new ArthurNumber(json.size);
+  } else {
+    this.size = new ArthurNumber(14);
+  }
+
+  if (json.wrap) {
+    this.wrap = json.wrap;
+  } else {
+    this.wrap = false;
   }
 
   if (json.frame) {
@@ -307,29 +323,64 @@ function ArthurString(json) {
 
 ArthurString.prototype.__proto__ = ArthurMedia.prototype;
 
+ArthurString.prototype.fill = function(s) {
+  s.color = this.color;
+  s.size = this.size;
+  s.frame = this.frame;
+  s.wrap = this.wrap;
+}
+
+ArthurString.prototype.len = function() {
+  return new ArthurNumber(this.str.length);
+}
+
 ArthurString.prototype.add = function(s) {
-  return new ArthurString(this.str + s.str);
+  if (s.type == types.STRING)
+    var res = new ArthurString(this.str + s.str, true);
+  else if (s.type == types.NUMBER)
+    var res = new ArthurString(this.str + s.val, true);
+  else
+    var res = this;
+
+  this.fill(res);
+  return res;
 }
 
 ArthurString.prototype.subtract = function(s) {
-  return new ArthurString(this.str.replace(s.str, ""));
+  if (s.type == types.STRING)
+    var res = new ArthurString(this.str.replace(s.str, ""), true);
+  else if (s.type == types.NUMBER)
+    var res = new ArthurString(this.str.replace(s.val + "", ""), true);
+  else
+    var res = this;
+
+  this.fill(res);
+  return res;
 }
 
 ArthurString.prototype.multiply = function(s) {
+  if (s.type == types.STRING)
+    var st = s.str;
+  else if (s.type == types.NUMBER)
+    var st = s.val + '';
+  else
+    var st = "";
+
   // find longer string
   var longer, shorter;
-  if (this.str.length > s.str.length) {
+  if (this.str.length > st.length) {
     longer = this.str;
-    shorter = s.str;
+    shorter = st;
   } else {
-    longer = s.str;
+    longer = st;
     shorter = this.str;
   }
 
   // make shorter same length as longer
   var diff = longer.length - shorter.length;
-  while(diff >= shorter.length) {
-    shorter += shorter;
+  var orig = shorter;
+  while(diff >= orig.length) {
+    shorter += orig;
     diff = longer.length - shorter.length;
   }
   if (diff != 0) {
@@ -343,12 +394,23 @@ ArthurString.prototype.multiply = function(s) {
     product += String.fromCharCode(avg);
   }
 
-  return new ArthurString(product);
+  var res = new ArthurString(product, true);
+  this.fill(res);
+  return res;
 }
 
 ArthurString.prototype.divide = function(s) {
-  var reversed = s.str.split("").reverse().join("");
-  return this.multiply(new ArthurString(reversed));
+  if (s.type == types.STRING)
+    var st = s.str;
+  else if (s.type == types.NUMBER)
+    var st = s.val + '';
+  else
+    var st = "";
+
+  var reversed = st.split("").reverse().join("");
+  var res = this.multiply(new ArthurString(reversed), true);
+  this.fill(res);
+  return res;
 }
 
 ArthurString.prototype.draw = function() {
@@ -357,15 +419,49 @@ ArthurString.prototype.draw = function() {
   else
     context.fillStyle = 'black';
 
-  if (this.size)
-    context.font = this.size.int() + "px sans-serif";
-  else
-    context.font = "16px sans-serif";
+  context.textBaseline = "top";
 
-  context.fillText(this.str, this.frame.x.int(), this.frame.y.int());
+  if (this.size)
+    context.font = this.size.int() + "px monospace";
+  else
+    context.font = "12px monospace";
+
+  //context.fillText(this.str, this.frame.x.int(), this.frame.y.int());
+  drawMultiline(this.str, this.size.val, this.wrap, this.frame.x.int(), this.frame.y.int(), this.frame.w.int());
 }
 
-},{"./arthur-color":1,"./arthur-frame":2,"./arthur-media":4,"./arthur-number":5,"./types":11}],8:[function(require,module,exports){
+// help for multiline taken from
+// http://stackoverflow.com/questions/5026961/html5-canvas-ctx-filltext-wont-do-line-breaks
+
+function drawMultiline(text, size, wrap, x, y, w){
+    var textvalArr = toMultiLine(text);
+    var linespacing = size;
+
+    // draw each line on canvas.
+    for(var i = 0; i < textvalArr.length; i++) {
+        var t = textvalArr[i];
+        if (wrap) {
+          var txt = canwrap(context, t, x, y, w, linespacing);
+          for (var i = 0; i < txt.length; i++){
+            var item = txt[i];
+            context.fillText(item.text, item.x, item.y);
+          }
+          y += linespacing * txt.length;
+        } else {
+          context.fillText(t, x, y);
+          y += linespacing;
+        }
+    }
+}
+
+function toMultiLine(text){
+   var textArr = new Array();
+   text = text.replace(/\n\r?/g, '<br/>');
+   textArr = text.split("<br/>");
+   return textArr;
+}
+
+},{"../lib/wrap":14,"./arthur-color":1,"./arthur-frame":2,"./arthur-media":4,"./arthur-number":5,"./types":11}],8:[function(require,module,exports){
 
 var types = require('./types');
 var ArthurMedia = require('./arthur-media');
@@ -429,6 +525,8 @@ function checkGlobal(filename) {
 }
 
 module.exports.literalWrapper = function(media, filename) {
+  if (media instanceof Boolean) return media;
+
   media.glob = true;
   if (filename) {
     media.medfile = filename;
@@ -548,9 +646,9 @@ addArthurString('{"str": "lol lol lol ", "color": {"r": 255.0, "g": 0.0, "b": 0.
 
 
 function init() {
- lol.set(new ArthurString('{"str": "lol "}'));
+ lol.set(new ArthurString("lol "));
  lol.set( lol.multiply(new ArthurNumber(3.0)));
- lol.color.set( RED);
+ lol.tint.set( RED);
  lol.size.set(new ArthurNumber(20.0));
 add( lol);
 
@@ -559,7 +657,7 @@ add( lol);
 function loop() {
  lol.size.set( lol.size.add(new ArthurNumber(0.2)));
 var temp = new ArthurMedia();
-temp.set(new ArthurString('{"str": "cool"}').multiply( lol));
+temp.set(new ArthurString("cool").multiply( lol));
 add( temp);
 
 }
@@ -595,5 +693,32 @@ looper();
             clearTimeout(id);
         };
 }());
+
+},{}],14:[function(require,module,exports){
+// Return an array to iterate over. For my uses this is
+// more efficient, because I only need to calculate the line text
+// and positions once, instead of each iteration during animations.
+module.exports = function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+  var words = text.split('')
+    , line = ''
+    , lines = [];
+
+  for(var n = 0, len = words.length; n < len; n++){
+    var testLine = line + words[n]
+      , metrics = ctx.measureText(testLine)
+      , testWidth = metrics.width;
+
+    if (testWidth > maxWidth) {
+      lines.push({ text: line, x: x, y: y });
+      line = words[n] + ' ';
+      y += lineHeight;
+    } else {
+      line = testLine;
+    }
+  }
+
+  lines.push({ text: line, x: x, y: y });
+  return lines;
+};
 
 },{}]},{},[12])
