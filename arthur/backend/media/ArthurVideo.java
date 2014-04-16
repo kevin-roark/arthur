@@ -22,8 +22,12 @@ public class ArthurVideo extends ArthurMedia {
   public String filename;
   public IMediaReader reader;
   public IMediaWriter writer;
+  //vid stream properties
   public ArthurNumber width;
   public ArthurNumber height;
+  //audio stream properties
+  public ArthurNumber channelCount;
+  public ArthurNumber sampleRate;
 
   public ArthurVideo() {
     this.type = VIDEO;
@@ -32,6 +36,8 @@ public class ArthurVideo extends ArthurMedia {
     writer = null;
     width = null;
     height = null;
+    channelCount = null;
+    sampleRate = null;
   }
 
   public ArthurVideo(String fn) {
@@ -45,23 +51,20 @@ public class ArthurVideo extends ArthurMedia {
       System.out.println("Error! Couldn't open this video file: " + filename);
     }
     int numStreams = container.getNumStreams();
-    System.out.println("Number of streams: " + numStreams);
     for (int i = 0; i < numStreams; i++) {
       IStream stream = container.getStream(i);
       IStreamCoder coder = stream.getStreamCoder();
-      System.out.println(coder.getWidth());
-      System.out.println(coder.getHeight());
-      width = new ArthurNumber(coder.getWidth());
-      height = new ArthurNumber(coder.getHeight());
+      if (coder.getCodecType() == ICodec.Type.CODEC_TYPE_VIDEO) {
+        width = new ArthurNumber(coder.getWidth());
+        height = new ArthurNumber(coder.getHeight());
+        System.out.println("Width: " + width + ", Height: " + height);
+      }
+      else if (coder.getCodecType() == ICodec.Type.CODEC_TYPE_AUDIO) {
+        channelCount = new ArthurNumber(coder.getChannels());
+        sampleRate = new ArthurNumber(coder.getSampleRate());
+        System.out.println("Channel count: " + channelCount + ", Sample rate: " + sampleRate);
+      }
     }
-    /*
-    IStream stream = container.getStream(0);
-    IStreamCoder coder = stream.getStreamCoder();
-    System.out.println(coder.getWidth());
-    System.out.println(coder.getHeight());
-    width = new ArthurNumber(coder.getWidth());
-    height = new ArthurNumber(coder.getHeight());
-    */
   }
 
   public ArthurVideo add(ArthurMedia two) {

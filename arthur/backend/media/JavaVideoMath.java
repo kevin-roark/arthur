@@ -16,6 +16,10 @@ import com.xuggle.mediatool.event.IOpenCoderEvent;
 import com.xuggle.mediatool.event.ICloseCoderEvent;
 import com.xuggle.xuggler.IAudioSamples;
 import com.xuggle.xuggler.IVideoPicture;
+import com.xuggle.xuggler.ICodec;
+import com.xuggle.xuggler.IContainer;
+import com.xuggle.xuggler.IStream;
+import com.xuggle.xuggler.IStreamCoder;
 import java.nio.ShortBuffer;
 
 /**
@@ -24,7 +28,10 @@ import java.nio.ShortBuffer;
  */
 public class JavaVideoMath {
 
+  static int counter = 0;
+
   public static ArthurVideo add(ArthurVideo one, ArthurVideo two) {
+    /*
     ArthurVideo result = new ArthurVideo();
     IMediaReader reader1 = one.reader;
     IMediaReader reader2 = two.reader;
@@ -43,7 +50,70 @@ public class JavaVideoMath {
     int width2 = two.width.val.intValue();
     int height2 = two.height.val.intValue();
     writer.addVideoStream(0, 0, width1, height1);
-    writer.addVideoStream(1, 0, width2, height2);
+    writer.addVideoStream(1, 0, width2, height2); 
+    while (reader1.readPacket() == null);
+    while (reader2.readPacket() == null);
+    writer.close();
+
+    return result;
+    */
+    ArthurVideo result = new ArthurVideo();
+
+    IMediaReader reader1 = one.reader;
+    //IMediaReader reader2 = two.reader;
+    IMediaReader reader2 = null;
+
+    int width1 = one.width.val.intValue();
+    int height1 = one.height.val.intValue();
+
+    int width2 = two.width.val.intValue();
+    int height2 = two.height.val.intValue();
+
+    int channelCount1 = one.channelCount.val.intValue();
+    int sampleRate1 = one.sampleRate.val.intValue();
+
+    int channelCount2 = two.channelCount.val.intValue();
+    int sampleRate2 = two.sampleRate.val.intValue();
+
+    if (width1 != width2 || height1 != height2 || 
+        channelCount1 != channelCount2 || sampleRate1 != sampleRate2) {
+      IContainer container = IContainer.make();
+      if (container.open(two.filename, IContainer.Type.READ, null) < 0) {
+        System.out.println("Error! Couldn't open this vid: " + two.filename);
+      }
+      int numStreams = container.getNumStreams();
+      for (int i = 0; i < numStreams; i++) {
+        IStream stream = container.getStream(i);
+        IStreamCoder coder = stream.getStreamCoder();
+        if (coder.getCodecType() == ICodec.Type.CODEC_TYPE_VIDEO) {
+          coder.setWidth(width1);
+          coder.setHeight(height1);
+          System.out.println("New width: " + coder.getWidth() + ", New height: " + coder.getHeight());
+        }
+        else if (coder.getCodecType() == ICodec.Type.CODEC_TYPE_AUDIO) {
+          coder.setChannels(channelCount1);
+          coder.setSampleRate(sampleRate1);
+          System.out.println("New channel count: " + coder.getChannels() + ", New sample rate: " + coder.getSampleRate());
+        }
+      }
+      //set reader2 to this new thing
+      reader2 = ToolFactory.makeReader(container);
+    }
+
+    if (reader2 == null) {
+      System.out.println("Reader 2 fucked up");
+    }
+
+    concatenatorTool concatenator = new concatenatorTool(0, 1);
+    reader1.addListener(concatenator);
+    reader2.addListener(concatenator);
+    IMediaWriter writer = ToolFactory.makeWriter("concatenated" + counter + ".mp4");
+    counter++;
+    result.writer = writer;
+    concatenator.addListener(writer);
+
+    writer.addVideoStream(0, 0, width1, height1);
+    writer.addAudioStream(1, 0, channelCount1, sampleRate1);
     while (reader1.readPacket() == null);
     while (reader2.readPacket() == null);
     writer.close();
@@ -95,22 +165,19 @@ public class JavaVideoMath {
   }
 
   private static class concatenatorTool extends MediaToolAdapter {
-    //current offset
     private long mOffset = 0;
-    //next video timestamp
     private long mNextVideo = 0;
-    //index of audio stream 
     private long mNextAudio = 0;
-    //index of audio stream
-    private final int mAudioStreamIndex;
-    //index of video stream
+
     private final int mVideoStreamIndex;
+    private final int mAudioStreamIndex;
 
     //public concatenatorTool(index_of_audio_stream, index_of_video_stream)
-    public concatenatorTool(int audioStreamIndex, int videoStreamIndex) {
-      mAudioStreamIndex = audioStreamIndex;
+    public concatenatorTool(int videoStreamIndex, int audioStreamIndex) {
       mVideoStreamIndex = videoStreamIndex;
+      mAudioStreamIndex = audioStreamIndex;
     }
+    
     public void onAudioSamples(IAudioSamplesEvent event) {
       IAudioSamples samples = event.getAudioSamples();
       //new time stamp = original + offset for this media file
@@ -123,6 +190,7 @@ public class JavaVideoMath {
       //create a new audio samples event w/ the true audio stream index
       super.onAudioSamples(new AudioSamplesEvent(this, samples, mAudioStreamIndex));
     }
+    
     public void onVideoPicture(IVideoPictureEvent event) {
       IVideoPicture picture = event.getMediaData();
       long originalTimeStamp = picture.getTimeStamp();
@@ -136,14 +204,11 @@ public class JavaVideoMath {
       //set the new timestamp on video samples
       picture.setTimeStamp(newTimeStamp);
       //create a new video picture event w/ the true video stream index
-      super.onVideoPicture(new VideoPictureEvent(this, picture, mVideoStreamIndex));
+      super.onVideoPicture(new VideoPictureEvent(this, picture, mVideoStreamIndex)); //?
     }
+
     public void onClose(ICloseEvent event) {
-      //update the offset by the larger of the next expected audio or video frame time
       mOffset = Math.max(mNextVideo, mNextAudio);
-      if (mNextAudio < mNextVideo) {
-        //do we want to deal with this
-      }
     }
     @Override
     public void onAddStream(IAddStreamEvent event) {
