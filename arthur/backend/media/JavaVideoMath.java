@@ -26,8 +26,27 @@ public class JavaVideoMath {
 
   public static ArthurVideo add(ArthurVideo one, ArthurVideo two) {
     ArthurVideo result = new ArthurVideo();
-    IMediaReader r1 = one.reader;
-    IMediaReader r2 = two.reader;
+    IMediaReader reader1 = one.reader;
+    IMediaReader reader2 = two.reader;
+    //final int videoStreamIndex = 0;
+    //final int audioStreamIndex = 1;
+    
+    concatenatorTool concatenator = new concatenatorTool(0, 1);
+    reader1.addListener(concatenator);
+    reader2.addListener(concatenator);
+    IMediaWriter writer = ToolFactory.makeWriter("concatenated.mp4");
+    concatenator.addListener(writer);
+
+    //add video stream
+    int width1 = one.width.val.intValue();
+    int height1 = one.height.val.intValue();
+    int width2 = two.width.val.intValue();
+    int height2 = two.height.val.intValue();
+    writer.addVideoStream(0, 0, width1, height1);
+    writer.addVideoStream(1, 0, width2, height2);
+    while (reader1.readPacket() == null);
+    while (reader2.readPacket() == null);
+    writer.close();
 
     return result;
   }

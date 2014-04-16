@@ -1,5 +1,4 @@
-
-
+package arthur.backend.media;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

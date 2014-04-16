@@ -17,6 +17,7 @@ public abstract class ArthurTranslator {
   public abstract String createAndTranslate(ParseNode source, boolean statement);
   public abstract String functionCode(ParseNode n);
   public abstract String numDec();
+  public abstract String castCode(ParseNode n);
   public abstract String varCode(ParseNode n);
   public abstract String setToSymbol();
   public abstract String setToEndSymbol();
@@ -113,10 +114,7 @@ public abstract class ArthurTranslator {
         return s;
       case "cast":
         this.ignoreChildren = true;
-        ParseNode id = n.children.get(0);
-        ParseNode type = n.children.get(1);
-        s += id.val + ".castTo(" + type.val + ")";
-        return s;
+        return castCode(n);
       case "Method call":
         return twoSideOp(n, ".");
       case "Property access":
