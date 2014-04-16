@@ -22,7 +22,7 @@ public class JavaBuiltins {
   }
 
   public static ArthurSound sound(ArthurString filename) {
-    return new ArthurSound();
+    return new ArthurSound(filename.str);
   }
 
   public static ArthurNumber ms() {
