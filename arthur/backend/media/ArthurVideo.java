@@ -57,4 +57,10 @@ public class ArthurVideo extends ArthurMedia {
     return "new ArthurVideo()";
   }
 
+  /*
+  public void writeToFile(String fname) {
+    writer = ToolFactory.makeWriter(fname, reader);
+  }
+  */
+
 }
