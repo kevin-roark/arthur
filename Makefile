@@ -2,6 +2,11 @@
 compiler:	.FORCE
 	javac arthur/backend/ArthurCompiler.java
 
+jars:
+	jar xf slf4j-api-1.7.7.jar
+	jar xf xuggle-xuggler-5.4.jar
+	jar xf gson.jar
+
 jsbuild:
 	./node_modules/browserify/bin/cmd.js buster/js/arthurtrans.js > buster/js/artprog.js
 	rm -rf buster/js/arthur
