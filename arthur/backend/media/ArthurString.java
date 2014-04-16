@@ -17,7 +17,7 @@ public class ArthurString extends ArthurMedia {
   public static final String STRING = "string";
 
   public String str;
-  public ArthurColor color;
+  public ArthurColor tint;
   public ArthurNumber size;
   public Boolean wrap;
 
@@ -178,8 +178,8 @@ public class ArthurString extends ArthurMedia {
       .replace("'", "`")
       .replace("\r", "")
       .replace("\n", "\\\\n") + "'";
-    if (this.color != null) {
-      json += ", 'color': " + this.color.json();
+    if (this.tint != null) {
+      json += ", 'color': " + this.tint.json();
     }
     if (this.size != null) {
       json += ", 'size': '" + this.size.val + "'";
