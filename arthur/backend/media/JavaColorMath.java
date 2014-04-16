@@ -17,10 +17,8 @@ public static ArthurColor add(ArthurColor one, ArthurColor two) {
 }
 
 public static ArthurColor add(ArthurColor one, ArthurImage two) {
-	ArthurColor avg=two.getAverageColor();
-
-	return multiply(one, avg);
-
+	ArthurColor avg = two.getAverageColor();
+	return add(one, avg);
 }
 
 public static ArthurColor add(ArthurColor one, ArthurVideo two) {
@@ -53,9 +51,8 @@ public static ArthurColor minus(ArthurColor one, ArthurColor two) {
 }
 
 public static ArthurColor minus(ArthurColor one, ArthurImage two) {
-	ArthurColor avg=two.getAverageColor();
-
-	return divide(one, avg);
+	ArthurColor avg = two.getAverageColor();
+	return minus(one, avg);
 }
 
 public static ArthurColor minus(ArthurColor one, ArthurVideo two) {
@@ -87,28 +84,12 @@ public static ArthurColor multiply(ArthurColor one, ArthurColor two) {
 	return new ArthurColor(r, g, b, a);
 }
 
-public static ArthurColor multiply(ArthurColor one, ArthurImage two) {
-	return null;
-}
-
-public static ArthurColor multiply(ArthurColor one, ArthurVideo two) {
-	return null;
-}
-
-public static ArthurColor multiply(ArthurColor one, ArthurSound two) {
-	return null;
-}
-
 public static ArthurColor multiply(ArthurColor one, ArthurNumber two) {
 	ArthurNumber r = new ArthurNumber(Math.max(one.r.val * two.val, 255));
 	ArthurNumber g = new ArthurNumber(Math.max(one.g.val * two.val, 255));
 	ArthurNumber b = new ArthurNumber(Math.max(one.b.val * two.val, 255));
 	ArthurNumber a = new ArthurNumber(Math.max(one.a.val * two.val, 1.0));
 	return new ArthurColor(r, g, b, a);
-}
-
-public static ArthurColor multiply(ArthurColor one, ArthurString two) {
-	return null;
 }
 
 public static ArthurColor divide(ArthurColor one, ArthurColor two) {
@@ -119,28 +100,12 @@ public static ArthurColor divide(ArthurColor one, ArthurColor two) {
 	return new ArthurColor(r, g, b, a);
 }
 
-public static ArthurColor divide(ArthurColor one, ArthurImage two) {
-	return null;
-}
-
-public static ArthurColor divide(ArthurColor one, ArthurVideo two) {
-	return null;
-}
-
-public static ArthurColor divide(ArthurColor one, ArthurSound two) {
-	return null;
-}
-
 public static ArthurColor divide(ArthurColor one, ArthurNumber two) {
 	ArthurNumber r = new ArthurNumber(one.r.val / Math.max(two.val, 1));
 	ArthurNumber g = new ArthurNumber(one.g.val / Math.max(two.val, 1));
 	ArthurNumber b = new ArthurNumber(one.b.val / Math.max(two.val, 1));
 	ArthurNumber a = new ArthurNumber(Math.min(one.a.val * two.val, 1.0));
 	return new ArthurColor(r, g, b, a);
-}
-
-public static ArthurColor divide(ArthurColor one, ArthurString two) {
-	return null;
 }
 
 }
