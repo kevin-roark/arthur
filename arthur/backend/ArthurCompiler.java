@@ -125,14 +125,14 @@ public class ArthurCompiler {
 
   public static void removeTranslationFile() throws IOException, InterruptedException {
     String rm = "rm -f " + TNAME + ".java";
-    //execAndPrint(rm, false);
+    execAndPrint(rm, false);
     String rm2 = "rm -f " + TNAME + ".class";
     execAndPrint(rm2, false);
   }
 
   public static void runTranslation() throws IOException, InterruptedException {
     String compile = "javac " + TNAME + ".java";
-    String run = "java " + TNAME;
+    String run = "java -Xmx4g " + TNAME;
     execAndPrint(compile, false);
     execAndPrint(run, false);
   }

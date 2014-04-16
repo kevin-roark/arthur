@@ -30,9 +30,9 @@ addArthurString('{"str": "lol lol lol ", "color": {"r": 255.0, "g": 0.0, "b": 0.
 
 
 function init() {
- lol.set(new ArthurString('{"str": "lol "}'));
+ lol.set(new ArthurString("lol "));
  lol.set( lol.multiply(new ArthurNumber(3.0)));
- lol.color.set( RED);
+ lol.tint.set( RED);
  lol.size.set(new ArthurNumber(20.0));
 add( lol);
 
@@ -41,7 +41,7 @@ add( lol);
 function loop() {
  lol.size.set( lol.size.add(new ArthurNumber(0.2)));
 var temp = new ArthurMedia();
-temp.set(new ArthurString('{"str": "cool"}').multiply( lol));
+temp.set(new ArthurString("cool").multiply( lol));
 add( temp);
 
 }

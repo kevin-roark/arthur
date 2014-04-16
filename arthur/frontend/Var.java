@@ -89,7 +89,7 @@ public class Var extends Token {
         case NUM:
           return set;
         case STRING:
-          set.add("color"); set.add("size"); set.add("wrap");
+          set.add("tint"); set.add("size"); set.add("wrap");
           return set;
         case COLOR:
           set.add("r"); set.add("g"); set.add("b"); set.add("a");

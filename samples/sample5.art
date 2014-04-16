@@ -4,7 +4,7 @@ string lol;
 void init() {
   lol = "lol ";
   lol = lol * 3;
-  lol.color = RED;
+  lol.tint = RED;
   lol.size = 20;
   add(lol);
 }
