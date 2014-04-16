@@ -27,7 +27,6 @@ public class JavaVideoMath {
     IMediaTool volumeMediaTool = new volumeTool(two.val);
   	reader.addListener(volumeMediaTool);
   	volumeMediaTool.addListener(result.writer);
-    reader.addListener(result.writer);
   	while (reader.readPacket() == null);
     return result;
   }
@@ -55,6 +54,7 @@ public class JavaVideoMath {
   	public void onAudioSamples(IAudioSamplesEvent event) {
   		ShortBuffer buffer = event.getAudioSamples().getByteBuffer().asShortBuffer();
   		for (int i = 0; i < buffer.limit(); i++) {
+        System.out.print(buffer.get(i));
   			buffer.put(i, (short) (buffer.get(i) * volume));
   		}
   		super.onAudioSamples(event);

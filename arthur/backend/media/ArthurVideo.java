@@ -7,6 +7,7 @@ import com.xuggle.mediatool.MediaToolAdapter;
 import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.mediatool.event.IAudioSamplesEvent;
 import com.xuggle.mediatool.event.IVideoPictureEvent;
+import java.nio.ShortBuffer;
 
 /**
  * Java implementation of arthur video!
@@ -20,13 +21,16 @@ public class ArthurVideo extends ArthurMedia {
 
   public ArthurVideo() {
     this.type = VIDEO;
+    filename = null;
+    reader = null;
+    writer = null;
   }
 
   public ArthurVideo(String fn) {
     this.type = VIDEO;
     filename = fn;
     reader = ToolFactory.makeReader(filename);
-    writer = ToolFactory.makeWriter(filename, reader);
+    writer = null;
   }
 
   public ArthurVideo add(ArthurMedia two) {
