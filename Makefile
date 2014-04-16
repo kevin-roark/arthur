@@ -8,6 +8,9 @@ jsbuild:
 	rm -f buster/js/lib/wrap.js
 	rm -f buster/js/lib/anim-shim.js
 
+dirtybuild:
+	./node_modules/browserify/bin/cmd.js buster/js/arthurtrans.js > buster/js/artprog.js
+
 clean:
 	./supercleaner.sh
 

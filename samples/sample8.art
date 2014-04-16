@@ -1,0 +1,25 @@
+
+Image source;
+
+void asc_compare(Image i) {
+  string ascii = i->string;
+  ascii.size = 18;
+  ascii.tint = RED;
+
+  i.murk = 0.5;
+
+  add(i, frame(0, 0));
+  add(ascii, frame(150, 0));
+}
+
+void init() {
+  source = image("output1.jpg");
+  source += "HA HA HA";
+  source += <<0, 255, 200>>;
+
+  asc_compare(source);
+}
+
+void loop() {
+
+}

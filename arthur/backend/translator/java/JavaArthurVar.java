@@ -32,6 +32,19 @@ public class JavaArthurVar extends ArthurVar {
     }
   }
 
+  public static String javaName(String arthurName) {
+    switch(arthurName) {
+      case "num": return "ArthurNumber";
+      case "string": return "ArthurString";
+      case "color": return "ArthurColor";
+      case "bool": return  "Boolean";
+      case "Image": return "ArthurImage";
+      case "Video": return "ArthurVideo";
+      case "Sound": return "ArthurSound";
+      default: return "UNKNOWN";
+    }
+  }
+
   public static String numLiteral(String val) {
     return "new ArthurNumber(" + val + ")";
   }

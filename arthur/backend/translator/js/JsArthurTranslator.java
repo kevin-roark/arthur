@@ -100,6 +100,13 @@ public class JsArthurTranslator extends ArthurTranslator {
     return "var ";
   }
 
+  public String castCode(ParseNode n) {
+    ParseNode id = n.children.get(0).children.get(0);
+    ParseNode type = n.children.get(1);
+
+    return id.val + ".castTo(\"" + type.val + "\")";
+  }
+
   public String colorLiteral(ParseNode n) {
     return JsArthurVar.colorLiteral(n);
   }
