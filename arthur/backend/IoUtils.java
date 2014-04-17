@@ -47,4 +47,15 @@ public class IoUtils {
 		  return sb.toString();
     }
 
+    public static void move(String start, String end) {
+      try {
+        String exec = "mv " + start + " " + end;
+        Process p = Runtime.getRuntime().exec(exec);
+        p.waitFor();
+      } catch (Exception e) {
+        System.out.println("failed to move file " + start + " to " + end);
+        e.printStackTrace();
+      }
+    }
+
 }

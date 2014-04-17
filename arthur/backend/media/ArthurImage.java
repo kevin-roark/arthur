@@ -232,7 +232,6 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     }
   }
 
-
   public ArthurColor getAverageColor(){
     int[] rgbArray=bf.getRGB(0, 0, bf.getWidth(), bf.getHeight(), null, 0, bf.getWidth());
 

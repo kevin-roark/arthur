@@ -1,0 +1,11 @@
+
+void init() {
+  Sound out = sound("output.mp3");
+  Sound glass = sound("glass.mp3");
+  Sound combo = out + glass;
+  add(combo);
+}
+
+void loop() {
+
+}

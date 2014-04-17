@@ -6,6 +6,10 @@ import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.xuggler.IContainer;
 
 import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+
+import arthur.backend.IoUtils;
 
 /**
  * Java implementation of arthur sound!
@@ -74,17 +78,25 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
     return this;
   }
 
-
-
   public String toString() {
     return "sound file " + filename + ", duration " + duration + " ms";
   }
 
   public String jsLiteral() {
-    return "new ArthurSound()";
+    return "new ArthurSound(" + json() + ")";
   }
 
+  public String json() {
+    String js = "{";
+    js += "\"filename\": \"" + this.filename + "\"";
+    js += "}";
+    return js;
+  }
 
+  public void writeToFile(String fname) {
+    IoUtils.move(this.filename, fname); // move file to correct name
+    this.filename = fname.substring(fname.indexOf('/') + 1); // remove 'buster'
+  }
 
   // TEMP: REMOVE AND DO IN JS LATER
   public void play() {
