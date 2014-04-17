@@ -59,6 +59,8 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
       return JavaSoundMath.add(this, (ArthurSound) two, outname);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaSoundMath.add(this, (ArthurNumber) two, outname);
+    } else if (two.type.equals(ArthurColor.COLOR)) {
+      return JavaSoundMath.add(this, (ArthurColor) two, outname);
     }
 
     return this;
@@ -70,6 +72,8 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
       return JavaSoundMath.minus(this, (ArthurSound) two, outname);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaSoundMath.minus(this, (ArthurNumber) two, outname);
+    } else if (two.type.equals(ArthurColor.COLOR)) {
+      return JavaSoundMath.minus(this, (ArthurColor) two, outname);
     }
     return this;
   }

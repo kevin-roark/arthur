@@ -34,6 +34,10 @@ public class ArthurColor extends ArthurMedia {
     this.a=a;
   }
 
+  public ArthurColor flip() {
+    return new ArthurColor(this.b, this.g, this.r, this.a);
+  }
+
   public ArthurNumber valDiff(ArthurColor other) {
     double rd = Math.abs(this.r.val - other.r.val);
     double gd = Math.abs(this.g.val - other.g.val);

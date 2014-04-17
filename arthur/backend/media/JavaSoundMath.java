@@ -21,6 +21,14 @@ import arthur.backend.IoUtils;
  */
 public class JavaSoundMath {
 
+  public static final int LOW_HZ = 250; // bass center
+  public static final int WIDTH_LOW_HZ = 460; // bass is 20 -> 480
+  public static final int MID_HZ = 1400; // mid center
+  public static final int WIDTH_MID_HZ = 2000; // mid is 400 -> 2400
+  public static final int HIGH_HZ = 5000; // high center
+  public static final int WIDTH_HIGH_HZ = 5000; // high is 2500 -> 7500
+  public static final double MAX_EQ_GAIN = 20.0;
+
   public static String ffmpegStarter(String filename1, String filename2) {
     return "ffmpeg -i " + filename1 + " -i " + filename2 + " ";
   }
@@ -53,6 +61,40 @@ public class JavaSoundMath {
     return new ArthurSound(outname);
   }
 
+  public static ArthurSound add(ArthurSound one, ArthurColor two, String outname) {
+    double r = two.r.val;
+    double g = two.g.val;
+    double b = two.b.val;
+    double mid = 127.5;
+
+    double lowGain, midGain, highGain;
+    if (r < mid) {
+      lowGain = -1.0 * MAX_EQ_GAIN * (r / mid);
+    } else {
+      lowGain = MAX_EQ_GAIN * ((r - mid) / mid);
+    }
+
+    if (g < mid) {
+      midGain = -1.0 * MAX_EQ_GAIN * (g / mid);
+    } else {
+      midGain = MAX_EQ_GAIN * ((g - mid) / mid);
+    }
+
+    if (b < mid) {
+      highGain = -1.0 * MAX_EQ_GAIN * (b / mid);
+    } else {
+      highGain = MAX_EQ_GAIN * ((b - mid) / mid);
+    }
+
+    String command = soxStarter(one.filename) + outname +
+      " bass " + lowGain +
+      " equalizer " + MID_HZ + " " + WIDTH_MID_HZ + " " + midGain +
+      " treble " + highGain;
+    IoUtils.execute(command);
+    System.out.println("writing equalized sound to " + outname);
+    return new ArthurSound(outname);
+  }
+
   public static ArthurSound minus(ArthurSound one, ArthurSound two, String outname) {
     return add(two, one, outname);
   }
@@ -60,6 +102,11 @@ public class JavaSoundMath {
   public static ArthurSound minus(ArthurSound one, ArthurNumber two, String outname) {
     ArthurNumber neg = new ArthurNumber(-1 * two.val);
     return add(one, neg, outname);
+  }
+
+  public static ArthurSound minus(ArthurSound one, ArthurColor two, String outname) {
+    ArthurColor flipped = two.flip();
+    return add(one, flipped, outname);
   }
 
   // merges the two audios
