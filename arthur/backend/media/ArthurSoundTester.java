@@ -20,5 +20,9 @@ public class ArthurSoundTester {
 		ArthurSound s7 = s1.multiply(new ArthurNumber(3.0));
 
 		ArthurSound s8 = s1.divide(new ArthurNumber(3.0));
+
+		ArthurSound s9 = s1.add(new ArthurNumber(100));
+
+		ArthurSound s10 = s1.minus(new ArthurNumber(100));
 	}
 }

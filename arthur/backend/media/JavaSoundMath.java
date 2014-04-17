@@ -1,7 +1,6 @@
 package arthur.backend.media;
 
 import java.io.File;
-// import com.xuggle.mediatools.demos.ConcatenateAudioAndVideo;
 
 import com.xuggle.mediatool.IMediaReader;
 import com.xuggle.mediatool.IMediaWriter;
@@ -14,7 +13,6 @@ import com.xuggle.xuggler.IStreamCoder;
 import com.xuggle.xuggler.IPacket;
 import com.xuggle.xuggler.IAudioSamples;
 
-import arthur.backend.media.lib.ConcatenateAudio;
 import arthur.backend.IoUtils;
 
 /**
@@ -31,16 +29,37 @@ public class JavaSoundMath {
     return " -c:a libmp3lame -q:a 4 " + outname;
   }
 
+  public static String soxStarter(String filename1) {
+    return soxStarter(filename1, "");
+  }
+
+  public static String soxStarter(String filename1, String filename2) {
+    return "sox " + filename1 + " " + filename2  + " ";
+  }
+
   public static ArthurSound add(ArthurSound one, ArthurSound two, String outname) {
-  	//ConcatenateAudioAndVideo c = new ConcatenateAudioAndVideo();
-    ConcatenateAudio c = new ConcatenateAudio();
-  	c.concatenate(one.filename, two.filename, outname);
+    String command = soxStarter(one.filename, two.filename) + outname;
+    IoUtils.execute(command);
     System.out.println("writing added audio to " + outname);
+    return new ArthurSound(outname);
+  }
+
+  public static ArthurSound add(ArthurSound one, ArthurNumber two, String outname) {
+    double semitoneCents = two.val * 10;
+    String command = soxStarter(one.filename) + outname  +
+        " pitch " + semitoneCents;
+    IoUtils.execute(command);
+    System.out.println("writing pitch-shifted sound to " + outname);
     return new ArthurSound(outname);
   }
 
   public static ArthurSound minus(ArthurSound one, ArthurSound two, String outname) {
     return add(two, one, outname);
+  }
+
+  public static ArthurSound minus(ArthurSound one, ArthurNumber two, String outname) {
+    ArthurNumber neg = new ArthurNumber(-1 * two.val);
+    return add(one, neg, outname);
   }
 
   // merges the two audios
