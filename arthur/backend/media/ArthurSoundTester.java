@@ -28,5 +28,7 @@ public class ArthurSoundTester {
 		ArthurSound s11 = s1.add(new ArthurColor(255.0, 0.0, 0.0, 1.0));
 
 		ArthurSound s12 = s1.minus(new ArthurColor(255.0, 0.0, 0.0, 1.0));
+
+		ArthurSound s13 = s1.add(new ArthurString("Hello Kevin"));
 	}
 }

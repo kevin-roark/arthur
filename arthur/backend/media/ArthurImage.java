@@ -239,19 +239,23 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     double red = c.getRed();
     double green = c.getGreen();
     double blue = c.getBlue();
+    double alpha = c.getAlpha();
 
     //Random sampling to get average color of an image
     for(int i=0;i<199;i++){
       c = new Color(rgbArray[(int)((Math.random()*(bf.getHeight()*bf.getWidth()))+1)]);
-    red = red+ c.getRed();
-    green = green+ c.getGreen();
-    blue = blue+ c.getBlue();
+      red = red + c.getRed();
+      green = green + c.getGreen();
+      blue = blue + c.getBlue();
+      alpha = alpha + c.getAlpha();
     }
+
     double redAvg=red/200;
     double greenAvg=green/200;
     double blueAvg=blue/200;
+    double alphaAvg = alpha/200;
 
-    return new ArthurColor(redAvg,greenAvg,blueAvg, 1.0);
+    return new ArthurColor(redAvg, greenAvg, blueAvg, alphaAvg);
   }
 
   public boolean arthurEquals(ArthurMedia two) {

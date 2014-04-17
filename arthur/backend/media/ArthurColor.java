@@ -38,6 +38,10 @@ public class ArthurColor extends ArthurMedia {
     return new ArthurColor(this.b, this.g, this.r, this.a);
   }
 
+  public ArthurColor opposite() {
+    return new ArthurColor(255 - this.r.val, 255 - this.g.val, 255 - this.b.val, this.a.val);
+  }
+
   public ArthurNumber valDiff(ArthurColor other) {
     double rd = Math.abs(this.r.val - other.r.val);
     double gd = Math.abs(this.g.val - other.g.val);
