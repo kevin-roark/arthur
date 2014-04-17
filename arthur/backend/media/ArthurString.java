@@ -10,6 +10,7 @@ import java.awt.font.*;
 import java.util.*;
 
 import arthur.backend.builtins.java.*;
+import arthur.backend.IoUtils;
 
 /**
  * Java implementation of arthur string!!
@@ -109,6 +110,8 @@ public class ArthurString extends ArthurMedia {
       return this.toNumber();
     } else if (mediaType.equals("Image")) {
       return this.toImage();
+    } else if (mediaType.equals("Sound")) {
+      return this.toSound();
     }
 
     return this;
@@ -156,6 +159,17 @@ public class ArthurString extends ArthurMedia {
     g.dispose();
 
     return new ArthurImage(image, filename);
+  }
+
+  public ArthurSound toSound() {
+    String tempWav = "text-" + System.currentTimeMillis() + ".wav";
+    String command = "java -jar lib/freetts/lib/freetts.jar " +
+        " -dumpAudio " + tempWav +
+        " -text '" + this.str + "'";
+    IoUtils.execute(command);
+    ArthurSound s = ArthurSound.fromWav(tempWav);
+    IoUtils.execute("rm -f " + tempWav);
+    return s;
   }
 
   public boolean arthurEquals(ArthurMedia two) {

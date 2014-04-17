@@ -52,6 +52,12 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
     c.close();
   }
 
+  public static ArthurSound fromWav(String wavefile) {
+    String outname = nameGen();
+    String command = "ffmpeg -i " + wavefile + " -ar 44100 -ac 2 -f mp3 " + outname;
+    IoUtils.execute(command);
+    return new ArthurSound(outname);
+  }
 
   public ArthurSound add(ArthurMedia two) {
     String outname = nameGen();
@@ -63,6 +69,8 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
       return JavaSoundMath.add(this, (ArthurColor) two, outname);
     } else if (two.type.equals(ArthurImage.IMAGE)) {
       return JavaSoundMath.add(this, (ArthurImage) two, outname);
+    } else if (two.type.equals(ArthurString.STRING)) {
+      return JavaSoundMath.add(this, (ArthurString) two, outname);
     }
 
     return this;
@@ -78,7 +86,10 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
       return JavaSoundMath.minus(this, (ArthurColor) two, outname);
     } else if (two.type.equals(ArthurImage.IMAGE)) {
       return JavaSoundMath.minus(this, (ArthurImage) two, outname);
+    } else if (two.type.equals(ArthurString.STRING)) {
+      return JavaSoundMath.minus(this, (ArthurString) two, outname);
     }
+
     return this;
   }
 
@@ -89,6 +100,7 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaSoundMath.multiply(this, (ArthurNumber) two, outname);
     }
+
     return this;
   }
 
@@ -99,6 +111,7 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaSoundMath.divide(this, (ArthurNumber) two, outname);
     }
+
     return this;
   }
 
