@@ -15,6 +15,7 @@ import com.xuggle.xuggler.IPacket;
 import com.xuggle.xuggler.IAudioSamples;
 
 import arthur.backend.media.lib.ConcatenateAudio;
+import arthur.backend.IoUtils;
 
 /**
  * Contains a suite of static methods to perform math operations involving
@@ -22,11 +23,14 @@ import arthur.backend.media.lib.ConcatenateAudio;
  */
 public class JavaSoundMath {
 
+  public static String ffmpegStarter(String filename1, String filename2) {
+    return "ffmpeg -i " + filename1 + " -i " + filename2 + " ";
+  }
+
   public static ArthurSound add(ArthurSound one, ArthurSound two, String outname) {
   	//ConcatenateAudioAndVideo c = new ConcatenateAudioAndVideo();
     ConcatenateAudio c = new ConcatenateAudio();
   	c.concatenate(one.filename, two.filename, outname);
-    ArthurSound.intermediateFiles.add(outname);
     System.out.println("writing added audio to " + outname);
     return new ArthurSound(outname);
   }
@@ -36,88 +40,65 @@ public class JavaSoundMath {
   }
 
   // merges the two audios
+  // here is a 1 LINE ffmpeg command to do the same thing
+  // ffmpeg -i one.filename -i two.filename -filter_complex amerge -c:a libmp3lame -q:a 4 outname
   public static ArthurSound multiply(ArthurSound one, ArthurSound two, String outname) {
-    IMediaWriter writer = ToolFactory.makeWriter(outname);
+    String exec = ffmpegStarter(one.filename, two.filename);
+    exec += " -filter_complex amerge -c:a libmp3lame -q:a 4 " + outname;
 
-    // create audio containers
+    IoUtils.execute(exec);
+    System.out.println("writing multiplied audio to " + outname);
+    return new ArthurSound(outname);
+  }
+
+  // does multiplication, but changes speed of two so that it equals
+  // length of one
+  public static ArthurSound divide(ArthurSound one, ArthurSound two, String outname) {
     IContainer audioContainer1 = IContainer.make();
     IContainer audioContainer2 = IContainer.make();
     audioContainer1.open(one.filename, IContainer.Type.READ, null);
     audioContainer2.open(two.filename, IContainer.Type.READ, null);
 
-    // read audio files and create streams
-    IStreamCoder audioCoder1 = audioContainer1.getStream(0).getStreamCoder();
-    IStreamCoder audioCoder2 = audioContainer2.getStream(0).getStreamCoder();
-    audioCoder1.open(null, null);
-    audioCoder2.open(null, null);
-    IPacket audioPacket1 = IPacket.make();
-    IPacket audioPacket2 = IPacket.make();
+    double dur1 = (double) audioContainer1.getDuration();
+    double dur2 = (double) audioContainer2.getDuration();
 
-    // add stream to writer
-    int idx1 = writer.addAudioStream(0, 0, audioCoder1.getChannels(), audioCoder1.getSampleRate());
-
-    boolean read1 = true;
-    boolean read2 = true;
-    IAudioSamples samp1 = null;
-    IAudioSamples samp2 = null;
-
-    short[] mix = null;
-
-    while(read1 || read2) {
-      // read packet from audio 1
-      if (read1) {
-        if (audioContainer1.readNextPacket(audioPacket1) < 0) {
-          read1 = false;
-          samp1 = null;
-        } else {
-          // decode it
-          samp1 = IAudioSamples.make(512, audioCoder1.getChannels(), IAudioSamples.Format.FMT_S16);
-          audioCoder1.decodeAudio(samp1, audioPacket1, 0);
-
-          mix = new short[(int) samp1.getNumSamples()];
-        }
-      }
-
-      // read packet from audio 2
-      if (read2) {
-        if (audioContainer2.readNextPacket(audioPacket2) < 0) {
-          read2 = false;
-          samp2 = null;
-        } else {
-          // decode it
-          samp2  = IAudioSamples.make(512, audioCoder2.getChannels(), IAudioSamples.Format.FMT_S16);
-          audioCoder2.decodeAudio(samp2, audioPacket2, 0);
-
-          if (mix == null) {
-            mix = new short[(int) samp2.getNumSamples()];
-          }
-        }
-      }
-
-      if (samp1 != null && samp2 != null) {
-        for (int i = 0; i < mix.length; i++) {
-          int s1 = samp1.getSample(i, 0, IAudioSamples.Format.FMT_S16);
-          int s2 = samp2.getSample(i, 0, IAudioSamples.Format.FMT_S16);
-          mix[i] = mixSamples(1, s1, 1, s2);
-        }
-        writer.encodeAudio(0, mix);
-      }
-
-      mix = null;
+    double diff = 0;
+    if (dur1 < dur2) {
+      diff = dur2 / dur1;
+    } else if (dur1 > dur2) {
+      diff = dur1 / dur2;
     }
 
-    audioCoder1.close();
-    audioCoder2.close();
-    audioContainer1.close();
-    audioContainer2.close();
-    writer.close();
-
-    System.out.println("writing multiplied audio to " + outname);
-    return new ArthurSound(outname);
+    ArthurSound speedyTwo = speedChange(two, diff);
+    return multiply(one, two, ArthurSound.nameGen());
   }
 
-  public static ArthurSound divide(ArthurSound one, ArthurSound two) {
-    return null;
+  // changes sound by a given rate.
+  // ffmpeg limited to between 0.5 -> 2.0, so have to combine filters
+  public static ArthurSound speedChange(ArthurSound sound, double rate) {
+    String outname = ArthurSound.nameGen();
+    double r = rate;
+    String filter = "";
+
+    if (r < 1.0) {
+      while (r < 0.5) {
+        filter += "atempo=0.5,";
+        r = r * 2.0;
+      }
+      filter += "atempo=" + r;
+    } else {
+      while (r > 2.0) {
+        filter += "atempo=2.0,";
+        r = r / 2.0;
+      }
+      filter += "atempo=" + r;
+    }
+
+    String command = "ffmpeg -i " + sound.filename + " -filter:a " + filter +
+        " -vn -c:a libmp3lame -q:a 4 " + outname;
+    IoUtils.execute(command);
+    System.out.println("writing sped audio to " + outname);
+    return new ArthurSound(outname);
   }
 
   /**

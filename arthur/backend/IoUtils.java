@@ -58,4 +58,17 @@ public class IoUtils {
       }
     }
 
+    public static boolean execute(String exec) {
+      try {
+        System.out.println(exec);
+        Process p = Runtime.getRuntime().exec(exec);
+        p.waitFor();
+        return true;
+      } catch (Exception e) {
+        System.out.println("failed: " + exec);
+        e.printStackTrace();
+        return false;
+      }
+    }
+
 }

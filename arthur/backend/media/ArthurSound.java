@@ -54,7 +54,7 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
 
 
   public ArthurSound add(ArthurMedia two) {
-    String outname = "sound-" + System.currentTimeMillis() + ".mp3";
+    String outname = nameGen();
     if (two.type.equals(SOUND)) {
       return JavaSoundMath.add(this, (ArthurSound) two, outname);
     }
@@ -63,7 +63,7 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
   }
 
   public ArthurSound minus(ArthurMedia two) {
-    String outname = "sound-" + System.currentTimeMillis() + ".mp3";
+    String outname = nameGen();
     if (two.type.equals(SOUND)) {
       return JavaSoundMath.minus(this, (ArthurSound) two, outname);
     }
@@ -71,7 +71,7 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
   }
 
   public ArthurSound multiply(ArthurMedia two) {
-    String outname = "sound-" + System.currentTimeMillis() + ".mp3";
+    String outname = nameGen();
     if (two.type.equals(SOUND)) {
       return JavaSoundMath.multiply(this, (ArthurSound) two, outname);
     }
@@ -79,7 +79,17 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
   }
 
   public ArthurSound divide(ArthurMedia two) {
+    String outname = nameGen();
+    if (two.type.equals(SOUND)) {
+      return JavaSoundMath.divide(this, (ArthurSound) two, outname);
+    }
     return this;
+  }
+
+  public static String nameGen() {
+    String name = "sound-" + System.currentTimeMillis() + ".mp3";
+    ArthurSound.intermediateFiles.add(name);
+    return name;
   }
 
   public String toString() {
