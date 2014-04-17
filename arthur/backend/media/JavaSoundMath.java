@@ -27,6 +27,10 @@ public class JavaSoundMath {
     return "ffmpeg -i " + filename1 + " -i " + filename2 + " ";
   }
 
+  public static String ffmpegEnder(String outname) {
+    return " -c:a libmp3lame -q:a 4 " + outname;
+  }
+
   public static ArthurSound add(ArthurSound one, ArthurSound two, String outname) {
   	//ConcatenateAudioAndVideo c = new ConcatenateAudioAndVideo();
     ConcatenateAudio c = new ConcatenateAudio();
@@ -44,11 +48,17 @@ public class JavaSoundMath {
   // ffmpeg -i one.filename -i two.filename -filter_complex amerge -c:a libmp3lame -q:a 4 outname
   public static ArthurSound multiply(ArthurSound one, ArthurSound two, String outname) {
     String exec = ffmpegStarter(one.filename, two.filename);
-    exec += " -filter_complex amerge -c:a libmp3lame -q:a 4 " + outname;
+    exec += " -filter_complex amerge " + ffmpegEnder(outname);
 
     IoUtils.execute(exec);
     System.out.println("writing multiplied audio to " + outname);
     return new ArthurSound(outname);
+  }
+
+  // speeds up audio by factor of num
+  public static ArthurSound multiply(ArthurSound one, ArthurNumber two, String outname) {
+    double rate = (double) two.val;
+    return speedChange(one, rate, outname);
   }
 
   // does multiplication, but changes speed of two so that it equals
@@ -69,14 +79,20 @@ public class JavaSoundMath {
       diff = dur1 / dur2;
     }
 
-    ArthurSound speedyTwo = speedChange(two, diff);
+    ArthurSound speedyTwo = speedChange(two, diff, ArthurSound.nameGen());
     return multiply(one, two, ArthurSound.nameGen());
+  }
+
+  // changes volume by factor of num
+  public static ArthurSound divide(ArthurSound one, ArthurNumber two, String outname) {
+    double rate = (double) two.val;
+    return volumeChange(one, rate, outname);
   }
 
   // changes sound by a given rate.
   // ffmpeg limited to between 0.5 -> 2.0, so have to combine filters
-  public static ArthurSound speedChange(ArthurSound sound, double rate) {
-    String outname = ArthurSound.nameGen();
+  // https://trac.ffmpeg.org/wiki/How%20to%20speed%20up%20/%20slow%20down%20a%20video
+  public static ArthurSound speedChange(ArthurSound sound, double rate, String outname) {
     double r = rate;
     String filter = "";
 
@@ -95,9 +111,17 @@ public class JavaSoundMath {
     }
 
     String command = "ffmpeg -i " + sound.filename + " -filter:a " + filter +
-        " -vn -c:a libmp3lame -q:a 4 " + outname;
+        ffmpegEnder(outname);
     IoUtils.execute(command);
     System.out.println("writing sped audio to " + outname);
+    return new ArthurSound(outname);
+  }
+
+  public static ArthurSound volumeChange(ArthurSound sound, double rate, String outname) {
+    String command = "ffmpeg -i " + sound.filename + " -af volume=" + rate +
+        ffmpegEnder(outname);
+    IoUtils.execute(command);
+    System.out.println("writing volume changed audio to " + outname);
     return new ArthurSound(outname);
   }
 

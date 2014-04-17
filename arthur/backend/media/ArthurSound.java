@@ -74,6 +74,8 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
     String outname = nameGen();
     if (two.type.equals(SOUND)) {
       return JavaSoundMath.multiply(this, (ArthurSound) two, outname);
+    } else if (two.type.equals(ArthurNumber.NUMBER)) {
+      return JavaSoundMath.multiply(this, (ArthurNumber) two, outname);
     }
     return this;
   }
@@ -82,6 +84,8 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
     String outname = nameGen();
     if (two.type.equals(SOUND)) {
       return JavaSoundMath.divide(this, (ArthurSound) two, outname);
+    } else if (two.type.equals(ArthurNumber.NUMBER)) {
+      return JavaSoundMath.divide(this, (ArthurNumber) two, outname);
     }
     return this;
   }
