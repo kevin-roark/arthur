@@ -95,6 +95,11 @@ public class JavaSoundMath {
     return new ArthurSound(outname);
   }
 
+  public static ArthurSound add(ArthurSound one, ArthurImage two, String outname) {
+    ArthurColor twoColor = two.getAverageColor();
+    return add(one, twoColor, outname);
+  }
+
   public static ArthurSound minus(ArthurSound one, ArthurSound two, String outname) {
     return add(two, one, outname);
   }
@@ -107,6 +112,12 @@ public class JavaSoundMath {
   public static ArthurSound minus(ArthurSound one, ArthurColor two, String outname) {
     ArthurColor flipped = two.flip();
     return add(one, flipped, outname);
+  }
+
+  public static ArthurSound minus(ArthurSound one, ArthurImage two, String outname) {
+    ArthurColor twoColor = two.getAverageColor();
+    ArthurColor twoOpposite = twoColor.opposite();
+    return add(one, twoOpposite, outname);
   }
 
   // merges the two audios
