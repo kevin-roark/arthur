@@ -1,97 +1,87 @@
 package arthur.backend.media;
 
-import com.xuggle.mediatool.IMediaReader;
-import com.xuggle.mediatool.IMediaTool;
-import com.xuggle.mediatool.IMediaWriter;
-import com.xuggle.mediatool.MediaToolAdapter;
-import com.xuggle.mediatool.ToolFactory;
-import com.xuggle.mediatool.event.IAudioSamplesEvent;
-import com.xuggle.mediatool.event.IVideoPictureEvent;
-import com.xuggle.xuggler.ICodec;
-import com.xuggle.xuggler.IContainer;
-import com.xuggle.xuggler.IStream;
-import com.xuggle.xuggler.IStreamCoder;
-import java.nio.ShortBuffer;
+import arthur.backend.IoUtils;
+import java.util.ArrayList;
 
 /**
- * Java implementation of arthur video!
+ * Java implementation of arthur Video!
  */
 public class ArthurVideo extends ArthurMedia {
 
-  public static final String VIDEO = "video";
+  public static final String VIDEO = "Video";
   public String filename;
-  public IMediaReader reader;
-  public IMediaWriter writer;
-  //vid stream properties
-  public ArthurNumber width;
-  public ArthurNumber height;
-  //audio stream properties
-  public ArthurNumber channelCount;
-  public ArthurNumber sampleRate;
+  public static ArrayList<String> intermediateFiles;
 
   public ArthurVideo() {
     this.type = VIDEO;
     filename = null;
-    reader = null;
-    writer = null;
-    width = null;
-    height = null;
-    channelCount = null;
-    sampleRate = null;
+    intermediateFiles = null;
   }
 
   public ArthurVideo(String fn) {
     this.type = VIDEO;
     filename = fn;
-    reader = ToolFactory.makeReader(filename);
-    writer = null;
-    
-    IContainer container = IContainer.make();
-    if (container.open(filename, IContainer.Type.READ, null) < 0) {
-      System.out.println("Error! Couldn't open this video file: " + filename);
-    }
-    int numStreams = container.getNumStreams();
-    for (int i = 0; i < numStreams; i++) {
-      IStream stream = container.getStream(i);
-      IStreamCoder coder = stream.getStreamCoder();
-      if (coder.getCodecType() == ICodec.Type.CODEC_TYPE_VIDEO) {
-        width = new ArthurNumber(coder.getWidth());
-        height = new ArthurNumber(coder.getHeight());
-        System.out.println("Width: " + width + ", Height: " + height);
-      }
-      else if (coder.getCodecType() == ICodec.Type.CODEC_TYPE_AUDIO) {
-        channelCount = new ArthurNumber(coder.getChannels());
-        sampleRate = new ArthurNumber(coder.getSampleRate());
-        System.out.println("Channel count: " + channelCount + ", Sample rate: " + sampleRate);
-      }
-    }
+    if (intermediateFiles == null)
+      intermediateFiles = new ArrayList<String>();
   }
 
   public ArthurVideo add(ArthurMedia two) {
-    ArthurVideo res = this;
+    String outname = nameGen();
     if (two.type.equals(VIDEO)) {
-      res = JavaVideoMath.add(this, (ArthurVideo) two);
-    }
-    else if (two.type.equals(ArthurNumber.NUMBER)) {
-      res = JavaVideoMath.add(this, (ArthurNumber) two);
-    }
-    return res;
+      return JavaVideoMath.add(this, (ArthurVideo) two, outname);
+    } 
+    return this;
   }
 
   public ArthurVideo minus(ArthurMedia two) {
+    String outname = nameGen();
+    if (two.type.equals(VIDEO)) {
+      return JavaVideoMath.minus(this, (ArthurVideo) two, outname);
+    } 
     return this;
   }
 
   public ArthurVideo multiply(ArthurMedia two) {
+    String outname = nameGen();
+    /*
+    if (two.type.equals(VIDEO)) {
+      return JavaVideoMath.multiply(this, (ArthurVideo) two, outname);
+    } 
+    */
     return this;
   }
 
   public ArthurVideo divide(ArthurMedia two) {
+    String outname = nameGen();
+    /*
+    if (two.type.equals(VIDEO)) {
+      return JavaVideoMath.divide(this, (ArthurVideo) two, outname);
+    } 
+    */
     return this;
+  }
+
+  public ArthurSound toSound() {
+    String name = ArthurSound.nameGen();
+    String rawExtractCommand = "ffmpeg -i %s -vn -ar 44100 -ac 2 -ab 192 -f mp3 %s";
+    String extractCommand = String.format(rawExtractCommand, this.filename, name);
+    IoUtils.execute();
+    return new ArthurSound(name);
   }
 
   public String jsLiteral() {
     return "new ArthurVideo()";
+  }
+
+  public static String nameGen() {
+    String name = "Video-" + System.currentTimeMillis() + ".mp4";
+    ArthurVideo.intermediateFiles.add(name);
+    return name;
+  }
+
+  public void writeToFile(String fname) {
+    IoUtils.move(this.filename, fname); // move file to correct name
+    this.filename = fname.substring(fname.indexOf('/') + 1); // remove 'buster'
   }
 
   /*
