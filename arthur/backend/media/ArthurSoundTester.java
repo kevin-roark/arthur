@@ -10,5 +10,7 @@ public class ArthurSoundTester {
 		ArthurSound s2 = new ArthurSound(f2);
 
 		ArthurSound s3 = s1.add(s2);
+
+		ArthurSound s4 = s1.multiply(s2);
 	}
 }

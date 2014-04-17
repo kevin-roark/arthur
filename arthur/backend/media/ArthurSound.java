@@ -71,6 +71,10 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
   }
 
   public ArthurSound multiply(ArthurMedia two) {
+    String outname = "sound-" + System.currentTimeMillis() + ".mp3";
+    if (two.type.equals(SOUND)) {
+      return JavaSoundMath.multiply(this, (ArthurSound) two, outname);
+    }
     return this;
   }
 
