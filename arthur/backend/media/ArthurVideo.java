@@ -12,17 +12,12 @@ public class ArthurVideo extends ArthurMedia {
   public String filename;
   public static ArrayList<String> intermediateFiles;
 
-  public ArthurVideo() {
-    this.type = VIDEO;
-    filename = null;
-    intermediateFiles = null;
-  }
-
   public ArthurVideo(String fn) {
     this.type = VIDEO;
     filename = fn;
-    if (intermediateFiles == null)
+    if (intermediateFiles == null) {
       intermediateFiles = new ArrayList<String>();
+    }
   }
 
   public ArthurVideo add(ArthurMedia two) {
@@ -63,9 +58,10 @@ public class ArthurVideo extends ArthurMedia {
 
   public ArthurSound toSound() {
     String name = ArthurSound.nameGen();
+    System.out.println(name);
     String rawExtractCommand = "ffmpeg -i %s -vn -ar 44100 -ac 2 -ab 192 -f mp3 %s";
     String extractCommand = String.format(rawExtractCommand, this.filename, name);
-    IoUtils.execute();
+    IoUtils.execute(extractCommand);
     return new ArthurSound(name);
   }
 
@@ -75,6 +71,9 @@ public class ArthurVideo extends ArthurMedia {
 
   public static String nameGen() {
     String name = "Video-" + System.currentTimeMillis() + ".mp4";
+    if (ArthurVideo.intermediateFiles == null) {
+      ArthurVideo.intermediateFiles = new ArrayList<String>();
+    }
     ArthurVideo.intermediateFiles.add(name);
     return name;
   }

@@ -24,6 +24,7 @@ public class JavaVideoMath {
     System.out.println("writing added video to " + outname);
     return new ArthurVideo(outname);
   }
+  /*
 
   public static ArthurVideo add(ArthurVideo one, ArthurSound two, String outname) {
 
@@ -44,6 +45,7 @@ public class JavaVideoMath {
   public static ArthurVideo add(ArthurVideo one, ArthurImage two, String outname) {
     
   }
+  */
 
   public static ArthurVideo minus(ArthurVideo one, ArthurVideo two, String outname) {
     return JavaVideoMath.add(two, one, outname);

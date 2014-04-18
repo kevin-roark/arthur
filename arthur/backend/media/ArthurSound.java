@@ -117,6 +117,9 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
 
   public static String nameGen() {
     String name = "sound-" + System.currentTimeMillis() + ".mp3";
+    if (ArthurSound.intermediateFiles == null) {
+      ArthurSound.intermediateFiles = new ArrayList<String>();
+    }
     ArthurSound.intermediateFiles.add(name);
     return name;
   }
