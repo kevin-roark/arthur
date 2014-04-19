@@ -13,33 +13,21 @@ public class JavaVideoMath {
   public static ArthurVideo add(ArthurVideo one, ArthurVideo two, String outname) {
     System.out.println(outname);
 
-    String f1 = "mpg1-" + System.currentTimeMillis();
-    String f2 = "mpg2-" + System.currentTimeMillis();
-    String o = "mpg3-" + System.currentTimeMillis();
+    String f1 = "ts1-" + System.currentTimeMillis();
+    String f2 = "ts2-" + System.currentTimeMillis();
 
-    String mp4tompg = "ffmpeg -i %s -qscale:v 1 %s.mpg";
-    String command1 = String.format(mp4tompg, one.filename, f1);
-    String command2 = String.format(mp4tompg, two.filename, f2);
-
-    String concat = "cat %s.mpg %s.mpg > %s.mpg";
-    String command3 = String.format(concat, f1, f2, o);
-
-    String mpgtomp4 = "ffmpeg -i %s.mpg -qscale:v 2 %s";
-    String command4 = String.format(mpgtomp4, o, outname);
-
-    String command5 = "rm *.mpg";
-
+    String mp4tompeg = "ffmpeg -i %s -c copy -bsf:v h264_mp4toannexb -f mpegts %s.ts";
+    String command1 = String.format(mp4tompeg, one.filename, f1);
+    String command2 = String.format(mp4tompeg, two.filename, f2);
     IoUtils.execute(command1);
     IoUtils.execute(command2);
+
+    String concat = "ffmpeg -i \"concat:%s.ts|%s.ts\" -c copy -bsf:a aac_adtstoasc %s";
+    String command3 = String.format(concat, f1, f2, outname);
     IoUtils.execute(command3);
-    IoUtils.execute(command4);
-    IoUtils.execute(command5);
-    /*
-    ffmpeg -i input1.avi -qscale:v 1 intermediate1.mpg
-    ffmpeg -i input2.avi -qscale:v 1 intermediate2.mpg
-    cat intermediate1.mpg intermediate2.mpg > intermediate_all.mpg
-    ffmpeg -i intermediate_all.mpg -qscale:v 2 output.avi
-    */
+    
+    IoUtils.execute("rm ts*");
+    
     return new ArthurVideo(outname);
   }
 
