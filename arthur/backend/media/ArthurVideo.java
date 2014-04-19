@@ -25,6 +25,12 @@ public class ArthurVideo extends ArthurMedia {
     if (two.type.equals(VIDEO)) {
       return JavaVideoMath.add(this, (ArthurVideo) two, outname);
     } 
+    else if (two.type.equals(ArthurColor.COLOR)) {
+      return JavaVideoMath.add(this, (ArthurColor) two, outname);
+    }
+    else if (two.type.equals(ArthurNumber.NUMBER)) {
+      return JavaVideoMath.add(this, (ArthurNumber) two, outname);
+    }
     return this;
   }
 
@@ -33,26 +39,31 @@ public class ArthurVideo extends ArthurMedia {
     if (two.type.equals(VIDEO)) {
       return JavaVideoMath.minus(this, (ArthurVideo) two, outname);
     } 
+    else if (two.type.equals(ArthurColor.COLOR)) {
+      return JavaVideoMath.minus(this, (ArthurColor) two, outname);
+    }
+    else if (two.type.equals(ArthurNumber.NUMBER)) {
+      return JavaVideoMath.minus(this, (ArthurNumber) two, outname);
+    }
     return this;
   }
 
   public ArthurVideo multiply(ArthurMedia two) {
     String outname = nameGen();
-    /*
     if (two.type.equals(VIDEO)) {
       return JavaVideoMath.multiply(this, (ArthurVideo) two, outname);
     } 
-    */
+    else if (two.type.equals(ArthurNumber.NUMBER)) {
+      return JavaVideoMath.multiply(this, (ArthurNumber) two, outname);
+    }
     return this;
   }
 
   public ArthurVideo divide(ArthurMedia two) {
     String outname = nameGen();
-    /*
-    if (two.type.equals(VIDEO)) {
-      return JavaVideoMath.divide(this, (ArthurVideo) two, outname);
+    if (two.type.equals(ArthurNumber.NUMBER)) {
+      return JavaVideoMath.divide(this, (ArthurNumber) two, outname);
     } 
-    */
     return this;
   }
 
