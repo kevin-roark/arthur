@@ -3,6 +3,22 @@ package arthur.backend.media;
 import arthur.backend.IoUtils;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+
+import com.xuggle.mediatool.IMediaReader;
+import com.xuggle.mediatool.MediaListenerAdapter;
+import com.xuggle.mediatool.ToolFactory;
+import com.xuggle.mediatool.event.IVideoPictureEvent;
+import com.xuggle.xuggler.Global;
+import java.io.*;
+import java.awt.image.*;
+import java.awt.Graphics2D;
+import java.awt.Color;
+import javax.imageio.*;
+import java.lang.*;
+import com.xuggle.xuggler.IContainer;
+import java.awt.AlphaComposite;
+
 /**
  * Java implementation of arthur Video!
  */
@@ -11,6 +27,23 @@ public class ArthurVideo extends ArthurMedia {
   public static final String VIDEO = "Video";
   public String filename;
   public static ArrayList<String> intermediateFiles;
+
+
+    public static final double SECONDS_BETWEEN_FRAMES = 1;
+
+    private static ArthurImage frames;
+    public static long duration;
+    
+    // The video stream index, used to ensure we display frames from one and
+    // only one video stream from the media container.
+    private static int mVideoStreamIndex = -1;
+    
+    // Time of last frame write
+    private static long mLastPtsWrite = Global.NO_PTS;
+    
+    public static final long MICRO_SECONDS_BETWEEN_FRAMES = 
+    (long)(Global.DEFAULT_PTS_PER_SECOND * SECONDS_BETWEEN_FRAMES);
+
 
   public ArthurVideo(String fn) {
     this.type = VIDEO;
@@ -76,20 +109,113 @@ public class ArthurVideo extends ArthurMedia {
     return new ArthurSound(name);
   }
 
-  public String jsLiteral() {
-    return "new ArthurVideo()";
+  public ArthurImage toImage(){
+
+
+
+
+    IContainer container = IContainer.make();
+    int result = container.open(filename, IContainer.Type.READ, null);
+    duration = container.getDuration()/1000000;
+    duration =duration-duration%1;
+
+
+
+    IMediaReader mediaReader = ToolFactory.makeReader(filename);
+        // frames=new ArthurImage("OUTPUT.jpg");
+        // stipulate that we want BufferedImages created in BGR 24bit color space
+    mediaReader.setBufferedImageTypeToGenerate(BufferedImage.TYPE_3BYTE_BGR);
+
+    mediaReader.addListener(new ImageSnapListener());
+
+        // read out the contents of the media file and
+        // dispatch events to the attached listener
+    while (mediaReader.readPacket() == null) ;
+
+    return frames;
+
   }
 
-  public static String nameGen() {
-    String name = "Video-" + System.currentTimeMillis() + ".mp4";
-    if (ArthurVideo.intermediateFiles == null) {
-      ArthurVideo.intermediateFiles = new ArrayList<String>();
+  private static class ImageSnapListener extends MediaListenerAdapter {
+
+    public void onVideoPicture(IVideoPictureEvent event) {
+
+      if (event.getStreamIndex() != mVideoStreamIndex) {
+                // if the selected video stream id is not yet set, go ahead an
+                // select this lucky video stream
+        if (mVideoStreamIndex == -1)
+          mVideoStreamIndex = event.getStreamIndex();
+                // no need to show frames from this video stream
+        else
+          return;
+      }
+
+            // if uninitialized, back date mLastPtsWrite to get the very first frame
+      if (mLastPtsWrite == Global.NO_PTS)
+        mLastPtsWrite = event.getTimeStamp() - MICRO_SECONDS_BETWEEN_FRAMES;
+
+            // if it's time to write the next frame
+      if (event.getTimeStamp() - mLastPtsWrite >= 
+        MICRO_SECONDS_BETWEEN_FRAMES) {
+
+                // String outputFilename = dumpImageToFile(event.getImage(), "sampledvid.jpg");
+        ArthurImage temp=new ArthurImage(event.getImage(), "sampledvid.jpg");
+
+      if(frames==null)
+        frames=temp;
+
+      else{
+
+        BufferedImage image = JavaImageMath.clone(frames.bf);
+        BufferedImage image2 = JavaImageMath.clone(temp.bf);
+
+        WritableRaster r1 = image.getRaster();
+        int width = r1.getWidth();
+        int height = r1.getHeight();
+
+        BufferedImage r2resize = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2=image2.createGraphics();
+        float opacity = 1/(duration+1);
+        // float opacity=0.9f;
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+        g2.drawImage(image2, 0, 0, width, height, null);
+        g2.dispose();
+
+        temp.bf=image2;
+        frames=frames.divide(temp);
+
+      }
+
+                // indicate file written
+      double seconds = ((double) event.getTimeStamp()) / 
+      Global.DEFAULT_PTS_PER_SECOND;
+
+
+                // update last write time
+      mLastPtsWrite += MICRO_SECONDS_BETWEEN_FRAMES;
     }
-    ArthurVideo.intermediateFiles.add(name);
-    return name;
-  }
 
-  public void writeToFile(String fname) {
+
+    
+  }
+}
+
+
+
+public String jsLiteral() {
+  return "new ArthurVideo()";
+}
+
+public static String nameGen() {
+  String name = "Video-" + System.currentTimeMillis() + ".mp4";
+  if (ArthurVideo.intermediateFiles == null) {
+    ArthurVideo.intermediateFiles = new ArrayList<String>();
+  }
+  ArthurVideo.intermediateFiles.add(name);
+  return name;
+}
+
+public void writeToFile(String fname) {
     IoUtils.move(this.filename, fname); // move file to correct name
     this.filename = fname.substring(fname.indexOf('/') + 1); // remove 'buster'
   }
