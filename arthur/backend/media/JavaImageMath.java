@@ -352,6 +352,14 @@ public class JavaImageMath {
 		return new ArthurImage(collage, outputFn);
 	}
 
+	public static ArthurImage divide (ArthurImage one, ArthurVideo two) {
+		return JavaImageMath.divide(one, two.toImage());
+	}
+
+	public static ArthurImage multiply (ArthurImage one, ArthurVideo two) {
+		return JavaImageMath.multiply(one, two.toImage());
+	}
+
 	public static BufferedImage clone(BufferedImage original) {
 		WritableRaster raster = original.getRaster();
 		BufferedImage clone = new BufferedImage(raster.getWidth(), raster.getHeight(), BufferedImage.TYPE_INT_RGB);
