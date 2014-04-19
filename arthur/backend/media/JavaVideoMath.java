@@ -6,7 +6,7 @@ import java.io.File;
 
 /**
  * Contains a suite of static methods to perform math operations involving
- * colors.
+ * videos.
  */
 public class JavaVideoMath {
 
@@ -21,8 +21,6 @@ public class JavaVideoMath {
     String command1 = String.format(mp4tompg, one.filename, f1);
     String command2 = String.format(mp4tompg, two.filename, f2);
 
-    //String commandtemp = "echo hello";
-
     String concat = "cat %s.mpg %s.mpg > %s.mpg";
     String command3 = String.format(concat, f1, f2, o);
 
@@ -33,7 +31,6 @@ public class JavaVideoMath {
 
     IoUtils.execute(command1);
     IoUtils.execute(command2);
-    //IoUtils.execute(commandtemp);
     IoUtils.execute(command3);
     IoUtils.execute(command4);
     IoUtils.execute(command5);
@@ -43,167 +40,47 @@ public class JavaVideoMath {
     cat intermediate1.mpg intermediate2.mpg > intermediate_all.mpg
     ffmpeg -i intermediate_all.mpg -qscale:v 2 output.avi
     */
-
     return new ArthurVideo(outname);
   }
 
   public static ArthurVideo add(ArthurVideo one, ArthurColor two, String outname) {
-    String command1 = "ffmpeg -i " + one.filename + " %d.jpg";
-    
-    long counter = 1;
-    while (true) {
-      String filename = counter + ".jpg";
-      if (new File(filename).isFile() == false) {
-        //System.out.println(filename + "? That's not a file");
-        break;
-      }
-      ArthurImage image = new ArthurImage(filename);
-      ArthurImage result = image.add(two);
-      result.writeToFile("tinted-" + filename);
-      counter++;
-    }
-
-    String tempVid = "Vid-temp-" + System.currentTimeMillis() + ".mp4";
-    String tempSound = "Sound-temp-" + System.currentTimeMillis() + ".mp3";
-
-    String command2 = "ffmpeg -r 30 -i tinted-%d.jpg " + tempVid;
-    String command3 = "ffmpeg -i " + one.filename + " " + tempSound;
-    String command4 = "ffmpeg -i " + tempVid + " -i " + tempSound + " -ab 192k " + outname;
-    /*
-    ffmpeg -r 30 -i mixedFrame%d.jpg outputMovie.mp4
-    ffmpeg -i sample1.mp4 sample1sound.mp3
-    ffmpeg -i outputMovie.mp4 -i sample1sound.mp3 -ab 192k movSound.mp4
-    */
-
-    IoUtils.execute(command1);
-    IoUtils.execute(command2);
-    IoUtils.execute(command3);
-    IoUtils.execute(command4);
-
-    for (int i = 1; i < 10; i++) {
-      IoUtils.execute("rm " + i + "*.jpg");
-      IoUtils.execute("rm tinted-" + i + "*.jpg");
-    }
-
-    //TODO: remove other temp files
-    
-    return new ArthurVideo(outname);
+    return JavaVideoMath.editFrames(one, two, outname, "+ArthurColor");
   }
 
   public static ArthurVideo add(ArthurVideo one, ArthurNumber two, String outname) {
-    String command1 = "ffmpeg -i " + one.filename + " %d.jpg";
-    
-    long counter = 1;
-    while (true) {
-      String filename = counter + ".jpg";
-      if (new File(filename).isFile() == false) {
-        //System.out.println(filename + "? That's not a file");
-        break;
-      }
-      ArthurImage image = new ArthurImage(filename);
-      ArthurImage result = image.add(two);
-      result.writeToFile("adjusted-" + filename);
-      counter++;
-    }
-
-    String tempVid = "Vid-temp-" + System.currentTimeMillis() + ".mp4";
-    String tempSound = "Sound-temp-" + System.currentTimeMillis() + ".mp3";
-
-    String command2 = "ffmpeg -r 30 -i adjusted-%d.jpg " + tempVid;
-    String command3 = "ffmpeg -i " + one.filename + " " + tempSound;
-    String command4 = "ffmpeg -i " + tempVid + " -i " + tempSound + " -ab 192k " + outname;
-    /*
-    ffmpeg -r 30 -i mixedFrame%d.jpg outputMovie.mp4
-    ffmpeg -i sample1.mp4 sample1sound.mp3
-    ffmpeg -i outputMovie.mp4 -i sample1sound.mp3 -ab 192k movSound.mp4
-    */
-
-    IoUtils.execute(command1);
-    IoUtils.execute(command2);
-    IoUtils.execute(command3);
-    IoUtils.execute(command4);
-
-    for (int i = 1; i < 10; i++) {
-      IoUtils.execute("rm " + i + "*.jpg");
-      IoUtils.execute("rm adjusted-" + i + "*.jpg");
-    }
-
-    //TODO: remove other temp files
-    
-    return new ArthurVideo(outname);
-  }
-
-  /*
-  public static ArthurVideo add(ArthurVideo one, ArthurColor two, String outname) {
-
-  }
-
-  public static ArthurVideo add(ArthurVideo one, ArthurNumber two, String outname) {
-
+    return JavaVideoMath.editFrames(one, two, outname, "+ArthurNumber");
   }
 
   public static ArthurVideo add(ArthurVideo one, ArthurString two, String outname) {
-
+    return JavaVideoMath.editFrames(one, two, outname, "+ArthurString");
   }
 
   public static ArthurVideo add(ArthurVideo one, ArthurImage two, String outname) {
-    
+    return JavaVideoMath.editFrames(one, two, outname, "+ArthurImage");
   }
-  */
 
   public static ArthurVideo minus(ArthurVideo one, ArthurVideo two, String outname) {
     return JavaVideoMath.add(two, one, outname);
   }
 
   public static ArthurVideo minus(ArthurVideo one, ArthurColor two, String outname) {
-    ArthurColor complement = new ArthurColor(255.0 - two.r.val, 255.0 - two.g.val, 255.0 - two.b.val, two.a.val);
-    return JavaVideoMath.add(one, complement, outname);
+    return JavaVideoMath.editFrames(one, two, outname, "-ArthurColor");
   }
 
   public static ArthurVideo minus(ArthurVideo one, ArthurNumber two, String outname) {
-    String command1 = "ffmpeg -i " + one.filename + " %d.jpg";
-    
-    long counter = 1;
-    while (true) {
-      String filename = counter + ".jpg";
-      if (new File(filename).isFile() == false) {
-        //System.out.println(filename + "? That's not a file");
-        break;
-      }
-      ArthurImage image = new ArthurImage(filename);
-      ArthurImage result = image.minus(two);
-      result.writeToFile("adjusted-" + filename);
-      counter++;
-    }
+    return JavaVideoMath.editFrames(one, two, outname, "-ArthurNumber");
+  }
 
-    String tempVid = "Vid-temp-" + System.currentTimeMillis() + ".mp4";
-    String tempSound = "Sound-temp-" + System.currentTimeMillis() + ".mp3";
+  public static ArthurVideo minus(ArthurVideo one, ArthurString two, String outname) {
+    return JavaVideoMath.editFrames(one, two, outname, "-ArthurString");
+  }
 
-    String command2 = "ffmpeg -r 30 -i adjusted-%d.jpg " + tempVid;
-    String command3 = "ffmpeg -i " + one.filename + " " + tempSound;
-    String command4 = "ffmpeg -i " + tempVid + " -i " + tempSound + " -ab 192k " + outname;
-    /*
-    ffmpeg -r 30 -i mixedFrame%d.jpg outputMovie.mp4
-    ffmpeg -i sample1.mp4 sample1sound.mp3
-    ffmpeg -i outputMovie.mp4 -i sample1sound.mp3 -ab 192k movSound.mp4
-    */
-
-    IoUtils.execute(command1);
-    IoUtils.execute(command2);
-    IoUtils.execute(command3);
-    IoUtils.execute(command4);
-
-    for (int i = 1; i < 10; i++) {
-      IoUtils.execute("rm " + i + "*.jpg");
-      IoUtils.execute("rm adjusted-" + i + "*.jpg");
-    }
-
-    //TODO: remove other temp files
-    
-    return new ArthurVideo(outname);
+  public static ArthurVideo minus(ArthurVideo one, ArthurImage two, String outname) {
+    return JavaVideoMath.editFrames(one, two, outname, "-ArthurImage");
   }
 
   public static ArthurVideo multiply(ArthurVideo one, ArthurVideo two, String outname) {
+    //TODO
     return one;
   }
 
@@ -231,50 +108,88 @@ public class JavaVideoMath {
     IoUtils.execute(command3);
     IoUtils.execute(command4);
 
-    //TODO: clean up temp files
+    IoUtils.execute("rm Vid-temp-*");
+    IoUtils.execute("rm Sound-temp-*");
 
     return new ArthurVideo(outname);
   }
 
+  public static ArthurVideo divide(ArthurVideo one, ArthurVideo two, String outname) {
+    //TODO
+    return one;
+  }
+
   public static ArthurVideo divide(ArthurVideo one, ArthurNumber two, String outname) {
+    return JavaVideoMath.editFrames(one, two, outname, "/ArthurNumber");
+  }
+
+  public static ArthurVideo editFrames(ArthurVideo one, ArthurMedia two, String outname, String function) {
     String command1 = "ffmpeg -i " + one.filename + " %d.jpg";
+
+    IoUtils.execute(command1);
     
     long counter = 1;
     while (true) {
       String filename = counter + ".jpg";
       if (new File(filename).isFile() == false) {
-        //System.out.println(filename + "? That's not a file");
         break;
       }
       ArthurImage image = new ArthurImage(filename);
-      ArthurImage result = image.divide(two);
-      result.writeToFile("tiled-" + filename);
+      ArthurImage result;
+      if (function.equals("+ArthurNumber")) { 
+        result = image.add((ArthurNumber) two); //brighten each frame
+      }
+      else if (function.equals("-ArthurNumber")) { 
+        result = image.minus((ArthurNumber) two); //darken each frame
+      }
+      else if (function.equals("/ArthurNumber")) {
+        result = image.divide((ArthurNumber) two); //tile each frame
+      }
+      else if (function.equals("+ArthurColor")) {
+        result = image.add((ArthurColor) two); //tint each frame
+      }
+      else if (function.equals("-ArthurColor")) {
+        result = image.minus((ArthurColor) two); //tint each frame with complement
+      }
+      else if (function.equals("+ArthurImage")) {
+        result = image.add((ArthurImage) two); //put image on right of video
+      }
+      else if (function.equals("-ArthurImage")) {
+        result = image.minus((ArthurImage) two); //put image on left of video
+      }
+      else if (function.equals("+ArthurString")) {
+        result = image.add((ArthurString) two); //pin text on image
+      }
+      else if (function.equals("-ArthurString")) {
+        result = image.minus((ArthurString) two); //tbd
+      }
+      else {
+        System.out.println("Error - that's not an acceptable function");
+        result = image;
+      }
+
+      result.writeToFile("adjusted-" + filename);
       counter++;
     }
 
     String tempVid = "Vid-temp-" + System.currentTimeMillis() + ".mp4";
     String tempSound = "Sound-temp-" + System.currentTimeMillis() + ".mp3";
 
-    String command2 = "ffmpeg -r 30 -i tiled-%d.jpg " + tempVid;
+    String command2 = "ffmpeg -r 30 -i adjusted-%d.jpg " + tempVid;
     String command3 = "ffmpeg -i " + one.filename + " " + tempSound;
     String command4 = "ffmpeg -i " + tempVid + " -i " + tempSound + " -ab 192k " + outname;
-    /*
-    ffmpeg -r 30 -i mixedFrame%d.jpg outputMovie.mp4
-    ffmpeg -i sample1.mp4 sample1sound.mp3
-    ffmpeg -i outputMovie.mp4 -i sample1sound.mp3 -ab 192k movSound.mp4
-    */
 
-    IoUtils.execute(command1);
     IoUtils.execute(command2);
     IoUtils.execute(command3);
     IoUtils.execute(command4);
 
     for (int i = 1; i < 10; i++) {
       IoUtils.execute("rm " + i + "*.jpg");
-      IoUtils.execute("rm tiled-" + i + "*.jpg");
+      IoUtils.execute("rm adjusted-" + i + "*.jpg");
     }
 
-    //TODO: remove other temp files
+    IoUtils.execute("rm Vid-temp-*");
+    IoUtils.execute("rm Sound-temp-*");
     
     return new ArthurVideo(outname);
   }
