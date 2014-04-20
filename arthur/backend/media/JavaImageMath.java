@@ -18,6 +18,7 @@ public class JavaImageMath {
 	static int counter = 0;
 
 	public static ArthurImage add(ArthurImage one, ArthurNumber two) {
+		System.out.println("Called arthurImage add");
 		BufferedImage image = JavaImageMath.clone(one.bf);
 		double number = two.val;
 		int num = (int) number;
@@ -349,6 +350,14 @@ public class JavaImageMath {
 		counter++;
 
 		return new ArthurImage(collage, outputFn);
+	}
+
+	public static ArthurImage divide (ArthurImage one, ArthurVideo two) {
+		return JavaImageMath.divide(one, two.toImage());
+	}
+
+	public static ArthurImage multiply (ArthurImage one, ArthurVideo two) {
+		return JavaImageMath.multiply(one, two.toImage());
 	}
 
 	public static BufferedImage clone(BufferedImage original) {

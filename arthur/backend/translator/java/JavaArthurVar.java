@@ -25,10 +25,23 @@ public class JavaArthurVar extends ArthurVar {
         return "ArthurImage " + this.name;
       case "video":
         return "ArthurVideo " + this.name;
-      case "Sound":
+      case "sound":
         return "ArthurSound " + this.name;
       default:
-        return this.type + " " + this.name;
+        return "UNKNOWN " + " " + this.name;
+    }
+  }
+
+  public static String javaName(String arthurName) {
+    switch(arthurName) {
+      case "num": return "ArthurNumber";
+      case "string": return "ArthurString";
+      case "color": return "ArthurColor";
+      case "bool": return  "Boolean";
+      case "Image": return "ArthurImage";
+      case "Video": return "ArthurVideo";
+      case "Sound": return "ArthurSound";
+      default: return "UNKNOWN";
     }
   }
 

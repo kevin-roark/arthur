@@ -23,6 +23,7 @@ function ArthurString(json, raw) {
 
   if (typeof json == 'string') {
     if (json.substring(0, 1) == '{') {
+      console.log(json);
       var ob = JSON.parse(json);
     } else {
       var ob = {str: json};

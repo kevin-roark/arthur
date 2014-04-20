@@ -1,5 +1,7 @@
 package arthur.backend.media;
 
+import com.google.gson.*;
+
 import java.io.*;
 import java.awt.*;
 import java.awt.image.*;
@@ -8,6 +10,7 @@ import java.awt.font.*;
 import java.util.*;
 
 import arthur.backend.builtins.java.*;
+import arthur.backend.IoUtils;
 
 /**
  * Java implementation of arthur string!!
@@ -41,6 +44,8 @@ public class ArthurString extends ArthurMedia {
       return JavaStringMath.add(this, (ArthurNumber) two);
     } else if (two.type.equals(ArthurImage.IMAGE)) {
       return JavaStringMath.add(this, (ArthurImage) two);
+    } else if (two.type.equals(ArthurColor.COLOR)) {
+      return JavaStringMath.add(this, (ArthurColor) two);
     } else {
       // coerce later
       return this;
@@ -54,6 +59,8 @@ public class ArthurString extends ArthurMedia {
       return JavaStringMath.minus(this, (ArthurNumber) two);
     } else if (two.type.equals(ArthurImage.IMAGE)) {
       return JavaStringMath.minus(this, (ArthurImage) two);
+    } else if (two.type.equals(ArthurColor.COLOR)) {
+      return JavaStringMath.minus(this, (ArthurColor) two);
     } else {
       // coerce later
       return this;
@@ -103,6 +110,8 @@ public class ArthurString extends ArthurMedia {
       return this.toNumber();
     } else if (mediaType.equals("Image")) {
       return this.toImage();
+    } else if (mediaType.equals("Sound")) {
+      return this.toSound();
     }
 
     return this;
@@ -152,6 +161,17 @@ public class ArthurString extends ArthurMedia {
     return new ArthurImage(image, filename);
   }
 
+  public ArthurSound toSound() {
+    String tempWav = "text-" + System.currentTimeMillis() + ".wav";
+    String command = "java -jar lib/freetts/lib/freetts.jar " +
+        " -dumpAudio " + tempWav +
+        " -text '" + this.str + "'";
+    IoUtils.execute(command);
+    ArthurSound s = ArthurSound.fromWav(tempWav);
+    IoUtils.execute("rm -f " + tempWav);
+    return s;
+  }
+
   public boolean arthurEquals(ArthurMedia two) {
     if (two.type.equals(STRING)) {
       ArthurString t = (ArthurString) two;
@@ -173,25 +193,24 @@ public class ArthurString extends ArthurMedia {
   }
 
   public String json() {
-    String json = "{'str': '" +
-      this.str.replace("\"", "`")
-      .replace("'", "`")
-      .replace("\r", "")
-      .replace("\n", "\\\\n") + "'";
+    Gson gson = new Gson();
+    String jsonStr = gson.toJson(this.str);
+
+    String json = "{\"str\": " + jsonStr.replace("\\", "\\\\");
+
     if (this.tint != null) {
-      json += ", 'color': " + this.tint.json();
+      json += ", \"color\": " + this.tint.json();
     }
     if (this.size != null) {
-      json += ", 'size': '" + this.size.val + "'";
+      json += ", \"size\": \"" + this.size.val + "\"";
     }
     if (this.wrap != null) {
-      json +=", 'wrap': '" + this.wrap.toString() + "'";
+      json +=", \"wrap\": \"" + this.wrap.toString() + "\"";
     }
     if (this.frame != null) {
-      json += ", 'frame': " + this.frame.json();
+      json += ", \"frame\": " + this.frame.json();
     }
     json += "}";
-    json = json.replace("'", "\"");
     return json;
   }
 

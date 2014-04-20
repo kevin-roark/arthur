@@ -19,3 +19,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.arthur-video {
+  position: absolute;
+}

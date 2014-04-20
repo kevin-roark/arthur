@@ -69,7 +69,7 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     ArthurImage res;
     if (two.type.equals(IMAGE)) {
       res = JavaImageMath.add(this, (ArthurImage) two);
-    } 
+    }
     else if (two.type.equals(ArthurColor.COLOR)) {
       res = JavaImageMath.add(this, (ArthurColor) two);
     }
@@ -90,7 +90,7 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     ArthurImage res;
     if (two.type.equals(IMAGE)) {
       res = JavaImageMath.minus(this, (ArthurImage) two);
-    } 
+    }
     else if (two.type.equals(ArthurColor.COLOR)) {
       res = JavaImageMath.minus(this, (ArthurColor) two);
     }
@@ -114,6 +114,12 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
       res = JavaImageMath.multiply(this, (ArthurImage) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       res = JavaImageMath.multiply(this, (ArthurNumber) two);
+    } else if (two.type.equals(ArthurColor.COLOR)) {
+      ArthurColor color = (ArthurColor) two;
+      res = JavaImageMath.multiply(this, color.toImage());
+    } else if (two.type.equals(ArthurString.STRING)) {
+      ArthurString str = (ArthurString) two;
+      res = JavaImageMath.multiply(this, str.toImage());
     } else {
       res = this;
     }
@@ -127,6 +133,12 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
       res = JavaImageMath.divide(this, (ArthurImage) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       res = JavaImageMath.divide(this, (ArthurNumber) two);
+    } else if (two.type.equals(ArthurColor.COLOR)) {
+      ArthurColor color = (ArthurColor) two;
+      res = JavaImageMath.divide(this, color.toImage());
+    } else if (two.type.equals(ArthurString.STRING)) {
+      ArthurString str = (ArthurString) two;
+      res = JavaImageMath.divide(this, str.toImage());
     } else {
       res = this;
     }
@@ -220,7 +232,6 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     }
   }
 
-
   public ArthurColor getAverageColor(){
     int[] rgbArray=bf.getRGB(0, 0, bf.getWidth(), bf.getHeight(), null, 0, bf.getWidth());
 
@@ -228,19 +239,23 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     double red = c.getRed();
     double green = c.getGreen();
     double blue = c.getBlue();
+    double alpha = c.getAlpha();
 
     //Random sampling to get average color of an image
     for(int i=0;i<199;i++){
       c = new Color(rgbArray[(int)((Math.random()*(bf.getHeight()*bf.getWidth()))+1)]);
-    red = red+ c.getRed();
-    green = green+ c.getGreen();
-    blue = blue+ c.getBlue();
+      red = red + c.getRed();
+      green = green + c.getGreen();
+      blue = blue + c.getBlue();
+      alpha = alpha + c.getAlpha();
     }
+
     double redAvg=red/200;
     double greenAvg=green/200;
     double blueAvg=blue/200;
+    double alphaAvg = alpha/200;
 
-    return new ArthurColor(redAvg,greenAvg,blueAvg, 1.0);
+    return new ArthurColor(redAvg, greenAvg, blueAvg, alphaAvg);
   }
 
   public boolean arthurEquals(ArthurMedia two) {

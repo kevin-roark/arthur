@@ -86,6 +86,14 @@ public class JavaArthurTranslator extends ArthurTranslator {
     return "int ";
   }
 
+  public String castCode(ParseNode n) {
+    ParseNode id = n.children.get(0).children.get(0);
+    ParseNode type = n.children.get(1);
+    String jname = JavaArthurVar.javaName(type.val);
+
+    return "(" + jname + ") " + id.val + ".castTo(\"" + type.val + "\")";
+  }
+
   public String varCode(ParseNode n) {
     ParseNode type = n.children.get(0);
     ParseNode name = n.children.get(1);

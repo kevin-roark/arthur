@@ -101,12 +101,22 @@ module.exports.addArthurImage = function(json, filename) {
   activeMedia.push(ai);
 }
 
-module.exports.addArthurSound = function(filename, frame) {
+module.exports.addArthurSound = function(json, filename) {
+  var global = checkGlobal(filename);
+  if (global) return;
 
+  var as = new ArthurSound(json);
+  as.active = true;
+  activeMedia.push(as);
 }
 
-module.exports.addArthurVideo = function(filename, frame) {
+module.exports.addArthurVideo = function(json, filename) {
+  var global = checkGlobal(filename);
+  if (global) return;
 
+  var as = new ArthurVideo(json);
+  as.active = true;
+  activeMedia.push(as);
 }
 
 module.exports.add = function(media, frame) {

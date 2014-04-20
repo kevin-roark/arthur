@@ -31,6 +31,7 @@ public class ArthurCompiler {
 
     boolean verbose = true;
     boolean run = true;
+    boolean clean = true;
 
     for (int i = 0; i < args.length - 1; i++) {
       String arg = args[i];
@@ -40,6 +41,10 @@ public class ArthurCompiler {
       if (arg.equals("-trans")) {
         run = false;
         System.out.println("only translating");
+      }
+      if (arg.equals("-dirty")) {
+        clean = false;
+        System.out.println("not removing client fluff");
       }
     }
 
@@ -101,7 +106,7 @@ public class ArthurCompiler {
     // build the output
     if (verbose)
       System.out.println("building output");
-    buildClient(dirname, meddledJs);
+    buildClient(dirname, meddledJs, clean);
   }
 
   public static void execAndPrint(String exec, boolean print) throws IOException, InterruptedException {
@@ -167,7 +172,7 @@ public class ArthurCompiler {
     return dirname;
   }
 
-  public static void buildClient(String dirname, String javascript) throws IOException, InterruptedException {
+  public static void buildClient(String dirname, String javascript, boolean clean) throws IOException, InterruptedException {
     try {
       // write the js
       String filename = dirname + "/js/" + JSNAME;
@@ -176,7 +181,11 @@ public class ArthurCompiler {
       out.close();
 
       // build it with browserify
-      String ex = "make jsbuild";
+      String ex;
+      if (clean)
+        ex = "make jsbuild";
+      else
+        ex = "make dirtybuild";
       execAndPrint(ex, true);
 
     } catch(FileNotFoundException e) {

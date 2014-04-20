@@ -1,5 +1,5 @@
 #!/bin/bash
-
+c=0
 # gotta go up some levels..
 cd ../../
 
