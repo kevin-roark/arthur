@@ -93,6 +93,7 @@ public class ArthurVideo extends ArthurMedia {
     else if (two.type.equals(ArthurImage.IMAGE)) {
       return JavaVideoMath.minus(this, (ArthurImage) two, outname);
     }
+    //TODO: minus sound 
     return this;
   }
 
