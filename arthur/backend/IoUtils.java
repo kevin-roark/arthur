@@ -62,13 +62,14 @@ public class IoUtils {
     public static boolean execute(String exec) {
       try {
         System.out.println("starting: " + exec);
+
         Process p = Runtime.getRuntime().exec(exec);
-        
+
         StreamGobbler errorGobbler = new StreamGobbler(p.getErrorStream(), "ERROR");
         StreamGobbler outputGobbler = new StreamGobbler(p.getInputStream(), "OUTPUT");
         errorGobbler.run();
         outputGobbler.run();
-        
+
         p.waitFor();
         System.out.println("finished: " + exec);
         return true;
