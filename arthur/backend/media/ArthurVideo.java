@@ -70,6 +70,9 @@ public class ArthurVideo extends ArthurMedia {
     else if (two.type.equals(ArthurImage.IMAGE)) {
       return JavaVideoMath.add(this, (ArthurImage) two, outname);
     }
+    else if (two.type.equals(ArthurSound.SOUND)) {
+      return JavaVideoMath.add(this, (ArthurSound) two, outname);
+    }
     return this;
   }
 
