@@ -17,7 +17,8 @@
 %token EQ EQ2X LT LTE GT GTE
 %token PLUS MINUS TIMES DIV MOD EXP
 %token FUNCTION VAR VALUE ID
-%token COLOR NUMBER STRINGLIT TRUE FALSE TYPE
+%token COLOR NUMBER STRINGLIT TRUE FALSE
+%token TYPE ARG
 %token EOF
 %token UNKNOWN
 
@@ -260,6 +261,15 @@ caster
                                                       ParseNode type = new ParseNode(t.name);
                                                       caster.addChild(type);
                                                       $$ = new ParserVal(caster);
+                                                    }
+    ;
+
+sysarg
+    : ARG                                           {
+                                                      ParseNode arg = new ParseNode("sysarg");
+                                                      Arg a = (Arg) $1.obj;
+                                                      arg.addChild(new ParseNode(a.num));
+                                                      $$ = new ParserVal(arg);
                                                     }
     ;
 
@@ -666,6 +676,7 @@ id
     | meth_call                                     { $$ = $1; }
     | prop_access                                   { $$ = $1; }
     | caster                                        { $$ = $1; }
+    | sysarg                                        { $$ = $1; }
     | ID                                            {
                                                         Identifier i = (Identifier) $1.obj;
 
@@ -758,6 +769,7 @@ int tokenMap(int tokenType) {
         case Tokens.EOF: return EOF;
         case Tokens.VALUE: return VALUE;
         case Tokens.TYPE: return TYPE;
+        case Tokens.ARG: return ARG;
         default: return UNKNOWN;
     }
 }

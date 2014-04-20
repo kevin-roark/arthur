@@ -1,0 +1,9 @@
+
+void init() {
+  string help = @1;
+  add(help);
+}
+
+void loop() {
+
+}

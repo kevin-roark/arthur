@@ -47,6 +47,7 @@ public class Tokens {
     public static final int EOF = 39;
     public static final int VALUE = 40;
     public static final int TYPE = 41;
+    public static final int ARG = 42;
 
     public static String getName(int token) {
         switch (token) {
@@ -91,6 +92,7 @@ public class Tokens {
             case EOF: return "EOF";
             case VALUE: return "value fallback";
             case TYPE: return "type";
+            case ARG: return "arg";
             default: return "unknown token";
         }
     }

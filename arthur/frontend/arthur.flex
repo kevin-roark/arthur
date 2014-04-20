@@ -55,6 +55,7 @@ RGBA = <<{WS}*{Byte}{WS}*,{WS}*{Byte}{WS}*,{WS}*{Byte}{WS}*,{WS}*{Number}{WS}*>>
 
 /* identifiers */
 Identifier = {Letter}({Letter}|{Digit})*
+Arg = @{Digit}+
 Value = {Identifier}|{Number}|{StringLiteral}|{RGB}|{RGBA}
 
 /* declarations */
@@ -164,6 +165,8 @@ FunDec = ({Type}|void){WS}+{Identifier}{WS}*\(
                             }
 
     {Type}                  { return new Type(yytext(), yyline); }
+
+    {Arg}                   { return new Arg(yytext(), yyline); }
 
     {Identifier}            { return new Identifier(yytext(), yyline); }
 

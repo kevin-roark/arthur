@@ -18,7 +18,7 @@ public class JavaBuiltins {
   }
 
   public static ArthurVideo video(ArthurString filename) {
-    return new ArthurVideo();
+    return new ArthurVideo(filename.str);
   }
 
   public static ArthurSound sound(ArthurString filename) {
