@@ -97,18 +97,15 @@ public class JavaVideoMath {
     String tempSound = "Sound-temp-" + System.currentTimeMillis() + ".mp3";
     String command2 = String.format(extractAudio, tempVid, tempSound);
 
-    //atempo can only take between 0.5 and 2.0; fix this later by doing it multiple times
-    String speedUpAudio = "ffmpeg -i %s -filter:a \"atempo=%f\" %s";
-    String tempSoundSpeedy = "Sound-temp-speedy-" + System.currentTimeMillis() + ".mp3";
-    String command3 = String.format(speedUpAudio, tempSound, two.val, tempSoundSpeedy);
-
-    String addbackAudio = "ffmpeg -i %s -i %s %s";
-    String command4 = String.format(addbackAudio, tempSoundSpeedy, tempVid, outname);
-
     IoUtils.execute(command1);
     IoUtils.execute(command2);
+
+    ArthurSound spedUpAudio = JavaSoundMath.speedChange(new ArthurSound(tempSound), two.val, "Sound-temp-speedy-" + System.currentTimeMillis() + ".mp3");
+    
+    String addbackAudio = "ffmpeg -i %s -i %s %s";
+    String command3 = String.format(addbackAudio, spedUpAudio.filename, tempVid, outname);
+
     IoUtils.execute(command3);
-    IoUtils.execute(command4);
 
     IoUtils.execute("rm Vid-temp-*");
     IoUtils.execute("rm Sound-temp-*");
@@ -154,10 +151,11 @@ public class JavaVideoMath {
         result = image.minus((ArthurColor) two); //tint each frame with complement
       }
       else if (function.equals("+ArthurImage")) {
-        result = image.add((ArthurImage) two); //put image on right of video
+        System.out.println("heeey");
+        result = image.divide((ArthurImage) two); //overlay image on video
       }
       else if (function.equals("-ArthurImage")) {
-        result = image.minus((ArthurImage) two); //put image on left of video
+        result = image.multiply((ArthurImage) two); //overlay image on video without resizing
       }
       else if (function.equals("+ArthurString")) {
         result = image.add((ArthurString) two); //pin text on image
