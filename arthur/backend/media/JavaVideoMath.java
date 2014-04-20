@@ -3,6 +3,7 @@ package arthur.backend.media;
 import arthur.backend.IoUtils;
 
 import java.io.File;
+import java.lang.Runtime;
 
 /**
  * Contains a suite of static methods to perform math operations involving
@@ -13,20 +14,22 @@ public class JavaVideoMath {
   public static ArthurVideo add(ArthurVideo one, ArthurVideo two, String outname) {
     System.out.println(outname);
 
-    String f1 = "ts1-" + System.currentTimeMillis();
-    String f2 = "ts2-" + System.currentTimeMillis();
+    String f1 = "ts1-" + System.currentTimeMillis() + ".ts";
+    String f2 = "ts2-" + System.currentTimeMillis() + ".ts";
 
-    String mp4tompeg = "ffmpeg -i %s -c copy -bsf:v h264_mp4toannexb -f mpegts %s.ts";
+    String mp4tompeg = "ffmpeg -i %s -c copy -bsf:v h264_mp4toannexb -f mpegts %s";
     String command1 = String.format(mp4tompeg, one.filename, f1);
     String command2 = String.format(mp4tompeg, two.filename, f2);
     IoUtils.execute(command1);
     IoUtils.execute(command2);
 
-    String concat = "ffmpeg -i \"concat:%s.ts|%s.ts\" -c copy -bsf:a aac_adtstoasc %s";
+    String concat = "ffmpeg -i \"concat:%s|%s\" -c copy -bsf:a aac_adtstoasc %s";
     String command3 = String.format(concat, f1, f2, outname);
     IoUtils.execute(command3);
-    
-    IoUtils.execute("rm ts*");
+    //IoUtils.execute(new String[] {"sh", "-c", command3});
+
+    IoUtils.execute("rm " + f1);
+    IoUtils.execute("rm " + f2);
     
     return new ArthurVideo(outname);
   }
@@ -41,7 +44,7 @@ public class JavaVideoMath {
     String command2 = String.format(addAudio, one.filename, soundFileWav, outname);
     IoUtils.execute(command1);
     IoUtils.execute(command2);
-    IoUtils.execute("rm *.wav");
+    IoUtils.execute("rm " + soundFileWav);
     return new ArthurVideo(outname);
   }
 
@@ -97,21 +100,20 @@ public class JavaVideoMath {
     String tempSound = "Sound-temp-" + System.currentTimeMillis() + ".mp3";
     String command2 = String.format(extractAudio, tempVid, tempSound);
 
-    //atempo can only take between 0.5 and 2.0; fix this later by doing it multiple times
-    String speedUpAudio = "ffmpeg -i %s -filter:a \"atempo=%f\" %s";
-    String tempSoundSpeedy = "Sound-temp-speedy-" + System.currentTimeMillis() + ".mp3";
-    String command3 = String.format(speedUpAudio, tempSound, two.val, tempSoundSpeedy);
-
-    String addbackAudio = "ffmpeg -i %s -i %s %s";
-    String command4 = String.format(addbackAudio, tempSoundSpeedy, tempVid, outname);
-
     IoUtils.execute(command1);
     IoUtils.execute(command2);
-    IoUtils.execute(command3);
-    IoUtils.execute(command4);
 
-    IoUtils.execute("rm Vid-temp-*");
-    IoUtils.execute("rm Sound-temp-*");
+    String speedyAudio = "Sound-temp-speedy-" + System.currentTimeMillis() + ".mp3";
+    ArthurSound spedUpAudio = JavaSoundMath.speedChange(new ArthurSound(tempSound), two.val, speedyAudio);
+    
+    String addbackAudio = "ffmpeg -i %s -i %s %s";
+    String command3 = String.format(addbackAudio, spedUpAudio.filename, tempVid, outname);
+
+    IoUtils.execute(command3);
+
+    IoUtils.execute("rm " + tempSound);
+    IoUtils.execute("rm " + tempVid);
+    IoUtils.execute("rm " + speedyAudio);
 
     return new ArthurVideo(outname);
   }
@@ -154,10 +156,11 @@ public class JavaVideoMath {
         result = image.minus((ArthurColor) two); //tint each frame with complement
       }
       else if (function.equals("+ArthurImage")) {
-        result = image.add((ArthurImage) two); //put image on right of video
+        System.out.println("heeey");
+        result = image.divide((ArthurImage) two); //overlay image on video
       }
       else if (function.equals("-ArthurImage")) {
-        result = image.minus((ArthurImage) two); //put image on left of video
+        result = image.multiply((ArthurImage) two); //overlay image on video without resizing
       }
       else if (function.equals("+ArthurString")) {
         result = image.add((ArthurString) two); //pin text on image
@@ -185,13 +188,28 @@ public class JavaVideoMath {
     IoUtils.execute(command3);
     IoUtils.execute(command4);
 
+    counter = 1;
+    while (true) {
+      String filename = counter + ".jpg";
+      if (new File(filename).isFile() == false) {
+        break;
+      }
+      IoUtils.execute("rm " + filename);
+      IoUtils.execute("rm adjusted-" + filename);
+      counter++;
+    }
+
+    /*
+
     for (int i = 1; i < 10; i++) {
       IoUtils.execute("rm " + i + "*.jpg");
       IoUtils.execute("rm adjusted-" + i + "*.jpg");
     }
 
-    IoUtils.execute("rm Vid-temp-*");
-    IoUtils.execute("rm Sound-temp-*");
+    */
+
+    IoUtils.execute("rm " + tempVid);
+    IoUtils.execute("rm " + tempSound);
     
     return new ArthurVideo(outname);
   }
