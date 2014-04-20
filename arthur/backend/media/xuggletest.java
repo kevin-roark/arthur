@@ -17,7 +17,7 @@ public class xuggletest {
     
     public static final double SECONDS_BETWEEN_FRAMES = 1;
 
-    private static final String inputFilename = "sample1.mp4";
+    private static final String inputFilename = "../../../media/sample1.mp4";
     private static final String outputFilePrefix = "xuggletestoutput";
     
     // The video stream index, used to ensure we display frames from one and
