@@ -31,6 +31,20 @@ public class JavaVideoMath {
     return new ArthurVideo(outname);
   }
 
+  public static ArthurVideo add(ArthurVideo one, ArthurSound two, String outname) {
+    ArthurSound mixedSounds = JavaSoundMath.multiply(one.toSound(), two, ArthurSound.nameGen());
+    String soundFile = mixedSounds.filename;
+    String soundFileWav = mixedSounds.filename.replace(".mp3", ".wav");
+    String mp3towav = "ffmpeg -i %s %s";
+    String command1 = String.format(mp3towav, soundFile, soundFileWav);
+    String addAudio = "ffmpeg -i %s -i %s -c:v copy -c:a aac -strict experimental -map 0:v:0 -map 1:a:0 %s";
+    String command2 = String.format(addAudio, one.filename, soundFileWav, outname);
+    IoUtils.execute(command1);
+    IoUtils.execute(command2);
+    IoUtils.execute("rm *.wav");
+    return new ArthurVideo(outname);
+  }
+
   public static ArthurVideo add(ArthurVideo one, ArthurColor two, String outname) {
     return JavaVideoMath.editFrames(one, two, outname, "+ArthurColor");
   }

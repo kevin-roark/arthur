@@ -18,10 +18,8 @@ public class JavaImageMath {
 	static int counter = 0;
 
 	public static ArthurImage add(ArthurImage one, ArthurNumber two) {
-		System.out.println("Called arthurImage add");
 		BufferedImage image = JavaImageMath.clone(one.bf);
-		double number = two.val;
-		int num = (int) number;
+		int num = two.val.intValue();
 
 		WritableRaster raster = image.getRaster();
 		int[] pixelArray = new int[3];
@@ -43,7 +41,7 @@ public class JavaImageMath {
 		//save image
 		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) +
 								"+" + //filename can't contain the / or *characters; decide later
-								number +
+								num +
 								counter +
 								".jpg";
 		counter++;
@@ -55,7 +53,7 @@ public class JavaImageMath {
 		BufferedImage image = JavaImageMath.clone(one.bf);
 
 		Graphics2D g2d = image.createGraphics();
-		Font font = new Font("Comic Sans MS", Font.PLAIN, 96);
+		Font font = new Font("Comic Sans MS", Font.PLAIN, 40);
 		g2d.setFont(font);
 		g2d.drawString(two.str, 0, 120);
 		g2d.dispose();
@@ -139,7 +137,24 @@ public class JavaImageMath {
 	}
 
 	public static ArthurImage minus(ArthurImage one, ArthurString two) {
-		return JavaImageMath.add(one, two);
+		BufferedImage image = JavaImageMath.clone(one.bf);
+
+		Graphics2D g2d = image.createGraphics();
+		Font font = new Font("Comic Sans MS", Font.PLAIN, 40);
+		g2d.setFont(font);
+		g2d.setColor(Color.BLACK);
+		g2d.drawString(two.str, 0, 120);
+		g2d.dispose();
+		
+		//save image
+		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) +
+								"+" + //filename can't contain the / or *characters; decide later
+								two.str +
+								counter +
+								".jpg";
+		counter++;
+
+		return new ArthurImage(image, outputFn);
 	}
 
 	public static ArthurImage minus(ArthurImage one, ArthurColor two) {
