@@ -38,7 +38,7 @@ public class JavaArthurTranslator extends ArthurTranslator {
 
     // addFields
     s += "\npublic void addFields(Field[] fields) {\n for (Field f : fields) {\n";
-    s += "if (f.getName().equals(\"sysargs\")) return;";
+    s += "if (f.getName().equals(\"sysargs\")) continue;";
     s += "  try {\n";
     s += "    Object val = f.get(this); JsWhisperer.addGlobal(f.getName(), val);\n";
     s += "  } catch(IllegalAccessException e) { e.printStackTrace(); }\n }\n }\n";
@@ -63,6 +63,16 @@ public class JavaArthurTranslator extends ArthurTranslator {
     s += "\npublic void add(ArthurMedia media, ArthurFrame frame) {\n";
     s += "  String name = _isField(this, media);\n";
     s += "  _addMedia(media, name, frame); \n}\n";
+
+    // add with delay
+    s += "\npublic void add(ArthurMedia media, ArthurNumber delay) {\n";
+    s += "  String name = _isField(this, media);\n";
+    s += "  _addMedia(media, name, delay); \n}\n";
+
+    // add with frame and delay
+    s += "\npublic void add(ArthurMedia media, ArthurFrame frame, ArthurNumber delay) {\n";
+    s += "  String name = _isField(this, media);\n";
+    s += "  _addMedia(media, name, frame, delay); \n}\n";
 
     // constructor
     s += "public ArthurTranslation() { ";
@@ -91,11 +101,24 @@ public class JavaArthurTranslator extends ArthurTranslator {
   }
 
   public String castCode(ParseNode n) {
-    ParseNode id = n.children.get(0).children.get(0);
     ParseNode type = n.children.get(1);
     String jname = JavaArthurVar.javaName(type.val);
+    ParseNode one = n.children.get(0);
+    String id;
 
-    return "(" + jname + ") " + id.val + ".castTo(\"" + type.val + "\")";
+    if (one.val.equals("Identifier")) {
+      id = one.children.get(0).val;
+    } else if (one.val.equals("Color")) {
+      id = colorLiteral(one);
+    } else if (one.val.equals("number")) {
+      id = numberLiteral(one);
+    } else if (one.val.equals("String")) {
+      id = stringLiteral(one);
+    } else {
+      id = "BAD CAST";
+    }
+
+    return "(" + jname + ") " + id + ".castTo(\"" + type.val + "\")";
   }
 
   public String varCode(ParseNode n) {

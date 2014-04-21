@@ -57,7 +57,7 @@ public class JavaImageMath {
 		g2d.setFont(font);
 		g2d.drawString(two.str, 0, 120);
 		g2d.dispose();
-		
+
 		//save image
 		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) +
 								"+" + //filename can't contain the / or *characters; decide later
@@ -103,6 +103,10 @@ public class JavaImageMath {
 		return JavaImageMath.addition(one, two, 0);
 	}
 
+  public static ArthurImage add(ArthurImage one, ArthurSound two) {
+    return add(one, two.toColor());
+  }
+
 	public static ArthurImage minus(ArthurImage one, ArthurNumber two) {
 		BufferedImage image = JavaImageMath.clone(one.bf);
 		double number = two.val;
@@ -145,7 +149,7 @@ public class JavaImageMath {
 		g2d.setColor(Color.BLACK);
 		g2d.drawString(two.str, 0, 120);
 		g2d.dispose();
-		
+
 		//save image
 		String outputFn = one.filename.substring(0, one.filename.indexOf(".jpg")) +
 								"+" + //filename can't contain the / or *characters; decide later
@@ -166,6 +170,10 @@ public class JavaImageMath {
 	public static ArthurImage minus(ArthurImage one, ArthurImage two) {
 		return JavaImageMath.addition(two, one, 1);
 	}
+
+  public static ArthurImage minus(ArthurImage one, ArthurSound two) {
+    return minus(one, two.toColor());
+  }
 
 	public static ArthurImage addition(ArthurImage one, ArthurImage two, int op) {
 		BufferedImage image = JavaImageMath.clone(one.bf);

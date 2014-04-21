@@ -33,15 +33,15 @@ public class ArthurVideo extends ArthurMedia {
 
     private static ArthurImage frames;
     public static long duration;
-    
+
     // The video stream index, used to ensure we display frames from one and
     // only one video stream from the media container.
     private static int mVideoStreamIndex = -1;
-    
+
     // Time of last frame write
     private static long mLastPtsWrite = Global.NO_PTS;
-    
-    public static final long MICRO_SECONDS_BETWEEN_FRAMES = 
+
+    public static final long MICRO_SECONDS_BETWEEN_FRAMES =
     (long)(Global.DEFAULT_PTS_PER_SECOND * SECONDS_BETWEEN_FRAMES);
 
 
@@ -57,7 +57,7 @@ public class ArthurVideo extends ArthurMedia {
     String outname = nameGen();
     if (two.type.equals(VIDEO)) {
       return JavaVideoMath.add(this, (ArthurVideo) two, outname);
-    } 
+    }
     else if (two.type.equals(ArthurColor.COLOR)) {
       return JavaVideoMath.add(this, (ArthurColor) two, outname);
     }
@@ -80,7 +80,7 @@ public class ArthurVideo extends ArthurMedia {
     String outname = nameGen();
     if (two.type.equals(VIDEO)) {
       return JavaVideoMath.minus(this, (ArthurVideo) two, outname);
-    } 
+    }
     else if (two.type.equals(ArthurColor.COLOR)) {
       return JavaVideoMath.minus(this, (ArthurColor) two, outname);
     }
@@ -93,7 +93,7 @@ public class ArthurVideo extends ArthurMedia {
     else if (two.type.equals(ArthurImage.IMAGE)) {
       return JavaVideoMath.minus(this, (ArthurImage) two, outname);
     }
-    //TODO: minus sound 
+    //TODO: minus sound
     return this;
   }
 
@@ -101,7 +101,7 @@ public class ArthurVideo extends ArthurMedia {
     String outname = nameGen();
     if (two.type.equals(VIDEO)) {
       return JavaVideoMath.multiply(this, (ArthurVideo) two, outname);
-    } 
+    }
     else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaVideoMath.multiply(this, (ArthurNumber) two, outname);
     }
@@ -115,7 +115,21 @@ public class ArthurVideo extends ArthurMedia {
     }
     else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaVideoMath.divide(this, (ArthurNumber) two, outname);
-    } 
+    }
+    return this;
+  }
+
+  public ArthurMedia castTo(String mediaType) {
+    if (mediaType.equals("Image")) {
+      return this.toImage();
+    } else if (mediaType.equals("Sound")) {
+      return this.toSound();
+    } else if (mediaType.equals("string")) {
+      return this.toArtString();
+    } else if (mediaType.equals("num")) {
+      return this.toNumber();
+    }
+
     return this;
   }
 
@@ -128,17 +142,23 @@ public class ArthurVideo extends ArthurMedia {
     return new ArthurSound(name);
   }
 
-  public ArthurImage toImage(){
+  public ArthurNumber toNumber() {
+    IContainer container = IContainer.make();
+    int result = container.open(this.filename, IContainer.Type.READ, null);
+    double dur = (double) container.getDuration() / 1000000;
+    return new ArthurNumber(dur);
+  }
 
+  public ArthurString toArtString() {
+    ArthurImage im = toImage();
+    return im.toArtString();
+  }
 
-
-
+  public ArthurImage toImage() {
     IContainer container = IContainer.make();
     int result = container.open(filename, IContainer.Type.READ, null);
     duration = container.getDuration()/1000000;
     duration =duration-duration%1;
-
-
 
     IMediaReader mediaReader = ToolFactory.makeReader(filename);
         // frames=new ArthurImage("OUTPUT.jpg");
@@ -147,12 +167,10 @@ public class ArthurVideo extends ArthurMedia {
 
     mediaReader.addListener(new ImageSnapListener());
 
-        // read out the contents of the media file and
-        // dispatch events to the attached listener
+    // read out the contents of the media file and dispatch events to the attached listener
     while (mediaReader.readPacket() == null) ;
 
     return frames;
-
   }
 
   private static class ImageSnapListener extends MediaListenerAdapter {
@@ -174,7 +192,7 @@ public class ArthurVideo extends ArthurMedia {
         mLastPtsWrite = event.getTimeStamp() - MICRO_SECONDS_BETWEEN_FRAMES;
 
             // if it's time to write the next frame
-      if (event.getTimeStamp() - mLastPtsWrite >= 
+      if (event.getTimeStamp() - mLastPtsWrite >=
         MICRO_SECONDS_BETWEEN_FRAMES) {
 
                 // String outputFilename = dumpImageToFile(event.getImage(), "sampledvid.jpg");
@@ -206,43 +224,47 @@ public class ArthurVideo extends ArthurMedia {
       }
 
                 // indicate file written
-      double seconds = ((double) event.getTimeStamp()) / 
+      double seconds = ((double) event.getTimeStamp()) /
       Global.DEFAULT_PTS_PER_SECOND;
 
 
                 // update last write time
       mLastPtsWrite += MICRO_SECONDS_BETWEEN_FRAMES;
     }
-
-
-    
   }
 }
 
 
 
-public String jsLiteral() {
-  return "new ArthurVideo()";
-}
-
-public static String nameGen() {
-  String name = "Video-" + System.currentTimeMillis() + ".mp4";
-  if (ArthurVideo.intermediateFiles == null) {
-    ArthurVideo.intermediateFiles = new ArrayList<String>();
+  public String jsLiteral() {
+    return "new ArthurVideo(" + json() + ")";
   }
-  ArthurVideo.intermediateFiles.add(name);
-  return name;
-}
 
-public void writeToFile(String fname) {
+  public String json() {
+    String js = "{";
+    js += "\"filename\": \"" + this.filename + "\"";
+    if (this.frame != null) {
+      js += ", \"frame\": " + this.frame.json();
+    }
+    if (this.delay != null) {
+      js += ", \"delay\": " + this.delay.val;
+    }
+    js += "}";
+    return js;
+  }
+
+  public static String nameGen() {
+    String name = "Video-" + System.currentTimeMillis() + ".mp4";
+    if (ArthurVideo.intermediateFiles == null) {
+      ArthurVideo.intermediateFiles = new ArrayList<String>();
+    }
+    ArthurVideo.intermediateFiles.add(name);
+    return name;
+  }
+
+  public void writeToFile(String fname) {
     IoUtils.move(this.filename, fname); // move file to correct name
     this.filename = fname.substring(fname.indexOf('/') + 1); // remove 'buster'
   }
-
-  /*
-  public void writeToFile(String fname) {
-    writer = ToolFactory.makeWriter(fname, reader);
-  }
-  */
 
 }

@@ -19,16 +19,30 @@ function ArthurVideo(json) {
   if (ob.frame) {
     this.frame = ob.frame;
   } else {
-    this.frame = new ArthurFrame(0, 0, -1, -1);
+    var frame = {x: 0, y: 0, w: -1, h: -1};
+    this.frame = new ArthurFrame(frame);
   }
+
+  if (ob.delay) {
+    this.delay = new ArthurNumber(ob.delay);
+  }
+
+  this.holder = $("<div class='arthur-video-holder'>");
 
   var video = $('<video class="arthur-video" id="' + this.medfile + '" preload loop>');
   var dom = video.get(0);
 
-  var source = $('<source src="' + this.medfile + '" type="video/mp4">');
-  video.append(source);
+  var source = '<source src="' + this.medfile + '" type="video/mp4">';
+  video.html(source);
 
-  $('body').append(video);
+  this.holder.append(video);
+
+  this.holder.css('left', this.frame.x.val + 'px');
+  this.holder.css('top', this.frame.y.val + 'px');
+  video.css('width', this.frame.w.val + 'px');
+  video.css('height', this.frame.h.val + 'px');
+
+  $('body').append(this.holder);
   this.video = dom;
 }
 

@@ -10,6 +10,7 @@ public class ArthurMedia implements java.io.Serializable {
 
   public String type;
   public ArthurFrame frame;
+  public ArthurNumber delay;
   public String filename;
 
   public ArthurMedia() {

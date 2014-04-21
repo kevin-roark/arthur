@@ -238,7 +238,10 @@ public class ArthurColor extends ArthurMedia {
     json += "'g': " + g.val + ", ";
     json += "'b': " + b.val + ", ";
     if (this.frame != null) {
-      json += "'frame': " + this.frame.json();
+      json += "'frame': " + this.frame.json() + ", ";
+    }
+    if (this.delay != null) {
+      json += "'delay': " + this.delay.val + ", ";
     }
     json += "'a': " + a.val + "}";
     json = json.replace("'", "\"");

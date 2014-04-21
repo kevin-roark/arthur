@@ -15,6 +15,10 @@ function ArthurSound(json) {
   this.type = types.SOUND;
   this.medfile = ob.filename;
 
+  if (ob.delay) {
+    this.delay = new ArthurNumber(ob.delay);
+  }
+
   var audio = $('<audio class="arthur-audio" id="' + this.medfile + '" preload loop>');
   var dom = audio.get(0);
 

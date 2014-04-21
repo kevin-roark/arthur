@@ -212,18 +212,23 @@ public class JavaSoundMath {
     return new ArthurSound(outname);
   }
 
-  /**
-   * Mixes together two audio samples to produce a new value.  Allows you to adjust relative volume of each sample in the
-   * final mix.  Clips audio output to max available in a short.
-   * @param V1 volume (1 is 100% and should be default) you want to mix first audio stream with.  Should default to 1
-   * @param S1 the sample from the 1st stream of audio
-   * @param V2 volume (1 is 100% and should be default) you want to mix second audio stream with.  Should default to 1
-   * @param S2 the sample from the 2nd stream of audio
-   * @return the mixed sample
-   */
-  private static short mixSamples(float V1, int S1, float V2, int S2) {
-    final int n = (int) ((V1*S1) + (V2*S2));
-    return (short) (n > Short.MAX_VALUE ? Short.MAX_VALUE : (n < Short.MIN_VALUE ? Short.MIN_VALUE : n));
+  public static String stat(ArthurSound sound) {
+    String command = soxStarter(sound.filename, "-n") + " stat";
+    String res = IoUtils.execAndErr(command);
+    return res;
+  }
+
+  public static double getFrequency(ArthurSound sound) {
+    String res = stat(sound);
+    String[] lines = res.split("\n");
+    for (String line : lines) {
+      if (line.contains("Rough")) { // Rough Frequency
+        String[] split = line.split(":");
+        double freq = Double.parseDouble(split[1].replace(" ", ""));
+        return freq;
+      }
+    }
+    return 0.0;
   }
 
 }

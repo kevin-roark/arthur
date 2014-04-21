@@ -8,6 +8,7 @@ import com.xuggle.xuggler.IContainer;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
+import java.io.FileReader;
 
 import arthur.backend.IoUtils;
 
@@ -31,7 +32,7 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
     // get duration
     clip.open();
     final IContainer c = clip.getContainer();
-    duration = new ArthurNumber(new Double(c.getDuration()));     // this fucked up
+    duration = new ArthurNumber(new Double(c.getDuration()));
     c.close();
   }
 
@@ -124,6 +125,51 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
     return name;
   }
 
+  public ArthurMedia castTo(String mediaType) {
+    if (mediaType.equals("string")) {
+      return this.toArtString();
+    } else if (mediaType.equals("num")) {
+      return this.toNumber();
+    } else if (mediaType.equals("color")) {
+      return this.toColor();
+    }
+
+    return this;
+  }
+
+  // right now its just a gray based on average frequency
+  public ArthurColor toColor() {
+    double freq = JavaSoundMath.getFrequency(this);
+    double ratio = 255 * freq / (JavaColorMath.maxFreq - JavaColorMath.minFreq);
+    return new ArthurColor(ratio, ratio, ratio, 1.0);
+  }
+
+  public ArthurString toArtString() {
+    char curChar = 'x';
+    int count = 0;
+    StringBuilder builder = new StringBuilder();
+
+    try {
+      FileReader inputStream = new FileReader(this.filename);
+
+      while (curChar != (char) -1 && count++ <= 100) {
+        curChar = (char) inputStream.read();
+        builder.append(curChar);
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
+    }
+
+    return new ArthurString(builder.toString());
+  }
+
+  public ArthurNumber toNumber() {
+    IContainer container = IContainer.make();
+    int result = container.open(this.filename, IContainer.Type.READ, null);
+    double dur = (double) container.getDuration() / 1000000;
+    return new ArthurNumber(dur);
+  }
+
   public String toString() {
     return "sound file " + filename + ", duration " + duration + " ms";
   }
@@ -135,6 +181,9 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
   public String json() {
     String js = "{";
     js += "\"filename\": \"" + this.filename + "\"";
+    if (this.delay != null) {
+      js += ", \"delay\": " + this.delay.val;
+    }
     js += "}";
     return js;
   }
