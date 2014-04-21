@@ -79,8 +79,19 @@ public class JavaVideoMath {
   }
 
   public static ArthurVideo multiply(ArthurVideo one, ArthurVideo two, String outname) {
-    //TODO
-    return one;
+    //we need to conserve the audio from the second vid, i haven't been able to do that!
+
+    /*
+    String extractAudio = "ffmpeg -i %s -vn -ar 44100 -ac 2 -ab 192 -f mp3 %s";
+    String tempSound = "Sound-temp-" + System.currentTimeMillis() + ".mp3";
+    String command1 = String.format(extractAudio, two.filename, tempSound);
+*/
+    //this actually merges the vids though
+    IoUtils.execute(scriptPath() + "vidoverlay.sh " + one.filename + " " + two.filename + " " + outname);
+    /*String addbackAudio = "ffmpeg -i %s -i %s %s";
+    String command3 = String.format(addbackAudio, tempSound, outname, outname);*/
+
+    return new ArthurVideo(outname);
   }
 
   public static ArthurVideo multiply(ArthurVideo one, ArthurNumber two, String outname) {
@@ -97,7 +108,8 @@ public class JavaVideoMath {
     IoUtils.execute(command1);
     IoUtils.execute(command2);
 
-    ArthurSound spedUpAudio = JavaSoundMath.speedChange(new ArthurSound(tempSound), two.val, "Sound-temp-speedy-" + System.currentTimeMillis() + ".mp3");
+    String speedyName = "Sound-temp-speedy-" + System.currentTimeMillis() + ".mp3";
+    ArthurSound spedUpAudio = JavaSoundMath.speedChange(new ArthurSound(tempSound), two.val, speedyName);
 
     String addbackAudio = "ffmpeg -i %s -i %s %s";
     String command3 = String.format(addbackAudio, spedUpAudio.filename, tempVid, outname);
@@ -106,6 +118,7 @@ public class JavaVideoMath {
 
     IoUtils.execute("rm " + tempSound);
     IoUtils.execute("rm " + tempVid);
+    IoUtils.execute("rm " + speedyName);
 
     return new ArthurVideo(outname);
   }
@@ -123,6 +136,8 @@ public class JavaVideoMath {
     String command1 = "ffmpeg -i " + one.filename + " %d.jpg";
 
     IoUtils.execute(command1);
+
+
 
     long counter = 1;
     while (true) {
@@ -202,7 +217,6 @@ public class JavaVideoMath {
     IoUtils.execute("/bin/bash -c 'rm Sound-temp-*'");
 
     */
-
     IoUtils.execute("rm " + tempVid);
     IoUtils.execute("rm " + tempSound);
 
