@@ -150,22 +150,8 @@ public class ArthurVideo extends ArthurMedia {
   }
 
   public ArthurString toArtString() {
-    char curChar = 'x';
-    int count = 0;
-    StringBuilder builder = new StringBuilder();
-
-    try {
-      FileReader inputStream = new FileReader(this.filename);
-
-      while (curChar != (char) -1 && count++ <= 100) {
-        curChar = (char) inputStream.read();
-        builder.append(curChar);
-      }
-    } catch(IOException e) {
-      e.printStackTrace();
-    }
-
-    return new ArthurString(builder.toString());
+    ArthurImage im = toImage();
+    return im.toArtString();
   }
 
   public ArthurImage toImage() {
