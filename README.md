@@ -11,6 +11,11 @@ Arthur is a great programming language
 * jflex
 * byaccj
 
+### FILE TYPES
+* audio: mp3
+* video: H264 mp4 with AAC audio
+* image: jpg
+
 ### Links to stuff we're using
 the lexer: http://jflex.de/
 the parser: http://byaccj.sourceforge.net/

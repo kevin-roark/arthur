@@ -10,19 +10,19 @@ void init() {
   Sound lowglass = glass - 60;
 
   Sound repeatGlass = glass + glass + glass;
-  repeatGlass *= 3;
+  repeatGlass *= 6;
 
-  Sound hello = "Hello My Dear Friends"->Sound;
-  hello /= 6;
+  Sound hello = "Hello My Dear Friends. Welcome to my world."->Sound;
+  hello /= 12;
 
   Sound like = "Do you like Arthur yet?"->Sound;
-  like /= 7.5;
+  like /= 12;
 
   Sound please = "Please enjoy Arthur today"->Sound;
-  please /= 10;
+  please /= 15;
 
   Video ball = video("ball.mp4");
-  //ball += RED;
+  ball += BLUE;
 
   lastPhrase = 0;
   overlay = <<255, 0, 0, 0.5>>;
@@ -38,9 +38,9 @@ void init() {
 
   add(hello, 10.0);
 
-  add(like, 17.0);
+  add(like, 15.0);
 
-  add(please, 25.0);
+  add(please, 20.0);
 
   add(overlay);
 }

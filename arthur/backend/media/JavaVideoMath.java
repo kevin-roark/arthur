@@ -189,7 +189,7 @@ public class JavaVideoMath {
 
     String command2 = "ffmpeg -r 30 -i adjusted-%d.jpg " + tempVid;
     String command3 = "ffmpeg -i " + one.filename + " " + tempSound;
-    String command4 = "ffmpeg -i " + tempVid + " -i " + tempSound + " -ab 192k " + outname;
+    String command4 = "ffmpeg -i " + tempVid + " -i " + tempSound + " -strict -2 -ab 192k " + outname;
 
     IoUtils.execute(command2);
     IoUtils.execute(command3);
