@@ -3,4 +3,4 @@
 javac Color.java Function.java Identifier.java Num.java StringLit.java \
       SymbolTable.java Token.java Tokens.java Value.java Var.java \
       ParseNode.java ParserVal.java Parser.java Lexer.java \
-      lextest.java yacctest.java Type.java
+      lextest.java yacctest.java Type.java Arg.java

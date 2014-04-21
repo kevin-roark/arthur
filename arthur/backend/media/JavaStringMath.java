@@ -35,7 +35,7 @@ public class JavaStringMath {
   }
 
   public static ArthurString add(ArthurString one, ArthurSound two) {
-    return null;
+    return add(one, two.toArtString());
   }
 
   /* remove all instances of two from one */
@@ -65,7 +65,7 @@ public class JavaStringMath {
   }
 
   public static ArthurString minus(ArthurString one, ArthurSound two) {
-    return null;
+    return minus(one, two.toArtString());
   }
 
   /* makes the strings the same length, then averages them character by

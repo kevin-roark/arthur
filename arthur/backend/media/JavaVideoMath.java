@@ -3,6 +3,7 @@ package arthur.backend.media;
 import arthur.backend.IoUtils;
 
 import java.io.File;
+import java.lang.Runtime;
 
 /**
  * Contains a suite of static methods to perform math operations involving
@@ -10,24 +11,20 @@ import java.io.File;
  */
 public class JavaVideoMath {
 
+  public static String ffmpegStarter(String filename1, String filename2) {
+    return "ffmpeg -i " + filename1 + " -i " + filename2 + " ";
+  }
+
+  public static String ffmpegEnder(String outname) {
+    return outname + "\"";
+  }
+
+  public static String scriptPath() {
+    return "./arthur/backend/media/";
+  }
+
   public static ArthurVideo add(ArthurVideo one, ArthurVideo two, String outname) {
-    System.out.println(outname);
-
-    String f1 = "ts1-" + System.currentTimeMillis();
-    String f2 = "ts2-" + System.currentTimeMillis();
-
-    String mp4tompeg = "ffmpeg -i %s -c copy -bsf:v h264_mp4toannexb -f mpegts %s.ts";
-    String command1 = String.format(mp4tompeg, one.filename, f1);
-    String command2 = String.format(mp4tompeg, two.filename, f2);
-    IoUtils.execute(command1);
-    IoUtils.execute(command2);
-
-    String concat = "ffmpeg -i \"concat:%s.ts|%s.ts\" -c copy -bsf:a aac_adtstoasc %s";
-    String command3 = String.format(concat, f1, f2, outname);
-    IoUtils.execute(command3);
-    
-    IoUtils.execute("rm ts*");
-    
+    IoUtils.execute(scriptPath() + "vidcat.sh " + one.filename + " " + two.filename + " " + outname);
     return new ArthurVideo(outname);
   }
 
@@ -41,7 +38,7 @@ public class JavaVideoMath {
     String command2 = String.format(addAudio, one.filename, soundFileWav, outname);
     IoUtils.execute(command1);
     IoUtils.execute(command2);
-    IoUtils.execute("rm *.wav");
+    IoUtils.execute("rm " + soundFileWav);
     return new ArthurVideo(outname);
   }
 
@@ -82,8 +79,19 @@ public class JavaVideoMath {
   }
 
   public static ArthurVideo multiply(ArthurVideo one, ArthurVideo two, String outname) {
-    //TODO
-    return one;
+    //we need to conserve the audio from the second vid, i haven't been able to do that!
+
+    /*
+    String extractAudio = "ffmpeg -i %s -vn -ar 44100 -ac 2 -ab 192 -f mp3 %s";
+    String tempSound = "Sound-temp-" + System.currentTimeMillis() + ".mp3";
+    String command1 = String.format(extractAudio, two.filename, tempSound);
+*/
+    //this actually merges the vids though
+    IoUtils.execute(scriptPath() + "vidoverlay.sh " + one.filename + " " + two.filename + " " + outname);
+    /*String addbackAudio = "ffmpeg -i %s -i %s %s";
+    String command3 = String.format(addbackAudio, tempSound, outname, outname);*/
+
+    return new ArthurVideo(outname);
   }
 
   public static ArthurVideo multiply(ArthurVideo one, ArthurNumber two, String outname) {
@@ -100,15 +108,17 @@ public class JavaVideoMath {
     IoUtils.execute(command1);
     IoUtils.execute(command2);
 
-    ArthurSound spedUpAudio = JavaSoundMath.speedChange(new ArthurSound(tempSound), two.val, "Sound-temp-speedy-" + System.currentTimeMillis() + ".mp3");
-    
+    String speedyName = "Sound-temp-speedy-" + System.currentTimeMillis() + ".mp3";
+    ArthurSound spedUpAudio = JavaSoundMath.speedChange(new ArthurSound(tempSound), two.val, speedyName);
+
     String addbackAudio = "ffmpeg -i %s -i %s %s";
     String command3 = String.format(addbackAudio, spedUpAudio.filename, tempVid, outname);
 
     IoUtils.execute(command3);
 
-    IoUtils.execute("rm Vid-temp-*");
-    IoUtils.execute("rm Sound-temp-*");
+    IoUtils.execute("rm " + tempSound);
+    IoUtils.execute("rm " + tempVid);
+    IoUtils.execute("rm " + speedyName);
 
     return new ArthurVideo(outname);
   }
@@ -126,7 +136,9 @@ public class JavaVideoMath {
     String command1 = "ffmpeg -i " + one.filename + " %d.jpg";
 
     IoUtils.execute(command1);
-    
+
+
+
     long counter = 1;
     while (true) {
       String filename = counter + ".jpg";
@@ -135,10 +147,10 @@ public class JavaVideoMath {
       }
       ArthurImage image = new ArthurImage(filename);
       ArthurImage result;
-      if (function.equals("+ArthurNumber")) { 
+      if (function.equals("+ArthurNumber")) {
         result = image.add((ArthurNumber) two); //brighten each frame
       }
-      else if (function.equals("-ArthurNumber")) { 
+      else if (function.equals("-ArthurNumber")) {
         result = image.minus((ArthurNumber) two); //darken each frame
       }
       else if (function.equals("/ArthurNumber")) {
@@ -183,14 +195,31 @@ public class JavaVideoMath {
     IoUtils.execute(command3);
     IoUtils.execute(command4);
 
-    for (int i = 1; i < 10; i++) {
-      IoUtils.execute("rm " + i + "*.jpg");
-      IoUtils.execute("rm adjusted-" + i + "*.jpg");
+    counter = 1;
+    while (true) {
+      String filename = counter + ".jpg";
+      if (new File(filename).isFile() == false) {
+        break;
+      }
+      IoUtils.execute("rm " + filename);
+      IoUtils.execute("rm adjusted-" + filename);
+      counter++;
     }
 
-    IoUtils.execute("rm Vid-temp-*");
-    IoUtils.execute("rm Sound-temp-*");
-    
+    /*
+
+    for (int i = 1; i < 10; i++) {
+      IoUtils.execute("/bin/bash -c 'rm " + i + "*.jpg'");
+      IoUtils.execute("/bin/bash -c 'rm adjusted-" + i + "*.jpg'");
+    }
+
+    IoUtils.execute("/bin/bash -c 'rm Vid-temp-*'");
+    IoUtils.execute("/bin/bash -c 'rm Sound-temp-*'");
+
+    */
+    IoUtils.execute("rm " + tempVid);
+    IoUtils.execute("rm " + tempSound);
+
     return new ArthurVideo(outname);
   }
 

@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.IOException;
 import java.io.File;
 import java.nio.file.Files;
+import java.util.ArrayList;
 
 import arthur.frontend.ParseNode;
 import arthur.frontend.Parser;
@@ -15,6 +16,8 @@ import arthur.backend.whisperer.JsMiddleMan;
 import arthur.backend.translator.java.JavaArthurTranslator;
 import arthur.backend.translator.js.JsArthurTranslator;
 
+import arthur.backend.media.*;
+
 public class ArthurCompiler {
 
   public static final String TNAME = "ArthurTranslation";
@@ -22,6 +25,8 @@ public class ArthurCompiler {
   public static final String DEFAULT_OUT_NAME = "buster";
   public static final String MEDIA_DIR = "media";
   public static String mdirname = DEFAULT_OUT_NAME + "/" + MEDIA_DIR;
+  public static final int COMPILE_OPS = 0;
+  public static final int PROG_OPS = 1;
 
   public static void main(String[] args) throws IOException, InterruptedException {
     if (args.length < 1) {
@@ -32,19 +37,28 @@ public class ArthurCompiler {
     boolean verbose = true;
     boolean run = true;
     boolean clean = true;
+    int argMode = COMPILE_OPS;
+    ArrayList<String> progArgs = new ArrayList<String>();
 
     for (int i = 0; i < args.length - 1; i++) {
       String arg = args[i];
-      if (arg.equals("-s")) {
-        verbose = false;
+
+      if (argMode == COMPILE_OPS) {
+        if (arg.equals("-s")) {
+          verbose = false;
+        } else if (arg.equals("-trans")) {
+          run = false;
+          System.out.println("only translating");
+        } else if (arg.equals("-dirty")) {
+          clean = false;
+          System.out.println("not removing client fluff");
+        } else if (!arg.substring(0, 1).equals("-")) {
+          argMode = PROG_OPS;
+        }
       }
-      if (arg.equals("-trans")) {
-        run = false;
-        System.out.println("only translating");
-      }
-      if (arg.equals("-dirty")) {
-        clean = false;
-        System.out.println("not removing client fluff");
+
+      if (argMode == PROG_OPS) {
+        progArgs.add(arg);
       }
     }
 
@@ -84,7 +98,7 @@ public class ArthurCompiler {
     // run the java translation
     if (verbose)
       System.out.println("running the java translation");
-    runTranslation();
+    runTranslation(progArgs);
 
     // get the relevant output
     if (verbose)
@@ -107,6 +121,14 @@ public class ArthurCompiler {
     if (verbose)
       System.out.println("building output");
     buildClient(dirname, meddledJs, clean);
+
+    // clean up the garbage
+    if (verbose)
+      System.out.println("cleaning up the garbage files");
+    cleanup(whisperer);
+
+    if (verbose)
+      System.out.println("enjoy your compiled arthur @ buster");
   }
 
   public static void execAndPrint(String exec, boolean print) throws IOException, InterruptedException {
@@ -135,9 +157,12 @@ public class ArthurCompiler {
     execAndPrint(rm2, false);
   }
 
-  public static void runTranslation() throws IOException, InterruptedException {
+  public static void runTranslation(ArrayList<String> args) throws IOException, InterruptedException {
     String compile = "javac " + TNAME + ".java";
     String run = "java -Xmx4g " + TNAME;
+    for (String arg : args) {
+      run += " " + arg;
+    }
     execAndPrint(compile, false);
     execAndPrint(run, false);
   }
@@ -191,6 +216,10 @@ public class ArthurCompiler {
     } catch(FileNotFoundException e) {
       e.printStackTrace();
     }
+  }
+
+  public static void cleanup(JsWhisperer whisp) {
+    whisp.cleanup();
   }
 
 }

@@ -33,10 +33,12 @@ public class JavaArthurTranslator extends ArthurTranslator {
 
     // class and main
     s += "\npublic class ArthurTranslation {\n";
-    s += "\npublic static void main(String[] args) { ArthurTranslation a = new ArthurTranslation(); }\n";
+    s += "public static String[] sysargs;";
+    s += "\npublic static void main(String[] args) { sysargs = args; ArthurTranslation a = new ArthurTranslation(); }\n";
 
     // addFields
     s += "\npublic void addFields(Field[] fields) {\n for (Field f : fields) {\n";
+    s += "if (f.getName().equals(\"sysargs\")) return;";
     s += "  try {\n";
     s += "    Object val = f.get(this); JsWhisperer.addGlobal(f.getName(), val);\n";
     s += "  } catch(IllegalAccessException e) { e.printStackTrace(); }\n }\n }\n";
@@ -63,7 +65,9 @@ public class JavaArthurTranslator extends ArthurTranslator {
     s += "  _addMedia(media, name, frame); \n}\n";
 
     // constructor
-    s += "public ArthurTranslation() { init(); addFields(getClass().getDeclaredFields()); JsWhisperer.writeToBlob(); }\n\n";
+    s += "public ArthurTranslation() { ";
+    s += "init(); addFields(getClass().getDeclaredFields()); JsWhisperer.writeToBlob();";
+    s += " }\n\n";
     return s;
   }
 

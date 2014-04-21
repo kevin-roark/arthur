@@ -115,6 +115,10 @@ public abstract class ArthurTranslator {
       case "cast":
         this.ignoreChildren = true;
         return castCode(n);
+      case "sysarg":
+        ParseNode num = n.children.get(0);
+        int aNum = Integer.parseInt(num.val) - 1;
+        return "new ArthurString(sysargs[" + aNum + "])";
       case "Method call":
         return twoSideOp(n, ".");
       case "Property access":
@@ -229,6 +233,8 @@ public abstract class ArthurTranslator {
       case "Fun call":
         return ender(false);
       case "cast":
+        return ender(false);
+      case "arg":
         return ender(false);
       case "Method call":
         return ender(false);
