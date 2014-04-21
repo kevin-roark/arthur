@@ -101,10 +101,23 @@ public class JsArthurTranslator extends ArthurTranslator {
   }
 
   public String castCode(ParseNode n) {
-    ParseNode id = n.children.get(0).children.get(0);
     ParseNode type = n.children.get(1);
+    ParseNode one = n.children.get(0);
+    String id;
 
-    return id.val + ".castTo(\"" + type.val + "\")";
+    if (one.val.equals("Identifier")) {
+      id = one.children.get(0).val;
+    } else if (one.val.equals("Color")) {
+      id = colorLiteral(one);
+    } else if (one.val.equals("number")) {
+      id = numberLiteral(one);
+    } else if (one.val.equals("String")) {
+      id = stringLiteral(one);
+    } else {
+      id = "BAD CAST";
+    }
+
+    return id + ".castTo(\"" + type.val + "\")";
   }
 
   public String colorLiteral(ParseNode n) {

@@ -251,7 +251,20 @@ public class ArthurVideo extends ArthurMedia {
 
 
   public String jsLiteral() {
-    return "new ArthurVideo()";
+    return "new ArthurVideo(" + json() + ")";
+  }
+
+  public String json() {
+    String js = "{";
+    js += "\"filename\": \"" + this.filename + "\"";
+    if (this.frame != null) {
+      js += ", \"frame\": " + this.frame.json();
+    }
+    if (this.delay != null) {
+      js += ", \"delay\": " + this.delay.val;
+    }
+    js += "}";
+    return js;
   }
 
   public static String nameGen() {

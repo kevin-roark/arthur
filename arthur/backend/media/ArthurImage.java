@@ -289,6 +289,9 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     if (this.murk != null) {
       js += ", 'murk': " + this.murk.val + "";
     }
+    if (this.delay != null) {
+      js += ", 'delay': " + this.delay.val;
+    }
     js += "}";
     js = js.replace("'", "\"");
     return js;

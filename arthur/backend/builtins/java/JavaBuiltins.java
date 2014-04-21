@@ -38,6 +38,17 @@ public class JavaBuiltins {
     JsWhisperer.addMedia(media, name);
   }
 
+  public static void _addMedia(ArthurMedia media, String name, ArthurNumber delay) {
+    media.delay = delay;
+    JsWhisperer.addMedia(media, name);
+  }
+
+  public static void _addMedia(ArthurMedia media, String name, ArthurFrame frame, ArthurNumber delay) {
+    media.delay = delay;
+    media.frame = frame;
+    JsWhisperer.addMedia(media, name);
+  }
+
   public static ArthurFrame frame(ArthurNumber x, ArthurNumber y, ArthurNumber w, ArthurNumber h) {
     return new ArthurFrame(x, y, w, h);
   }

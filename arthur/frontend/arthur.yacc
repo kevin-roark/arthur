@@ -262,6 +262,16 @@ caster
                                                       caster.addChild(type);
                                                       $$ = new ParserVal(caster);
                                                     }
+    | literal ARROW TYPE                            {
+                                                      ParseNode caster = new ParseNode("cast");
+                                                      ParseNode par = (ParseNode) $1.obj;
+                                                      caster.addChild(par);
+
+                                                      Type t = (Type) $3.obj;
+                                                      ParseNode type = new ParseNode(t.name);
+                                                      caster.addChild(type);
+                                                      $$ = new ParserVal(caster);
+                                                    }
     ;
 
 sysarg
@@ -624,6 +634,14 @@ exfactor
     | factor                                        { $$ = $1; }
 
 factor
+    : literal                                       { $$ = $1; }
+    | TRUE                                          { ParseNode t = new ParseNode("true"); $$ = new ParserVal(t); }
+    | FALSE                                         { ParseNode f = new ParseNode("false"); $$ = new ParserVal(f); }
+    | id                                            { $$ = $1; }
+    | LPAREN val RPAREN                             { $$ = $2; }
+    ;
+
+literal
     : COLOR                                         {
                                                         Color c = (Color) $1.obj;
                                                         ParseNode color = new ParseNode("Color");
@@ -645,10 +663,6 @@ factor
                                                         string.addChild(new ParseNode(s.val, string));
                                                         $$ = new ParserVal(string);
                                                     }
-    | TRUE                                          { ParseNode t = new ParseNode("true"); $$ = new ParserVal(t); }
-    | FALSE                                         { ParseNode f = new ParseNode("false"); $$ = new ParserVal(f); }
-    | id                                            { $$ = $1; }
-    | LPAREN val RPAREN                             { $$ = $2; }
     ;
 
 var

@@ -24,6 +24,9 @@ function ArthurImage(json) {
   if (ob.murk) {
     this.murk = new ArthurNumber(ob.murk);
   }
+  if (ob.delay) {
+    this.delay = new ArthurNumber(ob.delay);
+  }
 
   var img = $('<img class="arthur-image" id="' + this.medfile + '">');
   img.attr('src', this.medfile);

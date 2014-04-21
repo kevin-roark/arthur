@@ -214,6 +214,9 @@ public class ArthurString extends ArthurMedia {
     if (this.frame != null) {
       json += ", \"frame\": " + this.frame.json();
     }
+    if (this.delay != null) {
+      json += ", \"delay\": " + this.delay.val;
+    }
     json += "}";
     return json;
   }

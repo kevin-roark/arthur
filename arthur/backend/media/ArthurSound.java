@@ -181,6 +181,9 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
   public String json() {
     String js = "{";
     js += "\"filename\": \"" + this.filename + "\"";
+    if (this.delay != null) {
+      js += ", \"delay\": " + this.delay.val;
+    }
     js += "}";
     return js;
   }
