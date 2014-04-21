@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.IOException;
 
 import arthur.backend.media.*;
+import arthur.backend.IoUtils;
 
 public class JsWhisperer implements java.io.Serializable {
 
@@ -22,10 +23,28 @@ public class JsWhisperer implements java.io.Serializable {
 
   public ArrayList<GlobalMedia> localGlobals;
   public MediaMaster localMediaFiles;
+  public ArrayList<String> soundFiles;
+  public ArrayList<String> videoFiles;
 
   public JsWhisperer() {
     localGlobals = globals;
     localMediaFiles = null;
+    soundFiles = ArthurSound.intermediateFiles;
+    videoFiles = ArthurVideo.intermediateFiles;
+  }
+
+  public void cleanup() {
+    if (soundFiles != null) {
+      for (String file : soundFiles) {
+        IoUtils.execute("rm -f " + file);
+      }
+    }
+
+    if (videoFiles != null) {
+      for (String file : videoFiles) {
+        IoUtils.execute("rm -f " + file);
+      }
+    }
   }
 
   public String toString() {

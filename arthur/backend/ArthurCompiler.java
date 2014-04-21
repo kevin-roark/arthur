@@ -16,6 +16,8 @@ import arthur.backend.whisperer.JsMiddleMan;
 import arthur.backend.translator.java.JavaArthurTranslator;
 import arthur.backend.translator.js.JsArthurTranslator;
 
+import arthur.backend.media.*;
+
 public class ArthurCompiler {
 
   public static final String TNAME = "ArthurTranslation";
@@ -119,6 +121,14 @@ public class ArthurCompiler {
     if (verbose)
       System.out.println("building output");
     buildClient(dirname, meddledJs, clean);
+
+    // clean up the garbage
+    if (verbose)
+      System.out.println("cleaning up the garbage files");
+    cleanup(whisperer);
+
+    if (verbose)
+      System.out.println("enjoy your compiled arthur @ buster");
   }
 
   public static void execAndPrint(String exec, boolean print) throws IOException, InterruptedException {
@@ -206,6 +216,10 @@ public class ArthurCompiler {
     } catch(FileNotFoundException e) {
       e.printStackTrace();
     }
+  }
+
+  public static void cleanup(JsWhisperer whisp) {
+    whisp.cleanup();
   }
 
 }
