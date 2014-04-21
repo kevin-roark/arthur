@@ -66,7 +66,7 @@ public class JavaBuiltins {
   public static final ArthurColor SARCOLINE = new ArthurColor(150, 223, 167, 1.0);
   public static final ArthurColor COQUELICOT = new ArthurColor(236, 75, 0, 1.0);
   public static final ArthurColor SMARAGDINE = new ArthurColor(8, 152, 113, 1.0);
-  public static final ArthurColor ALMOND = new ArthurColor(239, 222, 205, 1.0)
+  public static final ArthurColor ALMOND = new ArthurColor(239, 222, 205, 1.0);
   public static final ArthurColor ASPARAGUS = new ArthurColor(135, 169, 107, 1.0);
   public static final ArthurColor BURNT_SIENNA = new ArthurColor(234, 126, 93, 1.0);
   public static final ArthurColor CERULEAN = new ArthurColor(29, 172, 214, 1.0);
@@ -90,7 +90,7 @@ public class JavaBuiltins {
   public static final ArthurColor LASER_LEMON = new ArthurColor(254, 254, 34, 1.0);
   public static final ArthurColor EGGPLANT = new ArthurColor(110, 81, 96, 1.0);
   public static final ArthurColor CHARTREUSE = new ArthurColor(127, 255, 0, 1.0);
- 
+
   private static HashMap<String, ArthurColor> colorMap;
 
   public static HashMap<String, ArthurColor> colorMap() {
@@ -108,7 +108,7 @@ public class JavaBuiltins {
       colorMap.put("SARCOLINE", SARCOLINE);
       colorMap.put("COQUELICOT", COQUELICOT);
       colorMap.put("SMARAGDINE", SMARAGDINE);
-      colorMap.put("ALMOND", ALMOND);   
+      colorMap.put("ALMOND", ALMOND);
       colorMap.put("ASPARAGUS", ASPARAGUS);
       colorMap.put("BURNT_SIENNA", BURNT_SIENNA);
       colorMap.put("CERULEAN", CERULEAN);

@@ -46,6 +46,8 @@ public class ArthurString extends ArthurMedia {
       return JavaStringMath.add(this, (ArthurImage) two);
     } else if (two.type.equals(ArthurColor.COLOR)) {
       return JavaStringMath.add(this, (ArthurColor) two);
+    } else if (two.type.equals(ArthurSound.SOUND)) {
+      return JavaStringMath.add(this, (ArthurSound) two);
     } else {
       // coerce later
       return this;
@@ -61,6 +63,8 @@ public class ArthurString extends ArthurMedia {
       return JavaStringMath.minus(this, (ArthurImage) two);
     } else if (two.type.equals(ArthurColor.COLOR)) {
       return JavaStringMath.minus(this, (ArthurColor) two);
+    } else if (two.type.equals(ArthurSound.SOUND)) {
+      return JavaStringMath.minus(this, (ArthurSound) two);
     } else {
       // coerce later
       return this;

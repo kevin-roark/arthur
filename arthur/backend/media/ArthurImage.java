@@ -79,6 +79,9 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     else if (two.type.equals(ArthurNumber.NUMBER)) {
       res = JavaImageMath.add(this, (ArthurNumber) two);
     }
+    else if (two.type.equals(ArthurSound.SOUND)) {
+      res = JavaImageMath.add(this, (ArthurSound) two);
+    }
     else {
       res = this;
     }
@@ -99,6 +102,9 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     }
     else if (two.type.equals(ArthurNumber.NUMBER)) {
       res = JavaImageMath.minus(this, (ArthurNumber) two);
+    }
+    else if (two.type.equals(ArthurSound.SOUND)) {
+      res = JavaImageMath.minus(this, (ArthurSound) two);
     }
     else {
       // coerce to Image?

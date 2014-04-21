@@ -80,4 +80,20 @@ public class IoUtils {
       }
     }
 
+    public static String execAndErr(String exec) {
+      try {
+        Process p = Runtime.getRuntime().exec(exec);
+
+        StreamGobbler outputGobbler = new StreamGobbler(p.getInputStream(), "OUTPUT");
+        outputGobbler.run();
+
+        p.waitFor();
+        return string(p.getErrorStream());
+      } catch (Exception e) {
+        System.out.println("failed: " + exec);
+        e.printStackTrace();
+        return null;
+      }
+    }
+
 }

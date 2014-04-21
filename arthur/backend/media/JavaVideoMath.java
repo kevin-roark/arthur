@@ -15,7 +15,6 @@ public class JavaVideoMath {
     return "ffmpeg -i " + filename1 + " -i " + filename2 + " ";
   }
 
-<<<<<<< HEAD
   public static String ffmpegEnder(String outname) {
     return outname + "\"";
   }
@@ -98,14 +97,8 @@ public class JavaVideoMath {
     IoUtils.execute(command1);
     IoUtils.execute(command2);
 
-<<<<<<< HEAD
     ArthurSound spedUpAudio = JavaSoundMath.speedChange(new ArthurSound(tempSound), two.val, "Sound-temp-speedy-" + System.currentTimeMillis() + ".mp3");
 
-=======
-    String speedyAudio = "Sound-temp-speedy-" + System.currentTimeMillis() + ".mp3";
-    ArthurSound spedUpAudio = JavaSoundMath.speedChange(new ArthurSound(tempSound), two.val, speedyAudio);
-
->>>>>>> 564412ea58a6d7c486b9aa658e1366df8d10c0d6
     String addbackAudio = "ffmpeg -i %s -i %s %s";
     String command3 = String.format(addbackAudio, spedUpAudio.filename, tempVid, outname);
 
@@ -113,7 +106,6 @@ public class JavaVideoMath {
 
     IoUtils.execute("rm " + tempSound);
     IoUtils.execute("rm " + tempVid);
-    IoUtils.execute("rm " + speedyAudio);
 
     return new ArthurVideo(outname);
   }
@@ -206,17 +198,14 @@ public class JavaVideoMath {
       IoUtils.execute("/bin/bash -c 'rm adjusted-" + i + "*.jpg'");
     }
 
-<<<<<<< HEAD
     IoUtils.execute("/bin/bash -c 'rm Vid-temp-*'");
     IoUtils.execute("/bin/bash -c 'rm Sound-temp-*'");
 
-=======
     */
 
     IoUtils.execute("rm " + tempVid);
     IoUtils.execute("rm " + tempSound);
 
->>>>>>> 564412ea58a6d7c486b9aa658e1366df8d10c0d6
     return new ArthurVideo(outname);
   }
 
