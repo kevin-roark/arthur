@@ -167,14 +167,14 @@ public class ArthurColor extends ArthurMedia {
     return new ArthurImage(image, filename);
   }
 
-<<<<<<< HEAD
   public ArthurVideo toVideo() {
-    return JavaVideoMath.add(new ArthurVideo("ZERO.mp4"), this, "color-" + System.currentTimeMillis() + ".mp4");
-=======
+    ArthurVideo zero = new ArthurVideo(ArthurVideo.ZERO);
+    return zero.add(this);
+  }
+
   public ArthurSound toSound() {
     ArthurSound zero = new ArthurSound(ArthurSound.ZERO);
     return zero.add(this);
->>>>>>> 4ea9f5ba679c71b5294b659ab44146a7b8404a3d
   }
 
   public ArthurString toArtString() {

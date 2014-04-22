@@ -25,6 +25,7 @@ import java.awt.AlphaComposite;
 public class ArthurVideo extends ArthurMedia {
 
   public static final String VIDEO = "Video";
+  public static final String ZERO = "ZERO.mp4";
   public String filename;
   public static ArrayList<String> intermediateFiles;
 
