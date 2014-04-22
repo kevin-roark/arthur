@@ -166,12 +166,18 @@ public class ArthurString extends ArthurMedia {
   public ArthurImage toImage(int colorSwitch) {
     String filename = "string-" + (new Random()).nextInt() + ".jpg";
 
-    Font font = new Font("Consolas", Font.PLAIN, 110);
+    Font font = new Font("Courier", Font.PLAIN, 666);
     FontRenderContext frc = new FontRenderContext(null, true, true);
 
     Rectangle2D bounds = font.getStringBounds(this.str, frc);
     int w = (int) bounds.getWidth();
     int h = (int) bounds.getHeight();
+
+    if (w % 2 != 0)
+      w += 1;
+
+    if (h % 2 != 0)
+      h += 1;
 
     BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
 

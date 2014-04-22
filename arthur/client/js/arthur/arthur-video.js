@@ -2,6 +2,7 @@
 var types = require('./types');
 var ArthurMedia = require('./arthur-media');
 var ArthurFrame = require('./arthur-frame');
+var ArthurNumber = require('./arthur-number');
 
 module.exports = ArthurVideo;
 

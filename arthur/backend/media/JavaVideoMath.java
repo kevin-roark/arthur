@@ -109,13 +109,13 @@ public class JavaVideoMath {
   }
 
   public static ArthurVideo multiply(ArthurVideo one, ArthurNumber two, String outname) {
-    double factor = 1 / two.val;
+    double factor = 1.0 / two.val;
 
     String speedUpVideo = "ffmpeg -i %s -filter:v \"setpts=%f*PTS\" %s";
     String tempVid = "Vid-temp-" + System.currentTimeMillis() + ".mp4";
     String command1 = String.format(speedUpVideo, one.filename, factor, tempVid);
 
-    String extractAudio = "ffmpeg -i %s -vn -ar 44100 -ac 2 -ab 192 -f mp3 %s";
+    String extractAudio = "ffmpeg -i %s -vn -ar 44100 -ab 192 -f mp3 %s";
     String tempSound = "Sound-temp-" + System.currentTimeMillis() + ".mp3";
     String command2 = String.format(extractAudio, tempVid, tempSound);
 

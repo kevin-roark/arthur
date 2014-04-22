@@ -15,6 +15,11 @@ public class ArthurVideoTester {
 
     ArthurSound s = new ArthurSound("ZERO.mp3");
     //ArthurVideo v5 = v2.minus(s);
-    ArthurVideo v6 = v2.add(s);
+    //ArthurVideo v6 = v2.add(s);
+
+    ArthurString str = new ArthurString("The future is now - Arthur");
+    //ArthurVideo v7 = str.toVideo();
+
+    ArthurVideo v8 = v1.divide(new ArthurNumber(4));
   }
 }
