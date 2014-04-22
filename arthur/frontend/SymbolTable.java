@@ -79,9 +79,6 @@ public class SymbolTable {
       SymbolTable table = new SymbolTable();
       table.setTitle("global");
 
-      Function get = new Function("get", "Media");
-      table.put("get", get);
-
       Function img = new Function("image", "Image");
       table.put("image", img);
 
@@ -99,6 +96,12 @@ public class SymbolTable {
 
       Function ms = new Function("ms", "num");
       table.put("ms", ms);
+
+      Function rand = new Function("rand", "num");
+      table.put("rand", rand);
+
+      Function cooler = new Function("cooler", "color");
+      table.put("cooler", cooler);
 
       addColors(table);
 

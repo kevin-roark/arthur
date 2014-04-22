@@ -46,6 +46,8 @@ public class JsArthurTranslator extends ArthurTranslator {
 
     // builtins
     s += "var ms = arthur.builtins.ms;\n";
+    s += "var rand = arthur.builtins.rand;\n";
+    s += "var cooler = arthur.builtins.cooler;\n";
     s += "var literalWrapper = arthur.literalWrapper;\n";
 
     s += "var updateMedia = arthur.updateMedia;\n";

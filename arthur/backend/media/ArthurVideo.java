@@ -287,4 +287,8 @@ public class ArthurVideo extends ArthurMedia {
     this.filename = fname.substring(fname.indexOf('/') + 1); // remove 'buster'
   }
 
+  public String toString() {
+    return "ArthurVideo from file: " + this.filename;
+  }
+
 }
