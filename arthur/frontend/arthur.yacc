@@ -233,6 +233,12 @@ func_def
     : FUNCTION param_list RPAREN func_body          {
                                                         ParseNode funDef = new ParseNode("Function");
                                                         Function f = (Function) $1.obj;
+                                                        if (lexer.table.get(f.name) != null) {
+                                                          System.out.println("function named " + f.name + " already exists!!");
+                                                          errorCount++;
+                                                        }
+                                                        lexer.table.put(f.name, f);
+
                                                         funDef.addChild(new ParseNode(f.returnType, funDef));
                                                         funDef.addChild(new ParseNode(f.name, funDef));
                                                         ParseNode params = (ParseNode) $2.obj;
@@ -673,6 +679,12 @@ literal
 var
     : VAR                                           {
                                                         Var v = (Var) $1.obj;
+                                                        if (lexer.table.get(v.id) != null) {
+                                                          System.out.println("variable " + v.id + " already exists!!");
+                                                          errorCount++;
+                                                        }
+                                                        lexer.table.put(v.id, v);
+
                                                         ParseNode var = new ParseNode("variable");
                                                         var.addChild(new ParseNode(v.typeName(), var));
                                                         var.addChild(new ParseNode(v.id, var));
@@ -799,7 +811,10 @@ public ParseNode doParsing(Reader in) {
 
     int result = yyparse();
 
-    return AST;
+    if (errorCount == 0)
+      return AST;
+    else
+      return null;
 }
 
 public void doParsingAndPrint(Reader in) {

@@ -18,6 +18,8 @@ import arthur.backend.IoUtils;
 public class ArthurSound extends ArthurMedia implements java.io.Serializable {
 
   public static final String SOUND = "sound";
+  public static final String ZERO = "ZERO.mp3";
+  
   public String filename;
   public transient IMediaReader clip;
   public ArthurNumber duration;

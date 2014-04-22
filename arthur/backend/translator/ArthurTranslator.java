@@ -188,12 +188,24 @@ public abstract class ArthurTranslator {
   /* like 'if' or 'elf' or 'while' */
   private String ifStyle(ParseNode n, String stmt) {
     this.ignoreChildren = true;
-    ParseNode cond = n.children.get(0);
-    ParseNode body = n.children.get(1);
+    ParseNode cond = null;
+    ParseNode body = null;
 
-    String s = stmt + " (";
-    s += createAndTranslate(cond, false);
-    s += ") {\n";
+    if (n.children.size() > 1) {
+      cond = n.children.get(0);
+      body = n.children.get(1);
+    } else {
+      body = n.children.get(0);
+    }
+
+    String s = stmt;
+    if (cond != null) {
+      s += " (";
+      s += createAndTranslate(cond, false);
+      s += ")";
+    }
+
+    s += " {\n";
     blockDepth++;
     s += createAndTranslate(body, true);
     blockDepth--;

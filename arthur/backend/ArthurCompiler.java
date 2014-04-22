@@ -83,7 +83,13 @@ public class ArthurCompiler {
     Parser parser = new Parser(false);
     ParseNode s = parser.doParsing(reader);
 
-    // create output directory
+    // ensure source valid
+    if (s == null) {
+      System.out.println("INVALID SOURCE");
+      return;
+    }
+
+    // create buster output directory
     String dirname = makeBundleDir(filename);
     if (verbose)
       System.out.println("bulding output directory at " + dirname);
@@ -107,6 +113,12 @@ public class ArthurCompiler {
     if (verbose)
       System.out.println("restoring the java output");
     JsWhisperer whisperer = restoreWhisperer();
+
+    // make sure java ran ok
+    if (whisperer == null) {
+      System.out.println("The Java translation failed to run. I'm Sorry.");
+      return;
+    }
 
     // translate to javascript
     if (verbose)

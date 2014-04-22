@@ -661,7 +661,7 @@ final static String yyrule[] = {
 "id : ID",
 };
 
-//#line 715 "arthur.yacc"
+//#line 727 "arthur.yacc"
 Lexer lexer;
 Token prevTok;
 ParseNode AST;
@@ -749,7 +749,10 @@ public ParseNode doParsing(Reader in) {
 
     int result = yyparse();
 
-    return AST;
+    if (errorCount == 0)
+      return AST;
+    else
+      return null;
 }
 
 public void doParsingAndPrint(Reader in) {
@@ -761,7 +764,7 @@ public void doParsingAndPrint(Reader in) {
     System.out.println("Number of errors: " + errorCount);
     System.out.println("Return value: " + result);
 }
-//#line 693 "Parser.java"
+//#line 696 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -1164,6 +1167,12 @@ case 27:
 {
                                                         ParseNode funDef = new ParseNode("Function");
                                                         Function f = (Function) val_peek(3).obj;
+                                                        if (lexer.table.get(f.name) != null) {
+                                                          System.out.println("function named " + f.name + " already exists!!");
+                                                          errorCount++;
+                                                        }
+                                                        lexer.table.put(f.name, f);
+
                                                         funDef.addChild(new ParseNode(f.returnType, funDef));
                                                         funDef.addChild(new ParseNode(f.name, funDef));
                                                         ParseNode params = (ParseNode) val_peek(2).obj;
@@ -1176,7 +1185,7 @@ case 27:
                                                     }
 break;
 case 28:
-//#line 249 "arthur.yacc"
+//#line 255 "arthur.yacc"
 {
                                                       ParseNode funCall = new ParseNode("Fun call");
                                                       ParseNode name = (ParseNode) val_peek(3).obj;
@@ -1187,7 +1196,7 @@ case 28:
                                                     }
 break;
 case 29:
-//#line 260 "arthur.yacc"
+//#line 266 "arthur.yacc"
 {
                                                       ParseNode caster = new ParseNode("cast");
                                                       ParseNode par = (ParseNode) val_peek(2).obj;
@@ -1200,7 +1209,7 @@ case 29:
                                                     }
 break;
 case 30:
-//#line 270 "arthur.yacc"
+//#line 276 "arthur.yacc"
 {
                                                       ParseNode caster = new ParseNode("cast");
                                                       ParseNode par = (ParseNode) val_peek(2).obj;
@@ -1213,7 +1222,7 @@ case 30:
                                                     }
 break;
 case 31:
-//#line 283 "arthur.yacc"
+//#line 289 "arthur.yacc"
 {
                                                       ParseNode arg = new ParseNode("sysarg");
                                                       Arg a = (Arg) val_peek(0).obj;
@@ -1222,7 +1231,7 @@ case 31:
                                                     }
 break;
 case 32:
-//#line 292 "arthur.yacc"
+//#line 298 "arthur.yacc"
 {
                                                       ParseNode methCall = new ParseNode("Method call");
                                                       ParseNode ob = (ParseNode) val_peek(2).obj;
@@ -1233,7 +1242,7 @@ case 32:
                                                     }
 break;
 case 33:
-//#line 303 "arthur.yacc"
+//#line 309 "arthur.yacc"
 {
                                                       ParseNode main = (ParseNode) val_peek(2).obj;
                                                       ParseNode sub = (ParseNode) val_peek(0).obj;
@@ -1254,7 +1263,7 @@ case 33:
                                                     }
 break;
 case 34:
-//#line 324 "arthur.yacc"
+//#line 330 "arthur.yacc"
 {
                                                       Identifier i = (Identifier) val_peek(0).obj;
                                                       ParseNode id = new ParseNode("Property");
@@ -1263,27 +1272,27 @@ case 34:
                                                     }
 break;
 case 35:
-//#line 333 "arthur.yacc"
+//#line 339 "arthur.yacc"
 { yyval = val_peek(1); }
 break;
 case 36:
-//#line 337 "arthur.yacc"
+//#line 343 "arthur.yacc"
 { yyval = val_peek(1); }
 break;
 case 37:
-//#line 341 "arthur.yacc"
+//#line 347 "arthur.yacc"
 { yyval = val_peek(1); }
 break;
 case 38:
-//#line 345 "arthur.yacc"
+//#line 351 "arthur.yacc"
 { yyval = new ParserVal(new ParseNode("arguments")); }
 break;
 case 39:
-//#line 346 "arthur.yacc"
+//#line 352 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
 case 40:
-//#line 350 "arthur.yacc"
+//#line 356 "arthur.yacc"
 {
                                                         ParseNode params = new ParseNode("arguments");
                                                         ParseNode ex = (ParseNode) val_peek(0).obj;
@@ -1293,7 +1302,7 @@ case 40:
                                                     }
 break;
 case 41:
-//#line 357 "arthur.yacc"
+//#line 363 "arthur.yacc"
 {
                                                         ParseNode params = (ParseNode) val_peek(2).obj;
                                                         ParseNode ex = (ParseNode) val_peek(0).obj;
@@ -1303,51 +1312,51 @@ case 41:
                                                     }
 break;
 case 42:
-//#line 367 "arthur.yacc"
-{ yyval = val_peek(0); }
-break;
-case 43:
-//#line 368 "arthur.yacc"
-{ yyval = val_peek(0); }
-break;
-case 44:
-//#line 369 "arthur.yacc"
-{ yyval = val_peek(0); }
-break;
-case 45:
-//#line 370 "arthur.yacc"
-{ yyval = val_peek(0); }
-break;
-case 46:
-//#line 371 "arthur.yacc"
-{ yyval = val_peek(0); }
-break;
-case 47:
-//#line 372 "arthur.yacc"
-{ yyval = val_peek(0); }
-break;
-case 48:
 //#line 373 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
-case 49:
+case 43:
 //#line 374 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
-case 50:
+case 44:
 //#line 375 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
-case 51:
+case 45:
 //#line 376 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
-case 52:
+case 46:
 //#line 377 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
-case 53:
+case 47:
+//#line 378 "arthur.yacc"
+{ yyval = val_peek(0); }
+break;
+case 48:
+//#line 379 "arthur.yacc"
+{ yyval = val_peek(0); }
+break;
+case 49:
+//#line 380 "arthur.yacc"
+{ yyval = val_peek(0); }
+break;
+case 50:
 //#line 381 "arthur.yacc"
+{ yyval = val_peek(0); }
+break;
+case 51:
+//#line 382 "arthur.yacc"
+{ yyval = val_peek(0); }
+break;
+case 52:
+//#line 383 "arthur.yacc"
+{ yyval = val_peek(0); }
+break;
+case 53:
+//#line 387 "arthur.yacc"
 {
                                                       ParseNode e = (ParseNode) val_peek(1).obj;
                                                       ParseNode r = new ParseNode("return");
@@ -1356,14 +1365,14 @@ case 53:
                                                     }
 break;
 case 54:
-//#line 387 "arthur.yacc"
+//#line 393 "arthur.yacc"
 {
                                                       ParseNode r = new ParseNode("return");
                                                       yyval = new ParserVal(r);
                                                     }
 break;
 case 55:
-//#line 391 "arthur.yacc"
+//#line 397 "arthur.yacc"
 {
                                                         System.out.println("ERROR: return statement must be in the form: " +
                                                         "LOL");
@@ -1372,38 +1381,38 @@ case 55:
                                                     }
 break;
 case 56:
-//#line 400 "arthur.yacc"
+//#line 406 "arthur.yacc"
 { yyval = val_peek(1); }
 break;
 case 57:
-//#line 404 "arthur.yacc"
+//#line 410 "arthur.yacc"
 { yyval = new ParserVal(new ParseNode("")); }
 break;
 case 58:
-//#line 405 "arthur.yacc"
+//#line 411 "arthur.yacc"
 { yyval = val_peek(1); }
 break;
 case 59:
-//#line 406 "arthur.yacc"
+//#line 412 "arthur.yacc"
 { System.out.println(val_peek(1).obj); System.out.println("Not an expression !!!! jesus");
                                                       errorCount++;
                                                       yyval = new ParserVal(new ParseNode("fucked expression stmt"));
                                                     }
 break;
 case 60:
-//#line 413 "arthur.yacc"
+//#line 419 "arthur.yacc"
 { yyval = val_peek(1); }
 break;
 case 61:
-//#line 414 "arthur.yacc"
+//#line 420 "arthur.yacc"
 { yyval = new ParserVal(new ParseNode("")); }
 break;
 case 62:
-//#line 415 "arthur.yacc"
+//#line 421 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
 case 63:
-//#line 419 "arthur.yacc"
+//#line 425 "arthur.yacc"
 {
                                                       ParseNode list = (ParseNode) val_peek(1).obj;
                                                       ParseNode s = (ParseNode) val_peek(0).obj;
@@ -1412,7 +1421,7 @@ case 63:
                                                     }
 break;
 case 64:
-//#line 425 "arthur.yacc"
+//#line 431 "arthur.yacc"
 {
                                                       ParseNode s = (ParseNode) val_peek(0).obj;
                                                       ParseNode list = new ParseNode("stmt_list");
@@ -1421,51 +1430,51 @@ case 64:
                                                     }
 break;
 case 65:
-//#line 434 "arthur.yacc"
+//#line 440 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
 case 66:
-//#line 435 "arthur.yacc"
+//#line 441 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
 case 67:
-//#line 436 "arthur.yacc"
-{ yyval = val_peek(0); }
-break;
-case 68:
-//#line 437 "arthur.yacc"
-{ yyval = val_peek(0); }
-break;
-case 69:
-//#line 438 "arthur.yacc"
-{ yyval = new ParserVal(new ParseNode("")); }
-break;
-case 70:
 //#line 442 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
-case 71:
+case 68:
 //#line 443 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
-case 72:
+case 69:
 //#line 444 "arthur.yacc"
+{ yyval = new ParserVal(new ParseNode("")); }
+break;
+case 70:
+//#line 448 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
-case 73:
-//#line 448 "arthur.yacc"
-{ ParseNode bool = new ParseNode("true"); yyval = new ParserVal(bool); }
-break;
-case 74:
+case 71:
 //#line 449 "arthur.yacc"
-{ ParseNode bool = new ParseNode("false"); yyval = new ParserVal(bool); }
+{ yyval = val_peek(0); }
 break;
-case 75:
+case 72:
 //#line 450 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
+case 73:
+//#line 454 "arthur.yacc"
+{ ParseNode bool = new ParseNode("true"); yyval = new ParserVal(bool); }
+break;
+case 74:
+//#line 455 "arthur.yacc"
+{ ParseNode bool = new ParseNode("false"); yyval = new ParserVal(bool); }
+break;
+case 75:
+//#line 456 "arthur.yacc"
+{ yyval = val_peek(0); }
+break;
 case 76:
-//#line 451 "arthur.yacc"
+//#line 457 "arthur.yacc"
 {
                                                       ParseNode and = new ParseNode("and");
                                                       ParseNode b1 = (ParseNode) val_peek(2).obj; ParseNode b2 = (ParseNode) val_peek(0).obj;
@@ -1475,7 +1484,7 @@ case 76:
                                                     }
 break;
 case 77:
-//#line 458 "arthur.yacc"
+//#line 464 "arthur.yacc"
 {
                                                       ParseNode or = new ParseNode("or");
                                                       ParseNode b1 = (ParseNode) val_peek(2).obj; ParseNode b2 = (ParseNode) val_peek(0).obj;
@@ -1485,7 +1494,7 @@ case 77:
                                                     }
 break;
 case 78:
-//#line 465 "arthur.yacc"
+//#line 471 "arthur.yacc"
 {
                                                       ParseNode b = (ParseNode) val_peek(0).obj;
                                                       ParseNode not = new ParseNode("not");
@@ -1494,7 +1503,7 @@ case 78:
                                                     }
 break;
 case 79:
-//#line 474 "arthur.yacc"
+//#line 480 "arthur.yacc"
 {
                                                       ParseNode number = new ParseNode("number");
                                                       Num n = (Num) val_peek(0).obj;
@@ -1503,11 +1512,11 @@ case 79:
                                                       yyval = new ParserVal(number); }
 break;
 case 80:
-//#line 480 "arthur.yacc"
+//#line 486 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
 case 81:
-//#line 481 "arthur.yacc"
+//#line 487 "arthur.yacc"
 {
                                                       ParseNode lt = new ParseNode("less than");
                                                       ParseNode ne1 = (ParseNode) val_peek(2).obj; ParseNode ne2 = (ParseNode) val_peek(0).obj;
@@ -1517,7 +1526,7 @@ case 81:
                                                     }
 break;
 case 82:
-//#line 488 "arthur.yacc"
+//#line 494 "arthur.yacc"
 {
                                                       ParseNode lte = new ParseNode("less than or equal to");
                                                       ParseNode ne1 = (ParseNode) val_peek(2).obj; ParseNode ne2 = (ParseNode) val_peek(0).obj;
@@ -1527,7 +1536,7 @@ case 82:
                                                     }
 break;
 case 83:
-//#line 495 "arthur.yacc"
+//#line 501 "arthur.yacc"
 {
                                                       ParseNode gt = new ParseNode("greater than");
                                                       ParseNode ne1 = (ParseNode) val_peek(2).obj; ParseNode ne2 = (ParseNode) val_peek(0).obj;
@@ -1537,7 +1546,7 @@ case 83:
                                                     }
 break;
 case 84:
-//#line 502 "arthur.yacc"
+//#line 508 "arthur.yacc"
 {
                                                       ParseNode gte = new ParseNode("greater than or equal to");
                                                       ParseNode ne1 = (ParseNode) val_peek(2).obj; ParseNode ne2 = (ParseNode) val_peek(0).obj;
@@ -1547,7 +1556,7 @@ case 84:
                                                     }
 break;
 case 85:
-//#line 509 "arthur.yacc"
+//#line 515 "arthur.yacc"
 {
                                                       ParseNode eq2x = new ParseNode("is equal to");
                                                       ParseNode ne1 = (ParseNode) val_peek(2).obj; ParseNode ne2 = (ParseNode) val_peek(0).obj;
@@ -1557,7 +1566,7 @@ case 85:
                                                     }
 break;
 case 86:
-//#line 519 "arthur.yacc"
+//#line 525 "arthur.yacc"
 {
                                                         ParseNode eq = new ParseNode("=");
                                                         ParseNode id = (ParseNode) val_peek(2).obj;
@@ -1570,7 +1579,7 @@ case 86:
                                                     }
 break;
 case 87:
-//#line 529 "arthur.yacc"
+//#line 535 "arthur.yacc"
 {
                                                         ParseNode eq = new ParseNode("=");
                                                         ParseNode id = (ParseNode) val_peek(3).obj;
@@ -1584,7 +1593,7 @@ case 87:
                                                     }
 break;
 case 88:
-//#line 540 "arthur.yacc"
+//#line 546 "arthur.yacc"
 {
                                                         ParseNode eq = new ParseNode("=");
                                                         ParseNode id = (ParseNode) val_peek(3).obj;
@@ -1598,7 +1607,7 @@ case 88:
                                                     }
 break;
 case 89:
-//#line 551 "arthur.yacc"
+//#line 557 "arthur.yacc"
 {
                                                         ParseNode eq = new ParseNode("=");
                                                         ParseNode id = (ParseNode) val_peek(3).obj;
@@ -1612,7 +1621,7 @@ case 89:
                                                     }
 break;
 case 90:
-//#line 562 "arthur.yacc"
+//#line 568 "arthur.yacc"
 {
                                                         ParseNode eq = new ParseNode("=");
                                                         ParseNode id = (ParseNode) val_peek(3).obj;
@@ -1626,7 +1635,7 @@ case 90:
                                                     }
 break;
 case 91:
-//#line 573 "arthur.yacc"
+//#line 579 "arthur.yacc"
 {
                                                         ParseNode eq = new ParseNode("=");
                                                         ParseNode var = (ParseNode) val_peek(2).obj;
@@ -1639,11 +1648,11 @@ case 91:
                                                     }
 break;
 case 92:
-//#line 591 "arthur.yacc"
+//#line 597 "arthur.yacc"
 { yyval = val_peek(1); }
 break;
 case 93:
-//#line 595 "arthur.yacc"
+//#line 601 "arthur.yacc"
 {
                                                         ParseNode plus = new ParseNode("+");
                                                         plus.addChild((ParseNode)val_peek(2).obj);
@@ -1652,7 +1661,7 @@ case 93:
                                                     }
 break;
 case 94:
-//#line 601 "arthur.yacc"
+//#line 607 "arthur.yacc"
 {
                                                         ParseNode minus = new ParseNode("-");
                                                         minus.addChild((ParseNode)val_peek(2).obj);
@@ -1661,11 +1670,11 @@ case 94:
                                                     }
 break;
 case 95:
-//#line 607 "arthur.yacc"
+//#line 613 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
 case 96:
-//#line 611 "arthur.yacc"
+//#line 617 "arthur.yacc"
 {
                                                         ParseNode times = new ParseNode("*");
                                                         times.addChild((ParseNode)val_peek(2).obj);
@@ -1674,7 +1683,7 @@ case 96:
                                                     }
 break;
 case 97:
-//#line 617 "arthur.yacc"
+//#line 623 "arthur.yacc"
 {
                                                         ParseNode div = new ParseNode("/");
                                                         div.addChild((ParseNode)val_peek(2).obj);
@@ -1683,7 +1692,7 @@ case 97:
                                                     }
 break;
 case 98:
-//#line 623 "arthur.yacc"
+//#line 629 "arthur.yacc"
 {
                                                         ParseNode mod = new ParseNode("%");
                                                         mod.addChild((ParseNode)val_peek(2).obj);
@@ -1692,11 +1701,11 @@ case 98:
                                                     }
 break;
 case 99:
-//#line 629 "arthur.yacc"
+//#line 635 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
 case 100:
-//#line 633 "arthur.yacc"
+//#line 639 "arthur.yacc"
 {
                                                         ParseNode exp = new ParseNode("^");
                                                         exp.addChild((ParseNode)val_peek(2).obj);
@@ -1705,31 +1714,31 @@ case 100:
                                                     }
 break;
 case 101:
-//#line 639 "arthur.yacc"
-{ yyval = val_peek(0); }
-break;
-case 102:
-//#line 642 "arthur.yacc"
-{ yyval = val_peek(0); }
-break;
-case 103:
-//#line 643 "arthur.yacc"
-{ ParseNode t = new ParseNode("true"); yyval = new ParserVal(t); }
-break;
-case 104:
-//#line 644 "arthur.yacc"
-{ ParseNode f = new ParseNode("false"); yyval = new ParserVal(f); }
-break;
-case 105:
 //#line 645 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
+case 102:
+//#line 648 "arthur.yacc"
+{ yyval = val_peek(0); }
+break;
+case 103:
+//#line 649 "arthur.yacc"
+{ ParseNode t = new ParseNode("true"); yyval = new ParserVal(t); }
+break;
+case 104:
+//#line 650 "arthur.yacc"
+{ ParseNode f = new ParseNode("false"); yyval = new ParserVal(f); }
+break;
+case 105:
+//#line 651 "arthur.yacc"
+{ yyval = val_peek(0); }
+break;
 case 106:
-//#line 646 "arthur.yacc"
+//#line 652 "arthur.yacc"
 { yyval = val_peek(1); }
 break;
 case 107:
-//#line 650 "arthur.yacc"
+//#line 656 "arthur.yacc"
 {
                                                         Color c = (Color) val_peek(0).obj;
                                                         ParseNode color = new ParseNode("Color");
@@ -1741,7 +1750,7 @@ case 107:
                                                     }
 break;
 case 108:
-//#line 659 "arthur.yacc"
+//#line 665 "arthur.yacc"
 {
                                                         Num n = (Num) val_peek(0).obj;
                                                         ParseNode number = new ParseNode("number");
@@ -1750,7 +1759,7 @@ case 108:
                                                     }
 break;
 case 109:
-//#line 665 "arthur.yacc"
+//#line 671 "arthur.yacc"
 {
                                                         StringLit s = (StringLit) val_peek(0).obj;
                                                         ParseNode string = new ParseNode("String");
@@ -1759,9 +1768,15 @@ case 109:
                                                     }
 break;
 case 110:
-//#line 674 "arthur.yacc"
+//#line 680 "arthur.yacc"
 {
                                                         Var v = (Var) val_peek(0).obj;
+                                                        if (lexer.table.get(v.id) != null) {
+                                                          System.out.println("variable " + v.id + " already exists!!");
+                                                          errorCount++;
+                                                        }
+                                                        lexer.table.put(v.id, v);
+
                                                         ParseNode var = new ParseNode("variable");
                                                         var.addChild(new ParseNode(v.typeName(), var));
                                                         var.addChild(new ParseNode(v.id, var));
@@ -1769,7 +1784,7 @@ case 110:
                                                     }
 break;
 case 111:
-//#line 684 "arthur.yacc"
+//#line 696 "arthur.yacc"
 {
                                                         Var v = (Var) val_peek(0).obj;
                                                         ParseNode var = new ParseNode("parameter");
@@ -1779,27 +1794,27 @@ case 111:
                                                     }
 break;
 case 112:
-//#line 694 "arthur.yacc"
+//#line 706 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
 case 113:
-//#line 695 "arthur.yacc"
+//#line 707 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
 case 114:
-//#line 696 "arthur.yacc"
+//#line 708 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
 case 115:
-//#line 697 "arthur.yacc"
+//#line 709 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
 case 116:
-//#line 698 "arthur.yacc"
+//#line 710 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
 case 117:
-//#line 699 "arthur.yacc"
+//#line 711 "arthur.yacc"
 {
                                                         Identifier i = (Identifier) val_peek(0).obj;
 
@@ -1814,7 +1829,7 @@ case 117:
                                                         yyval = new ParserVal(id);
                                                     }
 break;
-//#line 1741 "Parser.java"
+//#line 1756 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
