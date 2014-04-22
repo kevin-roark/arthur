@@ -130,7 +130,6 @@ FunDec = ({Type}|void){WS}+{Identifier}{WS}*\(
                               String type = arr[0];
                               String name = arr[1];
                               Var var = new Var(name, type, yyline);
-                              table.getMap().put(name, var);
                               return var;
                             }
 
@@ -139,7 +138,6 @@ FunDec = ({Type}|void){WS}+{Identifier}{WS}*\(
                               String returnType = arr[0];
                               String name = arr[1];
                               Function fun = new Function(name, returnType, yyline);
-                              table.getMap().put(name, fun);
                               return fun;
                             }
 
@@ -170,46 +168,12 @@ FunDec = ({Type}|void){WS}+{Identifier}{WS}*\(
 
     {Identifier}            { return new Identifier(yytext(), yyline); }
 
-    /* {Value}                 { return new Value(yytext(), yyline); } */
-
     {WS}                    { /* do nothing */ }
 
     {Comment}               { /* do nothing */ }
 
-  /*{FunDec}                { String[] arr = yytext().split("\\(");
-                              String params = arr[1].replace(")", "").trim();
-                              String[] arr2 = arr[0].split("\\s+");
-                              String returnType = arr2[0];
-                              String name = arr2[1];
-                              Function fun = new Function(name, params, returnType, yyline);
-                              table.getMap().put(name, fun);
-                              return fun;
-                            }*/
-
     /* anything else */
     [^]                     { throw new Error("Illegal character: " + yytext()); }
 
-
-    /*
-    {VarInit}                { String[] arr = yytext().split("=");
-                              String varDec = arr[0];
-                              String[] arr2 = varDec.split("\\s+");
-                              String type = arr2[0];
-                              String name = arr2[1];
-                              String value = arr[1].trim();
-                              Var var = new Var(name, type, value, yyline);
-                              symbolTable.put(name, var);
-                              return var;
-                            }*/
-
-/*
-    {FunCall}               { String[] arr = yytext().split("(");
-                              String name = arr[0].trim();
-                              Function f = (Function) symbolTable.get(name);
-                              String params = arr[1].split(")")[0].trim();
-                              return new FunCall(f, params);
-                            }
-
-*/
 
 }

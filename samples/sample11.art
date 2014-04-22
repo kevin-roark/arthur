@@ -53,7 +53,7 @@ void loop() {
     if (overlay.r <= 0) {
       cmode = 1;
     }
-  } elf (cmode == 1) {
+  } else {
     overlay += <<1, 0, 0>>;
     overlay -= <<0, 1, 0>>;
     if (overlay.r >= 255) {
