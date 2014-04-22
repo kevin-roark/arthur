@@ -141,6 +141,81 @@ public class ArthurString extends ArthurMedia {
     return new ArthurNumber(val);
   }
 
+  public ArthurVideo toVideo() {
+    String filename = "string-" + (new Random()).nextInt() + ".mp4";
+
+    int length = str.length();
+    ArthurString letter;
+
+    for (int i = 1; i <= length; i++) {
+      letter = new ArthurString(str.substring(i - 1, i));
+      ArthurImage frame = letter.toImage(i % 4);
+      frame.writeToFile("adjusted-" + i + ".jpg");
+    }
+
+    IoUtils.execute("ffmpeg -r 3 -i adjusted-%d.jpg -c:v libx264 -r 30 -pix_fmt yuv420p " + filename);
+
+    int counter = 1;
+    String fn;
+    while (true) {
+      fn = "adjusted-" + counter + ".jpg";
+      if (new File(fn).isFile() == false) {
+        break;
+      }
+      IoUtils.execute("rm " + fn);
+      counter++;
+    }
+
+    return new ArthurVideo(filename);
+  }
+
+  public ArthurImage toImage(int colorSwitch) {
+    String filename = "string-" + (new Random()).nextInt() + ".jpg";
+
+    Font font = new Font("Consolas", Font.PLAIN, 110);
+    FontRenderContext frc = new FontRenderContext(null, true, true);
+
+    Rectangle2D bounds = font.getStringBounds(this.str, frc);
+    int w = (int) bounds.getWidth();
+    int h = (int) bounds.getHeight();
+
+    BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+
+    Graphics2D g = image.createGraphics();
+    if (colorSwitch == 0) {
+      g.setColor(Color.BLACK);
+    }
+    else if (colorSwitch == 1) {
+      g.setColor(Color.RED);
+    }
+    else if (colorSwitch == 2) {
+      g.setColor(Color.WHITE);
+    }
+    else {
+      g.setColor(Color.YELLOW);
+    }
+    
+    g.fillRect(0, 0, w, h);
+    if (colorSwitch == 0) {
+      g.setColor(Color.WHITE);
+    }
+    else if (colorSwitch == 1) {
+      g.setColor(Color.BLUE);
+    }
+    else if (colorSwitch == 2) {
+      g.setColor(Color.BLACK);
+    }
+    else {
+      g.setColor(Color.GREEN);
+    }
+    g.setFont(font);
+
+    g.drawString(this.str, (float) bounds.getX(), (float) -bounds.getY());
+    g.dispose();
+
+    return new ArthurImage(image, filename);
+  }
+
   public ArthurImage toImage() {
     String filename = "string-" + (new Random()).nextInt() + ".jpg";
 

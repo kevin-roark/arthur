@@ -179,7 +179,7 @@ public class JavaImageMath {
     return minus(one, two.toColor());
   }
 
-  public static ArthurImage add(ArthurImage one, ArthurVideo two) {
+  public static ArthurImage minus(ArthurImage one, ArthurVideo two) {
 		return JavaImageMath.addition(two.toImage(), one, 1);
 	}
 
