@@ -161,6 +161,11 @@ public class ArthurColor extends ArthurMedia {
     return new ArthurImage(image, filename);
   }
 
+  public ArthurVideo toVideo() {
+    ArthurVideo zero = new ArthurVideo(ArthurVideo.ZERO);
+    return zero.add(this);
+  }
+
   public ArthurSound toSound() {
     ArthurSound zero = new ArthurSound(ArthurSound.ZERO);
     return zero.add(this);
