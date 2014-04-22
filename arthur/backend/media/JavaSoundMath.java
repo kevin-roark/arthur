@@ -22,12 +22,12 @@ import arthur.backend.IoUtils;
 public class JavaSoundMath {
 
   public static final int LOW_HZ = 250; // bass center
-  public static final int WIDTH_LOW_HZ = 460; // bass is 20 -> 480
-  public static final int MID_HZ = 1400; // mid center
-  public static final int WIDTH_MID_HZ = 2000; // mid is 400 -> 2400
-  public static final int HIGH_HZ = 5000; // high center
-  public static final int WIDTH_HIGH_HZ = 5000; // high is 2500 -> 7500
-  public static final double MAX_EQ_GAIN = 20.0;
+  public static final int WIDTH_LOW_HZ = 500; // bass is 0 -> 500
+  public static final int MID_HZ = 1000; // mid center
+  public static final int WIDTH_MID_HZ = 1000; // mid is 500 -> 1500
+  public static final int HIGH_HZ = 4500; // high center
+  public static final int WIDTH_HIGH_HZ = 3000; // high is 1500 -> 6500
+  public static final double MAX_EQ_GAIN = 25.0;
 
   public static String ffmpegStarter(String filename1, String filename2) {
     return "ffmpeg -i " + filename1 + " -i " + filename2 + " ";
@@ -69,27 +69,27 @@ public class JavaSoundMath {
 
     double lowGain, midGain, highGain;
     if (r < mid) {
-      lowGain = -1.0 * MAX_EQ_GAIN * (r / mid);
+      lowGain = -1.0 * MAX_EQ_GAIN * ((mid - r) / mid);
     } else {
       lowGain = MAX_EQ_GAIN * ((r - mid) / mid);
     }
 
     if (g < mid) {
-      midGain = -1.0 * MAX_EQ_GAIN * (g / mid);
+      midGain = -1.0 * MAX_EQ_GAIN * ((mid - g) / mid);
     } else {
       midGain = MAX_EQ_GAIN * ((g - mid) / mid);
     }
 
     if (b < mid) {
-      highGain = -1.0 * MAX_EQ_GAIN * (b / mid);
+      highGain = -1.0 * MAX_EQ_GAIN * ((mid - b) / mid);
     } else {
       highGain = MAX_EQ_GAIN * ((b - mid) / mid);
     }
 
     String command = soxStarter(one.filename) + outname +
-      " bass " + lowGain +
+      " bass " + lowGain + " 500 1000h " +
       " equalizer " + MID_HZ + " " + WIDTH_MID_HZ + " " + midGain +
-      " treble " + highGain;
+      " treble " + highGain + " 2000 1000h ";
     IoUtils.execute(command);
     System.out.println("writing equalized sound to " + outname);
     return new ArthurSound(outname);

@@ -135,6 +135,8 @@ public class ArthurColor extends ArthurMedia {
       return this.toNumber();
     } else if (mediaType.equals("Image")) {
       return this.toImage();
+    } else if (mediaType.equals("Sound")) {
+      return this.toSound();
     }
 
     return this;
@@ -163,6 +165,11 @@ public class ArthurColor extends ArthurMedia {
     g.dispose();
 
     return new ArthurImage(image, filename);
+  }
+
+  public ArthurSound toSound() {
+    ArthurSound zero = new ArthurSound(ArthurSound.ZERO);
+    return zero.add(this);
   }
 
   public ArthurString toArtString() {
