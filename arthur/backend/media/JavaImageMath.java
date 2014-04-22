@@ -107,6 +107,10 @@ public class JavaImageMath {
     return add(one, two.toColor());
   }
 
+  public static ArthurImage add(ArthurImage one, ArthurVideo two) {
+    return add(one, two.toColor());
+  }
+
 	public static ArthurImage minus(ArthurImage one, ArthurNumber two) {
 		BufferedImage image = JavaImageMath.clone(one.bf);
 		double number = two.val;
@@ -172,6 +176,10 @@ public class JavaImageMath {
 	}
 
   public static ArthurImage minus(ArthurImage one, ArthurSound two) {
+    return minus(one, two.toColor());
+  }
+
+  public static ArthurImage minus(ArthurImage one, ArthurVideo two) {
     return minus(one, two.toColor());
   }
 

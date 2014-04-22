@@ -121,6 +121,10 @@ public class ArthurVideo extends ArthurMedia {
     return this;
   }
 
+  public ArthurMedia castTo(ArthurString mediaType) {
+    return castTo(mediaType.str);
+  }
+
   public ArthurMedia castTo(String mediaType) {
     if (mediaType.equals("Image")) {
       return this.toImage();
@@ -131,7 +135,7 @@ public class ArthurVideo extends ArthurMedia {
     } else if (mediaType.equals("num")) {
       return this.toNumber();
     } else if (mediaType.equals("color")) {
-      return this.toImage().toColor();
+      return this.toColor();
     }
 
     return this;
@@ -156,6 +160,10 @@ public class ArthurVideo extends ArthurMedia {
   public ArthurString toArtString() {
     ArthurImage im = toImage();
     return im.toArtString();
+  }
+
+  public ArthurColor toColor() {
+    return this.toImage().toColor();
   }
 
   public ArthurImage toImage() {

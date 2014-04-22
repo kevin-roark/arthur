@@ -46,6 +46,10 @@ public class ArthurMedia implements java.io.Serializable {
     return false;
   }
 
+  public ArthurMedia castTo(ArthurString mediaType) {
+    return castTo(mediaType.str);
+  }
+
   public ArthurMedia castTo(String mediaType) {
     return this;
   }

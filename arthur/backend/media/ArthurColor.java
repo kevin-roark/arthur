@@ -131,6 +131,8 @@ public class ArthurColor extends ArthurMedia {
       return this.toImage();
     } else if (mediaType.equals("Sound")) {
       return this.toSound();
+    } else if (mediaType.equals("Video")) {
+      return this.toVideo();
     }
 
     return this;

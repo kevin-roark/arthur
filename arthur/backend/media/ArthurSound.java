@@ -106,9 +106,10 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
       return JavaSoundMath.multiply(this, (ArthurSound) two, outname);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaSoundMath.multiply(this, (ArthurNumber) two, outname);
+    } else {
+      ArthurSound s = (ArthurSound) two.castTo("Sound");
+      return JavaSoundMath.multiply(this, s, outname);
     }
-
-    return this;
   }
 
   public ArthurSound divide(ArthurMedia two) {
@@ -117,9 +118,10 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
       return JavaSoundMath.divide(this, (ArthurSound) two, outname);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaSoundMath.divide(this, (ArthurNumber) two, outname);
+    } else {
+      ArthurSound s = (ArthurSound) two.castTo("Sound");
+      return JavaSoundMath.divide(this, s, outname);
     }
-
-    return this;
   }
 
   public static String nameGen() {
@@ -129,6 +131,10 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
     }
     ArthurSound.intermediateFiles.add(name);
     return name;
+  }
+
+  public ArthurMedia castTo(ArthurString mediaType) {
+    return castTo(mediaType.str);
   }
 
   public ArthurMedia castTo(String mediaType) {
