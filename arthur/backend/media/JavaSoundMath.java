@@ -170,14 +170,14 @@ public class JavaSoundMath {
     double dur2 = (double) audioContainer2.getDuration();
 
     double diff = 0;
-    if (dur1 < dur2) {
+    if (dur1 > dur2) {
       diff = dur2 / dur1;
-    } else if (dur1 > dur2) {
+    } else if (dur1 < dur2) {
       diff = dur1 / dur2;
     }
 
     ArthurSound speedyTwo = speedChange(two, diff, ArthurSound.nameGen());
-    return multiply(one, two, ArthurSound.nameGen());
+    return multiply(one, speedyTwo, ArthurSound.nameGen());
   }
 
   // changes volume by factor of num

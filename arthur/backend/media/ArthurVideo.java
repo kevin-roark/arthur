@@ -95,7 +95,9 @@ public class ArthurVideo extends ArthurMedia {
     else if (two.type.equals(ArthurImage.IMAGE)) {
       return JavaVideoMath.minus(this, (ArthurImage) two, outname);
     }
-    //TODO: minus sound
+    else if (two.type.equals(ArthurSound.SOUND)) {
+      return JavaVideoMath.minus(this, (ArthurSound) two, outname);
+    }
     return this;
   }
 
@@ -107,7 +109,10 @@ public class ArthurVideo extends ArthurMedia {
     else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaVideoMath.multiply(this, (ArthurNumber) two, outname);
     }
-    return this;
+    else {
+      ArthurVideo v = (ArthurVideo) two.castTo("Video");
+      return this.multiply(v);
+    }
   }
 
   public ArthurVideo divide(ArthurMedia two) {
@@ -118,7 +123,10 @@ public class ArthurVideo extends ArthurMedia {
     else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaVideoMath.divide(this, (ArthurNumber) two, outname);
     }
-    return this;
+    else {
+      ArthurVideo v = (ArthurVideo) two.castTo("Video");
+      return this.divide(v);
+    }
   }
 
   public ArthurMedia castTo(ArthurString mediaType) {

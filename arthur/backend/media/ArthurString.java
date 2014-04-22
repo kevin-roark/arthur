@@ -108,6 +108,8 @@ public class ArthurString extends ArthurMedia {
       return this.toImage();
     } else if (mediaType.equals("Sound")) {
       return this.toSound();
+    } else if (mediaType.equals("Video")) {
+      return this.toVideo();
     }
 
     return this;
@@ -186,7 +188,7 @@ public class ArthurString extends ArthurMedia {
     else {
       g.setColor(Color.YELLOW);
     }
-    
+
     g.fillRect(0, 0, w, h);
     if (colorSwitch == 0) {
       g.setColor(Color.WHITE);
