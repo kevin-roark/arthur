@@ -165,6 +165,10 @@ public class ArthurColor extends ArthurMedia {
     return new ArthurImage(image, filename);
   }
 
+  public ArthurVideo toVideo() {
+    return JavaVideoMath.add(new ArthurVideo("ZERO.mp4"), this, "color-" + System.currentTimeMillis() + ".mp4");
+  }
+
   public ArthurString toArtString() {
     return closestString();
   }
