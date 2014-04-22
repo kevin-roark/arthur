@@ -99,14 +99,11 @@ public class ArthurColor extends ArthurMedia {
       return JavaColorMath.multiply(this, (ArthurColor) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaColorMath.multiply(this, (ArthurNumber) two);
-    } else if (two.type.equals(ArthurImage.IMAGE)) {
-      ArthurImage img = (ArthurImage) two;
-      return JavaColorMath.multiply(this, img.toColor());
-    } else if (two.type.equals(ArthurString.STRING)) {
-      ArthurString str = (ArthurString) two;
-      return JavaColorMath.multiply(this, str.toColor());
+    } else {
+      // all types can cast to color at this point
+      ArthurColor t = (ArthurColor) two.castTo("color");
+      return JavaColorMath.multiply(this, t);
     }
-    return this;
   }
 
   public ArthurColor divide(ArthurMedia two) {
@@ -114,14 +111,11 @@ public class ArthurColor extends ArthurMedia {
       return JavaColorMath.divide(this, (ArthurColor) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaColorMath.divide(this, (ArthurNumber) two);
-    } else if (two.type.equals(ArthurImage.IMAGE)) {
-      ArthurImage img = (ArthurImage) two;
-      return JavaColorMath.divide(this, img.toColor());
-    } else if (two.type.equals(ArthurString.STRING)) {
-      ArthurString str = (ArthurString) two;
-      return JavaColorMath.divide(this, str.toColor());
+    } else {
+      // all types can cast to color at this point
+      ArthurColor t = (ArthurColor) two.castTo("color");
+      return JavaColorMath.divide(this, t);
     }
-    return this;
   }
 
   public ArthurMedia castTo(ArthurString mediaType) {
@@ -131,7 +125,7 @@ public class ArthurColor extends ArthurMedia {
   public ArthurMedia castTo(String mediaType) {
     if (mediaType.equals("string")) {
       return this.toArtString();
-    } else if (mediaType.equals("number")) {
+    } else if (mediaType.equals("num")) {
       return this.toNumber();
     } else if (mediaType.equals("Image")) {
       return this.toImage();

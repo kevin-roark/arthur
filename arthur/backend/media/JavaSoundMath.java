@@ -105,6 +105,11 @@ public class JavaSoundMath {
     return add(one, speech, outname);
   }
 
+  public static ArthurSound add(ArthurSound one, ArthurVideo two, String outname) {
+    ArthurSound vidSound = two.toSound();
+    return add(one, vidSound, outname);
+  }
+
   public static ArthurSound minus(ArthurSound one, ArthurSound two, String outname) {
     return add(two, one, outname);
   }
@@ -128,6 +133,11 @@ public class JavaSoundMath {
   public static ArthurSound minus(ArthurSound one, ArthurString two, String outname) {
     ArthurSound speech = two.toSound();
     return minus(one, speech, outname);
+  }
+
+  public static ArthurSound minus(ArthurSound one, ArthurVideo two, String outname) {
+    ArthurSound vidSound = two.toSound();
+    return minus(one, vidSound, outname);
   }
 
   // merges the two audios

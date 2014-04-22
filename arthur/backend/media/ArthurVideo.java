@@ -25,6 +25,8 @@ import java.awt.AlphaComposite;
 public class ArthurVideo extends ArthurMedia {
 
   public static final String VIDEO = "Video";
+  public static final String ZERO = "ZERO.mp4";
+
   public String filename;
   public static ArrayList<String> intermediateFiles;
 
@@ -128,6 +130,8 @@ public class ArthurVideo extends ArthurMedia {
       return this.toArtString();
     } else if (mediaType.equals("num")) {
       return this.toNumber();
+    } else if (mediaType.equals("color")) {
+      return this.toImage().toColor();
     }
 
     return this;

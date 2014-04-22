@@ -15,6 +15,8 @@ import java.util.Random;
 public class ArthurImage extends ArthurMedia implements java.io.Serializable {
 
   public static final String IMAGE = "image";
+  public static final String ZERO = "arthur.jpg";
+  
   public String filename;
   public transient BufferedImage bf;
   public ArthurNumber height;
