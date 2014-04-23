@@ -94,30 +94,38 @@ public class JavaVideoMath {
 
   public static ArthurVideo multiply(ArthurVideo one, ArthurVideo two, String outname) {
 //STILL DOESN't WORK!
-String extractAudio = "ffmpeg -i %s -ab 160k -ac 2 -ar 44100 -vn %s";
-    String tempSound = "Sound-temp-" + System.currentTimeMillis() + ".mp3";
-    String command1 = String.format(extractAudio, two.filename, tempSound);
-    IoUtils.execute(command1);
+    String extractAudio = "ffmpeg -i %s -ab 160k -ac 2 -ar 44100 -vn %s";
 
-    String extractAudio2 = "ffmpeg -i %s -ab 160k -ac 2 -ar 44100 -vn %s";
-    String tempSound2 = "Sound-temp-" + System.currentTimeMillis() + ".mp3";
-    String command2 = String.format(extractAudio, one.filename, tempSound2);
+    String tempSound1 = ArthurSound.nameGen();
+    String command1 = String.format(extractAudio, one.filename, tempSound1);
+    IoUtils.execute(command1);
+    ArthurSound firstSound = new ArthurSound(tempSound1);
+    
+    String tempSound2 = ArthurSound.nameGen();
+    String command2 = String.format(extractAudio, two.filename, tempSound2);
     IoUtils.execute(command2);
+    ArthurSound secondSound = new ArthurSound(tempSound2);
+
+    ArthurSound mixedAudio = firstSound.multiply(secondSound);
+
 
     ArthurImage sample = one.toImage();
     //we gotta get the screen size of the first video
     String vidSize = sample.width.val.intValue()+":"+sample.height.val.intValue();
 
-    ArthurSound secondSound = new ArthurSound(tempSound);
-    ArthurSound firstSound = new ArthurSound(tempSound2);
+    //ArthurSound firstSound = new ArthurSound(tempSound2);
 
     //this actually merges the vids though
-    IoUtils.execute(scriptPath() + "vidoverlay.sh " + one.filename + " " + two.filename + " " + outname+" "+vidSize);
-    ArthurVideo temp = new ArthurVideo(outname);
-    //secondSound = secondSound.multiply(firstSound);
-    secondSound.writeToFile("secondSound.mp3");
-    temp = temp.add(secondSound);
-    return temp;
+
+    String mixedVidName = ArthurVideo.nameGen();
+    IoUtils.execute(scriptPath() + "vidoverlay.sh " + one.filename + " " + two.filename + " " + mixedVidName + " "+vidSize);
+    ArthurVideo mixedVid = new ArthurVideo(mixedVidName);
+
+    ArthurVideo complete = mixedVid.minus(mixedAudio);
+    complete.move(outname);
+    System.out.println("outname: " + outname);
+
+    return complete;
   }
 
   public static ArthurVideo multiply(ArthurVideo one, ArthurNumber two, String outname) {

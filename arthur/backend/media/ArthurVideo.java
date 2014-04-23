@@ -302,6 +302,11 @@ public class ArthurVideo extends ArthurMedia {
     this.filename = fname.substring(fname.indexOf('/') + 1); // remove 'buster'
   }
 
+  public void move(String fname) {
+    IoUtils.hardMove(this.filename, fname);
+    this.filename = fname;
+  }
+
   public String toString() {
     return "ArthurVideo from file: " + this.filename;
   }

@@ -59,6 +59,17 @@ public class IoUtils {
       }
     }
 
+     public static void hardMove(String start, String end) {
+      try {
+        String exec = "mv " + start + " " + end;
+        Process p = Runtime.getRuntime().exec(exec);
+        p.waitFor();
+      } catch (Exception e) {
+        System.out.println("failed to copy file " + start + " to " + end);
+        e.printStackTrace();
+      }
+    }
+
     public static boolean execute(String exec) {
       try {
         System.out.println("starting: " + exec);
