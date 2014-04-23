@@ -20,6 +20,15 @@ public class ArthurVideoTester {
     ArthurString str = new ArthurString("The future is now - Arthur");
     //ArthurVideo v7 = str.toVideo();
 
-    ArthurVideo v8 = v1.divide(new ArthurNumber(4));
+    //ArthurVideo v8 = v1.divide(new ArthurNumber(4));
+
+    //ArthurVideo v9 = v2.multiply(new ArthurNumber(5));
+    //ArthurVideo v10 = v2.multiply(new ArthurNumber(0.2));
+
+    ArthurVideo v11 = v2.multiply(new ArthurNumber(2))
+                        .divide(new ArthurNumber(2))
+                        .add(new ArthurColor(255.0, 0.0, 0.0, 1.0))
+                        .add(new ArthurSound("future.mp3"))
+                        ;
   }
 }

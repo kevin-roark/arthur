@@ -19,11 +19,25 @@ function ArthurColor(r, g, b, a, frame, delay) {
     this.delay = new ArthurNumber(delay);
   }
 
-  if (typeof r == 'object') {
+  if (r instanceof ArthurNumber) {
     this.r = r;
     this.g = g;
     this.b = b;
     this.a = a;
+  } else if (r instanceof ArthurColor) {
+    this.r = r.r;
+    this.g = r.g;
+    this.b = r.b;
+    this.a = r.a;
+  } else if (typeof r == 'object') {
+    this.r = new ArthurNumber(r.r);
+    this.g = new ArthurNumber(r.g);
+    this.b = new ArthurNumber(r.b);
+    this.a = new ArthurNumber(r.a);
+    this.frame = r.frame;
+    if (r.delay) {
+      this.delay = new ArthurNumber(r.delay);
+    }
   } else if (typeof r == 'string') {
     var ob = JSON.parse(r);
     this.r = new ArthurNumber(ob.r);
@@ -41,6 +55,10 @@ function ArthurColor(r, g, b, a, frame, delay) {
     this.a = new ArthurNumber(a);
   }
   this.medfile = null;
+
+  if (!this.a) {
+    this.a = new ArthurNumber(1.0);
+  }
 }
 
 ArthurColor.prototype.__proto__ = ArthurMedia.prototype;
@@ -55,11 +73,12 @@ ArthurColor.prototype.rgba = function() {
 
 ArthurColor.prototype.draw = function() {
   context.fillStyle = this.rgba();
-  if (this.frame) {
-    context.fillRect(this.frame.x.int(), this.frame.y.int(), this.frame.w.int(), this.frame.h.int());
-  } else {
-    context.fillRect(0, 0, canvas.width, canvas.height);
+
+  if (!this.frame) {
+    this.frame = new ArthurFrame({x: 0, y: 0, w: canvas.width, h: canvas.height});
   }
+
+  context.fillRect(this.frame.x.int(), this.frame.y.int(), this.frame.w.int(), this.frame.h.int());
 }
 
 ArthurColor.prototype.add = function(color) {

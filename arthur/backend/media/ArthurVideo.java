@@ -28,6 +28,8 @@ public class ArthurVideo extends ArthurMedia {
   public static final String ZERO = "ZERO.mp4";
 
   public String filename;
+  public ArthurNumber murk;
+
   public static ArrayList<String> intermediateFiles;
 
 
@@ -57,76 +59,86 @@ public class ArthurVideo extends ArthurMedia {
 
   public ArthurVideo add(ArthurMedia two) {
     String outname = nameGen();
+    ArthurVideo res = this;
     if (two.type.equals(VIDEO)) {
-      return JavaVideoMath.add(this, (ArthurVideo) two, outname);
+      res = JavaVideoMath.add(this, (ArthurVideo) two, outname);
     }
     else if (two.type.equals(ArthurColor.COLOR)) {
-      return JavaVideoMath.add(this, (ArthurColor) two, outname);
+      res = JavaVideoMath.add(this, (ArthurColor) two, outname);
     }
     else if (two.type.equals(ArthurNumber.NUMBER)) {
-      return JavaVideoMath.add(this, (ArthurNumber) two, outname);
+      res = JavaVideoMath.add(this, (ArthurNumber) two, outname);
     }
     else if (two.type.equals(ArthurString.STRING)) {
-      return JavaVideoMath.add(this, (ArthurString) two, outname);
+      res = JavaVideoMath.add(this, (ArthurString) two, outname);
     }
     else if (two.type.equals(ArthurImage.IMAGE)) {
-      return JavaVideoMath.add(this, (ArthurImage) two, outname);
+      res = JavaVideoMath.add(this, (ArthurImage) two, outname);
     }
     else if (two.type.equals(ArthurSound.SOUND)) {
-      return JavaVideoMath.add(this, (ArthurSound) two, outname);
+      res = JavaVideoMath.add(this, (ArthurSound) two, outname);
     }
-    return this;
+    res.murk = this.murk;
+    return res;
   }
 
   public ArthurVideo minus(ArthurMedia two) {
     String outname = nameGen();
+    ArthurVideo res = this;
     if (two.type.equals(VIDEO)) {
-      return JavaVideoMath.minus(this, (ArthurVideo) two, outname);
+      res = JavaVideoMath.minus(this, (ArthurVideo) two, outname);
     }
     else if (two.type.equals(ArthurColor.COLOR)) {
-      return JavaVideoMath.minus(this, (ArthurColor) two, outname);
+      res = JavaVideoMath.minus(this, (ArthurColor) two, outname);
     }
     else if (two.type.equals(ArthurNumber.NUMBER)) {
-      return JavaVideoMath.minus(this, (ArthurNumber) two, outname);
+      res = JavaVideoMath.minus(this, (ArthurNumber) two, outname);
     }
     else if (two.type.equals(ArthurString.STRING)) {
-      return JavaVideoMath.minus(this, (ArthurString) two, outname);
+      res = JavaVideoMath.minus(this, (ArthurString) two, outname);
     }
     else if (two.type.equals(ArthurImage.IMAGE)) {
-      return JavaVideoMath.minus(this, (ArthurImage) two, outname);
+      res = JavaVideoMath.minus(this, (ArthurImage) two, outname);
     }
     else if (two.type.equals(ArthurSound.SOUND)) {
-      return JavaVideoMath.minus(this, (ArthurSound) two, outname);
+      res = JavaVideoMath.minus(this, (ArthurSound) two, outname);
     }
-    return this;
+    res.murk = this.murk;
+    return res;
   }
 
   public ArthurVideo multiply(ArthurMedia two) {
     String outname = nameGen();
+    ArthurVideo res = this;
     if (two.type.equals(VIDEO)) {
-      return JavaVideoMath.multiply(this, (ArthurVideo) two, outname);
+      res = JavaVideoMath.multiply(this, (ArthurVideo) two, outname);
     }
     else if (two.type.equals(ArthurNumber.NUMBER)) {
-      return JavaVideoMath.multiply(this, (ArthurNumber) two, outname);
+      res = JavaVideoMath.multiply(this, (ArthurNumber) two, outname);
     }
     else {
       ArthurVideo v = (ArthurVideo) two.castTo("Video");
-      return this.multiply(v);
+      res = this.multiply(v);
     }
+    res.murk = this.murk;
+    return res;
   }
 
   public ArthurVideo divide(ArthurMedia two) {
     String outname = nameGen();
+    ArthurVideo res = this;
     if (two.type.equals(VIDEO)) {
-      return JavaVideoMath.divide(this, (ArthurVideo) two, outname);
+      res = JavaVideoMath.divide(this, (ArthurVideo) two, outname);
     }
     else if (two.type.equals(ArthurNumber.NUMBER)) {
-      return JavaVideoMath.divide(this, (ArthurNumber) two, outname);
+      res = JavaVideoMath.divide(this, (ArthurNumber) two, outname);
     }
     else {
       ArthurVideo v = (ArthurVideo) two.castTo("Video");
-      return this.divide(v);
+      res = this.divide(v);
     }
+    res.murk = this.murk;
+    return res;
   }
 
   public ArthurMedia castTo(ArthurString mediaType) {
@@ -268,6 +280,9 @@ public class ArthurVideo extends ArthurMedia {
     }
     if (this.delay != null) {
       js += ", \"delay\": " + this.delay.val;
+    }
+    if (this.murk != null) {
+      js += ", \"murk\": " + this.murk.val;
     }
     js += "}";
     return js;

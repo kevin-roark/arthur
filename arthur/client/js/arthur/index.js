@@ -29,10 +29,14 @@ var activeMedia = [];
 function makeActive(med) {
   if (!med.delay) {
     med.active = true;
+    if (med.activate)
+      med.activate();
     activeMedia.push(med);
   } else {
     setTimeout(function() {
       med.active = true;
+      if (med.activate)
+        med.activate();
       activeMedia.push(med);
     }, med.delay.val * 1000);
   }

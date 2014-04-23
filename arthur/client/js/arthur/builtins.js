@@ -14,7 +14,8 @@ module.exports.cooler = function() {
   var r = Math.floor(Math.random() * 255);
   var g = Math.floor(Math.random() * 255);
   var b = Math.floor(Math.random() * 255);
-  return new ArthurColor(r, g, b, 1.0);
+  var ob = {r: r, g: g, b: b, a: 1.0};
+  return new ArthurColor(ob);
 }
 
 module.exports.rand = function() {

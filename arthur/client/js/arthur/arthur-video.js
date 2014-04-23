@@ -18,7 +18,7 @@ function ArthurVideo(json) {
   this.medfile = ob.filename;
 
   if (ob.frame) {
-    this.frame = ob.frame;
+    this.frame = new ArthurFrame(ob.frame);
   } else {
     var frame = {x: 0, y: 0, w: -1, h: -1};
     this.frame = new ArthurFrame(frame);
@@ -26,6 +26,12 @@ function ArthurVideo(json) {
 
   if (ob.delay) {
     this.delay = new ArthurNumber(ob.delay);
+  }
+
+  if (ob.murk) {
+    this.murk = new ArthurNumber(ob.murk);
+  } else {
+    this.murk = new ArthurNumber(1.0);
   }
 
   this.holder = $("<div class='arthur-video-holder'>");
@@ -40,14 +46,19 @@ function ArthurVideo(json) {
 
   this.holder.css('left', this.frame.x.val + 'px');
   this.holder.css('top', this.frame.y.val + 'px');
-  video.css('width', this.frame.w.val + 'px');
-  video.css('height', this.frame.h.val + 'px');
+  video.css('width', this.frame.w.int() + 'px');
+  video.css('height', this.frame.h.int() + 'px');
 
-  $('body').append(this.holder);
+  video.css('opacity', this.murk.val);
+
   this.video = dom;
 }
 
 ArthurVideo.prototype.__proto__ = ArthurMedia.prototype;
+
+ArthurVideo.prototype.activate = function() {
+  $('body').append(this.holder);
+}
 
 ArthurVideo.prototype.setFrame = function() {
   var v = $(this.video);

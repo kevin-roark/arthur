@@ -85,6 +85,7 @@ public class Var extends Token {
 
     public static Set getProperties(int t) {
       HashSet<String> set = new HashSet<String>();
+      set.add("frame");
       switch (t) {
         case NUM:
           return set;
@@ -99,10 +100,10 @@ public class Var extends Token {
         case SOUND:
           return set;
         case VIDEO:
-          return set;
+          set.add("murk"); return set;
         case IMAGE:
-          set.add("width"); set.add("height"); set.add("pixel");
-          set.add("murk"); set.add("frame");
+          set.add("width"); set.add("height");
+          set.add("murk");
           return set;
         default:
           return set;

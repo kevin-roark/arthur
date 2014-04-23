@@ -57,7 +57,7 @@ function ArthurString(json, raw) {
   if (json.wrap) {
     this.wrap = json.wrap;
   } else {
-    this.wrap = false;
+    this.wrap = true;
   }
 
   if (json.frame) {

@@ -661,7 +661,7 @@ final static String yyrule[] = {
 "id : ID",
 };
 
-//#line 732 "arthur.yacc"
+//#line 731 "arthur.yacc"
 Lexer lexer;
 Token prevTok;
 ParseNode AST;
@@ -1785,7 +1785,6 @@ case 111:
 //#line 694 "arthur.yacc"
 {
                                                         Var v = (Var) val_peek(0).obj;
-                                                        System.out.println(lexer.table);
                                                         if (lexer.table.getMap().get(v.id) != null) {
                                                           System.out.println("parameter " + v.id + " already exists!!");
                                                           errorCount++;
@@ -1799,27 +1798,27 @@ case 111:
                                                     }
 break;
 case 112:
-//#line 711 "arthur.yacc"
+//#line 710 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
 case 113:
-//#line 712 "arthur.yacc"
+//#line 711 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
 case 114:
-//#line 713 "arthur.yacc"
+//#line 712 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
 case 115:
-//#line 714 "arthur.yacc"
+//#line 713 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
 case 116:
-//#line 715 "arthur.yacc"
+//#line 714 "arthur.yacc"
 { yyval = val_peek(0); }
 break;
 case 117:
-//#line 716 "arthur.yacc"
+//#line 715 "arthur.yacc"
 {
                                                         Identifier i = (Identifier) val_peek(0).obj;
 
@@ -1834,7 +1833,7 @@ case 117:
                                                         yyval = new ParserVal(id);
                                                     }
 break;
-//#line 1761 "Parser.java"
+//#line 1760 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
