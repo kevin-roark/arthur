@@ -25,7 +25,8 @@ public static ArthurColor add(ArthurColor one, ArthurImage two) {
 }
 
 public static ArthurColor add(ArthurColor one, ArthurVideo two) {
-	return null;
+	ArthurColor vidColor = two.toColor();
+	return add(one, vidColor);
 }
 
 // brightens color if tinny sound, darkens if bassy
@@ -65,7 +66,8 @@ public static ArthurColor minus(ArthurColor one, ArthurImage two) {
 }
 
 public static ArthurColor minus(ArthurColor one, ArthurVideo two) {
-	return null;
+	ArthurColor vidColor = two.toColor();
+	return add(one, vidColor.opposite());
 }
 
 // darkens color if tinny sound, brightens if bassy

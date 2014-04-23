@@ -26,6 +26,7 @@ public class ArthurVideo extends ArthurMedia {
 
   public static final String VIDEO = "Video";
   public static final String ZERO = "ZERO.mp4";
+
   public String filename;
   public static ArrayList<String> intermediateFiles;
 
@@ -94,7 +95,9 @@ public class ArthurVideo extends ArthurMedia {
     else if (two.type.equals(ArthurImage.IMAGE)) {
       return JavaVideoMath.minus(this, (ArthurImage) two, outname);
     }
-    //TODO: minus sound
+    else if (two.type.equals(ArthurSound.SOUND)) {
+      return JavaVideoMath.minus(this, (ArthurSound) two, outname);
+    }
     return this;
   }
 
@@ -106,7 +109,10 @@ public class ArthurVideo extends ArthurMedia {
     else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaVideoMath.multiply(this, (ArthurNumber) two, outname);
     }
-    return this;
+    else {
+      ArthurVideo v = (ArthurVideo) two.castTo("Video");
+      return this.multiply(v);
+    }
   }
 
   public ArthurVideo divide(ArthurMedia two) {
@@ -117,7 +123,14 @@ public class ArthurVideo extends ArthurMedia {
     else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaVideoMath.divide(this, (ArthurNumber) two, outname);
     }
-    return this;
+    else {
+      ArthurVideo v = (ArthurVideo) two.castTo("Video");
+      return this.divide(v);
+    }
+  }
+
+  public ArthurMedia castTo(ArthurString mediaType) {
+    return castTo(mediaType.str);
   }
 
   public ArthurMedia castTo(String mediaType) {
@@ -129,6 +142,8 @@ public class ArthurVideo extends ArthurMedia {
       return this.toArtString();
     } else if (mediaType.equals("num")) {
       return this.toNumber();
+    } else if (mediaType.equals("color")) {
+      return this.toColor();
     }
 
     return this;
@@ -153,6 +168,10 @@ public class ArthurVideo extends ArthurMedia {
   public ArthurString toArtString() {
     ArthurImage im = toImage();
     return im.toArtString();
+  }
+
+  public ArthurColor toColor() {
+    return this.toImage().toColor();
   }
 
   public ArthurImage toImage() {
@@ -266,6 +285,10 @@ public class ArthurVideo extends ArthurMedia {
   public void writeToFile(String fname) {
     IoUtils.move(this.filename, fname); // move file to correct name
     this.filename = fname.substring(fname.indexOf('/') + 1); // remove 'buster'
+  }
+
+  public String toString() {
+    return "ArthurVideo from file: " + this.filename;
   }
 
 }

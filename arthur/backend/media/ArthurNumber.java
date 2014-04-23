@@ -21,69 +21,37 @@ public class ArthurNumber extends ArthurMedia implements java.io.Serializable {
   public ArthurNumber add(ArthurMedia two) {
     if (two.type.equals(NUMBER)) {
       return JavaNumberMath.add(this, (ArthurNumber) two);
-    } else if (two.type.equals(ArthurColor.COLOR)) {
-      ArthurColor color = (ArthurColor) two;
-      return JavaNumberMath.add(this, color.toNumber());
-    } else if (two.type.equals(ArthurString.STRING)) {
-      ArthurString str = (ArthurString) two;
-      return JavaNumberMath.add(this, str.toNumber());
-    } else if (two.type.equals(ArthurImage.IMAGE)) {
-      ArthurImage image = (ArthurImage) two;
-      return JavaNumberMath.add(this, image.toNumber());
+    } else {
+      ArthurNumber num = (ArthurNumber) two.castTo("num");
+      return JavaNumberMath.divide(this, num);
     }
-
-    return this;
   }
 
   public ArthurNumber minus(ArthurMedia two) {
     if (two.type.equals(NUMBER)) {
       return JavaNumberMath.minus(this, (ArthurNumber) two);
-    } else if (two.type.equals(ArthurColor.COLOR)) {
-      ArthurColor color = (ArthurColor) two;
-      return JavaNumberMath.minus(this, color.toNumber());
-    } else if (two.type.equals(ArthurString.STRING)) {
-      ArthurString str = (ArthurString) two;
-      return JavaNumberMath.minus(this, str.toNumber());
-    } else if (two.type.equals(ArthurImage.IMAGE)) {
-      ArthurImage image = (ArthurImage) two;
-      return JavaNumberMath.minus(this, image.toNumber());
+    } else {
+      ArthurNumber num = (ArthurNumber) two.castTo("num");
+      return JavaNumberMath.divide(this, num);
     }
-
-    return this;
   }
 
   public ArthurNumber multiply(ArthurMedia two) {
     if (two.type.equals(NUMBER)) {
       return JavaNumberMath.multiply(this, (ArthurNumber) two);
-    } else if (two.type.equals(ArthurColor.COLOR)) {
-      ArthurColor color = (ArthurColor) two;
-      return JavaNumberMath.multiply(this, color.toNumber());
-    } else if (two.type.equals(ArthurString.STRING)) {
-      ArthurString str = (ArthurString) two;
-      return JavaNumberMath.multiply(this, str.toNumber());
-    } else if (two.type.equals(ArthurImage.IMAGE)) {
-      ArthurImage image = (ArthurImage) two;
-      return JavaNumberMath.multiply(this, image.toNumber());
+    } else {
+      ArthurNumber num = (ArthurNumber) two.castTo("num");
+      return JavaNumberMath.divide(this, num);
     }
-
-    return this;
   }
 
   public ArthurNumber divide(ArthurMedia two) {
     if (two.type.equals(NUMBER)) {
       return JavaNumberMath.divide(this, (ArthurNumber) two);
-    } else if (two.type.equals(ArthurColor.COLOR)) {
-      ArthurColor color = (ArthurColor) two;
-      return JavaNumberMath.divide(this, color.toNumber());
-    } else if (two.type.equals(ArthurString.STRING)) {
-      ArthurString str = (ArthurString) two;
-      return JavaNumberMath.divide(this, str.toNumber());
-    } else if (two.type.equals(ArthurImage.IMAGE)) {
-      ArthurImage image = (ArthurImage) two;
-      return JavaNumberMath.divide(this, image.toNumber());
+    } else {
+      ArthurNumber num = (ArthurNumber) two.castTo("num");
+      return JavaNumberMath.divide(this, num);
     }
-
-    return this;
   }
 
   public boolean lessThan(ArthurMedia two) {
@@ -91,7 +59,8 @@ public class ArthurNumber extends ArthurMedia implements java.io.Serializable {
       ArthurNumber t = (ArthurNumber) two;
       return (this.val < t.val);
     } else {
-      return false;
+      ArthurNumber num = (ArthurNumber) two.castTo("num");
+      return lessThan(num);
     }
   }
 
@@ -100,7 +69,8 @@ public class ArthurNumber extends ArthurMedia implements java.io.Serializable {
       ArthurNumber t = (ArthurNumber) two;
       return (this.val > t.val);
     } else {
-      return false;
+      ArthurNumber num = (ArthurNumber) two.castTo("num");
+      return greaterThan(num);
     }
   }
 
@@ -111,9 +81,10 @@ public class ArthurNumber extends ArthurMedia implements java.io.Serializable {
         return true;
       else
         return false;
+    } else {
+      ArthurNumber num = (ArthurNumber) two.castTo("num");
+      return lessThanEquals(num);
     }
-
-    return false;
   }
 
   public boolean greaterThanEquals(ArthurMedia two) {
@@ -123,9 +94,10 @@ public class ArthurNumber extends ArthurMedia implements java.io.Serializable {
         return true;
       else
         return false;
+    } else {
+      ArthurNumber num = (ArthurNumber) two.castTo("num");
+      return greaterThanEquals(num);
     }
-
-    return false;
   }
 
   public boolean arthurEquals(ArthurMedia two) {
@@ -133,9 +105,58 @@ public class ArthurNumber extends ArthurMedia implements java.io.Serializable {
       ArthurNumber t = (ArthurNumber) two;
       double diff = Math.abs(this.val - t.val);
       return (diff <= 0.0001);
+    } else {
+      ArthurNumber num = (ArthurNumber) two.castTo("num");
+      return arthurEquals(num);
+    }
+  }
+
+  public ArthurMedia castTo(ArthurString mediaType) {
+    return castTo(mediaType.str);
+  }
+
+  public ArthurMedia castTo(String mediaType) {
+    if (mediaType.equals("Image")) {
+      return this.toImage();
+    } else if (mediaType.equals("Sound")) {
+      return this.toSound();
+    } else if (mediaType.equals("string")) {
+      return this.toArtString();
+    } else if (mediaType.equals("Video")) {
+      return this.toVideo();
+    } else if (mediaType.equals("color")) {
+      return this.toColor();
     }
 
-    return false;
+    return this;
+  }
+
+  public ArthurColor toColor() {
+    double r = Math.max(this.val, 255);
+    double g = Math.max(this.val, 255);
+    double b = Math.max(this.val, 255);
+    double a = Math.max(this.val / 255.0, 1.0);
+    return new ArthurColor(r, g, b, a);
+  }
+
+  public ArthurString toArtString() {
+    String str = "" + this.val;
+    return new ArthurString(str);
+  }
+
+  public ArthurVideo toVideo() {
+    ArthurVideo zero = new ArthurVideo(ArthurVideo.ZERO);
+    return zero.add(this);
+  }
+
+  public ArthurImage toImage() {
+    ArthurImage zero = new ArthurImage(ArthurImage.ZERO);
+    return zero.add(this);
+  }
+
+  public ArthurSound toSound() {
+    ArthurSound zero = new ArthurSound(ArthurSound.ZERO);
+    return zero.add(this);
   }
 
   public int intval() {

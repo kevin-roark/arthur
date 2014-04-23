@@ -1,0 +1,26 @@
+
+// takes a video as first argument
+// and a sound as the second.
+// slows down the sound and puts it over the video
+// also adds a cool mantra
+void init() {
+  Video vid = video(@1);
+  Sound s = sound(@2);
+
+  vid /= 4;
+
+  //vid *= 0.5;
+
+  s += <<180, 127, 255>>;
+
+  Video mantra = "the future is now - Arthur"->Video;
+
+  vid += s;
+
+  add(vid);
+  add(mantra, frame(50, 200), 10);
+}
+
+void loop() {
+
+}

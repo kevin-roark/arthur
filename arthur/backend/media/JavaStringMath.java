@@ -31,7 +31,8 @@ public class JavaStringMath {
   }
 
   public static ArthurString add(ArthurString one, ArthurVideo two) {
-    return null;
+    ArthurImage twoImg = two.toImage();
+    return add(one, twoImg);
   }
 
   public static ArthurString add(ArthurString one, ArthurSound two) {
@@ -61,7 +62,8 @@ public class JavaStringMath {
   }
 
   public static ArthurString minus(ArthurString one, ArthurVideo two) {
-    return null;
+    ArthurImage twoImg = two.toImage();
+    return minus(one, twoImg);
   }
 
   public static ArthurString minus(ArthurString one, ArthurSound two) {
