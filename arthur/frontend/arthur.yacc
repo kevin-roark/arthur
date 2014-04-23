@@ -65,8 +65,6 @@ param_list
 hard_param_list
     : param                                           {
                                                         ParseNode params = new ParseNode("parameters");
-                                                        lexer.table = new SymbolTable(lexer.table, "function");
-                                                        lexer.startingFunction = true;
                                                         ParseNode var = (ParseNode) $1.obj;
                                                         var.setParent(params);
                                                         params.addChild(var);
@@ -194,7 +192,7 @@ elfs
                                                       elfs.addChild((ParseNode) $1.obj);
                                                       $$ = new ParserVal(elfs);
                                                     }
-    |                                               { 
+    |                                               {
                                                       ParseNode elfs = new ParseNode("elves");
                                                       elfs.addChild(new ParseNode(""));
                                                       $$ = new ParserVal(elfs);
@@ -679,7 +677,7 @@ literal
 var
     : VAR                                           {
                                                         Var v = (Var) $1.obj;
-                                                        if (lexer.table.get(v.id) != null) {
+                                                        if (lexer.table.getMap().get(v.id) != null) {
                                                           System.out.println("variable " + v.id + " already exists!!");
                                                           errorCount++;
                                                         }
@@ -695,6 +693,12 @@ var
 param
     : VAR                                           {
                                                         Var v = (Var) $1.obj;
+                                                        if (lexer.table.getMap().get(v.id) != null) {
+                                                          System.out.println("parameter " + v.id + " already exists!!");
+                                                          errorCount++;
+                                                        }
+                                                        lexer.table.put(v.id, v);
+
                                                         ParseNode var = new ParseNode("parameter");
                                                         var.addChild(new ParseNode(v.typeName(), var));
                                                         var.addChild(new ParseNode(v.id, var));

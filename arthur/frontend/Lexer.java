@@ -865,6 +865,8 @@ public class Lexer {
                               String[] arr = text.split("\\s+");
                               String returnType = arr[0];
                               String name = arr[1];
+                              table = new SymbolTable(table, "function");
+                              startingFunction = true;
                               Function fun = new Function(name, returnType, yyline);
                               return fun;
           }
