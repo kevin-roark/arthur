@@ -163,7 +163,7 @@ public class JavaVideoMath {
         result = image.minus((ArthurColor) two); //tint each frame with complement
       }
       else if (function.equals("+ArthurImage")) {
-        System.out.println("heeey");
+        //System.out.println("heeey");
         result = image.divide((ArthurImage) two); //overlay image on video
       }
       else if (function.equals("-ArthurImage")) {
