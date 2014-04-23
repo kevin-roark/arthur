@@ -82,17 +82,102 @@ ArthurColor.prototype.draw = function() {
 }
 
 ArthurColor.prototype.add = function(color) {
-  var r = Math.min(this.r.val + color.r.val, 255);
-  var g = Math.min(this.g.val + color.g.val, 255);
-  var b = Math.min(this.b.val + color.b.val, 255);
-  var a = this.a.val;
-  return new ArthurColor(r, g, b, a);
+  if (color.type == types.COLOR) {
+    var r = Math.min(this.r.val + color.r.val, 255);
+    var g = Math.min(this.g.val + color.g.val, 255);
+    var b = Math.min(this.b.val + color.b.val, 255);
+    var a = this.a.val;
+
+    var ob = {r: r, g: g, b: b, a: a, frame: this.frame, delay: this.delay};
+    return new ArthurColor(ob);
+  } else if (color.type == types.NUMBER) {
+    var abs = Math.abs(color.val);
+    var r = Math.max(this.r.val + abs, 255);
+    var g = Math.max(this.g.val + abs, 255);
+    var b = Math.max(this.b.val + abs, 255);
+    var a = this.a.val;
+
+    var ob = {r: r, g: g, b: b, a: a, frame: this.frame, delay: this.delay};
+    return new ArthurColor(ob);
+  }
+
+  return this;
 }
 
 ArthurColor.prototype.minus = function(color) {
-  var r = Math.max(this.r.val - color.r.val, 0);
-  var g = Math.max(this.g.val - color.g.val, 0);
-  var b = Math.max(this.b.val - color.b.val, 0);
-  var a = this.a.val;
-  return new ArthurColor(r, g, b, a);
+  if (color.type == types.COLOR) {
+    var r = Math.max(this.r.val - color.r.val, 0);
+    var g = Math.max(this.g.val - color.g.val, 0);
+    var b = Math.max(this.b.val - color.b.val, 0);
+    var a = this.a.val;
+
+    var ob = {r: r, g: g, b: b, a: a, frame: this.frame, delay: this.delay};
+    return new ArthurColor(ob);
+  } else if (color.type == types.NUMBER) {
+    var abs = Math.abs(color.val);
+    var r = Math.min(this.r.val - abs, 0);
+    var g = Math.min(this.g.val - abs, 0);
+    var b = Math.min(this.b.val - abs, 0);
+    var a = this.a.val;
+
+    var ob = {r: r, g: g, b: b, a: a, frame: this.frame, delay: this.delay};
+    return new ArthurColor(ob);
+  }
+
+  return this;
+}
+
+ArthurColor.prototype.multiply = function(two) {
+  if (two.type == types.COLOR) {
+    var ob = {
+      r: (this.r.val + two.r.val) / 2,
+      g: (this.g.val+ two.g.val) / 2,
+      b: (this.b.val+ two.b.val) / 2,
+      a: Math.max(this.a.val, two.a.val),
+      frame: this.frame,
+      delay: this.delay
+    };
+
+    return new ArthurColor(ob);
+  } else if (two.type == types.NUMBER) {
+    var abs = Math.abs(two.val);
+    var ob = {
+      r: Math.max(this.r.val * abs, 255),
+      g: Math.max(this.g.val * abs, 255),
+      b: Math.max(this.b.val * abs, 255),
+      a: Math.min(this.a.val * abs, 1.0),
+      frame: this.frame,
+      delay: this.delay
+    };
+    return new ArthurColor (ob);
+  }
+
+  return this;
+}
+
+ArthurColor.prototype.divide = function(two) {
+  if (two.type == types.COLOR) {
+    var ob = {
+      r: this.r.val / Math.max(two.r.val, 1),
+      g: this.g.val / Math.max(two.g.val, 1),
+      b: this.b.val / Math.max(two.b.val, 1),
+      a: Math.max(this.a.val, two.a.val),
+      frame: this.frame,
+      delay: this.delay
+    };
+    return new ArthurColor(ob);
+  } else if (two.type == types.NUMBER) {
+    var abs = Math.abs(two.val);
+    var ob = {
+      r: this.r.val / Math.max(abs, 1),
+      g: this.g.val / Math.max(abs, 1),
+      b: this.b.val / Math.max(abs, 1),
+      a: Math.min(this.a.val * abs, 1.0),
+      frame: this.frame,
+      delay: this.delay
+    };
+    return new ArthurColor (ob);
+  }
+
+  return this;
 }
