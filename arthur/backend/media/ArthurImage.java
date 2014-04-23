@@ -193,9 +193,12 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
 
     String command = "ffmpeg -loop 1 -i ";
     command += this.filename + " -c:v libx264 -t 15 -pix_fmt yuv420p ";
-    command += outname;
+    command += "intermediate.mp4";
 
     IoUtils.execute(command);
+
+    IoUtils.execute("ffmpeg -f lavfi -i aevalsrc=0 -i intermediate.mp4 -vcodec copy -acodec aac -map 0:0 -map 1:0 -shortest -strict experimental -y " + outname);
+    IoUtils.execute("rm intermediate.mp4");
 
     return new ArthurVideo(outname);
   }
