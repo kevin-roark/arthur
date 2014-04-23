@@ -192,11 +192,6 @@ elfs
                                                       elfs.addChild((ParseNode) $1.obj);
                                                       $$ = new ParserVal(elfs);
                                                     }
-    |                                               {
-                                                      ParseNode elfs = new ParseNode("elves");
-                                                      elfs.addChild(new ParseNode(""));
-                                                      $$ = new ParserVal(elfs);
-                                                     }
     ;
 
 elf
