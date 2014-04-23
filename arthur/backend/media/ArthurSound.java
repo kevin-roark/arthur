@@ -35,7 +35,7 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
     // get duration
     clip.open();
     final IContainer c = clip.getContainer();
-    duration = new ArthurNumber(new Double(c.getDuration()));
+    duration = new ArthurNumber(new Double(c.getDuration()/1000));  // now in ms
     c.close();
   }
 
@@ -52,7 +52,7 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
     // get duration
     clip.open();
     final IContainer c = clip.getContainer();
-    duration = new ArthurNumber(new Double(c.getDuration()));
+    duration = new ArthurNumber(new Double(c.getDuration()/1000));  // now in ms
     c.close();
   }
 
