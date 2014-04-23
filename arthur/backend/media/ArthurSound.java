@@ -17,6 +17,7 @@ import arthur.backend.IoUtils;
  */
 public class ArthurSound extends ArthurMedia implements java.io.Serializable {
 
+
   public static final String SOUND = "sound";
   public static final String ZERO = "ZERO.mp3";
 
@@ -34,7 +35,7 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
     // get duration
     clip.open();
     final IContainer c = clip.getContainer();
-    duration = new ArthurNumber(new Double(c.getDuration()));
+    duration = new ArthurNumber(new Double(c.getDuration()/1000));  // now in ms
     c.close();
   }
 
@@ -51,7 +52,7 @@ public class ArthurSound extends ArthurMedia implements java.io.Serializable {
     // get duration
     clip.open();
     final IContainer c = clip.getContainer();
-    duration = new ArthurNumber(new Double(c.getDuration()));
+    duration = new ArthurNumber(new Double(c.getDuration()/1000));  // now in ms
     c.close();
   }
 
