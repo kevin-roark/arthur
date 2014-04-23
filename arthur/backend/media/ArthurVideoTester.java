@@ -30,5 +30,11 @@ public class ArthurVideoTester {
                         .add(new ArthurColor(255.0, 0.0, 0.0, 1.0))
                         .add(new ArthurSound("future.mp3"))
                         ;*/
+
+    ArthurVideo v12 = v1.multiply(v2);
+    ArthurVideo v13 = v1.divide(v2);
+
+    System.out.println("v12: " + v12.filename);
+    System.out.println("v13: " + v13.filename);
   }
 }

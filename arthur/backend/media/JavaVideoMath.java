@@ -111,15 +111,16 @@ public class JavaVideoMath {
     //we gotta get the screen size of the first video
     String vidSize = sample.width.val.intValue()+":"+sample.height.val.intValue();
 
-
     //this actually merges the vids though
     String mixedVidName = ArthurVideo.nameGen();
-    IoUtils.execute(scriptPath() + "vidoverlay.sh " + one.filename + " " + two.filename + " " + mixedVidName + " "+vidSize);
+    IoUtils.execute(scriptPath() + "vidoverlay.sh " + one.filename + " " + two.filename + " " + mixedVidName + " "+ vidSize);
     ArthurVideo mixedVid = new ArthurVideo(mixedVidName);
 
     ArthurVideo complete = mixedVid.minus(mixedAudio);
     complete.move(outname);
     System.out.println("outname: " + outname);
+
+    IoUtils.execute("rm " + mixedVidName);
 
     return complete;
   }
@@ -164,8 +165,8 @@ public class JavaVideoMath {
     String command2 = String.format(extractAudio, one.filename, tempSound2);
     IoUtils.execute(command2);
 
-    ArthurImage sample = one.toImage();
     //we gotta get the screen size of the first video
+    ArthurImage sample = one.toImage();
     String vidSize = sample.width.val.intValue()+":"+sample.height.val.intValue();
 
     ArthurSound secondSound = new ArthurSound(tempSound);
