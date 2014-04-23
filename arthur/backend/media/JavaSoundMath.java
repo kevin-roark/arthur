@@ -154,7 +154,7 @@ public class JavaSoundMath {
 
   // speeds up audio by factor of num
   public static ArthurSound multiply(ArthurSound one, ArthurNumber two, String outname) {
-    double rate = (double) two.val;
+    double rate = Math.abs((double) two.val);
     return speedChange(one, rate, outname);
   }
 
@@ -182,7 +182,7 @@ public class JavaSoundMath {
 
   // changes volume by factor of num
   public static ArthurSound divide(ArthurSound one, ArthurNumber two, String outname) {
-    double rate = (double) two.val;
+    double rate = Math.abs((double) two.val);
     return volumeChange(one, rate, outname);
   }
 

@@ -106,7 +106,7 @@ public class JavaStringMath {
 
   /* concatenates the first string with itself x times */
   public static ArthurString multiply(ArthurString one, ArthurNumber two) {
-    int times = (int) Math.round(two.val);
+    int times = Math.abs((int) Math.round(two.val));
     String product = "";
     for (int i = 0; i < times; i++) {
       product += one.str;
@@ -122,7 +122,7 @@ public class JavaStringMath {
 
   /* removes the last x chars from one */
   public static ArthurString divide(ArthurString one, ArthurNumber two) {
-    int x = (int) Math.round(two.val);
+    int x = Math.abs((int) Math.round(two.val));
     int lastPos = Math.max(0, one.str.length() - x);
     String cut = one.str.substring(lastPos);
     return new ArthurString(cut);

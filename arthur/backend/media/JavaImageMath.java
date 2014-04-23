@@ -279,7 +279,7 @@ public class JavaImageMath {
 	}
 
 	public static ArthurImage multiply (ArthurImage one, ArthurNumber two) { //change to ArthurNumber later
-		double f = two.val;
+		double f = Math.abs(two.val);
 		//get image
 		BufferedImage image = JavaImageMath.clone(one.bf);
 
@@ -348,7 +348,7 @@ public class JavaImageMath {
 	}
 
 	public static ArthurImage divide (ArthurImage one, ArthurNumber two) { //change to ArthurNumber later
-		int f = two.intval();
+		int f = Math.abs(two.intval());
 		//get image
 		BufferedImage image = JavaImageMath.clone(one.bf);
 

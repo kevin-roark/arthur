@@ -102,10 +102,11 @@ public static ArthurColor multiply(ArthurColor one, ArthurColor two) {
 }
 
 public static ArthurColor multiply(ArthurColor one, ArthurNumber two) {
-	ArthurNumber r = new ArthurNumber(Math.max(one.r.val * two.val, 255));
-	ArthurNumber g = new ArthurNumber(Math.max(one.g.val * two.val, 255));
-	ArthurNumber b = new ArthurNumber(Math.max(one.b.val * two.val, 255));
-	ArthurNumber a = new ArthurNumber(Math.max(one.a.val * two.val, 1.0));
+	double abs = Math.abs(two.val);
+	ArthurNumber r = new ArthurNumber(Math.max(one.r.val * abs, 255));
+	ArthurNumber g = new ArthurNumber(Math.max(one.g.val * abs, 255));
+	ArthurNumber b = new ArthurNumber(Math.max(one.b.val * abs, 255));
+	ArthurNumber a = new ArthurNumber(Math.max(one.a.val * abs, 1.0));
 	return new ArthurColor(r, g, b, a);
 }
 
@@ -118,10 +119,11 @@ public static ArthurColor divide(ArthurColor one, ArthurColor two) {
 }
 
 public static ArthurColor divide(ArthurColor one, ArthurNumber two) {
-	ArthurNumber r = new ArthurNumber(one.r.val / Math.max(two.val, 1));
-	ArthurNumber g = new ArthurNumber(one.g.val / Math.max(two.val, 1));
-	ArthurNumber b = new ArthurNumber(one.b.val / Math.max(two.val, 1));
-	ArthurNumber a = new ArthurNumber(Math.min(one.a.val * two.val, 1.0));
+	double abs = Math.abs(two.val);
+	ArthurNumber r = new ArthurNumber(one.r.val / Math.max(abs, 1));
+	ArthurNumber g = new ArthurNumber(one.g.val / Math.max(abs, 1));
+	ArthurNumber b = new ArthurNumber(one.b.val / Math.max(abs, 1));
+	ArthurNumber a = new ArthurNumber(Math.min(one.a.val * abs, 1.0));
 	return new ArthurColor(r, g, b, a);
 }
 
