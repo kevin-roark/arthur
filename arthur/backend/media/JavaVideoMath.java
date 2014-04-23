@@ -138,8 +138,37 @@ public class JavaVideoMath {
   }
 
   public static ArthurVideo divide(ArthurVideo one, ArthurVideo two, String outname) {
-    //TODO
-    return one;
+    String extractAudio = "ffmpeg -i %s -ab 160k -ac 2 -ar 44100 -vn %s";
+    String tempSound = "Sound-temp-" + System.currentTimeMillis() + ".mp3";
+    String command1 = String.format(extractAudio, two.filename, tempSound);
+    IoUtils.execute(command1);
+
+    String extractAudio2 = "ffmpeg -i %s -ab 160k -ac 2 -ar 44100 -vn %s";
+    String tempSound2 = "Sound-temp-" + System.currentTimeMillis() + ".mp3";
+    String command2 = String.format(extractAudio, one.filename, tempSound2);
+    IoUtils.execute(command2);
+
+    ArthurImage sample = one.toImage();
+    //we gotta get the screen size of the first video
+    String vidSize = sample.width.val.intValue()+":"+sample.height.val.intValue();
+
+    ArthurSound secondSound = new ArthurSound(tempSound);
+    ArthurSound firstSound = new ArthurSound(tempSound2);
+
+    //supposed to stretch the second video's duration to match the first
+    ArthurVideo mod = two;
+    double stretch = (two.toNumber().val) / (one.toNumber().val);
+  
+    ArthurVideo modStretched = mod.multiply(new ArthurNumber(stretch));
+    modStretched.writeToFile("modVid.mp4");
+
+    //this actually merges the vids though
+    IoUtils.execute(scriptPath() + "vidoverlay.sh " + one.filename + " " + modStretched.filename + " " + outname+" "+vidSize);
+    ArthurVideo temp = new ArthurVideo(outname);
+    secondSound = secondSound.divide(firstSound);
+    secondSound.writeToFile("secondSound.mp3");
+    temp = temp.add(secondSound);
+    return temp;
   }
 
   public static ArthurVideo divide(ArthurVideo one, ArthurNumber two, String outname) {
