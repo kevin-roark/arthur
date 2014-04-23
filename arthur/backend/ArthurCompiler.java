@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.io.File;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ import arthur.backend.whisperer.JsWhisperer;
 import arthur.backend.whisperer.JsMiddleMan;
 import arthur.backend.translator.java.JavaArthurTranslator;
 import arthur.backend.translator.js.JsArthurTranslator;
+import arthur.backend.NullOutputStream;
 
 import arthur.backend.media.*;
 
@@ -27,6 +29,7 @@ public class ArthurCompiler {
   public static String mdirname = DEFAULT_OUT_NAME + "/" + MEDIA_DIR;
   public static final int COMPILE_OPS = 0;
   public static final int PROG_OPS = 1;
+  public static final NullOutputStream nullStream = new NullOutputStream();
 
   public static void main(String[] args) throws IOException, InterruptedException {
     if (args.length < 1) {
@@ -80,7 +83,13 @@ public class ArthurCompiler {
     Parser parser = new Parser(false);
     ParseNode s = parser.doParsing(reader);
 
-    // create output directory
+    // ensure source valid
+    if (s == null) {
+      System.out.println("INVALID SOURCE");
+      return;
+    }
+
+    // create buster output directory
     String dirname = makeBundleDir(filename);
     if (verbose)
       System.out.println("bulding output directory at " + dirname);
@@ -104,6 +113,12 @@ public class ArthurCompiler {
     if (verbose)
       System.out.println("restoring the java output");
     JsWhisperer whisperer = restoreWhisperer();
+
+    // make sure java ran ok
+    if (whisperer == null) {
+      System.out.println("The Java translation failed to run. I'm Sorry.");
+      return;
+    }
 
     // translate to javascript
     if (verbose)
@@ -135,7 +150,7 @@ public class ArthurCompiler {
     Process p = Runtime.getRuntime().exec(exec);
     if (print) {
       System.out.println(exec);
-      IoUtils.copy(p.getInputStream(), System.out);
+      IoUtils.copy(p.getInputStream(), nullStream);
     }
     p.waitFor();
   }
@@ -163,8 +178,8 @@ public class ArthurCompiler {
     for (String arg : args) {
       run += " " + arg;
     }
-    execAndPrint(compile, false);
-    execAndPrint(run, false);
+    execAndPrint(compile, true);
+    execAndPrint(run, true);
   }
 
   public static JsWhisperer restoreWhisperer() throws IOException, InterruptedException {

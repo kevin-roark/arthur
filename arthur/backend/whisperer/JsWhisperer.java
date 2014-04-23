@@ -118,10 +118,10 @@ public class JsWhisperer implements java.io.Serializable {
     } catch(IOException e) {
          System.out.println("file not found");
          e.printStackTrace();
-         return new JsWhisperer();
+         return null;
     } catch(ClassNotFoundException e) {
          e.printStackTrace();
-         return blob;
+         return null;
     }
     return blob;
   }

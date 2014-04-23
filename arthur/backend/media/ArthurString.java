@@ -48,10 +48,11 @@ public class ArthurString extends ArthurMedia {
       return JavaStringMath.add(this, (ArthurColor) two);
     } else if (two.type.equals(ArthurSound.SOUND)) {
       return JavaStringMath.add(this, (ArthurSound) two);
-    } else {
-      // coerce later
-      return this;
+    } else if (two.type.equals(ArthurVideo.VIDEO)) {
+      return JavaStringMath.add(this, (ArthurVideo) two);
     }
+
+    return this;
   }
 
   public ArthurString minus(ArthurMedia two) {
@@ -65,10 +66,11 @@ public class ArthurString extends ArthurMedia {
       return JavaStringMath.minus(this, (ArthurColor) two);
     } else if (two.type.equals(ArthurSound.SOUND)) {
       return JavaStringMath.minus(this, (ArthurSound) two);
-    } else {
-      // coerce later
-      return this;
+    } else if (two.type.equals(ArthurVideo.VIDEO)) {
+      return JavaStringMath.minus(this, (ArthurVideo) two);
     }
+
+    return this;
   }
 
   public ArthurString multiply(ArthurMedia two) {
@@ -76,15 +78,10 @@ public class ArthurString extends ArthurMedia {
       return JavaStringMath.multiply(this, (ArthurString) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaStringMath.multiply(this, (ArthurNumber) two);
-    } else if (two.type.equals(ArthurImage.IMAGE)) {
-      ArthurImage img = (ArthurImage) two;
-      return JavaStringMath.multiply(this, img.toArtString());
-    } else if (two.type.equals(ArthurColor.COLOR)) {
-      ArthurColor color = (ArthurColor) two;
-      return JavaStringMath.multiply(this, color.toArtString());
+    } else {
+      ArthurString s = (ArthurString) two.castTo("string");
+      return JavaStringMath.multiply(this, s);
     }
-
-    return this;
   }
 
   public ArthurString divide(ArthurMedia two) {
@@ -92,15 +89,10 @@ public class ArthurString extends ArthurMedia {
       return JavaStringMath.divide(this, (ArthurString) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       return JavaStringMath.divide(this, (ArthurNumber) two);
-    } else if (two.type.equals(ArthurImage.IMAGE)) {
-      ArthurImage img = (ArthurImage) two;
-      return JavaStringMath.divide(this, img.toArtString());
-    } else if (two.type.equals(ArthurColor.COLOR)) {
-      ArthurColor color = (ArthurColor) two;
-      return JavaStringMath.divide(this, color.toArtString());
+    } else {
+      ArthurString s = (ArthurString) two.castTo("string");
+      return JavaStringMath.divide(this, s);
     }
-
-    return this;
   }
 
   public ArthurMedia castTo(ArthurString mediaType) {
@@ -110,12 +102,14 @@ public class ArthurString extends ArthurMedia {
   public ArthurMedia castTo(String mediaType) {
     if (mediaType.equals("color")) {
       return this.toColor();
-    } else if (mediaType.equals("number")) {
+    } else if (mediaType.equals("num")) {
       return this.toNumber();
     } else if (mediaType.equals("Image")) {
       return this.toImage();
     } else if (mediaType.equals("Sound")) {
       return this.toSound();
+    } else if (mediaType.equals("Video")) {
+      return this.toVideo();
     }
 
     return this;
@@ -139,6 +133,89 @@ public class ArthurString extends ArthurMedia {
       val += this.str.codePointAt(i);
     }
     return new ArthurNumber(val);
+  }
+
+  public ArthurVideo toVideo() {
+    String filename = "string-" + (new Random()).nextInt() + ".mp4";
+
+    int length = str.length();
+    ArthurString letter;
+
+    for (int i = 1; i <= length; i++) {
+      letter = new ArthurString(str.substring(i - 1, i));
+      ArthurImage frame = letter.toImage(i % 4);
+      frame.writeToFile("adjusted-" + i + ".jpg");
+    }
+
+    IoUtils.execute("ffmpeg -r 3 -i adjusted-%d.jpg -c:v libx264 -r 30 -pix_fmt yuv420p intermediate.mp4");
+    IoUtils.execute("ffmpeg -f lavfi -i aevalsrc=0 -i intermediate.mp4 -vcodec copy -acodec aac -map 0:0 -map 1:0 -shortest -strict experimental -y " + filename);
+
+    int counter = 1;
+    String fn;
+    while (true) {
+      fn = "adjusted-" + counter + ".jpg";
+      if (new File(fn).isFile() == false) {
+        break;
+      }
+      IoUtils.execute("rm " + fn);
+      counter++;
+    }
+    IoUtils.execute("rm intermediate.mp4");
+
+    return new ArthurVideo(filename);
+  }
+
+  public ArthurImage toImage(int colorSwitch) {
+    String filename = "string-" + (new Random()).nextInt() + ".jpg";
+
+    Font font = new Font("Courier", Font.PLAIN, 666);
+    FontRenderContext frc = new FontRenderContext(null, true, true);
+
+    Rectangle2D bounds = font.getStringBounds(this.str, frc);
+    int w = (int) bounds.getWidth();
+    int h = (int) bounds.getHeight();
+
+    if (w % 2 != 0)
+      w += 1;
+
+    if (h % 2 != 0)
+      h += 1;
+
+    BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+
+    Graphics2D g = image.createGraphics();
+    if (colorSwitch == 0) {
+      g.setColor(Color.BLACK);
+    }
+    else if (colorSwitch == 1) {
+      g.setColor(Color.RED);
+    }
+    else if (colorSwitch == 2) {
+      g.setColor(Color.WHITE);
+    }
+    else {
+      g.setColor(Color.YELLOW);
+    }
+
+    g.fillRect(0, 0, w, h);
+    if (colorSwitch == 0) {
+      g.setColor(Color.WHITE);
+    }
+    else if (colorSwitch == 1) {
+      g.setColor(Color.BLUE);
+    }
+    else if (colorSwitch == 2) {
+      g.setColor(Color.BLACK);
+    }
+    else {
+      g.setColor(Color.GREEN);
+    }
+    g.setFont(font);
+
+    g.drawString(this.str, (float) bounds.getX(), (float) -bounds.getY());
+    g.dispose();
+
+    return new ArthurImage(image, filename);
   }
 
   public ArthurImage toImage() {
@@ -213,6 +290,9 @@ public class ArthurString extends ArthurMedia {
     }
     if (this.frame != null) {
       json += ", \"frame\": " + this.frame.json();
+    }
+    if (this.delay != null) {
+      json += ", \"delay\": " + this.delay.val;
     }
     json += "}";
     return json;

@@ -16,7 +16,7 @@ public class JavaVideoMath {
   }
 
   public static String ffmpegEnder(String outname) {
-    return outname + "\"";
+    return outname;
   }
 
   public static String scriptPath() {
@@ -29,7 +29,7 @@ public class JavaVideoMath {
   }
 
   public static ArthurVideo add(ArthurVideo one, ArthurSound two, String outname) {
-    ArthurSound mixedSounds = JavaSoundMath.multiply(one.toSound(), two, ArthurSound.nameGen());
+    ArthurSound mixedSounds = JavaSoundMath.divide(one.toSound(), two, ArthurSound.nameGen());
     String soundFile = mixedSounds.filename;
     String soundFileWav = mixedSounds.filename.replace(".mp3", ".wav");
     String mp3towav = "ffmpeg -i %s %s";
@@ -60,6 +60,20 @@ public class JavaVideoMath {
 
   public static ArthurVideo minus(ArthurVideo one, ArthurVideo two, String outname) {
     return JavaVideoMath.add(two, one, outname);
+  }
+
+  // replaces sound in video with TWO
+  public static ArthurVideo minus(ArthurVideo one, ArthurSound two, String outname) {
+    String soundFile = two.filename;
+    String soundFileWav = two.filename.replace(".mp3", ".wav");
+    String mp3towav = "ffmpeg -i %s %s";
+    String command1 = String.format(mp3towav, soundFile, soundFileWav);
+    String addAudio = "ffmpeg -i %s -i %s -c:v copy -c:a aac -strict experimental -map 0:v:0 -map 1:a:0 %s";
+    String command2 = String.format(addAudio, one.filename, soundFileWav, outname);
+    IoUtils.execute(command1);
+    IoUtils.execute(command2);
+    IoUtils.execute("rm " + soundFileWav);
+    return new ArthurVideo(outname);
   }
 
   public static ArthurVideo minus(ArthurVideo one, ArthurColor two, String outname) {
@@ -95,13 +109,13 @@ public class JavaVideoMath {
   }
 
   public static ArthurVideo multiply(ArthurVideo one, ArthurNumber two, String outname) {
-    double factor = 1 / two.val;
+    double factor = 1.0 / Math.abs(two.val);
 
-    String speedUpVideo = "ffmpeg -i %s -filter:v \"setpts=%f*PTS\" %s";
+    String speedUpVideo = "ffmpeg -i %s -filter:v setpts=%f*PTS -strict -2 %s";
     String tempVid = "Vid-temp-" + System.currentTimeMillis() + ".mp4";
     String command1 = String.format(speedUpVideo, one.filename, factor, tempVid);
 
-    String extractAudio = "ffmpeg -i %s -vn -ar 44100 -ac 2 -ab 192 -f mp3 %s";
+    String extractAudio = "ffmpeg -i %s -vn -ar 44100 -ab 192 -f mp3 %s";
     String tempSound = "Sound-temp-" + System.currentTimeMillis() + ".mp3";
     String command2 = String.format(extractAudio, tempVid, tempSound);
 
@@ -109,9 +123,9 @@ public class JavaVideoMath {
     IoUtils.execute(command2);
 
     String speedyName = "Sound-temp-speedy-" + System.currentTimeMillis() + ".mp3";
-    ArthurSound spedUpAudio = JavaSoundMath.speedChange(new ArthurSound(tempSound), two.val, speedyName);
+    ArthurSound spedUpAudio = JavaSoundMath.speedChange(new ArthurSound(tempSound), Math.abs(two.val), speedyName);
 
-    String addbackAudio = "ffmpeg -i %s -i %s %s";
+    String addbackAudio = "ffmpeg -i %s -i %s -strict -2 %s";
     String command3 = String.format(addbackAudio, spedUpAudio.filename, tempVid, outname);
 
     IoUtils.execute(command3);
@@ -163,7 +177,7 @@ public class JavaVideoMath {
         result = image.minus((ArthurColor) two); //tint each frame with complement
       }
       else if (function.equals("+ArthurImage")) {
-        System.out.println("heeey");
+        //System.out.println("heeey");
         result = image.divide((ArthurImage) two); //overlay image on video
       }
       else if (function.equals("-ArthurImage")) {
@@ -189,7 +203,7 @@ public class JavaVideoMath {
 
     String command2 = "ffmpeg -r 30 -i adjusted-%d.jpg " + tempVid;
     String command3 = "ffmpeg -i " + one.filename + " " + tempSound;
-    String command4 = "ffmpeg -i " + tempVid + " -i " + tempSound + " -ab 192k " + outname;
+    String command4 = "ffmpeg -i " + tempVid + " -i " + tempSound + " -strict -2 -ab 192k " + outname;
 
     IoUtils.execute(command2);
     IoUtils.execute(command3);

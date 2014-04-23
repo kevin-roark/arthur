@@ -1,5 +1,7 @@
 package arthur.backend.media;
 
+import arthur.backend.builtins.java.*;
+
 public class ArthurSoundTester {
 
 	public static void main(String[] args) {
@@ -9,9 +11,7 @@ public class ArthurSoundTester {
 		ArthurSound s1 = new ArthurSound(f1);
 		ArthurSound s2 = new ArthurSound(f2);
 
-		/*
-
-		ArthurSound s3 = s1.add(s2);
+		/*ArthurSound s3 = s1.add(s2);
 
 		ArthurSound s4 = s1.minus(s2);
 
@@ -31,8 +31,13 @@ public class ArthurSoundTester {
 
 		ArthurSound s12 = s1.minus(new ArthurColor(255.0, 0.0, 0.0, 1.0));
 
-		ArthurSound s13 = s1.add(new ArthurString("Hello Kevin"));*/
+		ArthurSound s13 = s1.add(new ArthurString("Hello Kevin"));
+		*/
 
-		JavaSoundMath.getFrequency(s1);
+		System.out.println("frequeny: " + JavaSoundMath.getFrequency(s1));
+
+		ArthurSound s14 = JavaBuiltins.RED.toSound();
+		ArthurSound s16 = JavaBuiltins.GREEN.toSound();
+		ArthurSound s15 = JavaBuiltins.BLUE.toSound();
 	}
 }

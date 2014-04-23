@@ -50,11 +50,11 @@ public class IoUtils {
 
     public static void move(String start, String end) {
       try {
-        String exec = "mv " + start + " " + end;
+        String exec = "cp " + start + " " + end;
         Process p = Runtime.getRuntime().exec(exec);
         p.waitFor();
       } catch (Exception e) {
-        System.out.println("failed to move file " + start + " to " + end);
+        System.out.println("failed to copy file " + start + " to " + end);
         e.printStackTrace();
       }
     }

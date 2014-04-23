@@ -1,0 +1,72 @@
+
+num lastPhrase;
+num cmode;
+color overlay;
+
+void init() {
+  Sound glass = sound("glass.mp3");
+
+  Sound higlass = glass + 60;
+  Sound lowglass = glass - 60;
+
+  Sound repeatGlass = glass + glass + glass;
+  repeatGlass *= 6;
+
+  Sound hello = "Hello My Dear Friends. Welcome to my world."->Sound;
+  hello /= 12;
+
+  Sound like = "Do you like Arthur yet?"->Sound;
+  like /= 12;
+
+  Sound please = "Please enjoy Arthur today"->Sound;
+  please /= 15;
+
+  Video ball = video("ball.mp4");
+  ball += BLUE;
+
+  lastPhrase = 0;
+  overlay = <<255, 0, 0, 0.5>>;
+  cmode = 0;
+
+  add(ball);
+  add(glass);
+
+  add(higlass, 1.5);
+  add(lowglass, 3.0);
+
+  add(repeatGlass, 7.0);
+
+  add(hello, 10.0);
+
+  add(like, 15.0);
+
+  add(please, 20.0);
+
+  add(overlay);
+}
+
+void loop() {
+
+  if (cmode == 0) {
+    overlay -= <<1, 0, 0>>;
+    overlay += <<0, 1, 0>>;
+    if (overlay.r <= 0) {
+      cmode = 1;
+    }
+  } else {
+    overlay += <<1, 0, 0>>;
+    overlay -= <<0, 1, 0>>;
+    if (overlay.r >= 255) {
+      cmode = 0;
+    }
+  }
+
+  if (ms() - lastPhrase < 1000)
+    return;
+
+  lastPhrase = ms();
+
+  string p = "ARTHUR LIVES";
+  p.size = 40;
+  add(p);
+}

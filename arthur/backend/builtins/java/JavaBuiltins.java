@@ -7,11 +7,11 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.lang.reflect.Field;
 
+import java.util.Random;
+
 public class JavaBuiltins {
 
-  public static ArthurMedia get(ArthurString filename) {
-    return new ArthurMedia();
-  }
+  public static final Random gen = new Random();
 
   public static ArthurImage image(ArthurString filename) {
     return new ArthurImage(filename);
@@ -26,7 +26,21 @@ public class JavaBuiltins {
   }
 
   public static ArthurNumber ms() {
-    return new ArthurNumber();
+    double ctms = (double) System.currentTimeMillis();
+    return new ArthurNumber(ctms);
+  }
+
+  public static ArthurNumber rand() {
+    double r = Math.random();
+    return new ArthurNumber(r);
+  }
+
+  // random color from the good stuff
+  public static ArthurColor cooler() {
+    int index = gen.nextInt(colors().size());
+    String name = colors().get(index);
+    ArthurColor color = colorMap().get(name);
+    return color;
   }
 
   public static void _addMedia(ArthurMedia media, String name) {
@@ -34,6 +48,17 @@ public class JavaBuiltins {
   }
 
   public static void _addMedia(ArthurMedia media, String name, ArthurFrame frame) {
+    media.frame = frame;
+    JsWhisperer.addMedia(media, name);
+  }
+
+  public static void _addMedia(ArthurMedia media, String name, ArthurNumber delay) {
+    media.delay = delay;
+    JsWhisperer.addMedia(media, name);
+  }
+
+  public static void _addMedia(ArthurMedia media, String name, ArthurFrame frame, ArthurNumber delay) {
+    media.delay = delay;
     media.frame = frame;
     JsWhisperer.addMedia(media, name);
   }
@@ -179,8 +204,6 @@ public class JavaBuiltins {
       colors.add("LASER_LEMON");
       colors.add("EGGPLANT");
       colors.add("CHARTREUSE");
-
-
     }
 
     return colors;

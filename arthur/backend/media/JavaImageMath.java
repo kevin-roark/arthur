@@ -107,6 +107,10 @@ public class JavaImageMath {
     return add(one, two.toColor());
   }
 
+  public static ArthurImage add(ArthurImage one, ArthurVideo two) {
+    return add(one, two.toColor());
+  }
+
 	public static ArthurImage minus(ArthurImage one, ArthurNumber two) {
 		BufferedImage image = JavaImageMath.clone(one.bf);
 		double number = two.val;
@@ -172,6 +176,10 @@ public class JavaImageMath {
 	}
 
   public static ArthurImage minus(ArthurImage one, ArthurSound two) {
+    return minus(one, two.toColor());
+  }
+
+  public static ArthurImage minus(ArthurImage one, ArthurVideo two) {
     return minus(one, two.toColor());
   }
 
@@ -271,7 +279,7 @@ public class JavaImageMath {
 	}
 
 	public static ArthurImage multiply (ArthurImage one, ArthurNumber two) { //change to ArthurNumber later
-		double f = two.val;
+		double f = Math.abs(two.val);
 		//get image
 		BufferedImage image = JavaImageMath.clone(one.bf);
 
@@ -340,7 +348,7 @@ public class JavaImageMath {
 	}
 
 	public static ArthurImage divide (ArthurImage one, ArthurNumber two) { //change to ArthurNumber later
-		int f = two.intval();
+		int f = Math.abs(two.intval());
 		//get image
 		BufferedImage image = JavaImageMath.clone(one.bf);
 

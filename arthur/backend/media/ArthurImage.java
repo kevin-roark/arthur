@@ -15,6 +15,8 @@ import java.util.Random;
 public class ArthurImage extends ArthurMedia implements java.io.Serializable {
 
   public static final String IMAGE = "image";
+  public static final String ZERO = "ZERO.jpg";
+
   public String filename;
   public transient BufferedImage bf;
   public ArthurNumber height;
@@ -82,6 +84,9 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     else if (two.type.equals(ArthurSound.SOUND)) {
       res = JavaImageMath.add(this, (ArthurSound) two);
     }
+    else if (two.type.equals(ArthurVideo.VIDEO)) {
+      res = JavaImageMath.add(this, (ArthurVideo) two);
+    }
     else {
       res = this;
     }
@@ -106,8 +111,10 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     else if (two.type.equals(ArthurSound.SOUND)) {
       res = JavaImageMath.minus(this, (ArthurSound) two);
     }
+    else if (two.type.equals(ArthurVideo.VIDEO)) {
+      res = JavaImageMath.minus(this, (ArthurVideo) two);
+    }
     else {
-      // coerce to Image?
       res = this;
     }
     res.murk = this.murk;
@@ -120,14 +127,9 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
       res = JavaImageMath.multiply(this, (ArthurImage) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       res = JavaImageMath.multiply(this, (ArthurNumber) two);
-    } else if (two.type.equals(ArthurColor.COLOR)) {
-      ArthurColor color = (ArthurColor) two;
-      res = JavaImageMath.multiply(this, color.toImage());
-    } else if (two.type.equals(ArthurString.STRING)) {
-      ArthurString str = (ArthurString) two;
-      res = JavaImageMath.multiply(this, str.toImage());
     } else {
-      res = this;
+      ArthurImage i = (ArthurImage) two.castTo("Image");
+      res = JavaImageMath.multiply(this, i);
     }
     res.murk = this.murk;
     return res;
@@ -139,14 +141,9 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
       res = JavaImageMath.divide(this, (ArthurImage) two);
     } else if (two.type.equals(ArthurNumber.NUMBER)) {
       res = JavaImageMath.divide(this, (ArthurNumber) two);
-    } else if (two.type.equals(ArthurColor.COLOR)) {
-      ArthurColor color = (ArthurColor) two;
-      res = JavaImageMath.divide(this, color.toImage());
-    } else if (two.type.equals(ArthurString.STRING)) {
-      ArthurString str = (ArthurString) two;
-      res = JavaImageMath.divide(this, str.toImage());
     } else {
-      res = this;
+      ArthurImage i = (ArthurImage) two.castTo("Image");
+      res = JavaImageMath.divide(this, i);
     }
     res.murk = this.murk;
     return res;
@@ -159,18 +156,22 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
   public ArthurMedia castTo(String mediaType) {
     if (mediaType.equals("string")) {
       return this.toArtString();
-    } else if (mediaType.equals("number")) {
+    } else if (mediaType.equals("num")) {
       return this.toNumber();
     } else if (mediaType.equals("color")) {
       return this.toColor();
+    } else if (mediaType.equals("Sound")) {
+      return this.toSound();
+    } else if (mediaType.equals("Video")) {
+      return this.toVideo();
     }
 
     return this;
   }
 
   public ArthurString toArtString() {
-      String s = toAscii();
-      return new ArthurString(s);
+    String s = toAscii();
+    return new ArthurString(s);
   }
 
   public ArthurNumber toNumber() {
@@ -178,32 +179,28 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
   }
 
   public ArthurColor toColor() {
-    /*
-    double r = 0;
-    double g = 0;
-    double b = 0;
-    double a = 0;
-
-    int w = this.bf.getRaster().getWidth();
-    int h = this.bf.getRaster().getHeight();
-    for (int i = 0; i < w; i++) {
-      for (int j = 0; j < h; i++) {
-        int rgb = this.bf.getRGB(i, j);
-        Color c = new Color(rgb);
-        r += c.getRed();
-        g += c.getGreen();
-        b += c.getBlue();
-        a += c.getAlpha();
-      }
-    }
-
-    r = r / (i * j);
-    g = g / (i * j);
-    b = b / (i * j);
-    a = a / (i * j) / 255;
-    return new ArthurColor(r, g, b, a);*/
-
     return getAverageColor();
+  }
+
+  public ArthurSound toSound() {
+    ArthurSound zero = new ArthurSound(ArthurSound.ZERO);
+    return zero.add(this);
+  }
+
+  // just repeats the image for 15 seconds
+  public ArthurVideo toVideo() {
+    String outname = ArthurVideo.nameGen();
+
+    String command = "ffmpeg -loop 1 -i ";
+    command += this.filename + " -c:v libx264 -t 15 -pix_fmt yuv420p ";
+    command += "intermediate.mp4";
+
+    IoUtils.execute(command);
+
+    IoUtils.execute("ffmpeg -f lavfi -i aevalsrc=0 -i intermediate.mp4 -vcodec copy -acodec aac -map 0:0 -map 1:0 -shortest -strict experimental -y " + outname);
+    IoUtils.execute("rm intermediate.mp4");
+
+    return new ArthurVideo(outname);
   }
 
   public String toAscii() {
@@ -288,6 +285,9 @@ public class ArthurImage extends ArthurMedia implements java.io.Serializable {
     }
     if (this.murk != null) {
       js += ", 'murk': " + this.murk.val + "";
+    }
+    if (this.delay != null) {
+      js += ", 'delay': " + this.delay.val;
     }
     js += "}";
     js = js.replace("'", "\"");

@@ -10,6 +10,7 @@ var ArthurString = module.exports.ArthurString = require('./arthur-string');
 var ArthurImage = module.exports.ArthurImage = require('./arthur-image');
 var ArthurSound = module.exports.ArthurSound = require('./arthur-sound');
 var ArthurVideo = module.exports.ArthurVideo = require('./arthur-video');
+var ArthurFrame = module.exports.ArthurFrame = require('./arthur-frame');
 
 // builtin functions like ms
 var builtins = module.exports.builtins = require('./builtins');
@@ -24,12 +25,24 @@ var globals = [];
 var globalMap = {};
 var activeMedia = [];
 
+// adds a media to the active Media array, where it is drawn every frame
+function makeActive(med) {
+  if (!med.delay) {
+    med.active = true;
+    activeMedia.push(med);
+  } else {
+    setTimeout(function() {
+      med.active = true;
+      activeMedia.push(med);
+    }, med.delay.val * 1000);
+  }
+}
+
 function checkGlobal(filename) {
   if (filename) {
     var med = globalMap[filename];
     if (med) {
-      med.active = true;
-      activeMedia.push(med);
+      makeActive(med);
       return true;
     }
   }
@@ -72,11 +85,8 @@ module.exports.addArthurColor = function(json, filename) {
   var global = checkGlobal(filename);
   if (global) return;
 
-  var ob = JSON.parse(json);
-
-  var color = new ArthurColor(ob.r, ob.g, ob.b, ob.a, ob.frame);
-  color.active = true;
-  activeMedia.push(color);
+  var color = new ArthurColor(json);
+  makeActive(color);
 }
 
 module.exports.addArthurNumber = function(json) {
@@ -88,8 +98,7 @@ module.exports.addArthurString = function(json, filename) {
   if (global) return;
 
   var str = new ArthurString(json);
-  str.active = true;
-  activeMedia.push(str);
+  makeActive(str);
 }
 
 module.exports.addArthurImage = function(json, filename) {
@@ -97,8 +106,7 @@ module.exports.addArthurImage = function(json, filename) {
   if (global) return;
 
   var ai = new ArthurImage(json);
-  ai.active = true;
-  activeMedia.push(ai);
+  makeActive(ai);
 }
 
 module.exports.addArthurSound = function(json, filename) {
@@ -106,21 +114,27 @@ module.exports.addArthurSound = function(json, filename) {
   if (global) return;
 
   var as = new ArthurSound(json);
-  as.active = true;
-  activeMedia.push(as);
+  makeActive(as);
 }
 
 module.exports.addArthurVideo = function(json, filename) {
   var global = checkGlobal(filename);
   if (global) return;
 
-  var as = new ArthurVideo(json);
-  as.active = true;
-  activeMedia.push(as);
+  var av = new ArthurVideo(json);
+  makeActive(av);
 }
 
-module.exports.add = function(media, frame) {
-  // finish later plz vry cool
-  media.active = true;
-  activeMedia.push(media);
+module.exports.add = function(media, frame, delay) {
+  if (frame && frame.val && !delay) { // its actually delay
+    media.delay = delay;
+  } else {
+    media.frame = frame;
+  }
+
+  if (delay) {
+    media.delay = delay;
+  }
+
+  makeActive(media);
 }

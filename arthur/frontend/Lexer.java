@@ -853,7 +853,6 @@ public class Lexer {
                               String type = arr[0];
                               String name = arr[1];
                               Var var = new Var(name, type, yyline);
-                              table.getMap().put(name, var);
                               return var;
           }
         case 77: break;
@@ -866,8 +865,9 @@ public class Lexer {
                               String[] arr = text.split("\\s+");
                               String returnType = arr[0];
                               String name = arr[1];
+                              table = new SymbolTable(table, "function");
+                              startingFunction = true;
                               Function fun = new Function(name, returnType, yyline);
-                              table.getMap().put(name, fun);
                               return fun;
           }
         case 79: break;

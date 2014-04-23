@@ -31,7 +31,8 @@ public class JavaStringMath {
   }
 
   public static ArthurString add(ArthurString one, ArthurVideo two) {
-    return null;
+    ArthurImage twoImg = two.toImage();
+    return add(one, twoImg);
   }
 
   public static ArthurString add(ArthurString one, ArthurSound two) {
@@ -61,7 +62,8 @@ public class JavaStringMath {
   }
 
   public static ArthurString minus(ArthurString one, ArthurVideo two) {
-    return null;
+    ArthurImage twoImg = two.toImage();
+    return minus(one, twoImg);
   }
 
   public static ArthurString minus(ArthurString one, ArthurSound two) {
@@ -104,7 +106,7 @@ public class JavaStringMath {
 
   /* concatenates the first string with itself x times */
   public static ArthurString multiply(ArthurString one, ArthurNumber two) {
-    int times = (int) Math.round(two.val);
+    int times = Math.abs((int) Math.round(two.val));
     String product = "";
     for (int i = 0; i < times; i++) {
       product += one.str;
@@ -120,7 +122,7 @@ public class JavaStringMath {
 
   /* removes the last x chars from one */
   public static ArthurString divide(ArthurString one, ArthurNumber two) {
-    int x = (int) Math.round(two.val);
+    int x = Math.abs((int) Math.round(two.val));
     int lastPos = Math.max(0, one.str.length() - x);
     String cut = one.str.substring(lastPos);
     return new ArthurString(cut);

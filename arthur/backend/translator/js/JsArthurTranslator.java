@@ -46,10 +46,20 @@ public class JsArthurTranslator extends ArthurTranslator {
 
     // builtins
     s += "var ms = arthur.builtins.ms;\n";
+    s += "var rand = arthur.builtins.rand;\n";
+    s += "var cooler = arthur.builtins.cooler;\n";
+    s += "var frame = arthur.builtins.frame;\n";
     s += "var literalWrapper = arthur.literalWrapper;\n";
 
     s += "var updateMedia = arthur.updateMedia;\n";
-    s += "function looper() { requestAnimationFrame(looper); loop(); updateMedia(); }\n";
+    s += "var hasLoop = typeof loop != 'undefined';\n";
+    s += "function looper() { requestAnimationFrame(looper); if (hasLoop) loop(); updateMedia(); }\n";
+
+    s += "if (typeof key != 'undefined') $(document).keypress(function(ev) {key(new ArthurString(String.fromCharCode(ev.which))); } );\n";
+
+    s += "if (typeof click != 'undefined') $(document).click(function(e) { click(new ArthurNumber(e.clientX), new ArthurNumber(e.clientY)); });\n";
+
+    s += "if (typeof move != 'undefined') $(document).mousemove(function(e) { move(new ArthurNumber(e.clientX), new ArthurNumber(e.clientY)); });\n";
 
     return s + "\n";
   }
@@ -101,10 +111,23 @@ public class JsArthurTranslator extends ArthurTranslator {
   }
 
   public String castCode(ParseNode n) {
-    ParseNode id = n.children.get(0).children.get(0);
     ParseNode type = n.children.get(1);
+    ParseNode one = n.children.get(0);
+    String id;
 
-    return id.val + ".castTo(\"" + type.val + "\")";
+    if (one.val.equals("Identifier")) {
+      id = one.children.get(0).val;
+    } else if (one.val.equals("Color")) {
+      id = colorLiteral(one);
+    } else if (one.val.equals("number")) {
+      id = numberLiteral(one);
+    } else if (one.val.equals("String")) {
+      id = stringLiteral(one);
+    } else {
+      id = "BAD CAST";
+    }
+
+    return id + ".castTo(\"" + type.val + "\")";
   }
 
   public String colorLiteral(ParseNode n) {

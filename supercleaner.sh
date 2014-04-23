@@ -5,6 +5,7 @@ rm -f arthur/frontend/Lexer.java~
 
 rm -f arthur/backend/*.class;
 rm -f arthur/backend/builtins/java/*.class;
+rm -f arthur/backend/builtins/*.class;
 rm -f arthur/backend/translator/*.class;
 rm -f arthur/backend/media/*.class;
 rm -f arthur/backend/whisperer/*.class;

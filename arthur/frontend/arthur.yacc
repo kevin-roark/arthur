@@ -65,8 +65,6 @@ param_list
 hard_param_list
     : param                                           {
                                                         ParseNode params = new ParseNode("parameters");
-                                                        lexer.table = new SymbolTable(lexer.table, "function");
-                                                        lexer.startingFunction = true;
                                                         ParseNode var = (ParseNode) $1.obj;
                                                         var.setParent(params);
                                                         params.addChild(var);
@@ -194,6 +192,11 @@ elfs
                                                       elfs.addChild((ParseNode) $1.obj);
                                                       $$ = new ParserVal(elfs);
                                                     }
+    |                                               {
+                                                      ParseNode elfs = new ParseNode("elves");
+                                                      elfs.addChild(new ParseNode(""));
+                                                      $$ = new ParserVal(elfs);
+                                                     }
     ;
 
 elf
@@ -228,6 +231,12 @@ func_def
     : FUNCTION param_list RPAREN func_body          {
                                                         ParseNode funDef = new ParseNode("Function");
                                                         Function f = (Function) $1.obj;
+                                                        if (lexer.table.get(f.name) != null) {
+                                                          System.out.println("function named " + f.name + " already exists!!");
+                                                          errorCount++;
+                                                        }
+                                                        lexer.table.put(f.name, f);
+
                                                         funDef.addChild(new ParseNode(f.returnType, funDef));
                                                         funDef.addChild(new ParseNode(f.name, funDef));
                                                         ParseNode params = (ParseNode) $2.obj;
@@ -253,6 +262,16 @@ fun_call
 
 caster
     : id ARROW TYPE                                 {
+                                                      ParseNode caster = new ParseNode("cast");
+                                                      ParseNode par = (ParseNode) $1.obj;
+                                                      caster.addChild(par);
+
+                                                      Type t = (Type) $3.obj;
+                                                      ParseNode type = new ParseNode(t.name);
+                                                      caster.addChild(type);
+                                                      $$ = new ParserVal(caster);
+                                                    }
+    | literal ARROW TYPE                            {
                                                       ParseNode caster = new ParseNode("cast");
                                                       ParseNode par = (ParseNode) $1.obj;
                                                       caster.addChild(par);
@@ -624,6 +643,14 @@ exfactor
     | factor                                        { $$ = $1; }
 
 factor
+    : literal                                       { $$ = $1; }
+    | TRUE                                          { ParseNode t = new ParseNode("true"); $$ = new ParserVal(t); }
+    | FALSE                                         { ParseNode f = new ParseNode("false"); $$ = new ParserVal(f); }
+    | id                                            { $$ = $1; }
+    | LPAREN val RPAREN                             { $$ = $2; }
+    ;
+
+literal
     : COLOR                                         {
                                                         Color c = (Color) $1.obj;
                                                         ParseNode color = new ParseNode("Color");
@@ -645,15 +672,17 @@ factor
                                                         string.addChild(new ParseNode(s.val, string));
                                                         $$ = new ParserVal(string);
                                                     }
-    | TRUE                                          { ParseNode t = new ParseNode("true"); $$ = new ParserVal(t); }
-    | FALSE                                         { ParseNode f = new ParseNode("false"); $$ = new ParserVal(f); }
-    | id                                            { $$ = $1; }
-    | LPAREN val RPAREN                             { $$ = $2; }
     ;
 
 var
     : VAR                                           {
                                                         Var v = (Var) $1.obj;
+                                                        if (lexer.table.getMap().get(v.id) != null) {
+                                                          System.out.println("variable " + v.id + " already exists!!");
+                                                          errorCount++;
+                                                        }
+                                                        lexer.table.put(v.id, v);
+
                                                         ParseNode var = new ParseNode("variable");
                                                         var.addChild(new ParseNode(v.typeName(), var));
                                                         var.addChild(new ParseNode(v.id, var));
@@ -664,6 +693,12 @@ var
 param
     : VAR                                           {
                                                         Var v = (Var) $1.obj;
+                                                        if (lexer.table.getMap().get(v.id) != null) {
+                                                          System.out.println("parameter " + v.id + " already exists!!");
+                                                          errorCount++;
+                                                        }
+                                                        lexer.table.put(v.id, v);
+
                                                         ParseNode var = new ParseNode("parameter");
                                                         var.addChild(new ParseNode(v.typeName(), var));
                                                         var.addChild(new ParseNode(v.id, var));
@@ -780,7 +815,10 @@ public ParseNode doParsing(Reader in) {
 
     int result = yyparse();
 
-    return AST;
+    if (errorCount == 0)
+      return AST;
+    else
+      return null;
 }
 
 public void doParsingAndPrint(Reader in) {
