@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# a faster compiler that assumes jars are unpacked and doesn't force
+# compilation of ArthurCompiler.java. Think of it as a distributed binary
+# of sorts.
+
+PROGRAM=$1;
+
+make compile
+
+java arthur/backend/ArthurCompiler $@

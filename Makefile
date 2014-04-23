@@ -2,6 +2,11 @@
 compiler:	.FORCE
 	javac arthur/backend/ArthurCompiler.java
 
+compile: arthur/backend/ArthurCompiler.class
+
+arthur/backend/ArthurCompiler.class:
+	javac arthur/backend/ArthurCompiler.java
+
 jars:
 	jar xf slf4j-api-1.7.7.jar
 	jar xf xuggle-xuggler-5.4.jar
