@@ -147,7 +147,8 @@ public class ArthurString extends ArthurMedia {
       frame.writeToFile("adjusted-" + i + ".jpg");
     }
 
-    IoUtils.execute("ffmpeg -r 3 -i adjusted-%d.jpg -c:v libx264 -r 30 -pix_fmt yuv420p " + filename);
+    IoUtils.execute("ffmpeg -r 3 -i adjusted-%d.jpg -c:v libx264 -r 30 -pix_fmt yuv420p intermediate.mp4");
+    IoUtils.execute("ffmpeg -f lavfi -i aevalsrc=0 -i intermediate.mp4 -vcodec copy -acodec aac -map 0:0 -map 1:0 -shortest -strict experimental -y " + filename);
 
     int counter = 1;
     String fn;
@@ -159,6 +160,7 @@ public class ArthurString extends ArthurMedia {
       IoUtils.execute("rm " + fn);
       counter++;
     }
+    IoUtils.execute("rm intermediate.mp4");
 
     return new ArthurVideo(filename);
   }
