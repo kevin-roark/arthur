@@ -48,10 +48,18 @@ public class JsArthurTranslator extends ArthurTranslator {
     s += "var ms = arthur.builtins.ms;\n";
     s += "var rand = arthur.builtins.rand;\n";
     s += "var cooler = arthur.builtins.cooler;\n";
+    s += "var frame = arthur.builtins.frame;\n";
     s += "var literalWrapper = arthur.literalWrapper;\n";
 
     s += "var updateMedia = arthur.updateMedia;\n";
-    s += "function looper() { requestAnimationFrame(looper); loop(); updateMedia(); }\n";
+    s += "var hasLoop = typeof loop != 'undefined';\n";
+    s += "function looper() { requestAnimationFrame(looper); if (hasLoop) loop(); updateMedia(); }\n";
+
+    s += "if (typeof key != 'undefined') $(document).keypress(function(ev) {key(new ArthurString(String.fromCharCode(ev.which))); } );\n";
+
+    s += "if (typeof click != 'undefined') $(document).click(function(e) { click(new ArthurNumber(e.clientX), new ArthurNumber(e.clientY)); });\n";
+
+    s += "if (typeof move != 'undefined') $(document).mousemove(function(e) { move(new ArthurNumber(e.clientX), new ArthurNumber(e.clientY)); });\n";
 
     return s + "\n";
   }

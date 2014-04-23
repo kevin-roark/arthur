@@ -1,0 +1,33 @@
+
+color overlay;
+
+void init() {
+  overlay = <<0, 255, 0, 0>>;
+
+  Image wow = image("flames.jpg");
+  add(wow, frame("fill"));
+
+  add(overlay);
+}
+
+void key(string c) {
+  c.tint = cooler();
+  c.size = 72;
+  add(c);
+}
+
+void move(num x, num y) {
+  string cool = "cool";
+  cool.tint = cooler();
+  cool.size = 24;
+
+  add(cool, frame(x, y, 40, 40));
+}
+
+void click(num x, num y) {
+  if (overlay.a == 0.5) {
+    overlay = <<0, 255, 0, 0>>;
+  } else {
+    overlay = <<0, 255, 0, 0.5>>;
+  }
+}

@@ -10,6 +10,7 @@ var ArthurString = module.exports.ArthurString = require('./arthur-string');
 var ArthurImage = module.exports.ArthurImage = require('./arthur-image');
 var ArthurSound = module.exports.ArthurSound = require('./arthur-sound');
 var ArthurVideo = module.exports.ArthurVideo = require('./arthur-video');
+var ArthurFrame = module.exports.ArthurFrame = require('./arthur-frame');
 
 // builtin functions like ms
 var builtins = module.exports.builtins = require('./builtins');
@@ -83,7 +84,7 @@ module.exports.updateMedia = function() {
 module.exports.addArthurColor = function(json, filename) {
   var global = checkGlobal(filename);
   if (global) return;
-  
+
   var color = new ArthurColor(json);
   makeActive(color);
 }
@@ -124,7 +125,16 @@ module.exports.addArthurVideo = function(json, filename) {
   makeActive(av);
 }
 
-module.exports.add = function(media, frame) {
-  // finish later plz vry cool
+module.exports.add = function(media, frame, delay) {
+  if (frame && frame.val && !delay) { // its actually delay
+    media.delay = delay;
+  } else {
+    media.frame = frame;
+  }
+
+  if (delay) {
+    media.delay = delay;
+  }
+
   makeActive(media);
 }

@@ -111,7 +111,7 @@ public class JavaVideoMath {
   public static ArthurVideo multiply(ArthurVideo one, ArthurNumber two, String outname) {
     double factor = 1.0 / Math.abs(two.val);
 
-    String speedUpVideo = "ffmpeg -i %s -filter:v \"setpts=%f*PTS\" %s";
+    String speedUpVideo = "ffmpeg -i %s -filter:v setpts=%f*PTS -strict -2 %s";
     String tempVid = "Vid-temp-" + System.currentTimeMillis() + ".mp4";
     String command1 = String.format(speedUpVideo, one.filename, factor, tempVid);
 
@@ -125,7 +125,7 @@ public class JavaVideoMath {
     String speedyName = "Sound-temp-speedy-" + System.currentTimeMillis() + ".mp3";
     ArthurSound spedUpAudio = JavaSoundMath.speedChange(new ArthurSound(tempSound), Math.abs(two.val), speedyName);
 
-    String addbackAudio = "ffmpeg -i %s -i %s %s";
+    String addbackAudio = "ffmpeg -i %s -i %s -strict -2 %s";
     String command3 = String.format(addbackAudio, spedUpAudio.filename, tempVid, outname);
 
     IoUtils.execute(command3);

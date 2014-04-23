@@ -23,7 +23,6 @@ function ArthurString(json, raw) {
 
   if (typeof json == 'string') {
     if (json.substring(0, 1) == '{') {
-      console.log(json);
       var ob = JSON.parse(json);
     } else {
       var ob = {str: json};
@@ -39,9 +38,11 @@ function ArthurString(json, raw) {
   if (json.color) {
     var color = json.color;
     if (color.type == types.COLOR)
-      this.color = color;
+      this.tint = color;
     else
-      this.color = new ArthurColor(color.r, color.g, color.b, color.a);
+      this.tint = new ArthurColor(color.r, color.g, color.b, color.a);
+  } else {
+    this.tint = new ArthurColor(0, 0, 0, 1.0);
   }
 
   if (json.size) {
@@ -72,7 +73,7 @@ function ArthurString(json, raw) {
 ArthurString.prototype.__proto__ = ArthurMedia.prototype;
 
 ArthurString.prototype.fill = function(s) {
-  s.color = this.color;
+  s.tint = this.tint;
   s.size = this.size;
   s.frame = this.frame;
   s.wrap = this.wrap;
@@ -162,8 +163,8 @@ ArthurString.prototype.divide = function(s) {
 }
 
 ArthurString.prototype.draw = function() {
-  if (this.color)
-    context.fillStyle = this.color.rgba();
+  if (this.tint)
+    context.fillStyle = this.tint.rgba();
   else
     context.fillStyle = 'black';
 
@@ -173,6 +174,10 @@ ArthurString.prototype.draw = function() {
     context.font = this.size.int() + "px monospace";
   else
     context.font = "12px monospace";
+
+  if (!this.frame) {
+    this.frame = ArthurFrame.prototype.rand();
+  }
 
   //context.fillText(this.str, this.frame.x.int(), this.frame.y.int());
   drawMultiline(this.str, this.size.val, this.wrap, this.frame.x.int(), this.frame.y.int(), this.frame.w.int());
