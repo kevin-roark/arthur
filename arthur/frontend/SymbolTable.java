@@ -108,11 +108,46 @@ public class SymbolTable {
       return table;
     }
 
+    public static Var colorVar(String name) {
+      return new Var(name, "color");
+    }
+
     public static void addColors(SymbolTable table) {
-      table.put("BLUE", new Color(0, 0, 255));
-      table.put("GREEN", new Color(0, 255, 0));
-      table.put("RED", new Color(255, 0, 0));
-      table.put("WHITE", new Color(255, 255, 255));
-      table.put("YELLOW", new Color(255, 255, 0));
+      table.put("RED", colorVar("RED"));
+      table.put("WHITE", colorVar("WHITE"));
+      table.put("BLACK", colorVar("BLACK"));
+      table.put("BLUE", colorVar("BLUE"));
+      table.put("GREEN", colorVar("GREEN"));
+      table.put("ORANGE", colorVar("ORANGE"));
+      table.put("YELLOW", colorVar("YELLOW"));
+      table.put("PERRYWINKLE", colorVar("PERRYWINKLE"));
+      table.put("ARTHURS_SKIN", colorVar("ARTHURS_SKIN"));
+      table.put("SARCOLINE", colorVar("SARCOLINE"));
+      table.put("COQUELICOT", colorVar("COQUELICOT"));
+      table.put("SMARAGDINE", colorVar("SMARAGDINE"));
+      table.put("ALMOND", colorVar("ALMOND"));
+      table.put("ASPARAGUS", colorVar("ASPARAGUS"));
+      table.put("BURNT_SIENNA", colorVar("BURNT_SIENNA"));
+      table.put("CERULEAN", colorVar("CERULEAN"));
+      table.put("DANDELION", colorVar("DANDELION"));
+      table.put("DENIM", colorVar("DENIM"));
+      table.put("ELECTRIC_LIME", colorVar("ELECTRIC_LIME"));
+      table.put("FUZZY_WUZZY", colorVar("FUZZY_WUZZY"));
+      table.put("GOLDENROD", colorVar("GOLDENROD"));
+      table.put("JAZZBERRY_JAM", colorVar("JAZZBERRY_JAM"));
+      table.put("MAC_AND_CHEESE", colorVar("MAC_AND_CHEESE"));
+      table.put("MAHOGANY", colorVar("MAHOGANY"));
+      table.put("MANGO_TANGO", colorVar("MANGO_TANGO"));
+      table.put("MAUVELOUS", colorVar("MAUVELOUS"));
+      table.put("PURPLE_PIZZAZZ", colorVar("PURPLE_PIZZAZZ"));
+      table.put("RAZZMATAZZ", colorVar("RAZZMATAZZ"));
+      table.put("SALMON", colorVar("SALMON"));
+      table.put("SILVER", colorVar("SILVER"));
+      table.put("TICKLE_ME_PINK", colorVar("TICKLE_ME_PINK"));
+      table.put("WILD_BLUE_YONDER", colorVar("WILD_BLUE_YONDER"));
+      table.put("WISTERIA", colorVar("WISTERIA"));
+      table.put("LASER_LEMON", colorVar("LASER_LEMON"));
+      table.put("EGGPLANT", colorVar("EGGPLANT"));
+      table.put("CHARTREUSE", colorVar("CHARTREUSE"));
     }
 }

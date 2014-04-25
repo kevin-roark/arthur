@@ -157,7 +157,6 @@ public class JavaBuiltins {
       colorMap.put("LASER_LEMON", LASER_LEMON);
       colorMap.put("EGGPLANT", EGGPLANT);
       colorMap.put("CHARTREUSE", CHARTREUSE);
-
     }
 
     return colorMap;

@@ -31,6 +31,29 @@ function ArthurSound(json) {
 
 ArthurSound.prototype.__proto__ = ArthurMedia.prototype;
 
+ArthurSound.prototype.add = function(two) {
+  return this;
+}
+
+ArthurSound.prototype.minus = function(two) {
+  return this;
+}
+
+ArthurSound.prototype.multiply = function(two) {
+  return this;
+}
+
+ArthurSound.prototype.divide = function(two) {
+  return this;
+}
+
+ArthurSound.prototype.arthurEquals = function(s) {
+  if (s.medfile && s.medfile == this.medfile) {
+    return true;
+  }
+  return false;
+}
+
 ArthurSound.prototype.draw = function() {
   if (this.audio.paused)
     this.play();

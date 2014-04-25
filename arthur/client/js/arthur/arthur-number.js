@@ -20,19 +20,59 @@ ArthurNumber.prototype.int = function() {
 }
 
 ArthurNumber.prototype.add = function(num) {
-  return new ArthurNumber(this.val + num.val);
+  if (num.type && num.type == types.NUMBER) {
+    return new ArthurNumber(this.val + num.val);
+  }
+
+  if (num.type && (num.type == types.STRING || num.type == types.COLOR)) {
+    var s = num.castTo('num');
+    return this.add(s);
+  }
+
+  return this;
 }
 
 ArthurNumber.prototype.minus = function(num) {
-  return new ArthurNumber(this.val - num.val);
+  if (num.type && num.type == types.NUMBER) {
+    return new ArthurNumber(this.val - num.val);
+  }
+
+  if (num.type && (num.type == types.STRING || num.type == types.COLOR)) {
+    var s = num.castTo('num');
+    return this.minus(s);
+  }
+
+  return this;
 }
 
 ArthurNumber.prototype.multiply = function(num) {
-  return new ArthurNumber(this.val * num.val);
+  if (num.type && num.type == types.NUMBER) {
+    return new ArthurNumber(this.val * num.val);
+  }
+
+  if (num.type && (num.type == types.STRING || num.type == types.COLOR)) {
+    var s = num.castTo('num');
+    return this.multiply(s);
+  }
+
+  return this;
 }
 
 ArthurNumber.prototype.divide = function(num) {
-  return new ArthurNumber(this.val / num.val);
+  if (num.type && num.type == types.NUMBER) {
+    return new ArthurNumber(this.val / num.val);
+  }
+
+  if (num.type && (num.type == types.STRING || num.type == types.COLOR)) {
+    var s = num.castTo('num');
+    return this.divide(s);
+  }
+
+  return this;
+}
+
+ArthurNumber.prototype.castTo = function(t) {
+  return casting.castNum(this, t);
 }
 
 ArthurNumber.prototype.lessThan = function(num) {

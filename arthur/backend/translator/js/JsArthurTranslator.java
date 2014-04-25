@@ -42,15 +42,54 @@ public class JsArthurTranslator extends ArthurTranslator {
     s += "var addArthurString = arthur.addArthurString;\n";
     s += "var addArthurSound = arthur.addArthurSound;\n";
     s += "var addArthurVideo = arthur.addArthurVideo;\n";
-    s += "var add = arthur.add;\n";
+    s += "var add = arthur.add;\n\n";
 
     // builtins
     s += "var ms = arthur.builtins.ms;\n";
     s += "var rand = arthur.builtins.rand;\n";
     s += "var cooler = arthur.builtins.cooler;\n";
     s += "var frame = arthur.builtins.frame;\n";
-    s += "var literalWrapper = arthur.literalWrapper;\n";
+    s += "var literalWrapper = arthur.literalWrapper;\n\n";
 
+    // colors oh boy
+    s += "var RED = arthur.builtins.RED;\n";
+    s += "var WHITE = arthur.builtins.WHITE;\n";
+    s += "var BLACK = arthur.builtins.BLACK;\n";
+    s += "var BLUE = arthur.builtins.BLUE;\n";
+    s += "var GREEN = arthur.builtins.GREEN;\n";
+    s += "var ORANGE = arthur.builtins.ORANGE;\n";
+    s += "var YELLOW = arthur.builtins.YELLOW;\n";
+    s += "var PERRYWINKLE = arthur.builtins.PERRYWINKLE;\n";
+    s += "var ARTHURS_SKIN = arthur.builtins.ARTHURS_SKIN;\n";
+    s += "var SARCOLINE = arthur.builtins.SARCOLINE;\n";
+    s += "var COQUELICOT = arthur.builtins.COQUELICOT;\n";
+    s += "var SMARAGDINE = arthur.builtins.SMARAGDINE;\n";
+    s += "var ALMOND = arthur.builtins.ALMOND;\n";
+    s += "var ASPARAGUS = arthur.builtins.ASPARAGUS;\n";
+    s += "var BURNT_SIENNA = arthur.builtins.BURNT_SIENNA;\n";
+    s += "var CERULEAN = arthur.builtins.CERULEAN;\n";
+    s += "var DANDELION = arthur.builtins.DANDELION;\n";
+    s += "var DENIM = arthur.builtins.DENIM;\n";
+    s += "var ELECTRIC_LIME = arthur.builtins.ELECTRIC_LIME;\n";
+    s += "var FUZZY_WUZZY = arthur.builtins.FUZZY_WUZZY;\n";
+    s += "var GOLDENROD = arthur.builtins.GOLDENROD;\n";
+    s += "var JAZZBERRY_JAM = arthur.builtins.JAZZBERRY_JAM;\n";
+    s += "var MAC_AND_CHEESE = arthur.builtins.MAC_AND_CHEESE;\n";
+    s += "var MAHOGANY = arthur.builtins.MAHOGANY;\n";
+    s += "var MANGO_TANGO = arthur.builtins.MANGO_TANGO;\n";
+    s += "var MAUVELOUS = arthur.builtins.MAUVELOUS;\n";
+    s += "var PURPLE_PIZZAZZ = arthur.builtins.PURPLE_PIZZAZZ;\n";
+    s += "var RAZZMATAZZ = arthur.builtins.RAZZMATAZZ;\n";
+    s += "var SALMON = arthur.builtins.SALMON;\n";
+    s += "var SILVER = arthur.builtins.SILVER;\n";
+    s += "var TICKLE_ME_PINK = arthur.builtins.TICKLE_ME_PINK;\n";
+    s += "var WILD_BLUE_YONDER = arthur.builtins.WILD_BLUE_YONDER;\n";
+    s += "var WISTERIA = arthur.builtins.WISTERIA;\n";
+    s += "var LASER_LEMON = arthur.builtins.LASER_LEMON;\n";
+    s += "var EGGPLANT = arthur.builtins.EGGPLANT;\n";
+    s += "var CHARTREUSE = arthur.builtins.CHARTREUSE;\n\n";
+
+    // cruft to make builtins work
     s += "var updateMedia = arthur.updateMedia;\n";
     s += "var hasLoop = typeof loop != 'undefined';\n";
     s += "function looper() { requestAnimationFrame(looper); if (hasLoop) loop(); updateMedia(); }\n";
