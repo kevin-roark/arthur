@@ -65,6 +65,10 @@ ArthurVideo.prototype.minus = function(two) {
 }
 
 ArthurVideo.prototype.multiply = function(two) {
+  if (two.type && two.type == types.NUMBER) {
+    this.video.playbackRate = this.video.playbackRate * two.val;
+  }
+
   return this;
 }
 

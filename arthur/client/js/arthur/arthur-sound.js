@@ -40,10 +40,18 @@ ArthurSound.prototype.minus = function(two) {
 }
 
 ArthurSound.prototype.multiply = function(two) {
+  if (two.type && two.type == types.NUMBER) {
+    this.audio.playbackRate = this.audio.playbackRate * two.val;
+  }
+
   return this;
 }
 
 ArthurSound.prototype.divide = function(two) {
+  if (two.type && two.type == types.NUMBER) {
+    this.audio.volume = this.audio.volume * two.val;
+  }
+
   return this;
 }
 
