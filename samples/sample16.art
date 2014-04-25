@@ -1,0 +1,19 @@
+
+color cal;
+string s;
+
+void init() {
+  cal = cooler();
+  s = cal->string;
+  s.size = 40;
+
+  add(cal);
+  add(s);
+}
+
+void loop() {
+  cal = cooler();
+  s = cal->string;
+  num a = s->num;
+  add(a->string);
+}

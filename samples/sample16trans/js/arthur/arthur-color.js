@@ -100,9 +100,6 @@ ArthurColor.prototype.add = function(color) {
 
     var ob = {r: r, g: g, b: b, a: a, frame: this.frame, delay: this.delay};
     return new ArthurColor(ob);
-  } else if (color.type == types.STRING) {
-    var c = color.castTo('color');
-    return this.add(c);
   }
 
   return this;
@@ -126,9 +123,6 @@ ArthurColor.prototype.minus = function(color) {
 
     var ob = {r: r, g: g, b: b, a: a, frame: this.frame, delay: this.delay};
     return new ArthurColor(ob);
-  } else if (color.type == types.STRING) {
-    var c = color.castTo('color');
-    return this.minus(c);
   }
 
   return this;
@@ -157,9 +151,6 @@ ArthurColor.prototype.multiply = function(two) {
       delay: this.delay
     };
     return new ArthurColor (ob);
-  } else if (color.type == types.STRING) {
-    var c = color.castTo('color');
-    return this.multiply(c);
   }
 
   return this;
@@ -187,9 +178,6 @@ ArthurColor.prototype.divide = function(two) {
       delay: this.delay
     };
     return new ArthurColor (ob);
-  } else if (color.type == types.STRING) {
-    var c = color.castTo('color');
-    return this.divide(c);
   }
 
   return this;

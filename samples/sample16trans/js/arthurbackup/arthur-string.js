@@ -1,10 +1,10 @@
 
 var types = require('./types');
+//var builtins = require('./builtins');
 var ArthurMedia = require('./arthur-media');
 var ArthurColor = require('./arthur-color');
 var ArthurFrame = require('./arthur-frame');
 var ArthurNumber = require('./arthur-number');
-var builtins;
 
 var canwrap = require('../lib/wrap');
 
@@ -12,6 +12,8 @@ var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 
 module.exports = ArthurString;
+
+console.log(module.exports);
 
 function ArthurString(json, raw) {
 
@@ -176,10 +178,6 @@ ArthurString.prototype.divide = function(s) {
 }
 
 ArthurString.prototype.castTo = function(t) {
-  if (!builtins || !builtins.colorList) {
-    builtins = require('./builtins');
-  }
-
   if (t == 'color') {
     var name = this.str;
     var upperName = this.str.toUpperCase();

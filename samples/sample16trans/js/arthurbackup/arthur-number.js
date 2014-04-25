@@ -1,9 +1,11 @@
 
 var types = require('./types');
 var ArthurMedia = require('./arthur-media');
-var ArthurColor, ArthurString;
+var ArthurString = require('./arthur-string');
+var ArthurColor = require('./arthur-color');
 
 module.exports = ArthurNumber;
+console.log(module.exports);
 
 ArthurNumber.prototype.__proto__ = ArthurMedia.prototype;
 
@@ -73,13 +75,6 @@ ArthurNumber.prototype.divide = function(num) {
 }
 
 ArthurNumber.prototype.castTo = function(t) {
-  if (typeof ArthurColor != 'function') {
-    ArthurColor = require('./arthur-color');
-  }
-  if (typeof ArthurString != 'function') {
-    ArthurString = require('./arthur-string');
-  }
-
   if (t == 'color') {
     var r = Math.max(this.val, 255);
     var g = Math.max(this.val, 255);

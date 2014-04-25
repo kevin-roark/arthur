@@ -1,18 +1,23 @@
 
 var types = require('./types');
+//var builtins = require('./builtins');
 var ArthurNumber = require('./arthur-number');
 var ArthurMedia = require('./arthur-media');
 var ArthurFrame = require('./arthur-frame');
-var ArthurString, builtins;
 
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 
 module.exports = ArthurColor;
 
+console.log(module.exports);
+
+ArthurColor.prototype.__proto__ = ArthurMedia.prototype;
+
 /* assumes either all arthurnumbers, or all js numbers or one string*/
 function ArthurColor(r, g, b, a, frame, delay) {
   this.type = types.COLOR;
+
   if (frame) {
     this.frame = new ArthurFrame(frame);
   }
@@ -61,8 +66,6 @@ function ArthurColor(r, g, b, a, frame, delay) {
     this.a = new ArthurNumber(1.0);
   }
 }
-
-ArthurColor.prototype.__proto__ = ArthurMedia.prototype;
 
 ArthurColor.prototype.rgba = function() {
   var rgb = 'rgba(' + this.r.int() + ', ';
@@ -196,7 +199,7 @@ ArthurColor.prototype.divide = function(two) {
 }
 
 ArthurColor.prototype.valDiff = function(other) {
-  if (other.type != types.COLOR)
+  if (!other.type || other.type != types.COLOR)
     return new ArthurNumber(Infinity);
 
   var rd = Math.abs(this.r.val - other.r.val);
@@ -223,13 +226,6 @@ ArthurColor.prototype.castTo = function(t) {
 }
 
 ArthurColor.prototype.closestString = function() {
-  if (typeof ArthurString != 'function') {
-    ArthurString = require('./arthur-string');
-  }
-  if (!builtins || !builtins.colorList) {
-    builtins = require('./builtins');
-  }
-
   var bestDiff = new ArthurNumber(Infinity);
   var diff;
   var currentColor, currentString;
@@ -250,13 +246,6 @@ ArthurColor.prototype.closestString = function() {
 }
 
 ArthurColor.prototype.furthestString = function() {
-  if (typeof ArthurString != 'function') {
-    ArthurString = require('./arthur-string');
-  }
-  if (!builtins || !builtins.colorList) {
-    builtins = require('./builtins');
-  }
-
   var bestDiff = new ArthurNumber(-1 * Infinity);
   var diff;
   var currentColor, currentString;
