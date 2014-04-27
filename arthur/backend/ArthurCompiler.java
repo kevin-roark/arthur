@@ -116,7 +116,7 @@ public class ArthurCompiler {
 
     // make sure java ran ok
     if (whisperer == null) {
-      System.out.println("The Java translation failed to run. I'm Sorry.");
+      System.out.println("The Java translation failed to run. I'm Sorry. It's very likely an issue with your media files. Try the -trans option");
       return;
     }
 

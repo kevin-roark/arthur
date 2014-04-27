@@ -3,6 +3,7 @@ var types = require('./types');
 var ArthurNumber = require('./arthur-number');
 var ArthurMedia = require('./arthur-media');
 var ArthurFrame = require('./arthur-frame');
+var ArthurString, builtins;
 
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
@@ -99,6 +100,9 @@ ArthurColor.prototype.add = function(color) {
 
     var ob = {r: r, g: g, b: b, a: a, frame: this.frame, delay: this.delay};
     return new ArthurColor(ob);
+  } else if (color.type == types.STRING) {
+    var c = color.castTo('color');
+    return this.add(c);
   }
 
   return this;
@@ -122,6 +126,9 @@ ArthurColor.prototype.minus = function(color) {
 
     var ob = {r: r, g: g, b: b, a: a, frame: this.frame, delay: this.delay};
     return new ArthurColor(ob);
+  } else if (color.type == types.STRING) {
+    var c = color.castTo('color');
+    return this.minus(c);
   }
 
   return this;
@@ -150,6 +157,9 @@ ArthurColor.prototype.multiply = function(two) {
       delay: this.delay
     };
     return new ArthurColor (ob);
+  } else if (color.type == types.STRING) {
+    var c = color.castTo('color');
+    return this.multiply(c);
   }
 
   return this;
@@ -177,7 +187,91 @@ ArthurColor.prototype.divide = function(two) {
       delay: this.delay
     };
     return new ArthurColor (ob);
+  } else if (color.type == types.STRING) {
+    var c = color.castTo('color');
+    return this.divide(c);
   }
 
   return this;
+}
+
+ArthurColor.prototype.valDiff = function(other) {
+  if (other.type != types.COLOR)
+    return new ArthurNumber(Infinity);
+
+  var rd = Math.abs(this.r.val - other.r.val);
+  var gd = Math.abs(this.g.val - other.g.val);
+  var bd = Math.abs(this.b.val - other.b.val);
+  var ad = Math.abs(this.a.val - other.a.val);
+  return new ArthurNumber(rd + gd + bd + ad);
+}
+
+ArthurColor.prototype.castTo = function(t) {
+  if (t == 'string') {
+    return this.closestString();
+  }
+
+  if (t == 'num') {
+    var val = 0;
+    val += this.g.val;
+    val += 1000 * this.b.val;
+    val += 1000000 * this.r.val;
+    return new ArthurNumber(val);
+  }
+
+  return this;
+}
+
+ArthurColor.prototype.closestString = function() {
+  if (typeof ArthurString != 'function') {
+    ArthurString = require('./arthur-string');
+  }
+  if (!builtins || !builtins.colorList) {
+    builtins = require('./builtins');
+  }
+
+  var bestDiff = new ArthurNumber(Infinity);
+  var diff;
+  var currentColor, currentString;
+  var bestColorString = new ArthurString("color");
+
+  for (var i = 0; i < builtins.colorList.length; i++) {
+    currentString = builtins.colorList[i];
+    currentColor = builtins.colorMap[currentString];
+    diff = this.valDiff(currentColor);
+
+    if (diff.val < bestDiff.val) {
+      bestDiff = diff;
+      bestColorString = new ArthurString(currentString);
+    }
+  }
+
+  return bestColorString;
+}
+
+ArthurColor.prototype.furthestString = function() {
+  if (typeof ArthurString != 'function') {
+    ArthurString = require('./arthur-string');
+  }
+  if (!builtins || !builtins.colorList) {
+    builtins = require('./builtins');
+  }
+
+  var bestDiff = new ArthurNumber(-1 * Infinity);
+  var diff;
+  var currentColor, currentString;
+  var bestColorString = new ArthurString("color");
+
+  for (var i = 0; i < builtins.colorList.length; i++) {
+    currentString = builtins.colorList[i];
+    currentColor = builtins.colorMap[currentString];
+    diff = this.valDiff(currentColor);
+
+    if (diff.val > bestDiff.val) {
+      bestDiff = diff;
+      bestColorString = new ArthurString(currentString);
+    }
+  }
+
+  return bestColorString;
 }

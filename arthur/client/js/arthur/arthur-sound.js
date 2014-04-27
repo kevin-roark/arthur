@@ -31,6 +31,37 @@ function ArthurSound(json) {
 
 ArthurSound.prototype.__proto__ = ArthurMedia.prototype;
 
+ArthurSound.prototype.add = function(two) {
+  return this;
+}
+
+ArthurSound.prototype.minus = function(two) {
+  return this;
+}
+
+ArthurSound.prototype.multiply = function(two) {
+  if (two.type && two.type == types.NUMBER) {
+    this.audio.playbackRate = this.audio.playbackRate * two.val;
+  }
+
+  return this;
+}
+
+ArthurSound.prototype.divide = function(two) {
+  if (two.type && two.type == types.NUMBER) {
+    this.audio.volume = this.audio.volume * two.val;
+  }
+
+  return this;
+}
+
+ArthurSound.prototype.arthurEquals = function(s) {
+  if (s.medfile && s.medfile == this.medfile) {
+    return true;
+  }
+  return false;
+}
+
 ArthurSound.prototype.draw = function() {
   if (this.audio.paused)
     this.play();

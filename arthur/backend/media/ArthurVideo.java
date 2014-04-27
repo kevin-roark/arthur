@@ -297,9 +297,24 @@ public class ArthurVideo extends ArthurMedia {
     return name;
   }
 
+  public boolean arthurEquals(ArthurMedia two) {
+    if (two.type.equals(VIDEO)) {
+      ArthurVideo t = (ArthurVideo) two;
+
+      return this.filename.equals(t.filename);
+    }
+
+    return false;
+  }
+
   public void writeToFile(String fname) {
     IoUtils.move(this.filename, fname); // move file to correct name
     this.filename = fname.substring(fname.indexOf('/') + 1); // remove 'buster'
+  }
+
+  public void move(String fname) {
+    IoUtils.hardMove(this.filename, fname);
+    this.filename = fname;
   }
 
   public String toString() {

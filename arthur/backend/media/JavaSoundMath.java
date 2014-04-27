@@ -145,7 +145,7 @@ public class JavaSoundMath {
   // ffmpeg -i one.filename -i two.filename -filter_complex amerge -c:a libmp3lame -q:a 4 outname
   public static ArthurSound multiply(ArthurSound one, ArthurSound two, String outname) {
     String exec = ffmpegStarter(one.filename, two.filename);
-    exec += " -filter_complex amerge " + ffmpegEnder(outname);
+    exec += " -filter_complex amix " + ffmpegEnder(outname);
 
     IoUtils.execute(exec);
     System.out.println("writing multiplied audio to " + outname);

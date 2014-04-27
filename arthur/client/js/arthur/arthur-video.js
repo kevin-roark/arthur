@@ -56,8 +56,35 @@ function ArthurVideo(json) {
 
 ArthurVideo.prototype.__proto__ = ArthurMedia.prototype;
 
+ArthurVideo.prototype.add = function(two) {
+  return this;
+}
+
+ArthurVideo.prototype.minus = function(two) {
+  return this;
+}
+
+ArthurVideo.prototype.multiply = function(two) {
+  if (two.type && two.type == types.NUMBER) {
+    this.video.playbackRate = this.video.playbackRate * two.val;
+  }
+
+  return this;
+}
+
+ArthurVideo.prototype.divide = function(two) {
+  return this;
+}
+
 ArthurVideo.prototype.activate = function() {
   $('body').append(this.holder);
+}
+
+ArthurVideo.prototype.arthurEquals = function(v) {
+  if (v.medfile && v.medfile == this.medfile) {
+    return true;
+  }
+  return false;
 }
 
 ArthurVideo.prototype.setFrame = function() {

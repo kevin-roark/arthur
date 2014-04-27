@@ -1,0 +1,32 @@
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#canvas {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.arthur-video {
+
+}
+
+.arthur-video-holder {
+  position: fixed;
+  left: 5px;
+  top: 5px;
+  z-index: -1;
+}

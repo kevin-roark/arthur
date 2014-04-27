@@ -39,9 +39,32 @@ function ArthurImage(json) {
 
 ArthurImage.prototype.__proto__ = ArthurMedia.prototype;
 
+ArthurImage.prototype.add = function(two) {
+  return this;
+}
+
+ArthurImage.prototype.minus = function(two) {
+  return this;
+}
+
+ArthurImage.prototype.multiply = function(two) {
+  return this;
+}
+
+ArthurImage.prototype.divide = function(two) {
+  return this;
+}
+
 ArthurImage.prototype.dom = function() {
   var el = $('#' + this.filename);
   return el;
+}
+
+ArthurImage.prototype.arthurEquals = function(im) {
+  if (im.medfile && im.medfile == this.medfile) {
+    return true;
+  }
+  return false;
 }
 
 ArthurImage.prototype.draw = function() {

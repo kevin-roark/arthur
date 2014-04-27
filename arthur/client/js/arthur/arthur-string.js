@@ -4,6 +4,7 @@ var ArthurMedia = require('./arthur-media');
 var ArthurColor = require('./arthur-color');
 var ArthurFrame = require('./arthur-frame');
 var ArthurNumber = require('./arthur-number');
+var builtins;
 
 var canwrap = require('../lib/wrap');
 
@@ -88,6 +89,10 @@ ArthurString.prototype.add = function(s) {
     var res = new ArthurString(this.str + s.str, true);
   else if (s.type == types.NUMBER)
     var res = new ArthurString(this.str + s.val, true);
+  else if (s.type == types.COLOR) {
+    var closest = s.closestString();
+    var res = new ArthurString(this.str + closest, true);
+  }
   else
     var res = this;
 
@@ -100,6 +105,10 @@ ArthurString.prototype.subtract = function(s) {
     var res = new ArthurString(this.str.replace(s.str, ""), true);
   else if (s.type == types.NUMBER)
     var res = new ArthurString(this.str.replace(s.val + "", ""), true);
+  else if (s.type == types.COLOR) {
+    var furthest = s.furthestString();
+    var res = new ArthurString(this.str + furthest, true);
+  }
   else
     var res = this;
 
@@ -112,6 +121,8 @@ ArthurString.prototype.multiply = function(s) {
     var st = s.str;
   else if (s.type == types.NUMBER)
     var st = s.val + '';
+  else if (s.type == types.COLOR)
+    var st = s.castTo('string').str;
   else
     var st = "";
 
@@ -153,6 +164,8 @@ ArthurString.prototype.divide = function(s) {
     var st = s.str;
   else if (s.type == types.NUMBER)
     var st = s.val + '';
+  else if (s.type == types.COLOR)
+    var st = s.castTo('string').str;
   else
     var st = "";
 
@@ -160,6 +173,34 @@ ArthurString.prototype.divide = function(s) {
   var res = this.multiply(new ArthurString(reversed), true);
   this.fill(res);
   return res;
+}
+
+ArthurString.prototype.castTo = function(t) {
+  if (!builtins || !builtins.colorList) {
+    builtins = require('./builtins');
+  }
+
+  if (t == 'color') {
+    var name = this.str;
+    var upperName = this.str.toUpperCase();
+    for (var i = 0; i < builtins.colorList.length; i++){
+      var c = builtins.colorList[i];
+      if(upperName.indexOf(c) > -1) { // contains
+        return builtins.colorMap[c];
+      }
+    }
+    return builtins.BLACK;
+  }
+
+  if (t == 'num') {
+    var val = 0;
+    for (var i = 0; i < this.str.length; i++) {
+      val += this.str.charCodeAt(i);
+    }
+    return new ArthurNumber(val);
+  }
+
+  return this;
 }
 
 ArthurString.prototype.draw = function() {

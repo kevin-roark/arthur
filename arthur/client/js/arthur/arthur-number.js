@@ -1,6 +1,7 @@
 
 var types = require('./types');
 var ArthurMedia = require('./arthur-media');
+var ArthurColor, ArthurString;
 
 module.exports = ArthurNumber;
 
@@ -20,19 +21,78 @@ ArthurNumber.prototype.int = function() {
 }
 
 ArthurNumber.prototype.add = function(num) {
-  return new ArthurNumber(this.val + num.val);
+  if (num.type && num.type == types.NUMBER) {
+    return new ArthurNumber(this.val + num.val);
+  }
+
+  if (num.type && (num.type == types.STRING || num.type == types.COLOR)) {
+    var s = num.castTo('num');
+    return this.add(s);
+  }
+
+  return this;
 }
 
 ArthurNumber.prototype.minus = function(num) {
-  return new ArthurNumber(this.val - num.val);
+  if (num.type && num.type == types.NUMBER) {
+    return new ArthurNumber(this.val - num.val);
+  }
+
+  if (num.type && (num.type == types.STRING || num.type == types.COLOR)) {
+    var s = num.castTo('num');
+    return this.minus(s);
+  }
+
+  return this;
 }
 
 ArthurNumber.prototype.multiply = function(num) {
-  return new ArthurNumber(this.val * num.val);
+  if (num.type && num.type == types.NUMBER) {
+    return new ArthurNumber(this.val * num.val);
+  }
+
+  if (num.type && (num.type == types.STRING || num.type == types.COLOR)) {
+    var s = num.castTo('num');
+    return this.multiply(s);
+  }
+
+  return this;
 }
 
 ArthurNumber.prototype.divide = function(num) {
-  return new ArthurNumber(this.val / num.val);
+  if (num.type && num.type == types.NUMBER) {
+    return new ArthurNumber(this.val / num.val);
+  }
+
+  if (num.type && (num.type == types.STRING || num.type == types.COLOR)) {
+    var s = num.castTo('num');
+    return this.divide(s);
+  }
+
+  return this;
+}
+
+ArthurNumber.prototype.castTo = function(t) {
+  if (typeof ArthurColor != 'function') {
+    ArthurColor = require('./arthur-color');
+  }
+  if (typeof ArthurString != 'function') {
+    ArthurString = require('./arthur-string');
+  }
+
+  if (t == 'color') {
+    var r = Math.max(this.val, 255);
+    var g = Math.max(this.val, 255);
+    var b = Math.max(this.val, 255);
+    var a = Math.max(this.val / 255.0, 1.0);
+    return new ArthurColor(r, g, b, a);
+  }
+
+  if (t == 'string') {
+    return new ArthurString('' + this.val);
+  }
+
+  return this;
 }
 
 ArthurNumber.prototype.lessThan = function(num) {
