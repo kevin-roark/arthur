@@ -1,15 +1,18 @@
 
 Sound fut;
+string lyric;
 Sound ure;
 
 void init() {
 
   fut = sound("honest.mp3");
-  ure = "And we ain't never going back to what we used to do I was gon' lie to you but I had to tell the truth I'm just being honest I'M JUST BEING HONEST I'M JUST BEING HONEST"->Sound;
+  lyric ="And we ain't never going back to what we used to do I was gon' lie to you but I had to tell the truth I'm just being honest I'M JUST BEING HONEST I'M JUST BEING HONEST";
+  lyric.size = 50;
+  ure = lyric->Sound;
   ure += 4;
+  ure /= 10;
 
- 
   add(fut);
   add(ure);
-  
+  add(lyric, frame(10, 300));
 }
