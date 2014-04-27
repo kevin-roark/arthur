@@ -13,7 +13,7 @@ module.exports = function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
 
     if (testWidth > maxWidth) {
       lines.push({ text: line, x: x, y: y });
-      line = words[n] + ' ';
+      line = words[n] + '';
       y += lineHeight;
     } else {
       line = testLine;
