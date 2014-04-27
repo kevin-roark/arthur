@@ -1,0 +1,15 @@
+
+Sound fut;
+Sound ure;
+
+void init() {
+
+  fut = sound("honest.mp3");
+  ure = "And we ain't never going back to what we used to do I was gon' lie to you but I had to tell the truth I'm just being honest I'M JUST BEING HONEST I'M JUST BEING HONEST"->Sound;
+  ure += 4;
+
+ 
+  add(fut);
+  add(ure);
+  
+}
