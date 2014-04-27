@@ -1057,6 +1057,59 @@ module.exports.WISTERIA = new ArthurColor(205, 164, 222, 1.0);
 module.exports.LASER_LEMON = new ArthurColor(254, 254, 34, 1.0);
 module.exports.EGGPLANT = new ArthurColor(110, 81, 96, 1.0);
 module.exports.CHARTREUSE = new ArthurColor(127, 255, 0, 1.0);
+module.exports.INDIAN_RED = new ArthurColor(176, 23, 31, 1.0);
+module.exports.CRIMSON = new ArthurColor(220, 20, 60, 1.0);
+module.exports.PINK = new ArthurColor(255, 192, 203, 1.0);
+module.exports.PALEVIOLETRED = new ArthurColor(219, 112, 147, 1.0);
+module.exports.LAVENDERBLUSH = new ArthurColor(255, 240, 245, 1.0);
+module.exports.HOTPINK = new ArthurColor(255, 105, 180, 1.0);
+module.exports.RASPBERRY = new ArthurColor(135, 38, 87, 1.0);
+module.exports.DEEPPINK = new ArthurColor(255, 20, 147, 1.0);
+module.exports.MAROON = new ArthurColor(255, 52, 179, 1.0);
+module.exports.ORCHID = new ArthurColor(218, 112, 214, 1.0);
+module.exports.THISTLE = new ArthurColor(216, 191, 216, 1.0);
+module.exports.PLUM = new ArthurColor(255, 187, 255, 1.0);
+module.exports.VIOLET = new ArthurColor(238, 130, 238, 1.0);
+module.exports.MAGENTA = new ArthurColor(255, 0, 255, 1.0);
+module.exports.PURPLE = new ArthurColor(128, 0, 128, 1.0);
+module.exports.DARKVIOLET = new ArthurColor(148, 0, 211, 1.0);
+module.exports.HENRY = new ArthurColor(147, 112, 219, 1.0);
+module.exports.SLATEBLUE = new ArthurColor(72, 61, 139, 1.0);
+module.exports.GHOSTWHITE = new ArthurColor(248, 248, 255, 1.0);
+module.exports.LAVENDER = new ArthurColor(230, 230, 250, 1.0);
+module.exports.NAVY = new ArthurColor(0, 0, 128, 1.0);
+module.exports.MIDNIGHTBLUE = new ArthurColor(25, 25, 112, 1.0);
+module.exports.COBALT = new ArthurColor(61, 89, 171, 1.0);
+module.exports.ROYALBLUE = new ArthurColor(64, 105, 225, 1.0);
+module.exports.CORNFLOWERBLUE = new ArthurColor(100, 149, 237, 1.0);
+module.exports.LIGHTSTEELBLUE = new ArthurColor(176, 196, 222, 1.0);
+module.exports.SLATEGRAY = new ArthurColor(112, 128, 144, 1.0);
+module.exports.SKYBLUE = new ArthurColor(135, 206, 235, 1.0);
+module.exports.PEACOCK = new ArthurColor(51, 161, 201, 1.0);
+module.exports.TURQUIOSE = new ArthurColor(0, 245, 255, 1.0);
+module.exports.AZURE = new ArthurColor(240, 255, 255, 1.0);
+module.exports.AQUAMARINE = new ArthurColor(69, 139, 116, 1.0);
+module.exports.MINT = new ArthurColor(189, 252, 201, 1.0);
+module.exports.HONEYDEW = new ArthurColor(240, 255, 240, 1.0);
+module.exports.LIMEGREEN = new ArthurColor(50, 205, 50, 1.0);
+module.exports.DARKGREEN = new ArthurColor(0, 100, 0, 1.0);
+module.exports.GREENYELLOW = new ArthurColor(173, 255, 47, 1.0);
+module.exports.IVORY = new ArthurColor(255, 255, 240, 1.0);
+module.exports.BEIGE = new ArthurColor(245, 245, 220, 1.0);
+module.exports.OLIVE = new ArthurColor(128, 128, 0, 1.0);
+module.exports.KHAKI = new ArthurColor(255, 246, 143, 1.0);
+module.exports.LEMONCHIFFON = new ArthurColor(255, 250, 205, 1.0);
+module.exports.BANANA = new ArthurColor(227, 207, 87, 1.0);
+module.exports.GOLD = new ArthurColor(255, 215, 0, 1.0);
+module.exports.DARKGOLDENROD = new ArthurColor(184, 134, 11, 1.0);
+module.exports.WHEAT = new ArthurColor(245, 222, 179, 1.0);
+module.exports.BRICK = new ArthurColor(156, 102, 31, 1.0);
+module.exports.CARROT = new ArthurColor(237, 145, 33, 1.0);
+module.exports.CORAL = new ArthurColor(255, 127, 80, 1.0);
+module.exports.BROWN = new ArthurColor(165, 42, 42, 1.0);
+module.exports.BEET = new ArthurColor(142, 56, 142, 1.0);
+module.exports.TOMATO = new ArthurColor(255, 99, 71, 1.0);
+module.exports.INDIGO = new ArthurColor(75, 0, 130, 1.0);
 
 var colorMap = module.exports.colorMap = {
   "RED": module.exports.RED,
@@ -1095,6 +1148,58 @@ var colorMap = module.exports.colorMap = {
   "LASER_LEMON": module.exports.LASER_LEMON,
   "EGGPLANT": module.exports.EGGPLANT,
   "CHARTREUSE": module.exports.CHARTREUSE,
+  "INDIAN_RED": module.exports.INDIAN_RED,
+  "CRIMSON": module.exports.CRIMSON,
+  "PINK": module.exports.PINK,
+  "PALEVIOLETRED": module.exports.PALEVIOLETRED,
+  "LAVENDERBLUSH": module.exports.LAVENDERBLUSH,
+  "HOTPINK": module.exports.HOTPINK,
+  "RASPBERRY": module.exports.RASPBERRY,
+  "DEEPPINK": module.exports.DEEPPINK,
+  "MAROON": module.exports.MAROON,
+  "ORCHID": module.exports.ORCHID,
+  "THISTLE": module.exports.THISTLE,
+  "PLUM": module.exports.PLUM,
+  "VIOLET": module.exports.VIOLET,
+  "MAGENTA": module.exports.MAGENTA,
+  "PURPLE": module.exports.PURPLE,
+  "DARKVIOLET": module.exports.DARKVIOLET,
+  "HENRY": module.exports.HENRY,
+  "SLATEBLUE": module.exports.SLATEBLUE,
+  "GHOSTWHITE": module.exports.GHOSTWHITE,
+  "LAVENDER": module.exports.LAVENDER,
+  "NAVY": module.exports.NAVY,
+  "MIDNIGHTBLUE": module.exports.MIDNIGHTBLUE,
+  "COBALT": module.exports.COBALT,
+  "ROYALBLUE": module.exports.ROYALBLUE,
+  "CORNFLOWERBLUE": module.exports.CORNFLOWERBLUE,
+  "LIGHTSTEELBLUE": module.exports.LIGHTSTEELBLUE,
+  "SLATEGRAY": module.exports.SLATEGRAY,
+  "SKYBLUE": module.exports.SKYBLUE,
+  "PEACOCK": module.exports.PEACOCK,
+  "TURQUIOSE": module.exports.TURQUIOSE,
+  "AZURE": module.exports.AZURE,
+  "AQUAMARINE": module.exports.AQUAMARINE,
+  "MINT": module.exports.MINT,
+  "HONEYDEW": module.exports.HONEYDEW,
+  "LIMEGREEN": module.exports.LIMEGREEN,
+  "DARKGREEN": module.exports.DARKGREEN,
+  "GREENYELLOW": module.exports.GREENYELLOW,
+  "IVORY": module.exports.IVORY,
+  "BEIGE": module.exports.BEIGE,
+  "OLIVE": module.exports.OLIVE,
+  "KHAKI": module.exports.KHAKI,
+  "LEMONCHIFFON": module.exports.LEMONCHIFFON,
+  "BANANA": module.exports.BANANA,
+  "GOLD": module.exports.GOLD,
+  "DARKGOLDENROD": module.exports.DARKGOLDENROD,
+  "WHEAT": module.exports.WHEAT,
+  "CARROT": module.exports.CARROT,
+  "BRICK": module.exports.BRICK,
+  "BROWN": module.exports.BROWN,
+  "BEET": module.exports.BEET,
+  "TOMATO": module.exports.TOMATO,
+  "INDIGO": module.exports.INDIGO
 };
 
 var colorList = module.exports.colorList = [
@@ -1134,6 +1239,58 @@ var colorList = module.exports.colorList = [
   "LASER_LEMON",
   "EGGPLANT",
   "CHARTREUSE",
+  "INDIAN_RED",
+  "CRIMSON",
+  "PINK",
+  "PALEVIOLETRED",
+  "LAVENDERBLUSH",
+  "HOTPINK",
+  "RASPBERRY",
+  "DEEPPINK",
+  "MAROON",
+  "ORCHID",
+  "THISTLE",
+  "PLUM",
+  "VIOLET",
+  "MAGENTA",
+  "PURPLE",
+  "DARKVIOLET",
+  "HENRY",
+  "SLATEBLUE",
+  "GHOSTWHITE",
+  "LAVENDER",
+  "NAVY",
+  "MIDNIGHTBLUE",
+  "COBALT",
+  "ROYALBLUE",
+  "CORNFLOWERBLUE",
+  "LIGHTSTEELBLUE",
+  "SLATEGRAY",
+  "SKYBLUE",
+  "PEACOCK",
+  "TURQUIOSE",
+  "AZURE",
+  "AQUAMARINE",
+  "MINT",
+  "HONEYDEW",
+  "LIMEGREEN",
+  "DARKGREEN",
+  "GREENYELLOW",
+  "IVORY",
+  "BEIGE",
+  "OLIVE",
+  "KHAKI",
+  "LEMONCHIFFON",
+  "BANANA",
+  "GOLD",
+  "DARKGOLDENROD",
+  "WHEAT",
+  "BRICK",
+  "CARROT",
+  "BROWN",
+  "BEET",
+  "TOMATO",
+  "INDIGO"
 ];
 
 },{"./arthur-color":1,"./arthur-frame":2,"./arthur-number":5}],10:[function(require,module,exports){
@@ -1435,7 +1592,7 @@ module.exports = function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
 
     if (testWidth > maxWidth) {
       lines.push({ text: line, x: x, y: y });
-      line = words[n] + ' ';
+      line = words[n] + '';
       y += lineHeight;
     } else {
       line = testLine;
