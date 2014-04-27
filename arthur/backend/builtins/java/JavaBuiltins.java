@@ -161,17 +161,13 @@ public class JavaBuiltins {
   public static final ArthurColor GOLD = new ArthurColor(255, 215, 0, 1.0);
   public static final ArthurColor DARKGOLDENROD = new ArthurColor(184, 134, 11, 1.0);
   public static final ArthurColor WHEAT = new ArthurColor(245, 222, 179, 1.0);
-  public static final ArthurColor BRICK = new ArthurColor(156, 102, 31, 1.0);
   public static final ArthurColor CARROT = new ArthurColor(237, 145, 33, 1.0);
   public static final ArthurColor CORAL = new ArthurColor(255, 127, 80, 1.0);
   public static final ArthurColor BRICK = new ArthurColor(156, 102, 31, 1.0);
-  public static final ArthurColor SALMON = new ArthurColor(250, 128, 114, 1.0);
   public static final ArthurColor BROWN = new ArthurColor(165, 42, 42, 1.0);
   public static final ArthurColor BEET = new ArthurColor(142, 56, 142, 1.0);
   public static final ArthurColor TOMATO = new ArthurColor(255, 99, 71, 1.0);
   public static final ArthurColor INDIGO = new ArthurColor(75, 0, 130, 1.0);
-
-
 
   private static HashMap<String, ArthurColor> colorMap;
 
@@ -232,7 +228,7 @@ public class JavaBuiltins {
       colorMap.put("DARKVIOLET",DARKVIOLET);
       colorMap.put("HENRY", HENRY);
       colorMap.put("SLATEBLUE", SLATEBLUE);
-      colorMap.put("GHOSTWHITE" GHOSTWHITE);
+      colorMap.put("GHOSTWHITE", GHOSTWHITE);
       colorMap.put("LAVENDER", LAVENDER);
       colorMap.put("NAVY", NAVY);
       colorMap.put("MIDNIGHTBLUE", MIDNIGHTBLUE);
@@ -262,13 +258,10 @@ public class JavaBuiltins {
       colorMap.put("WHEAT", WHEAT);
       colorMap.put("BRICK", BRICK);
       colorMap.put("CARROT", CARROT);
-      colorMap.put("BRICK", BRICK);
-      colorMap.put("SALMON", SALMON);
       colorMap.put("BROWN", BROWN);
       colorMap.put("BEET", BEET);
       colorMap.put("TOMATO", TOMATO);
       colorMap.put("INDIGO", INDIGO);
-
     }
 
     return colorMap;
@@ -361,15 +354,12 @@ public class JavaBuiltins {
       colors.add("GOLD");
       colors.add("DARKGOLDENROD");
       colors.add("WHEAT");
-      colors.add("BRICK");
       colors.add("CARROT");
       colors.add("BRICK");
-      colors.add("SALMON");
       colors.add("BROWN");
       colors.add("BEET");
       colors.add("TOMATO");
       colors.add("INDIGO");
-
     }
 
     return colors;

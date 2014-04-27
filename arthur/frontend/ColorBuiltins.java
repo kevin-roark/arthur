@@ -1,3 +1,4 @@
+package arthur.frontend;
 
 public class ColorBuiltins {
 
@@ -37,5 +38,58 @@ public class ColorBuiltins {
   public static final Color LASER_LEMON = new Color(254, 254, 34, 1.0);
   public static final Color EGGPLANT = new Color(110, 81, 96, 1.0);
   public static final Color CHARTREUSE = new Color(127, 255, 0, 1.0);
+  public static final Color INDIAN_RED = new Color(176, 23, 31, 1.0);
+  public static final Color CRIMSON = new Color(220, 20, 60, 1.0);
+  public static final Color PINK = new Color(255, 192, 203, 1.0);
+  public static final Color PALEVIOLETRED = new Color(219, 112, 147, 1.0);
+  public static final Color LAVENDERBLUSH = new Color(255, 240, 245, 1.0);
+  public static final Color HOTPINK = new Color(255, 105, 180, 1.0);
+  public static final Color RASPBERRY = new Color(135, 38, 87, 1.0);
+  public static final Color DEEPPINK = new Color(255, 20, 147, 1.0);
+  public static final Color MAROON = new Color(255, 52, 179, 1.0);
+  public static final Color ORCHID = new Color(218, 112, 214, 1.0);
+  public static final Color THISTLE = new Color(216, 191, 216, 1.0);
+  public static final Color PLUM = new Color(255, 187, 255, 1.0);
+  public static final Color VIOLET = new Color(238, 130, 238, 1.0);
+  public static final Color MAGENTA = new Color(255, 0, 255, 1.0);
+  public static final Color PURPLE = new Color(128, 0, 128, 1.0);
+  public static final Color DARKVIOLET = new Color(148, 0, 211, 1.0);
+  public static final Color HENRY = new Color(147, 112, 219, 1.0);
+  public static final Color SLATEBLUE = new Color(72, 61, 139, 1.0);
+  public static final Color GHOSTWHITE = new Color(248, 248, 255, 1.0);
+  public static final Color LAVENDER = new Color(230, 230, 250, 1.0);
+  public static final Color NAVY = new Color(0, 0, 128, 1.0);
+  public static final Color MIDNIGHTBLUE = new Color(25, 25, 112, 1.0);
+  public static final Color COBALT = new Color(61, 89, 171, 1.0);
+  public static final Color ROYALBLUE = new Color(64, 105, 225, 1.0);
+  public static final Color CORNFLOWERBLUE = new Color(100, 149, 237, 1.0);
+  public static final Color LIGHTSTEELBLUE = new Color(176, 196, 222, 1.0);
+  public static final Color SLATEGRAY = new Color(112, 128, 144, 1.0);
+  public static final Color SKYBLUE = new Color(135, 206, 235, 1.0);
+  public static final Color PEACOCK = new Color(51, 161, 201, 1.0);
+  public static final Color TURQUIOSE = new Color(0, 245, 255, 1.0);
+  public static final Color AZURE = new Color(240, 255, 255, 1.0);
+  public static final Color AQUAMARINE = new Color(69, 139, 116, 1.0);
+  public static final Color MINT = new Color(189, 252, 201, 1.0);
+  public static final Color HONEYDEW = new Color(240, 255, 240, 1.0);
+  public static final Color LIMEGREEN = new Color(50, 205, 50, 1.0);
+  public static final Color DARKGREEN = new Color(0, 100, 0, 1.0);
+  public static final Color GREENYELLOW = new Color(173, 255, 47, 1.0);
+  public static final Color IVORY = new Color(255, 255, 240, 1.0);
+  public static final Color BEIGE = new Color(245, 245, 220, 1.0);
+  public static final Color OLIVE = new Color(128, 128, 0, 1.0);
+  public static final Color KHAKI = new Color(255, 246, 143, 1.0);
+  public static final Color LEMONCHIFFON = new Color(255, 250, 205, 1.0);
+  public static final Color BANANA = new Color(227, 207, 87, 1.0);
+  public static final Color GOLD = new Color(255, 215, 0, 1.0);
+  public static final Color DARKGOLDENROD = new Color(184, 134, 11, 1.0);
+  public static final Color WHEAT = new Color(245, 222, 179, 1.0);
+  public static final Color CARROT = new Color(237, 145, 33, 1.0);
+  public static final Color CORAL = new Color(255, 127, 80, 1.0);
+  public static final Color BRICK = new Color(156, 102, 31, 1.0);
+  public static final Color BROWN = new Color(165, 42, 42, 1.0);
+  public static final Color BEET = new Color(142, 56, 142, 1.0);
+  public static final Color TOMATO = new Color(255, 99, 71, 1.0);
+  public static final Color INDIGO = new Color(75, 0, 130, 1.0);
 
 }
