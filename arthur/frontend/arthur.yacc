@@ -6,6 +6,7 @@
     import java.io.Reader;
     import java.io.IOException;
     import java.lang.Math;
+    import java.util.HashSet;
  %}
 
 /* YACC declarations */
@@ -230,6 +231,12 @@ func_def
                                                           System.out.println("function named " + f.name + " already exists!!");
                                                           errorCount++;
                                                         }
+
+                                                        if (javaWords.contains(f.name)) {
+                                                          System.out.println(f.name + " is not a viable function name!");
+                                                          errorCount++;
+                                                        }
+
                                                         lexer.table.put(f.name, f);
 
                                                         funDef.addChild(new ParseNode(f.returnType, funDef));
@@ -676,6 +683,12 @@ var
                                                           System.out.println("variable " + v.id + " already exists!!");
                                                           errorCount++;
                                                         }
+
+                                                        if (javaWords.contains(v.id)) {
+                                                          System.out.println(v.id + " is not a viable variable name!");
+                                                          errorCount++;
+                                                        }
+
                                                         lexer.table.put(v.id, v);
 
                                                         ParseNode var = new ParseNode("variable");
@@ -692,6 +705,12 @@ param
                                                           System.out.println("parameter " + v.id + " already exists!!");
                                                           errorCount++;
                                                         }
+
+                                                        if (javaWords.contains(v.id)) {
+                                                          System.out.println(v.id + " is not a viable variable name!");
+                                                          errorCount++;
+                                                        }
+
                                                         lexer.table.put(v.id, v);
 
                                                         ParseNode var = new ParseNode("parameter");
@@ -716,6 +735,11 @@ id
                                                           errorCount++;
                                                         }
 
+                                                        if (javaWords.contains(i.name)) {
+                                                          System.out.println(i.name + " is not a viable identifier!");
+                                                          errorCount++;
+                                                        }
+
                                                         ParseNode id = new ParseNode("Identifier");
                                                         id.addChild(new ParseNode(i.name, id));
                                                         $$ = new ParserVal(id);
@@ -726,6 +750,8 @@ id
 Lexer lexer;
 Token prevTok;
 ParseNode AST;
+
+HashSet<String> javaWords;
 
 int errorCount;
 
@@ -804,9 +830,62 @@ int tokenMap(int tokenType) {
     }
 }
 
+public void createJava() {
+  javaWords = new HashSet<String>();
+  javaWords.add("abstract");
+  javaWords.add("assert");
+  javaWords.add("boolean");
+  javaWords.add("break");
+  javaWords.add("byte");
+  javaWords.add("case");
+  javaWords.add("catch");
+  javaWords.add("char");
+  javaWords.add("class");
+  javaWords.add("const");
+  javaWords.add("continue");
+  javaWords.add("default");
+  javaWords.add("do");
+  javaWords.add("double");
+  javaWords.add("enum");
+  javaWords.add("extends");
+  javaWords.add("final");
+  javaWords.add("finally");
+  javaWords.add("float");
+  javaWords.add("for");
+  javaWords.add("goto");
+  javaWords.add("implements");
+  javaWords.add("import");
+  javaWords.add("instanceof");
+  javaWords.add("int");
+  javaWords.add("interface");
+  javaWords.add("long");
+  javaWords.add("native");
+  javaWords.add("new");
+  javaWords.add("package");
+  javaWords.add("private");
+  javaWords.add("protected");
+  javaWords.add("public");
+  javaWords.add("short");
+  javaWords.add("static");
+  javaWords.add("strictfp");
+  javaWords.add("super");
+  javaWords.add("switch");
+  javaWords.add("synchronized");
+  javaWords.add("this");
+  javaWords.add("throw");
+  javaWords.add("throws");
+  javaWords.add("transient");
+  javaWords.add("try");
+  javaWords.add("volatile");
+  javaWords.add("while");
+  javaWords.add("null");
+}
+
 public ParseNode doParsing(Reader in) {
     lexer = new Lexer(in);
     errorCount = 0;
+
+    createJava();
 
     int result = yyparse();
 
@@ -819,6 +898,8 @@ public ParseNode doParsing(Reader in) {
 public void doParsingAndPrint(Reader in) {
     lexer = new Lexer(in);
     errorCount = 0;
+
+    createJava();
 
     int result = yyparse();
     System.out.println(AST);
