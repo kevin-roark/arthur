@@ -794,6 +794,14 @@ public void createJava() {
   javaWords.add("volatile");
   javaWords.add("while");
   javaWords.add("null");
+
+  // js words, technically
+  javaWords.add("var");
+  javaWords.add("delete");
+  javaWords.add("function");
+  javaWords.add("in");
+  javaWords.add("typeof");
+  javaWords.add("with");
 }
 
 public ParseNode doParsing(Reader in) {
@@ -821,7 +829,7 @@ public void doParsingAndPrint(Reader in) {
     System.out.println("Number of errors: " + errorCount);
     System.out.println("Return value: " + result);
 }
-//#line 753 "Parser.java"
+//#line 761 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -1905,7 +1913,7 @@ case 116:
                                                         yyval = new ParserVal(id);
                                                     }
 break;
-//#line 1832 "Parser.java"
+//#line 1840 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

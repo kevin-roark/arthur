@@ -879,6 +879,14 @@ public void createJava() {
   javaWords.add("volatile");
   javaWords.add("while");
   javaWords.add("null");
+
+  // js words, technically
+  javaWords.add("var");
+  javaWords.add("delete");
+  javaWords.add("function");
+  javaWords.add("in");
+  javaWords.add("typeof");
+  javaWords.add("with");
 }
 
 public ParseNode doParsing(Reader in) {
