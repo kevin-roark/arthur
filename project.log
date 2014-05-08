@@ -1,0 +1,609 @@
+* 5c0c897 : added javascript reserved words as well
+* 68b70a2 : reserved java words are not valid identifiers for us
+* d001679 : fixed extra space in canvas wrapping
+* cd01ee6 : added new colors to javascript and removed duplicates
+* d6cc7f1 : added 60 colors including, but not limited to, "henry" and "brown"
+* d1bc671 : added a nice sound sample and made one error message better
+* 337be91 : added honest
+* 679df86 : new sound sample
+* b017207 : added primitive vid / aud -> number operators -- i don't think
+            this is a fruitful path for arthur and will stop
+* 16b2302 : casting between primitives on client
+* 4e2d605 : added color builtins to javascript and some other 'good' stuff
+* 6f9fda3 : russian russian zero sample
+* cf73dcd : amerge -> amix
+* 06aa694 : russian video workin' in video tests
+* ab901e4 : vid mult and division working in kevin's test
+* e33608a : sad russian guy playing the drum
+* 6e915f9 : remove extraneous comments
+* f94066e : videos can mix at their leisure
+* 77b353a : fixed a lil thing for vid on vid division
+* 4ebf293 : video divided by video works!!!! finally!!!!!
+* f9f0982 : added rthr, a faster executing compiler
+* eb3e829 : added new maths for colors in javascript
+*   2e247a1 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\  
+| *   0c0723a : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\  
+| | * 0ca472f : removed the faux-fix for the empty elves in the parser
+| * | 5efd0b3 : fixed ArthurSound duration
+| * |   2d184c3 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\ \  
+| | |/  
+| | *   68a8a62 : Merge branch 'master' of github.com:kevin-roark/arthur
+| | |\  
+| | * | e35c706 : Bug fix: can multiply and divide by negative numbers now without breaking arthur lol
+| * | |   6130886 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\ \ \  
+| * \ \ \   7b37ec1 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\ \ \ \  
+| * \ \ \ \   e4c6a3c : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\ \ \ \ \  
+| * \ \ \ \ \   f7db2f1 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\ \ \ \ \ \  
+| * \ \ \ \ \ \   dafe676 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\ \ \ \ \ \ \  
+| * \ \ \ \ \ \ \   cf5bf79 : m c
+| |\ \ \ \ \ \ \ \  
+| * | | | | | | | | a12ce5e : merge conflict
+* | | | | | | | | | a010321 : did a lot of stuff to make sample 14 work, we're looking pretty good
+| |_|_|_|_|_|_|_|/  
+|/| | | | | | | |   
+* | | | | | | | | b306933 : fixed vid * number
+* | | | | | | | |   7f7c43f : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \ \ \ \ \ \ \  
+| | |_|_|_|_|_|_|/  
+| |/| | | | | | |   
+| * | | | | | | | 1c83a6d : add blank audio traK to string->vid and image->vid
+| * | | | | | | |   6208353 : Merge branch 'master' of github.com:kevin-roark/arthur
+| |\ \ \ \ \ \ \ \  
+| * | | | | | | | | fe22a1d : ugh
+* | | | | | | | | | c6516ff : Added events like key and mouse, and fixed function parameter stuff
+| |/ / / / / / / /  
+|/| | | | | | | |   
+* | | | | | | | | 2382d86 : added rand and cooler builtins, added ms builtin to java
+* | | | | | | | | 3aa1d2d : future
+* | | | | | | | | c3afb2c : yep I think every operation is filled
+* | | | | | | | |   d58335d : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \ \ \ \ \ \ \  
+| |/ / / / / / / /  
+| * | | | | | | | f692555 : zero
+| * | | | | | | | 74f298d : string to video and fixed a stupid thing in imagemath
+* | | | | | | | |   af39de5 : merge
+|\ \ \ \ \ \ \ \ \  
+| |/ / / / / / / /  
+| * | | | | | | | 88d8fa8 : image is done
+* | | | | | | | | a35ef2f : OMG SUCH INTEROPERABILITY
+* | | | | | | | |   5bdd6a9 : merge with mel
+|\ \ \ \ \ \ \ \ \  
+| |/ / / / / / / /  
+| * | | | | | | | 24247bb : vid zero and color to vid
+| * | | | | | | |   e52f23c : please
+| |\ \ \ \ \ \ \ \  
+| * | | | | | | | | 04a5578 : parssssssssssssssse
+| * | | | | | | | | e7e50b5 : color is done
+* | | | | | | | | | 2878e1e : down the path of filling all gaps
+| |/ / / / / / / /  
+|/| | | | | | | |   
+* | | | | | | | | 4ea9f5b : added a ZERO mp3 and did color -> sound casting
+* | | | | | | | |   28b9ce7 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \ \ \ \ \ \ \  
+| |/ / / / / / / /  
+| * | | | | | | | 00a6782 : if else with no elves *seems* to have been fixed
+* | | | | | | | | 85cc5c2 : checking for variables declared twice, and if-else works in translator
+|/ / / / / / / /  
+* | | | | | | |   3e64cc1 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \ \ \ \ \ \  
+| * \ \ \ \ \ \ \   f651560 : resolve merge conflict in javavideomath
+| |\ \ \ \ \ \ \ \  
+| * | | | | | | | | 4760b85 : before merge
+* | | | | | | | | | d382839 : made vid cat work better, and gobbling stream on arthur compile
+| |/ / / / / / / /  
+|/| | | | | | | |   
+* | | | | | | | | f0e304c : changed video to string to be cool
+* | | | | | | | | 5e26973 : Added delay concept, made videos work in client, coolest sample ever
+| |_|_|_|_|_|_|/  
+|/| | | | | | |   
+* | | | | | | | 9cbdc14 : cleanup intermediate files from sound and video
+* | | | | | | |   7d1a3e0 : merge con henry
+|\ \ \ \ \ \ \ \  
+| * | | | | | | | cf0845a : got vids to overlay, but the sound from the second vid still gets lost! ;(
+| |/ / / / / / /  
+* | | | | | | | 9632eef : doing some sound analysis, filled in some operations, etc
+|/ / / / / / /  
+* | | | | | |   974b883 : merge ur cat
+|\ \ \ \ \ \ \  
+| * | | | | | | 564412e : Mothertester for all ops
+| * | | | | | |   325e0d0 : Merge branch 'master' of github.com:kevin-roark/arthur
+| |\ \ \ \ \ \ \  
+| | * | | | | | | 0554656 : removed wildcards from rm's
+| | | |_|_|_|_|/  
+| | |/| | | | |   
+| * | | | | | |   4f36ecf : Merge branch 'master' of github.com:kevin-roark/arthur
+| |\ \ \ \ \ \ \  
+| | | |_|_|_|_|/  
+| | |/| | | | |   
+| * | | | | | | 1e92007 : Added wacky colors
+| | |_|_|_|/ /  
+| |/| | | | |   
+* | | | | | | ad255ad : cat seems to work yeehaw
+* | | | | | |   053f6fb : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \ \ \ \ \  
+| | |_|/ / / /  
+| |/| | | | |   
+| * | | | | | 3c26109 : more video
+| | |/ / / /  
+| |/| | | |   
+* | | | | |   d014273 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \ \ \ \  
+| |/ / / / /  
+| * | | | | 2d6c228 : speed up video works great
+| | |_|_|/  
+| |/| | |   
+| * | | |   d573e20 : Merge branch 'master' of github.com:kevin-roark/arthur
+| |\ \ \ \  
+| | |/ / /  
+| * | | | 2014eff : video + sound
+| | |_|/  
+| |/| |   
+* | | | 9554119 : added command-line arguments
+| |/ /  
+|/| |   
+* | | 40c30a0 : BBALL
+|/ /  
+* | 5424691 : Changed add sequence so that it doesn't use cat (Not an executable
+              process so Runtime.exec() can't use it. But the new sequence kind of messes
+              up the video. It will all just come down to finding the best ffmpeg command
+              sequences now and tweaking with parameters so it should be fairly easy. meltman out
+* | b6fe923 : Bug fix for IoUtils, refactored some stuff and added more methods for video. Not all of them work yet and have to debug
+* | d9df973 : added video */ image methods
+* | 07b3489 : added toImage()
+* | 68345ed : In the middle of video operations. Don't try any of this stuff yet, still some bugs to fix
+* | 454e2a9 : Small bug fix in arthur sound, toSound() method in ArthurVideo
+* |   936faf7 : Merge branch 'master' of github.com:kevin-roark/arthur
+|\ \  
+| * | 8114390 : holy cow text to speech -- all sound +/- done except video
+| * | 4b8a00a : sound +/- image
+* | | 20a43f2 : started video stuff. yaaa trik
+|/ /  
+* | 46d765f : maths with sound +/- colors -- equalization very cool
+* | 90959b8 : using sox and have add and subtract one sound -> number toooo
+* | 6e86e25 : mult and division with numbers and sound working
+* | 135e6d3 : mult & division using ffmpeg
+* | 3b761f9 : sound multiplication seems 2 work
+* | 30d9ea4 : added similar code to video so that it will work client-side once ready
+* | 1606b9a : HOLY CROW got sound to play in the browser
+* |   e075ae9 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \  
+| * \   27b7020 : Merge branch 'master' of github.com:kevin-roark/arthur
+| |\ \  
+| | * | 9e980e6 : fixed kevins stupid bugs
+| | * | 9d074c1 : updated some maths
+| * | | 099957c : Concatenation works for vids of same dimensions and sample
+                  rates etc, can convert videos to match but a runtime error occurs.
+                  gotta look into this later
+* | | | 8167a14 : audio concatenation seems to be working
+* | | |   52f4abd : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \ \  
+| | |/ /  
+| |/| |   
+| * | |   ec05e29 : merge conflict lol hope it doesn't break
+| |\ \ \  
+| | |/ /  
+| | * | aa1976d : Added width/height fields to vid
+| * | | fe075b8 : casting sample, using gson, testing image maths, many things very cool
+| * | | 1b35b34 : moved xuggler around to make it work for me -- hope it works for you
+* | | |   77308fa : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \ \  
+| | |/ /  
+| |/| |   
+| * | |   4fe9f97 : Merge branch 'master' of github.com:kevin-roark/arthur
+| |\ \ \  
+| | | |/  
+| | |/|   
+| | * | 13a6983 : ArthurSound constructors, beginning math
+| | * |   4f4e42e : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| | |\ \  
+| | * \ \   45336ef : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| | |\ \ \  
+| | * \ \ \   65f9105 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| | |\ \ \ \  
+| | * | | | | 97d8ebb : finalizing xuggle directory locations
+| * | | | | | c0603ae : Trying to concatenate vids
+| | |_|_|/ /  
+| |/| | | |   
+| * | | | | eebe106 : can make quieter but louder fux up
+* | | | | |   c3d74ce : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \ \ \ \  
+| |/ / / / /  
+| * | | | |   f144c3a : Merge branch 'master' of github.com:kevin-roark/arthur
+| |\ \ \ \ \  
+| | | |_|_|/  
+| | |/| | |   
+| | * | | | 0b9d8ef : Create FFMPEG_NOTES.md
+| * | | | | f0c9be8 : testing this stuff on henry's comp
+* | | | | |   12efd3d : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \ \ \ \  
+| | |/ / / /  
+| |/| | | |   
+| * | | | | d4338af : increased memory limit for compiler and made string.color -> string.tint
+| | |_|_|/  
+| |/| | |   
+* | | | |   2be9acb : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \ \ \  
+| |/ / / /  
+| * | | |   f45c3fd : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\ \ \ \  
+| | |/ / /  
+| * | | | b8811fa : Giant commit - sugarloop, arthurequals, better casting and maths
+| | |_|/  
+| |/| |   
+* | | |   a4484fa : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \ \  
+| | |/ /  
+| |/| |   
+| * | | 7cf2055 : fixed a bug and added image +/- color and number. image +/- string is there but needs to be fine-tuned
+| * | | 808f85a : Image +/- color added
+| |/ /  
+| * | 290bfc7 : Added the += sugar stuff cool
+| * | 79328a1 : more casting stuff woooo
+| * | ba99ebe : added casting stuff
+| * | c2570f5 : added and rearranged a bunch of string <-> color stuff
+| * |   f57b70c : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\ \  
+| | |/  
+| * | 80bd095 : wow ascii
+* | |   6177bb9 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \  
+| | |/  
+| |/|   
+| * | 49edbdc : Moved xuggle stuff to media folder. Run jar -xf on the two new jar files
+| * |   23038c6 : Merge branch 'master' of github.com:kevin-roark/arthur
+| |\ \  
+| | |/  
+| * |   b13fa81 : Merge branch 'master' of github.com:kevin-roark/arthur
+| |\ \  
+| * \ \   b684658 : Merge branch 'master' of github.com:kevin-roark/arthur
+| |\ \ \  
+| * | | | f5d25af : meh
+| * | | |   11d333b : ugh
+| |\ \ \ \  
+| * \ \ \ \   70f6aa4 : merge conflict
+| |\ \ \ \ \  
+| * | | | | | 59dc39b : .
+* | | | | | |   ae1e035 : Merge branch 'master' of https://github.com/kevin-roark/arthur just mergin'
+|\ \ \ \ \ \ \  
+| | |_|_|_|_|/  
+| |/| | | | |   
+| * | | | | | 00f52a7 : xuggle test samples video into images
+| * | | | | | 8cabace : xuggle playground
+| * | | | | |   c71ae8e : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\ \ \ \ \ \  
+| | | |_|_|_|/  
+| | |/| | | |   
+| | * | | | |   93e8f27 : fixed merge conflict in image
+| | |\ \ \ \ \  
+| | | | |_|_|/  
+| | | |/| | |   
+| | * | | | | df8a329 : added string constructor for colors
+| * | | | | | e7a8c0e : seem to have added string translations pretty nicely
+| | |/ / / /  
+| |/| | | |   
+| * | | | | 8c4b2a5 : bang
+* | | | | |   8451897 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \ \ \ \  
+| |/ / / / /  
+| * | | | |   a4fefc1 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\ \ \ \ \  
+| | * | | | | 244e151 : force compilation of compiler in Makefile
+| | |/ / / /  
+| | * | | |   87d1ed9 : merge conflict
+| | |\ \ \ \  
+| | | | |_|/  
+| | | |/| |   
+| | * | | | 0d58245 : testing suite mk.I
+| * | | | | a64de35 : added frames hell yeah
+| | |/ / /  
+| |/| | |   
+* | | | |   a64555f : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \ \ \  
+| |/ / / /  
+| * | | | af43654 : meh
+| | |_|/  
+| |/| |   
+| * | |   00a2c7d : mer
+| |\ \ \  
+| | | |/  
+| | |/|   
+| | * | a6df081 : Changed order of methods
+| * | | 3003d4b : got images in javascript holy cow
+| * | |   ad7b44b : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\ \ \  
+| | |/ /  
+| | * | c5f5490 : writetofile..oops
+| * | | a3340ec : arthur numbers
+| |/ /  
+| * | cdf36e7 : ArthurImage just contains bufferedimage, filename now and moved actually file writing to writetofile meth
+| * | 0737637 : Image x number
+| * | 063e6ac : Added more methods, refactored getting/saving of arthur image to file and vice versa
+| * | a4991cb : Commented out last 2 methods for now
+| * |   093203b : Merge branch 'master' of github.com:kevin-roark/arthur
+| |\ \  
+| | * | fb61f3f : full translation of sample 1
+| | * | bd3da07 : so close to compiling the first sample just right
+| * | |   5f60d19 : merge conflicts
+| |\ \ \  
+| | |/ /  
+| | * | a750886 : fix arthur add to js
+| | * | 615017c : more clients
+| | * | 90c815f : added some basic client stuff
+| | * | d0d4e9f : adding the media and the globals to the translated javascript... damn
+| | * | f37e542 : storing values of globals post init holy cow
+| | * | f61784e : knows about globals and added media wowsie
+| | * | 82b6e1f : cleaner
+| | * | 84f40aa : Getting global media files
+| | * | 1773fa7 : a lot of things are working, but 'get' is not
+| | * | 339bfa9 : writing translation to file and a bunch more
+| | * | aca9503 : bleg
+| | * |   a3132bc : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| | |\ \  
+| | | |/  
+| | * | 3267b63 : added javascript translation whoa now
+| * | | 67dfe57 : Added + - * / operations for image X image and a basic tester.
+                  Also changed some things in the skeleton files so that they'll compile.
+                  I also wrote some methods for distorting images and adding colors,
+                  but I can't figure out where to stick them yet
+* | | |   e921fed : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \ \  
+| | |_|/  
+| |/| |   
+| * | |   421cff6 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\ \ \  
+| * | | | 44c44f2 : starting testing suite
+| | |/ /  
+| |/| |   
+* | | | e3ace57 : hey
+* | | |   b9b563c : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \ \  
+| | |/ /  
+| |/| |   
+| * | | 69f4446 : added color-color and color-number ops
+| | |/  
+| |/|   
+* | |   fc7cde0 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \  
+| |/ /  
+| * | 6f9469a : abstracted the translator so java and js play nicegit status
+* | |   d2ae4d8 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \  
+| |/ /  
+| * | e435065 : added stuff to ArthurString to use the static methods
+| * | f49fcd7 : added string on string math and string on number math
+| |/  
+* |   881a6eb : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \  
+| |/  
+| * 88a39a2 : heavy string skeleton
+| * acc32bd : added stupid stuff
+| * e34478b : added number
+* |   ffd4650 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \  
+| |/  
+| * a6c85eb : added skeletons of what the media manipulation stuff will look like
+| * 56a1be0 : Translating all three samples to java!!!
+| * 406cce5 : translating sample 2 all well
+| * 9338675 : translating sample 1 con flawless
+| * 41c54dd : functions are better, tracking test output
+| * 063f6b3 : translating basic things like function definitions to java
+| * c452613 : started some translation and had to change some frontend stuff to fit
+| * 35656d9 : added line numbers to tokens for helpful erroring
+| * 5a6640c : removed extraneous prints
+| *   243b3d7 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\  
+| | * 9b9c360 : began error handling, new cond token, misc fixes
+| | *   5f42fc8 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| | |\  
+| | * | 3235e60 : match single quote str literals
+| * | | 2a69f25 : super duper variable checking
+| | |/  
+| |/|   
+* | |   57b2671 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \  
+| |/ /  
+| * |   b0241aa : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\ \  
+| | |/  
+| | * 601178a : new samples
+| | * 17c09d7 : arthur.add() is now add()
+| | * 8610e78 : Update README.md
+| * | 230e392 : added identifier name checking
+| |/  
+| * 16b3449 : added that sugarloop
+* | d50eb36 : premerge
+|/  
+* 6e9a788 : Did same for dw
+* 7a9f059 : More explicit condition, body
+* f761db8 : cleaned up tree output a bit
+* 70e4a59 : added dw to sample3
+* 7bf329e : sample3 baby
+*   a0ab9d7 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\  
+| * 35c2d9b : got sample1 to parse
+* | 39f355a : cool
+|/  
+*   c1f4ac3 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\  
+| * ceb8b43 : empty {}
+* |   9c4f9ed : improving ifs elves
+|\ \  
+| |/  
+| * 96e6e3b : back 2 square 1
+| *   082f836 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\  
+| * | 1800ead : wow makefile test framework
+* | | c75f1e9 : repairing IF
+| |/  
+|/|   
+* |   c8df057 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \  
+| * | 83305ee : Curly brace statement lists
+| |/  
+* | b71519b : fixing elfs
+|/  
+* b89d4ab : PARSER WORKS HEY
+*   d8d2141 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\  
+| *   48501fc : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\  
+| * | 3b40db5 : got semis in eq_stmt
+* | | 00be829 : insig
+| |/  
+|/|   
+* |   cce9854 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \  
+| |/  
+| * cc017fa : new make no broken
+* | 4fbc71f : it's not expr_stmt
+* |   288e1ce : merge conflict
+|\ \  
+| |/  
+| *   a42e3f6 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\  
+| | * b37cdab : Remove rule for Value in Lexer, fix ParseNode.jav
+| * | b42efbb : parsenode to string
+| |/  
+* | f60ec4b : debugging stmt
+|/  
+* 0eb7ce5 : a first parser -- it fails
+* b893d42 : fun calls
+* 014a781 : program and fun_call definitions
+*   80e2e7c : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\  
+| *   3e633c5 : Mergin
+| |\  
+| * | 9e0b552 : Refactored ID and VAR, added eq statements
+* | | 7c1541b : statment zamzom
+| |/  
+|/|   
+* | 7afbfe7 : conflicted resolvedion
+* |   2f397f4 : merge w/ melody
+|\ \  
+| |/  
+| * 33d56a6 : More stuff filled in - changed order of operations for mathy
+* | 92fcc1d : num_expr and more
+|/  
+*   c4d6931 : Merge branch 'master' of github.com:kevin-roark/arthur
+|\  
+| * c278abc : dw, bools, minor fixes
+* | 18da7e0 : val stuff
+|/  
+*   a1bdf5f : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\  
+| *   582fe64 : Merge branch 'master' of github.com:kevin-roark/arthur
+| |\  
+| * | f6a74f3 : function definition & param list
+* | | 8ddf84e : elfzam
+| |/  
+|/|   
+* | 99422ee : call me ifmaster
+* |   f93995a : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \  
+| |/  
+| *   9264814 : arthur.yacc merge
+| |\  
+| * | 2759085 : Let's make some Parse Nodes
+* | | 579ead1 : stabbing if more
+| |/  
+|/|   
+* |   7b059ce : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \  
+| * \   5a05fe5 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\ \  
+| * | | 763a139 : token mapping, better function in lex, etc
+* | | | 078eae2 : stabbing if
+| |/ /  
+|/| |   
+* | |   3f0c91d : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \ \  
+| | |/  
+| |/|   
+| * | 635c8db : Further changes to ParseNode
+| * | 291fc75 : Pretty printing
+| |/  
+| *   e00a97e : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\  
+| | * 9e60f9f : Rename tokens.java to Tokens.java
+| | * 49f8b18 : Rename token.java to Token.java
+| | * 29000d4 : Cosmetic changes to lextest
+| * | ea917fa : a nice lil Makefile
+| |/  
+| * 0466d63 : parse node pretty printing
+* | 1073b84 : some gram implementations
+|/  
+*   3d08e03 : Merge branch 'master' of github.com:kevin-roark/arthur
+|\  
+| * e9cd4a2 : initial parser :(
+* | ab0e7b3 : Lexer works for sample2.txt
+|/  
+* 9c6ae33 : new example scik
+* 047b133 : first stab at a lexer
+*   142ee5b : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\  
+| * 97bcc6d : Update TOKENS
+| * 1dc421d : Update TOKENS
+| * 60ca40d : sahil sample
+| * 8db21b0 : Update TOKENS
+| *   f8b66b3 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\  
+| | * 4ef3100 : Update sample1.art
+| * | 4687f1d : mod to color_replace
+* | | f3100c2 : initial lexer stuff
+| |/  
+|/|   
+* | 147d0b9 : Update TOKENS
+|/  
+*   3865cde : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\  
+| * 433d9bf : Update builtin functions
+| * e00f749 : Update sample1.art
+| * 56e7a74 : Update color_replace.art
+| * ee4cd7b : Update TOKENS
+| * b52ff36 : Update TOKENS
+| * 37aec81 : Delete Data type stuff
+* | 6368c81 : .md'd 2
+|/  
+*   2c12d69 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\  
+| *   fea9bf8 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\  
+| * | ba18805 : re-added mi sample
+* | | 75edfdb : md'd
+| |/  
+|/|   
+* |   0d70b5a : Merge branch 'master' of https://github.com/kevin-roark/arthur
+|\ \  
+| |/  
+| * aa2dfa1 : Update TOKENS
+| * 1cf043e : Update TOKENS
+| * 879c9a1 : Update TOKENS
+| * 0b4e2fa : Token list
+| *   c442198 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| |\  
+| | *   ce45e89 : Merge branch 'master' of https://github.com/kevin-roark/arthur
+| | |\  
+| | | * 65f2157 : Update add rules
+| | * | c4b6fb1 : added my sample
+| | |/  
+| | * e6d6ab7 : Update builtin functions
+| | * 21ec5df : Create builtin functions
+| | * b270b16 : Create add rules
+| * | bc3568d : sample prog from henry
+| |/  
+* | 7fe1227 : some testy
+|/  
+* 22ccb5a : samples folder
+* 2659f77 : a how to for readme
+* 7e81277 : added a grammar example
+* 9bc922e : added links to grammar stuff
+* ad2ff73 : initial notes
+* 3a07be2 : Initial commit
