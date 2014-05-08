@@ -1,0 +1,2233 @@
+commit 5c0c897938109a9ffe57b8c6e79c1f4d3ea186ac
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun May 4 17:01:47 2014 -0400
+
+    added javascript reserved words as well
+
+commit 68b70a2b0ce86cadcb9234e935c93dca6a884954
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun May 4 16:58:03 2014 -0400
+
+    reserved java words are not valid identifiers for us
+
+commit d001679906c499f7177f293d51645278f19899fd
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Apr 27 14:03:01 2014 -0400
+
+    fixed extra space in canvas wrapping
+
+commit cd01ee6480c1fa78b932dd5b85ea4640d59ba885
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Apr 27 13:06:52 2014 -0400
+
+    added new colors to javascript and removed duplicates
+
+commit d6cc7f12250ce22d45e1907fd2d3612c3586644b
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Sun Apr 27 12:39:13 2014 -0400
+
+    added 60 colors including, but not limited to, "henry" and "brown"
+
+commit d1bc671769c374f816ad762a25e3e3fbca7246e2
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sat Apr 26 20:15:30 2014 -0400
+
+    added a nice sound sample and made one error message better
+
+commit 337be9170dbb150115241eec08787f691e865d06
+Author: dkario <dylan.kario@gmail.com>
+Date:   Sat Apr 26 20:07:51 2014 -0400
+
+    added honest
+
+commit 679df86c20e4e7675fa007050722d0e14e5935be
+Author: dkario <dylan.kario@gmail.com>
+Date:   Sat Apr 26 20:06:21 2014 -0400
+
+    new sound sample
+
+commit b017207ae355ded7ac35b7aaab4b871f2a347c27
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Fri Apr 25 17:07:19 2014 -0400
+
+    added primitive vid / aud -> number operators -- i don't think this is a fruitful path for arthur and will stop
+
+commit 16b23027d0526f744e7881c56854c1fb8f949c48
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Fri Apr 25 16:48:16 2014 -0400
+
+    casting between primitives on client
+
+commit 4e2d6056228e7dca7fa08d66c866e517fff5ff0f
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Fri Apr 25 15:56:42 2014 -0400
+
+    added color builtins to javascript and some other 'good' stuff
+
+commit 6f9fda357145ba5f7c4e387e8e7999bb9ca7e8cd
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 23 14:33:10 2014 -0400
+
+    russian russian zero sample
+
+commit cf73dcd1c7ee2b5904635a1b9c85a0890d74c286
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 23 14:31:56 2014 -0400
+
+    amerge -> amix
+
+commit 06aa694eddf6c753afd92195e6194f4877af19d6
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 23 14:17:31 2014 -0400
+
+    russian video workin' in video tests
+
+commit ab901e4a1da216e140f4a80c7c720df50a10869f
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 23 14:03:09 2014 -0400
+
+    vid mult and division working in kevin's test
+
+commit e33608acf512d475e43b9a60bc44cc030b20e1ea
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Wed Apr 23 13:39:39 2014 -0400
+
+    sad russian guy playing the drum
+
+commit 6e915f9a83689656721e19ae3db908a80bd2848c
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 23 13:39:20 2014 -0400
+
+    remove extraneous comments
+
+commit f94066eccbb997d6902661f57d7c6d0cf32c2771
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Wed Apr 23 13:05:48 2014 -0400
+
+    videos can mix at their leisure
+
+commit 77b353ae7e0e3948c9849fe7091146c7a3fb6505
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Wed Apr 23 12:08:49 2014 -0400
+
+    fixed a lil thing for vid on vid division
+
+commit 4ebf2930afbe0c3a51e7179dd538411c734d89e9
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Wed Apr 23 10:52:20 2014 -0400
+
+    video divided by video works!!!! finally!!!!!
+
+commit f9f09821f41820fc12542baaf710f6f3a424c589
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 23 03:15:38 2014 -0400
+
+    added rthr, a faster executing compiler
+
+commit eb3e8298a98f15bbd52b6773852ad67c76d870e9
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 23 02:51:48 2014 -0400
+
+    added new maths for colors in javascript
+
+commit 2e247a1aef4d910ddf6889d69a1fefb7421dfc2c
+Merge: a010321 0c0723a
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 23 02:29:14 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit a010321fbab400acf36fbe1302154b18915a932a
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 23 02:28:58 2014 -0400
+
+    did a lot of stuff to make sample 14 work, we're looking pretty good
+
+commit 0c0723a26c06ee99bd6014554b88ac876702d28b
+Merge: 5efd0b3 0ca472f
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Apr 22 23:00:47 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 5efd0b3c1200162b6f674e600f6d80206c739c9c
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Apr 22 23:00:36 2014 -0400
+
+    fixed ArthurSound duration
+
+commit 0ca472ffc0859bb3d307b88fd567228fd6f23724
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Apr 22 22:55:46 2014 -0400
+
+    removed the faux-fix for the empty elves in the parser
+
+commit 2d184c30923e5c2e7b90face359a6e809425503d
+Merge: 6130886 68a8a62
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Apr 22 22:30:48 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 68a8a62cac960632cd452ce35c592e018bf1c873
+Merge: e35c706 b306933
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Apr 22 22:06:16 2014 -0400
+
+    Merge branch 'master' of github.com:kevin-roark/arthur
+
+commit e35c706feafc157f82d1f74fe3d06a7ae21b4ad0
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Apr 22 22:06:06 2014 -0400
+
+    Bug fix: can multiply and divide by negative numbers now without breaking arthur lol
+
+commit b30693327d5ce8194666449185fb04e401625dcc
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Apr 22 21:54:58 2014 -0400
+
+    fixed vid * number
+
+commit 7f7c43f910a5122df69f2239bc44b1117e9d3e3a
+Merge: c6516ff 1c83a6d
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Apr 22 20:50:46 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit c6516ff2aa79fd5dd54b38c82aa5b680ce159e69
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Apr 22 20:50:12 2014 -0400
+
+    Added events like key and mouse, and fixed function parameter stuff
+    
+    and fixed a couple of things in js library!!
+
+commit 1c83a6dfca0073c7aee02f32513e605fd0755139
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Apr 22 20:34:49 2014 -0400
+
+    add blank audio traK to string->vid and image->vid
+
+commit 6208353db0e913f3bedb65bd765b09ed6e1e95b5
+Merge: fe22a1d 2382d86
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Apr 22 20:00:27 2014 -0400
+
+    Merge branch 'master' of github.com:kevin-roark/arthur
+
+commit fe22a1dc63691bfa89cfd0ffff05f72cecf7cf12
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Apr 22 20:00:21 2014 -0400
+
+    ugh
+
+commit 2382d86bf0c55ffd86113c1eb78add82a0bfa21b
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Apr 22 15:30:21 2014 -0400
+
+    added rand and cooler builtins, added ms builtin to java
+
+commit 3aa1d2d89b79f6609ba3f66038fcc797ca5bd238
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Apr 22 04:04:53 2014 -0400
+
+    future
+
+commit c3afb2c7af952b7c7e07afe7d0300c37737c2f60
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Apr 22 02:53:40 2014 -0400
+
+    yep I think every operation is filled
+
+commit d58335dcc48dae2c5fdee1baf30a3a1ee24878f3
+Merge: af39de5 f692555
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Apr 22 02:19:37 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+    
+    Conflicts:
+    	arthur/backend/media/JavaImageMath.java
+
+commit af39de58315720f0d64603cf600527558f3abc27
+Merge: a35ef2f 88d8fa8
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Apr 22 02:17:35 2014 -0400
+
+    merge
+
+commit f69255523761dd9e7fdb2144817ca9ae2b8e028f
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Apr 22 02:16:16 2014 -0400
+
+    zero
+
+commit 74f298d1afbe35b5c56b01c089a2d9fc02241d41
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Apr 22 02:13:29 2014 -0400
+
+    string to video and fixed a stupid thing in imagemath
+
+commit a35ef2fa51f9a23cc3271214704371754bc98189
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Apr 22 02:13:28 2014 -0400
+
+    OMG SUCH INTEROPERABILITY
+
+commit 88d8fa895f23311baa20da4b9aee0db22cdcc5b9
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Apr 22 01:15:45 2014 -0400
+
+    image is done
+
+commit 5bdd6a9968d1bd33134ac7d5827253125a585b2b
+Merge: 2878e1e 24247bb
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Apr 22 01:10:40 2014 -0400
+
+    merge with mel
+
+commit 2878e1ed03f6eefcb5698b1db7a96370f121479d
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Apr 22 01:09:55 2014 -0400
+
+    down the path of filling all gaps
+
+commit 24247bb2532d1251cbed641713da68c68c94ae7b
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Apr 22 01:08:32 2014 -0400
+
+    vid zero and color to vid
+
+commit e52f23cb93b3446d62e6736c4ee515447b86caea
+Merge: 04a5578 4ea9f5b
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Apr 22 01:03:24 2014 -0400
+
+    please
+
+commit 04a557892e2cf9d68e1f71852cf4ae4ea3f05a68
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Apr 22 01:00:56 2014 -0400
+
+    parssssssssssssssse
+
+commit e7e50b573057941d92d733e740710c179a2779a8
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Apr 22 00:58:55 2014 -0400
+
+    color is done
+
+commit 4ea9f5ba679c71b5294b659ab44146a7b8404a3d
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Apr 22 00:43:41 2014 -0400
+
+    added a ZERO mp3 and did color -> sound casting
+
+commit 28b9ce7bc344fe15100b4ce44d45a2075f190401
+Merge: 85cc5c2 00a6782
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Apr 21 23:57:38 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 85cc5c223a880f7a5b45f5a544aa49912dcdd9f8
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Apr 21 23:55:45 2014 -0400
+
+    checking for variables declared twice, and if-else works in translator
+
+commit 00a67825bb8dc212369e495f0d4c652ab3de8a36
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Mon Apr 21 23:24:17 2014 -0400
+
+    if else with no elves *seems* to have been fixed
+
+commit 3e64cc13efb1836b0e570e954ed1d9ba498c011a
+Merge: d382839 f651560
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Apr 21 17:43:31 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit d38283994ae3ee889fc313ace42eb40474c080e7
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Apr 21 17:43:25 2014 -0400
+
+    made vid cat work better, and gobbling stream on arthur compile
+
+commit f6515604d105e89fde59ef5f899d0aad84d6590f
+Merge: 4760b85 f0e304c
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Mon Apr 21 16:03:47 2014 -0400
+
+    resolve merge conflict in javavideomath
+
+commit 4760b8518c0080d6cf9d3b127391da3ec8db9a43
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Mon Apr 21 16:01:47 2014 -0400
+
+    before merge
+
+commit f0e304cccba2c825a19956c23bbec9644e8353ae
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Apr 21 16:00:28 2014 -0400
+
+    changed video to string to be cool
+
+commit 5e26973eec7b4cecf16a56e1a0aea80659e4c9d5
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Apr 21 15:20:55 2014 -0400
+
+    Added delay concept, made videos work in client, coolest sample ever
+    
+    And a lot of glue that was missing to make it all work. Siiick. Sample
+    11 is so cool. Arthur is so cool.
+
+commit 61308863edcbdb73cff3798556cc5246d04bd887
+Merge: 7b37ec1 9cbdc14
+Author: dkario <dylan.kario@gmail.com>
+Date:   Mon Apr 21 14:40:50 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 9cbdc149b632f2ec20c258c28ff951690306904d
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Apr 21 13:10:47 2014 -0400
+
+    cleanup intermediate files from sound and video
+
+commit 7d1a3e0e407961272ad15cec2ef10907990551a5
+Merge: 9632eef cf0845a
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Apr 21 00:04:31 2014 -0400
+
+    merge con henry
+
+commit 9632eef353adce05e5c5647d28da271e27556a08
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Apr 21 00:02:12 2014 -0400
+
+    doing some sound analysis, filled in some operations, etc
+
+commit cf0845a8448297ae96e26c291242df3f991c8490
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Sun Apr 20 22:58:39 2014 -0400
+
+    got vids to overlay, but the sound from the second vid still gets lost! ;(
+
+commit 974b8838d843c81c96beeda09c67e5cefc68a4b8
+Merge: ad255ad 564412e
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Apr 20 19:00:21 2014 -0400
+
+    merge ur cat
+
+commit ad255ad430f17b4d098376ad9275b2e7fb908d81
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Apr 20 18:59:21 2014 -0400
+
+    cat seems to work yeehaw
+
+commit 564412ea58a6d7c486b9aa658e1366df8d10c0d6
+Author: sahil-ansari <sahil.ansari3@gmail.com>
+Date:   Sun Apr 20 18:52:25 2014 -0400
+
+    Mothertester for all ops
+
+commit 325e0d06e6a4958f0bbf79d871ba91e60d28ba23
+Merge: 4f36ecf 0554656
+Author: sahil-ansari <sahil.ansari3@gmail.com>
+Date:   Sun Apr 20 18:43:24 2014 -0400
+
+    Merge branch 'master' of github.com:kevin-roark/arthur
+
+commit 05546563952983f4382aaf449a73c1221fd31a1a
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Sun Apr 20 18:40:39 2014 -0400
+
+    removed wildcards from rm's
+
+commit 053f6fb63a3c28bce6859383146ceecbec4e9ce7
+Merge: d014273 3c26109
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Apr 20 17:14:06 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 7b37ec1c86d97e7fe12214b7235d924866d1440f
+Merge: e4c6a3c 3c26109
+Author: dkario <dylan.kario@gmail.com>
+Date:   Sun Apr 20 15:43:56 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 3c26109247fe21a2c6467bca9e0b86433d9e586f
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Sun Apr 20 15:41:21 2014 -0400
+
+    more video
+
+commit e4c6a3cf59f69d26fa2a6543c58d02a1db8e5b87
+Merge: f7db2f1 2d6c228
+Author: dkario <dylan.kario@gmail.com>
+Date:   Sun Apr 20 15:28:30 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 4f36ecfa4c8976aadeb1837e7292820b444a48fb
+Merge: 1e92007 2d6c228
+Author: sahil-ansari <sahil.ansari3@gmail.com>
+Date:   Sun Apr 20 15:28:28 2014 -0400
+
+    Merge branch 'master' of github.com:kevin-roark/arthur
+
+commit d01427324769d0ec8ffe880d4a7a3b4caf669ace
+Merge: 9554119 2d6c228
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Apr 20 15:18:39 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 9554119ce6977f9a5d210e2db2965a9832125938
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Apr 20 15:18:33 2014 -0400
+
+    added command-line arguments
+
+commit 2d6c228c5cf11da184b33417ee796d17f27fe415
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Sun Apr 20 15:17:20 2014 -0400
+
+    speed up video works great
+
+commit f7db2f1aa1af29470b1a4a7bad138f28fad84947
+Merge: dafe676 d573e20
+Author: dkario <dylan.kario@gmail.com>
+Date:   Sun Apr 20 15:17:01 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit d573e2018bc38cea1c7fb762e3b2f85bc8231962
+Merge: 2014eff 40c30a0
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Sun Apr 20 15:04:04 2014 -0400
+
+    Merge branch 'master' of github.com:kevin-roark/arthur
+
+commit 2014effe41d48d03385f72fcf355120459337a29
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Sun Apr 20 15:03:53 2014 -0400
+
+    video + sound
+
+commit 1e9200710f70f9c04eb2a96e21af8a282027ef3d
+Author: sahil-ansari <sahil.ansari3@gmail.com>
+Date:   Sun Apr 20 14:22:14 2014 -0400
+
+    Added wacky colors
+
+commit dafe67650a8391fa3d3eb4873acced35987a545f
+Merge: cf5bf79 40c30a0
+Author: dkario <dylan.kario@gmail.com>
+Date:   Sun Apr 20 13:42:54 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 40c30a0048a1c77c526bb0587494cecf3d76f355
+Author: sahil-ansari <sahil.ansari3@gmail.com>
+Date:   Sun Apr 20 13:42:38 2014 -0400
+
+    BBALL
+
+commit cf5bf7915e44ebe72ce91fa4bfd895896ab39097
+Merge: a12ce5e 5424691
+Author: dkario <dylan.kario@gmail.com>
+Date:   Sun Apr 20 13:06:26 2014 -0400
+
+    m c
+
+commit a12ce5e3a483e4cd9c1f9672e0c53e4c4d43a30d
+Author: dkario <dylan.kario@gmail.com>
+Date:   Sun Apr 20 13:03:06 2014 -0400
+
+    merge conflict
+
+commit 5424691a4390c6dbd184e653889542d8f724eec0
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Sat Apr 19 18:07:50 2014 -0400
+
+    Changed add sequence so that it doesn't use cat (Not an executable process so Runtime.exec() can't use it. But the new sequence kind of fucks up the video. It will all just come down to finding the best ffmpeg command sequences now and tweaking with parameters so it should be fairly easy. meltman out
+
+commit b6fe92310a26c8931b294c7250b9f81e3bb8c35b
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Sat Apr 19 17:36:01 2014 -0400
+
+    Bug fix for IoUtils, refactored some stuff and added more methods for video. Not all of them work yet and have to debug
+
+commit d9df973c3f49c7fd1b416ceb64e1fa754570823c
+Author: sahil-ansari <sahil.ansari3@gmail.com>
+Date:   Sat Apr 19 12:30:47 2014 -0400
+
+    added video */ image methods
+
+commit 07b34891f118a94c4d0cc0a28ae2ee6a217e5c3f
+Author: sahil-ansari <sahil.ansari3@gmail.com>
+Date:   Sat Apr 19 12:27:45 2014 -0400
+
+    added toImage()
+
+commit 68345edbe3b8c64bfbf196a222f80874a629315c
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Fri Apr 18 23:07:03 2014 -0400
+
+    In the middle of video operations. Don't try any of this stuff yet, still some bugs to fix
+
+commit 454e2a9df87d495ed153617a9efd107060f1f924
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Fri Apr 18 18:28:40 2014 -0400
+
+    Small bug fix in arthur sound, toSound() method in ArthurVideo
+
+commit 936faf776a322a2a5759dd39af344b007518921e
+Merge: 20a43f2 8114390
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Thu Apr 17 18:46:54 2014 -0400
+
+    Merge branch 'master' of github.com:kevin-roark/arthur
+
+commit 20a43f2feff304bca7fc65924e9af315fd765ef9
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Thu Apr 17 18:46:37 2014 -0400
+
+    started video stuff. yaaa trik
+
+commit 8114390eb6dfba0eb1ed23bcc078967fc2201c93
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Thu Apr 17 18:40:38 2014 -0400
+
+    holy cow text to speech -- all sound +/- done except video
+
+commit 4b8a00a0e342b400a4cd670ba1ffb231f320fc8d
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Thu Apr 17 17:58:31 2014 -0400
+
+    sound +/- image
+
+commit 46d765fb8a31ad2cf83afef7bda5c58afcdf6f3a
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Thu Apr 17 17:43:34 2014 -0400
+
+    maths with sound +/- colors -- equalization very cool
+
+commit 90959b8ad5c993c5cba5b1bfcda06501f2756540
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Thu Apr 17 17:04:29 2014 -0400
+
+    using sox and have add and subtract one sound -> number toooo
+
+commit 6e86e25e6ccb9b1d661eb5c81d704c5f675337aa
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Thu Apr 17 15:00:46 2014 -0400
+
+    mult and division with numbers and sound working
+
+commit 135e6d38d3a57b5650ea027ff6989e10b8c89825
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Thu Apr 17 14:31:19 2014 -0400
+
+    mult & division using ffmpeg
+
+commit 3b761f934bcd2b87448c9e4d47d12874b6eff18c
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Thu Apr 17 02:55:16 2014 -0400
+
+    sound multiplication seems 2 work
+
+commit 30d9ea401d1095473feb66a949df420cdc262e49
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Thu Apr 17 00:03:26 2014 -0400
+
+    added similar code to video so that it will work client-side once ready
+
+commit 1606b9add2571bf334d01de9cf11464660f24f2e
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 16 22:45:57 2014 -0400
+
+    HOLY CROW got sound to play in the browser
+
+commit e075ae9fe4455327b984b8fc016a3b41907a7497
+Merge: 8167a14 27b7020
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Wed Apr 16 18:39:01 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 8167a14bc8e049a6b2f421effcd0b6b8ab8e4ca2
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Wed Apr 16 18:38:52 2014 -0400
+
+    audio concatenation seems to be working
+
+commit 27b702077e42ad73d3e526b0894fdf3abba132ba
+Merge: 099957c 9e980e6
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Wed Apr 16 18:36:12 2014 -0400
+
+    Merge branch 'master' of github.com:kevin-roark/arthur
+
+commit 099957cdd5c5c196977131b6bae458a07315ff0d
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Wed Apr 16 18:35:13 2014 -0400
+
+    Concatenation works for vids of same dimensions and sample rates etc, can convert videos to match but a runtime error occurs. gotta look into this later
+
+commit 9e980e625b675ed81ed8827d586469b2f44c0b0c
+Author: sahil-ansari <sahil.ansari3@gmail.com>
+Date:   Wed Apr 16 17:04:01 2014 -0400
+
+    fixed kevins stupid fucking bugs
+
+commit 9d074c1bea7cc8cf61135133bd392ff5721eaf54
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 16 16:19:47 2014 -0400
+
+    updated some maths
+
+commit 52f4abd1c862c396e48d61c43144e3dccf12a7ae
+Merge: 77308fa ec05e29
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Wed Apr 16 16:12:36 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit ec05e29909afb1717044657ae5ab7ac9e8399530
+Merge: fe075b8 aa1976d
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 16 15:55:10 2014 -0400
+
+    merge conflict lol hope it doesn't break
+
+commit fe075b8d63cb4fcafa4b0be2305430b5572df145
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 16 15:54:10 2014 -0400
+
+    casting sample, using gson, testing image maths, many things very cool
+
+commit aa1976d6a17b02888975a7678107fbcf3dc6ecd7
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Wed Apr 16 15:50:00 2014 -0400
+
+    Added width/height fields to vid
+
+commit 77308fa8a1848149d8b54e23db6292dde1736cc9
+Merge: c3d74ce 4fe9f97
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Wed Apr 16 14:57:03 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 1b35b3486a9883655806627f97d81f6c53370af9
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 16 14:43:07 2014 -0400
+
+    moved xuggler around to make it work for me -- hope it works for you
+
+commit 4fe9f971cb4184544c84bec9092e54644b39f205
+Merge: c0603ae 13a6983
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Wed Apr 16 14:23:35 2014 -0400
+
+    Merge branch 'master' of github.com:kevin-roark/arthur
+
+commit c0603ae454ad8621ebd7a80c9c720fc49ff09de4
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Wed Apr 16 14:23:22 2014 -0400
+
+    Trying to concatenate vids
+
+commit 13a69833bcb65563cca031d513aed92f960ef9b9
+Author: dkario <dylan.kario@gmail.com>
+Date:   Wed Apr 16 11:29:21 2014 -0400
+
+    ArthurSound constructors, beginning math
+
+commit 4f4e42e2c1277074d5f14174cda9eaf56c1c8b43
+Merge: 45336ef eebe106
+Author: dkario <dylan.kario@gmail.com>
+Date:   Wed Apr 16 11:19:47 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit eebe1062f4c3e98cc68bb0ceee21cfd1427b4e70
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Wed Apr 16 01:47:09 2014 -0400
+
+    can make quieter but louder fux up
+
+commit c3d74ce436f30c09340275b45d3b223057e6b048
+Merge: 12efd3d f144c3a
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Wed Apr 16 00:46:17 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit f144c3aa4514de58bf0889681cab2788ff55fd44
+Merge: f0c9be8 0b9d8ef
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Wed Apr 16 00:45:58 2014 -0400
+
+    Merge branch 'master' of github.com:kevin-roark/arthur
+
+commit f0c9be8d12f7edccbb710641011ff77d0758fd1a
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Wed Apr 16 00:45:45 2014 -0400
+
+    testing this stuff on henry's comp
+
+commit 0b9d8efbbe42c9648a8cf26a49b6b23c440988dc
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 16 00:36:04 2014 -0400
+
+    Create FFMPEG_NOTES.md
+    
+    It has a lot of good links for ffmpeg stuff.
+
+commit 12efd3dfb75bcf62aa3f81a6475e0904c038ee51
+Merge: 2be9acb d4338af
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Tue Apr 15 22:59:37 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit d4338af455de134018ac5499b2859e4979761a85
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Apr 15 20:42:23 2014 -0400
+
+    increased memory limit for compiler and made string.color -> string.tint
+
+commit 45336ef23c67b8cba9dbefc3c5d58b810971db15
+Merge: 65f9105 f45c3fd
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Apr 15 20:20:58 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 2be9acb99bc513a815793f842c7955751dbf4239
+Merge: a4484fa f45c3fd
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Tue Apr 15 19:49:31 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit f45c3fd33c6a37b84bde93824e57351e93107a1c
+Merge: b8811fa 7cf2055
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Apr 15 19:48:46 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit b8811fa050dffb3e56db4f4cefe36b4badcdf401
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Apr 15 19:47:39 2014 -0400
+
+    Giant commit - sugarloop, arthurequals, better casting and maths
+    
+    Also did initial work on boolean. Also added all of the += stuff. Added
+    a sample7 that tests some new stuff. Also made the existing medias
+    work with mult and div by casting the other type to own type when
+    necessary.
+
+commit a4484fa176b29f5d3155ed4464cc4b537b639276
+Merge: 6177bb9 7cf2055
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Tue Apr 15 19:26:24 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 7cf205572fc758de023bb304fc99475ef746120a
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Apr 15 17:09:28 2014 -0400
+
+    fixed a bug and added image +/- color and number. image +/- string is there but needs to be fine-tuned
+
+commit 65f910562e169e40375727373608bfcd6624e02c
+Merge: 97d8ebb 290bfc7
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Apr 15 14:42:42 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 808f85a1215de876cc2672b4d2d812a75528f149
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Apr 15 14:14:42 2014 -0400
+
+    Image +/- color added
+
+commit 290bfc7eb68dc393d06ad1a1e646a9b89c5019e3
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Apr 15 12:43:45 2014 -0400
+
+    Added the += sugar stuff cool
+    
+    Also added a small sample to frontend to test it.
+
+commit 79328a1a6381d933f418f96a02b542d01a06740f
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Apr 13 23:26:47 2014 -0400
+
+    more casting stuff woooo
+
+commit ba99ebe01aa8feff02d8f0eb3044e51c3c2c9a0f
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Apr 13 22:48:53 2014 -0400
+
+    added casting stuff
+
+commit c2570f5b2d94607a12edbb24e7162a36626167c0
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Apr 13 21:45:49 2014 -0400
+
+    added and rearranged a bunch of string <-> color stuff
+
+commit f57b70cdcadb81654948902a3834c6afc033a2ca
+Merge: 80bd095 49edbdc
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Apr 13 20:39:17 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 80bd0956dd096ca92c788d77efc494ee2c7f0ee4
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Apr 13 20:38:20 2014 -0400
+
+    wow ascii
+
+commit 97d8ebb286ed82d55a2bf0d380c5ebf81fc05e9f
+Author: dkario <dylan.kario@gmail.com>
+Date:   Sun Apr 13 15:00:46 2014 -0400
+
+    finalizing xuggle directory locations
+
+commit 6177bb9032b957ffc67ea089aca03b3e90088962
+Merge: ae1e035 49edbdc
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Sun Apr 13 14:56:28 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 49edbdc9b0edcc718307f94d3ade011756ce38de
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Sun Apr 13 14:54:54 2014 -0400
+
+    Moved xuggle stuff to media folder. Run jar -xf on the two new jar files
+
+commit 23038c6aa7f8f3dd62ba18feb45a3ff9766ffd82
+Merge: b13fa81 00f52a7
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Sun Apr 13 13:11:46 2014 -0400
+
+    Merge branch 'master' of github.com:kevin-roark/arthur
+
+commit ae1e035eb5161f0124e1b74dfdcae3e1d0966b6b
+Merge: 8451897 00f52a7
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Sat Apr 12 22:49:35 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+    just mergin'
+
+commit 00f52a7332e7f1b4038d2953ade37da2d8d25d25
+Author: sahil-ansari <sahil.ansari3@gmail.com>
+Date:   Fri Apr 11 18:32:52 2014 -0400
+
+    xuggle test samples video into images
+
+commit 8cabace721982d45d115dbbe88f6f234575e066e
+Author: sahil-ansari <sahil.ansari3@gmail.com>
+Date:   Thu Apr 10 21:56:42 2014 -0400
+
+    xuggle playground
+
+commit c71ae8e849eeb26f1d898b6f1444decefa4bb818
+Merge: e7a8c0e 93e8f27
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 9 15:56:27 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit e7a8c0e5aa8749f94cc0bd8a81080cd2fd9360a1
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 9 15:56:15 2014 -0400
+
+    seem to have added string translations pretty nicely
+
+commit b13fa810eae9b191133986f23a6015376d120d4a
+Merge: b684658 93e8f27
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Mon Apr 7 15:04:55 2014 -0400
+
+    Merge branch 'master' of github.com:kevin-roark/arthur
+
+commit 93e8f27d0e8f8d984afda22370162e17f4a1340b
+Merge: df8a329 8c4b2a5
+Author: sahil-ansari <sahil.ansari3@gmail.com>
+Date:   Mon Apr 7 11:37:33 2014 -0400
+
+    fixed merge conflict in image
+
+commit df8a32921632b834eccda122a2249dfec3b99ed0
+Author: sahil-ansari <sahil.ansari3@gmail.com>
+Date:   Mon Apr 7 11:35:29 2014 -0400
+
+    added string constructor for colors
+
+commit b684658e75c2c93d3fdbe1692bb202fd9b25a413
+Merge: f5d25af 8c4b2a5
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Mon Apr 7 00:36:00 2014 -0400
+
+    Merge branch 'master' of github.com:kevin-roark/arthur
+
+commit f5d25afaa30813e463d66de394cc24698c162703
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Mon Apr 7 00:35:55 2014 -0400
+
+    meh
+
+commit 8c4b2a53c17649d97dd4f3e4f0912711a1a4e669
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Apr 6 23:48:58 2014 -0400
+
+    bang
+
+commit 845189730992456f91e2320125bb12188ec324cd
+Merge: a64555f a4fefc1
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Sun Apr 6 16:16:21 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+    
+    Conflicts:
+    	arthur/frontend/run_tests.sh
+
+commit a4fefc1b11e25592ff35a26a0516ab4fc4933346
+Merge: a64de35 244e151
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Apr 6 16:13:45 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit a64de35d1ce37a1f59be890eade8f5e4b27b9cfa
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Apr 6 16:13:40 2014 -0400
+
+    added frames hell yeah
+
+commit 244e151736d4b500e28c5dad2e3b081b8cdb1de2
+Author: dkario <dylan.kario@gmail.com>
+Date:   Sun Apr 6 15:46:12 2014 -0400
+
+    force compilation of compiler in Makefile
+
+commit 87d1ed9489cb345c77d80cd1e3834abae5d80ce3
+Merge: 0d58245 af43654
+Author: dkario <dylan.kario@gmail.com>
+Date:   Sun Apr 6 15:33:30 2014 -0400
+
+    merge conflict
+
+commit 0d5824552cc14738031914317726918f411ac5ed
+Author: dkario <dylan.kario@gmail.com>
+Date:   Sun Apr 6 15:31:38 2014 -0400
+
+    testing suite mk.I
+
+commit a64555f80ae7cfcfd5994016285689d71748197d
+Merge: e921fed af43654
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Sun Apr 6 10:36:16 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 11d333b02399a76bcc2b153a0d8e126ef082f459
+Merge: 70f6aa4 af43654
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Sat Apr 5 22:38:14 2014 -0400
+
+    ugh
+
+commit 70f6aa40faa8ec7fb239b21eb6ce7122ccbd86d9
+Merge: 59dc39b 00a2c7d
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Sat Apr 5 22:35:33 2014 -0400
+
+    merge conflict
+
+commit af43654337de2911e99b3423a0a7a43c69f05d06
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sat Apr 5 21:55:19 2014 -0400
+
+    meh
+
+commit 59dc39b5699b9f7526af7f2e49eab25058d2c4b9
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Sat Apr 5 21:18:37 2014 -0400
+
+    .
+
+commit 00a2c7ded97c0001a42cc3479874df1ba8a8d455
+Merge: 3003d4b a6df081
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sat Apr 5 21:16:58 2014 -0400
+
+    mer
+
+commit 3003d4b24914092bd892b685ed14b7e0e7e9a405
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sat Apr 5 21:16:04 2014 -0400
+
+    got images in javascript holy cow
+
+commit a6df081cc2abf3dfb268deb5f1112f11a0c38fa6
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Sat Apr 5 20:44:12 2014 -0400
+
+    Changed order of methods
+
+commit ad7b44b541bd27017664450168c95a81f3e31a64
+Merge: a3340ec c5f5490
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sat Apr 5 20:42:23 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit a3340ec291f72945442bec2dc23bca2b6fa0dcc8
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sat Apr 5 20:42:21 2014 -0400
+
+    arthur numbers
+
+commit c5f5490f3320045f90439bccc0edd76a9833897e
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Sat Apr 5 20:41:45 2014 -0400
+
+    writetofile..oops
+
+commit cdf36e782a96d6a5f07c3da062dd0717a6cb9019
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Sat Apr 5 20:35:20 2014 -0400
+
+    ArthurImage just contains bufferedimage, filename now and moved actually file writing to writetofile meth
+
+commit 0737637f01662210032c3c2eb5937dc1aee78b29
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Sat Apr 5 18:41:01 2014 -0400
+
+    Image x number
+
+commit 063e6aca0f73f886302eb3a552e7e19779452a01
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Sat Apr 5 18:32:24 2014 -0400
+
+    Added more methods, refactored getting/saving of arthur image to file and vice versa
+
+commit a4991cb9c6e1dcd21d1dcd9a6dc9223eb5a4f55a
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Thu Apr 3 20:46:16 2014 -0400
+
+    Commented out last 2 methods for now
+
+commit 093203b6fa79c36741104f8dd6a2f1c68c42c841
+Merge: 5f60d19 fb61f3f
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Thu Apr 3 20:40:24 2014 -0400
+
+    Merge branch 'master' of github.com:kevin-roark/arthur
+
+commit 5f60d195f1a49e2fd00b60e33ecc1aad7b04e2a8
+Merge: 67dfe57 a750886
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Thu Apr 3 20:40:10 2014 -0400
+
+    merge conflicts
+
+commit fb61f3f011395d09140169f24131f795f5b838f7
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Thu Apr 3 20:33:39 2014 -0400
+
+    full translation of sample 1
+
+commit bd3da074ee646c5e297b957083f32cb73e1050df
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Thu Apr 3 18:29:49 2014 -0400
+
+    so close to compiling the first sample just right
+
+commit 67dfe57088955139e47ea3b2309fa8f1b8a5a758
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Thu Apr 3 17:12:58 2014 -0400
+
+    Added + - * / operations for image X image and a basic tester. Also changed some things in the skeleton files so that they'll compile. I also wrote some methods for distorting images and adding colors, but I can't figure out where to stick them yet
+
+commit a7508867d7986e83d14a9c341ac41c4232a06ddf
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Thu Apr 3 11:48:40 2014 -0400
+
+    fix arthur add to js
+
+commit 615017ce879be505feb2d8f251c17a5ad9047d65
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Thu Apr 3 04:07:35 2014 -0400
+
+    more clients
+
+commit 90c815f5a40a27c5e1f67d6e8c4bf76524ec9049
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Thu Apr 3 02:52:19 2014 -0400
+
+    added some basic client stuff
+
+commit d0d4e9ff925fa2c55a6729318f4e8349a7d8ab78
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Thu Apr 3 01:52:16 2014 -0400
+
+    adding the media and the globals to the translated javascript... damn
+
+commit f37e5424cf1c6b3f4ab74270ea240f1c813ac847
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Thu Apr 3 00:13:44 2014 -0400
+
+    storing values of globals post init holy cow
+
+commit f61784ebe255718695b46ce375e258a9c6b65ae5
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Thu Apr 3 00:03:46 2014 -0400
+
+    knows about globals and added media wowsie
+
+commit 82b6e1f0240af940bf23d7fdead43dec2cd58dd0
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 2 23:21:21 2014 -0400
+
+    cleaner
+
+commit 84f40aab5498fae3d43031c8858a0bfc4bf9262b
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 2 23:20:56 2014 -0400
+
+    Getting global media files
+    
+    Had to change the "get" semantics slightly. Static typing is hard.
+
+commit 1773fa7c7bde34a3480e840b54004aa7395b34ab
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 2 22:57:32 2014 -0400
+
+    a lot of things are working, but 'get' is not
+
+commit 339bfa9d56065136a458583c0ffc2e00692975ea
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 2 22:05:26 2014 -0400
+
+    writing translation to file and a bunch more
+
+commit aca9503eeb7033a8834a3541ffb1d346a0c6ec6a
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 2 19:08:53 2014 -0400
+
+    bleg
+
+commit a3132bc3469c8eb9aacbdd083c9ccf7428e25bf8
+Merge: 3267b63 421cff6
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 2 18:04:18 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 3267b63be28fef52188f6b772964f3200ad4d572
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 2 18:04:12 2014 -0400
+
+    added javascript translation whoa now
+
+commit e921fed9ef874ba08da1cb42ac270eb4e8f3e18f
+Merge: e3ace57 421cff6
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Wed Apr 2 17:46:38 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit e3ace573fe47ecb7c6faafcef274b84c88567776
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Wed Apr 2 17:46:34 2014 -0400
+
+    hey
+
+commit b9b563cf824266f378b77a50e3e3da70b889cf7a
+Merge: fc7cde0 69f4446
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Wed Apr 2 17:44:21 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 421cff6a5206296e7036a57a9523b4dc8c2a1eed
+Merge: 44c44f2 69f4446
+Author: dkario <dylan.kario@gmail.com>
+Date:   Wed Apr 2 17:43:59 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 44c44f276827f0fb475a43da7f5bec0cff28491e
+Author: dkario <dylan.kario@gmail.com>
+Date:   Wed Apr 2 17:43:52 2014 -0400
+
+    starting testing suite
+
+commit 69f4446c6f875bf47a1fee93d1064d08f87bd77b
+Author: sahil-ansari <sahil.ansari3@gmail.com>
+Date:   Wed Apr 2 17:37:06 2014 -0400
+
+    added color-color and color-number ops
+
+commit fc7cde05556501cb8c104e165d8433ae89f9af19
+Merge: d2ae4d8 6f9469a
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Wed Apr 2 17:35:23 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 6f9469a1c714bb3ab8eb5a85681adc97654d7a16
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 2 17:35:04 2014 -0400
+
+    abstracted the translator so java and js play nicegit status
+
+commit d2ae4d822b9d6a1e89b7f32f40ac4a074aa4ed6f
+Merge: 881a6eb e435065
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Wed Apr 2 16:42:13 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit e435065ea93accda955ea98f2f6a1cfa4d4f723f
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 2 16:39:42 2014 -0400
+
+    added stuff to ArthurString to use the static methods
+
+commit f49fcd7cef67b59daf3b737280ae9f2ecfbb2c71
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 2 16:37:41 2014 -0400
+
+    added string on string math and string on number math
+
+commit 881a6ebc3e48501e62ff028ebe4c0626a6306508
+Merge: ffd4650 88a39a2
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Wed Apr 2 16:05:51 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 88a39a2aac7611cfc2fb42b06a673215a8bd2a0b
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 2 16:05:11 2014 -0400
+
+    heavy string skeleton
+
+commit acc32bd97f13d60d7a53c994e2742296d78b94ef
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 2 15:51:09 2014 -0400
+
+    added stupid stuff
+
+commit e34478b038505c5a6c7008fb6802a3fa6d0a40db
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 2 15:47:16 2014 -0400
+
+    added number
+
+commit ffd4650515e217c918fe143faeb8445151db8a2e
+Merge: 57b2671 a6c85eb
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Wed Apr 2 15:44:00 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit a6c85eb518972dcb6b0974b76e586cbf426211de
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 2 15:23:27 2014 -0400
+
+    added skeletons of what the media manipulation stuff will look like
+
+commit 56a1be0edd02b7098772d9881749e325de9a66eb
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 2 14:53:27 2014 -0400
+
+    Translating all three samples to java!!!
+    
+    I had to augment the grammar slightly to make this work. I also think
+    its cooler this way.
+    
+    Our parser was ambiguous with property access vs method calls, because
+    both were using ".". To call a method, we now use "->".
+    
+    Aka "image.pixel(i, j)" became "image->pixel(i, j)" in sample 3.
+    
+    Otherwise looks pretty chill!!
+
+commit 406cce57fc3e907c1b9478881f5f3d71b4da3704
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 2 14:07:34 2014 -0400
+
+    translating sample 2 all well
+
+commit 93386759789f2d79479a38844e07314bbc472300
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 2 13:43:35 2014 -0400
+
+    translating sample 1 con flawless
+
+commit 41c54dd690359b9fd02efc6a419425d4332b4a50
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Apr 2 12:42:06 2014 -0400
+
+    functions are better, tracking test output
+
+commit 063f6b3a2f42ec3c7fd5b830ccd8d12a96d384fa
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Mar 31 18:57:59 2014 -0400
+
+    translating basic things like function definitions to java
+
+commit c452613389c0083ff342d58838f63dccafcede8d
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Mar 31 18:03:54 2014 -0400
+
+    started some translation and had to change some frontend stuff to fit
+
+commit 35656d9b38414cb29777cab192d069c679cdc8b5
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Mar 30 23:57:29 2014 -0400
+
+    added line numbers to tokens for helpful erroring
+
+commit 5a6640c9f40f6dc466620bb36f87116dd74d4e03
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Mar 30 16:59:24 2014 -0400
+
+    removed extraneous prints
+
+commit 243b3d71f7888bc296e07480b885b7c7f4e76cb6
+Merge: 2a69f25 9b9c360
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Mar 30 16:57:40 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 2a69f259ece188f95d8f7118af4fcece9bd992c6
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Mar 30 16:57:33 2014 -0400
+
+    super duper variable checking
+
+commit 9b9c3609c062cadbc81ec350ac9c678b11d22ee4
+Author: dkario <dylan.kario@gmail.com>
+Date:   Sun Mar 30 16:51:10 2014 -0400
+
+    began error handling, new cond token, misc fixes
+
+commit 57b26711f4c5a3a745c0365334e416d8dd0f2200
+Merge: d50eb36 b0241aa
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Sun Mar 30 15:50:49 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit d50eb36f55b996ab964db309ff691cefa4c71874
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Sun Mar 30 15:50:46 2014 -0400
+
+    premerge
+
+commit 5f42fc8e05f7fa290a351716df3ce6cae514f0c3
+Merge: 3235e60 b0241aa
+Author: dkario <dylan.kario@gmail.com>
+Date:   Sun Mar 30 15:28:23 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 3235e60ea066b2c2f7fbba74a23c2bb2e80d8d53
+Author: dkario <dylan.kario@gmail.com>
+Date:   Sun Mar 30 15:28:19 2014 -0400
+
+    match single quote str literals
+
+commit b0241aaae19d56aa0d7a9610b314fb5b0815eb68
+Merge: 230e392 601178a
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Mar 30 15:07:14 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 230e39270c89b382d898a43621ed7a5aa6f0a399
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Mar 30 15:07:09 2014 -0400
+
+    added identifier name checking
+
+commit 601178a79c386e0b3235720337b69dcad15dbdd5
+Author: sahil-ansari <sahil.ansari3@gmail.com>
+Date:   Sun Mar 30 15:02:48 2014 -0400
+
+    new samples
+
+commit 17c09d7866523ac01c0ab7587800c67807a33a45
+Author: sahil-ansari <sahil.ansari3@gmail.com>
+Date:   Sun Mar 30 14:52:17 2014 -0400
+
+    arthur.add() is now add()
+
+commit 8610e78df8f1d71bc420e69e6f2ea21fa98779c0
+Author: sahil-ansari <sahil.ansari3@gmail.com>
+Date:   Sun Mar 30 14:34:36 2014 -0400
+
+    Update README.md
+
+commit 16b3449336d2ae2eb5b2b6ee3062ed58892c4a86
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Sun Mar 30 14:24:59 2014 -0400
+
+    added that sugarloop
+
+commit 6e9a7886ab749a465164b449ebb2f4d18ac8295a
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Mar 18 22:11:21 2014 -0400
+
+    Did same for dw
+
+commit 7a9f059e43e476fcefc74dd3277fe6a4f2330775
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Mar 18 22:06:50 2014 -0400
+
+    More explicit condition, body
+
+commit f761db85e4bf97071b03dbf2eaf19e997a64ee49
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Mar 18 21:54:33 2014 -0400
+
+    cleaned up tree output a bit
+
+commit 70e4a594b155babfa351793b9e6366221d505a6d
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 18:59:39 2014 -0400
+
+    added dw to sample3
+
+commit 7bf329eceea54b2300a9a3a4300c7af12e72171c
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 18:58:37 2014 -0400
+
+    sample3 baby
+
+commit a0ab9d71a28e71d0b472e3d93ce5445ac4a65d88
+Merge: 39f355a 35c2d9b
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 18:54:27 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 39f355a08d146b8da74eca8ec2d275813b4dcff6
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 18:54:19 2014 -0400
+
+    cool
+
+commit 35c2d9bd7d2b7f704e4532d40cbdcd3830ef736b
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Mar 18 18:53:07 2014 -0400
+
+    got sample1 to parse
+
+commit c1f4ac3c2b0b650f10caa39a551c74a218812ec8
+Merge: 9c4f9ed ceb8b43
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 18:37:39 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 9c4f9edf716399a9a40cf5f3f90ccf297bd57778
+Merge: c75f1e9 96e6e3b
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 18:37:33 2014 -0400
+
+    improving ifs elves
+
+commit ceb8b43e0e21fd082b37e1bac4d68409223b2123
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Mar 18 18:36:52 2014 -0400
+
+    empty {}
+
+commit c75f1e9e64439bfd8290e3ca7ae531fb339816c3
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 18:29:22 2014 -0400
+
+    repairing IF
+
+commit 96e6e3bf284fc39925dce04b567014fb8cacdebb
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Mar 18 18:29:14 2014 -0400
+
+    back 2 square 1
+
+commit 082f8360f46845ebd18711fa205156b0e3d52a16
+Merge: 1800ead c8df057
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Mar 18 18:25:19 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 1800eadb986da084b674966645a0e8eb84ffc90b
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Mar 18 18:24:58 2014 -0400
+
+    wow makefile test framework
+
+commit c8df05720ecdcde1f677678c777e11674c49e2c6
+Merge: b71519b 83305ee
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 18:24:42 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit b71519bb45caef92e30cd4e9856b1f8fab99fe1d
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 18:24:37 2014 -0400
+
+    fixing elfs
+
+commit 83305eea0ce98afe87fa08f7484cfc73c2667d1d
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Mar 18 18:21:39 2014 -0400
+
+    Curly brace statement lists
+
+commit b89d4aba256743df9d93df1079d1d04a7ea6c6ec
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 17:56:38 2014 -0400
+
+    PARSER WORKS HEY
+
+commit d8d2141604ce39525944f3af69ebfc95a39283f9
+Merge: 00be829 48501fc
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 17:26:31 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 00be829bf585e4832901f4f04b32d95940b0e70a
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 17:26:28 2014 -0400
+
+    insig
+
+commit 48501fca44922a8ae802bf6bd34d69644a732b64
+Merge: 3b40db5 cce9854
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Mar 18 17:25:52 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 3b40db5e17f8e4cc8a2860738cf519d39b3ca586
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Mar 18 17:25:40 2014 -0400
+
+    got semis in eq_stmt
+
+commit cce9854ac03da71b3c44d22d8e193faf01b014cf
+Merge: 4fbc71f cc017fa
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 17:20:01 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 4fbc71f209df4b1f10710f061a69daff5328c445
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 17:19:50 2014 -0400
+
+    it's not expr_stmt
+
+commit cc017fa1a7f4e15838233961725fc83e0c4c039d
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Mar 18 17:19:35 2014 -0400
+
+    new make no broken
+
+commit 288e1ce51b6f6c6017231807f39a34d168c19ad0
+Merge: f60ec4b a42e3f6
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 17:09:38 2014 -0400
+
+    merge conflict
+
+commit f60ec4bb1a60d46051640e4f405a219a631dba77
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 17:08:43 2014 -0400
+
+    debugging stmt
+
+commit a42e3f64b392411d9fe16fbe8433d79c94bd3ec6
+Merge: b42efbb b37cdab
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Mar 18 17:08:01 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit b42efbb14436b98520beba5a190833fa67ef8f0d
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Mar 18 17:07:56 2014 -0400
+
+    parsenode to string
+
+commit b37cdab7abafc2341e18504b0d548be9f9e65c30
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Mar 18 16:35:42 2014 -0400
+
+    Remove rule for Value in Lexer, fix ParseNode.jav
+
+commit 0eb7ce58b324c89246d5ec1eb61d558f605094bc
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Mar 18 16:19:12 2014 -0400
+
+    a first parser -- it fails
+
+commit b893d421a8817188f5ed2ef7ba01764d5b2e6cc5
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Mar 18 16:03:49 2014 -0400
+
+    fun calls
+
+commit 014a7810ae32551a11a051ff358f78f1686218b4
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Mar 18 16:01:19 2014 -0400
+
+    program and fun_call definitions
+
+commit 80e2e7ca4ce8855a9a701a1da62378030e3a442e
+Merge: 7c1541b 3e633c5
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 15:26:44 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 7c1541bcbaeaff139c8363c1f879cfa7c2c43cce
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 15:26:39 2014 -0400
+
+    statment zamzom
+
+commit 3e633c55405ec060d0328c0b9519805edb1143b5
+Merge: 9e0b552 7afbfe7
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Mar 18 15:25:33 2014 -0400
+
+    Mergin
+
+commit 9e0b5526f5c5325d112f7d37c203effb9e046669
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Mar 18 15:23:15 2014 -0400
+
+    Refactored ID and VAR, added eq statements
+
+commit 7afbfe746c0dc9e4d90d6fe521a6da8a34a8b205
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 14:47:33 2014 -0400
+
+    conflicted resolvedion
+
+commit 2f397f4b3c6813bb8c79727d0f8f709d0a2305d4
+Merge: 92fcc1d 33d56a6
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 14:45:50 2014 -0400
+
+    merge w/ melody
+
+commit 92fcc1d01956d775d8ba2a69379c443d47a9d1ff
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 14:45:17 2014 -0400
+
+    num_expr and more
+
+commit 33d56a62b50dec2da0b00f5cf089e9deac15bded
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Mar 18 14:45:02 2014 -0400
+
+    More stuff filled in - changed order of operations for mathy
+
+commit c4d6931656f8fa5b856f64ac893f676f0f52a96c
+Merge: 18da7e0 c278abc
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Mar 18 14:23:47 2014 -0400
+
+    Merge branch 'master' of github.com:kevin-roark/arthur
+
+commit 18da7e0190c9581e90ce5e879c9242a4375f0cf0
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Mar 18 14:23:36 2014 -0400
+
+    val stuff
+
+commit c278abcd917625655f297cda123f50c29280cf23
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 14:23:13 2014 -0400
+
+    dw, bools, minor fixes
+
+commit a1bdf5f722ffdde8ea875527c57217355952a124
+Merge: 8ddf84e 582fe64
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 14:08:00 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 8ddf84e39c7d7fc270e16fcd397c30a20d7a23f5
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 14:07:54 2014 -0400
+
+    elfzam
+
+commit 582fe64f2eec1131797bcff98fa610199873f4d8
+Merge: f6a74f3 99422ee
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Mar 18 14:04:23 2014 -0400
+
+    Merge branch 'master' of github.com:kevin-roark/arthur
+
+commit f6a74f3ecb0e342d26cddb8f5a6e6d0bc8f7ca9b
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Mar 18 14:04:16 2014 -0400
+
+    function definition & param list
+
+commit 99422ee3c3334944dd6d12a15bcd29083b1e8607
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 13:57:08 2014 -0400
+
+    call me ifmaster
+
+commit f93995abb9b6f41bb57c08f2450c7ccb9090903b
+Merge: 579ead1 9264814
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 13:28:11 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 579ead143d954a408b0a8ba22b6a73a9bd601c12
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 13:28:08 2014 -0400
+
+    stabbing if more
+
+commit 9264814795cee9878bdc5a7e50d6b7586cbdcb9e
+Merge: 2759085 7b059ce
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Mar 18 13:24:45 2014 -0400
+
+    arthur.yacc merge
+
+commit 2759085ba1d34eab9b72313467988db5cbbd9ae5
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Mar 18 13:21:35 2014 -0400
+
+    Let's make some Parse Nodes
+
+commit 7b059ce2cb78b86e32c05ca5b7fd7ffeea9c2fad
+Merge: 078eae2 5a05fe5
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 13:12:27 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 078eae237b96d8a54873d02d87ad914e13640110
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 13:12:24 2014 -0400
+
+    stabbing if
+
+commit 5a05fe51164b04617da32c58cd6ffd5a3986d120
+Merge: 763a139 3f0c91d
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Mar 18 13:11:33 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+    
+    Conflicts:
+    	compiler/frontend/arthur.yacc
+
+commit 763a139003ee209d20660a3db5fbb362807c0ff0
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Tue Mar 18 13:10:49 2014 -0400
+
+    token mapping, better function in lex, etc
+
+commit 3f0c91de1c9be38d755f4bc26c99306323121b10
+Merge: 1073b84 635c8db
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 12:54:39 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 1073b8458411e43bf5b16f78daeb825103c2e50c
+Author: dkario <dylan.kario@gmail.com>
+Date:   Tue Mar 18 12:54:25 2014 -0400
+
+    some gram implementations
+
+commit 635c8db0acddef6ddda021c58e24bc6cc0fadb76
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Mar 18 12:52:47 2014 -0400
+
+    Further changes to ParseNode
+
+commit 291fc7541a742e22188666d9c18a10bd495acdbf
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Tue Mar 18 12:08:34 2014 -0400
+
+    Pretty printing
+
+commit e00a97e17d73c398db7e0939eecc5c237e1f4ab4
+Merge: ea917fa 9e60f9f
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Mar 17 22:22:47 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit ea917fabfb95c8dcf43cb693928419f428a03862
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Mar 17 22:22:41 2014 -0400
+
+    a nice lil Makefile
+
+commit 9e60f9f2c3abc1fbd2f72f523414fea1e6d6d06f
+Author: melodyju <melodyju@outlook.com>
+Date:   Mon Mar 17 22:09:11 2014 -0400
+
+    Rename tokens.java to Tokens.java
+
+commit 49f8b182c89e4fb8f148103418b1cb0419ddfb2e
+Author: melodyju <melodyju@outlook.com>
+Date:   Mon Mar 17 22:08:48 2014 -0400
+
+    Rename token.java to Token.java
+
+commit 29000d4cee50fabf4035417b0101ea9f3def3fa4
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Mon Mar 17 22:06:39 2014 -0400
+
+    Cosmetic changes to lextest
+
+commit 0466d634ba7abf86ffdfb0e2224e55a827fac6e8
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Mar 17 22:04:06 2014 -0400
+
+    parse node pretty printing
+
+commit 3d08e0356a80821bb0718e9f82b68e2080d76bce
+Merge: ab0e7b3 e9cd4a2
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Mon Mar 17 21:55:27 2014 -0400
+
+    Merge branch 'master' of github.com:kevin-roark/arthur
+
+commit ab0e7b35fa17a08cd291992c025586a44249d914
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Mon Mar 17 21:54:09 2014 -0400
+
+    Lexer works for sample2.txt
+
+commit e9cd4a2466994ca44c2c629c57984f4da0143124
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Mar 17 18:35:29 2014 -0400
+
+    initial parser :(
+
+commit 9c6ae3324b9e70a606f8a2cd34b41fd19bd12bbb
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Mar 17 17:26:34 2014 -0400
+
+    new example scik
+
+commit 047b1333f12e6196be7fde9c95a30091fa8c5aaa
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Mar 17 17:18:28 2014 -0400
+
+    first stab at a lexer
+
+commit 142ee5b865eb2ab5456a2fac3071dcd7217ef88d
+Merge: f3100c2 97bcc6d
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Mar 17 14:42:08 2014 -0400
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit f3100c226650522751269208ea9a38e1305fac2a
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Mar 17 14:42:03 2014 -0400
+
+    initial lexer stuff
+
+commit 97bcc6d6161cae2581cbaaea99a646dc00d7a230
+Author: melodyju <melodyju@outlook.com>
+Date:   Mon Mar 17 14:35:13 2014 -0400
+
+    Update TOKENS
+
+commit 1dc421d1bef0cfc3fdb025b774dbb215f335fd26
+Author: melodyju <melodyju@outlook.com>
+Date:   Mon Mar 17 14:20:18 2014 -0400
+
+    Update TOKENS
+
+commit 60ca40d2162b622fce8bfecf18fa8fe154f72dd3
+Author: sahil-ansari <sahil.ansari3@gmail.com>
+Date:   Wed Mar 5 18:24:22 2014 -0500
+
+    sahil sample
+
+commit 8db21b08e036ff99685282ee77a827348076c007
+Author: melodyju <melodyju@outlook.com>
+Date:   Wed Mar 5 17:59:11 2014 -0500
+
+    Update TOKENS
+
+commit f8b66b3360912f9573d32987cf02a9d1ec363fe5
+Merge: 4687f1d 4ef3100
+Author: Dylan Kario <Dylan@dyn-160-39-229-227.dyn.columbia.edu>
+Date:   Wed Mar 5 17:58:23 2014 -0500
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 4687f1d00c2b4890116af94b4d8258fad0a93eb8
+Author: Dylan Kario <Dylan@dyn-160-39-229-227.dyn.columbia.edu>
+Date:   Wed Mar 5 17:58:16 2014 -0500
+
+    mod to color_replace
+
+commit 4ef310061d8c99fca20e87790e3573b706d29e81
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Mar 5 22:57:09 2014 +0000
+
+    Update sample1.art
+
+commit 147d0b9d9da1c3710a46d0051abee42e16c93270
+Author: melodyju <melodyju@outlook.com>
+Date:   Wed Mar 5 17:56:02 2014 -0500
+
+    Update TOKENS
+
+commit 3865cde968355b38f667ce53c33f37201d607188
+Merge: 6368c81 433d9bf
+Author: Dylan Kario <Dylan@dyn-160-39-229-227.dyn.columbia.edu>
+Date:   Wed Mar 5 17:54:51 2014 -0500
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 6368c817d10d8722f2bf81023f425c1a621f02c1
+Author: Dylan Kario <Dylan@dyn-160-39-229-227.dyn.columbia.edu>
+Date:   Wed Mar 5 17:54:47 2014 -0500
+
+    .md'd 2
+
+commit 433d9bf792cb90a710533b0c6316c0682b6ea37f
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Mar 5 22:51:33 2014 +0000
+
+    Update builtin functions
+
+commit e00f749a6b720f5a0747eab543a0c4d0fe4db429
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Mar 5 22:50:37 2014 +0000
+
+    Update sample1.art
+    
+    color vectors
+
+commit 56e7a742d72761fcfa3bc4a294fbd4081a9d89ca
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Mar 5 22:49:46 2014 +0000
+
+    Update color_replace.art
+    
+    lol made it arthur
+
+commit ee4cd7b8417f81859509cf7ae243fb6e3dde81eb
+Author: melodyju <melodyju@outlook.com>
+Date:   Wed Mar 5 17:47:11 2014 -0500
+
+    Update TOKENS
+
+commit b52ff367716ca0a2bfb2a77e4bcf8ac61a05d911
+Author: melodyju <melodyju@outlook.com>
+Date:   Wed Mar 5 17:45:29 2014 -0500
+
+    Update TOKENS
+
+commit 37aec81592c2847b2398f793c6d2fb8fecf717a6
+Author: dkario <dylan.kario@gmail.com>
+Date:   Wed Mar 5 17:43:18 2014 -0500
+
+    Delete Data type stuff
+
+commit 2c12d693a866abc28e07d41ec7b66b9742a97df2
+Merge: 75edfdb fea9bf8
+Author: Dylan Kario <Dylan@dyn-160-39-229-227.dyn.columbia.edu>
+Date:   Wed Mar 5 17:41:32 2014 -0500
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 75edfdb052c785c73e2f9fbc792bbd776382e85f
+Author: Dylan Kario <Dylan@dyn-160-39-229-227.dyn.columbia.edu>
+Date:   Wed Mar 5 17:41:19 2014 -0500
+
+    md'd
+
+commit fea9bf80fd16b76aecb3250def537341a1ace1d2
+Merge: ba18805 0d70b5a
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Mar 5 17:40:54 2014 -0500
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit ba18805dfd6f80c20fe59c23ca8c956287db4085
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Mar 5 17:40:50 2014 -0500
+
+    re-added mi sample
+
+commit 0d70b5a0c2858136ea83a6f488763696de50092e
+Merge: 7fe1227 aa2dfa1
+Author: Dylan Kario <Dylan@dyn-160-39-229-227.dyn.columbia.edu>
+Date:   Wed Mar 5 17:39:00 2014 -0500
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit 7fe1227b5150749bbb15315949409ac846a25a77
+Author: Dylan Kario <Dylan@dyn-160-39-229-227.dyn.columbia.edu>
+Date:   Wed Mar 5 17:38:31 2014 -0500
+
+    some testy
+
+commit aa2dfa1335fad899e0575585d3b85747bffc42ea
+Author: melodyju <melodyju@outlook.com>
+Date:   Wed Mar 5 17:35:37 2014 -0500
+
+    Update TOKENS
+
+commit 1cf043e052c273af141ba371aacd12fd58732467
+Author: melodyju <melodyju@outlook.com>
+Date:   Wed Mar 5 17:32:56 2014 -0500
+
+    Update TOKENS
+
+commit 879c9a193ac9784a64ff942351f59a4fc7ca450c
+Author: melodyju <melodyju@outlook.com>
+Date:   Wed Mar 5 17:32:22 2014 -0500
+
+    Update TOKENS
+
+commit 0b4e2fad201c8fac71be8cdb8482530b038e4066
+Author: Melody Ju <melodyju@outlook.com>
+Date:   Wed Mar 5 17:30:26 2014 -0500
+
+    Token list
+
+commit c442198bd496b23ce7add72fd1cd4507e82c2377
+Merge: bc3568d ce45e89
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Wed Mar 5 17:26:05 2014 -0500
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+    
+    Conflicts:
+    	samples/sample1.art
+
+commit bc3568df5bd5ad466f6f784e5ce270a46c2e8b57
+Author: henry van dusen <hgv2102@columbia.edu>
+Date:   Wed Mar 5 17:23:33 2014 -0500
+
+    sample prog from henry
+
+commit ce45e896591b0267951a3b3ce247ff74dfa6fa77
+Merge: c4b6fb1 65f2157
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Mar 5 17:22:29 2014 -0500
+
+    Merge branch 'master' of https://github.com/kevin-roark/arthur
+
+commit c4b6fb1e5ae69a08cdf5d99577722092cbc39990
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Mar 5 17:22:27 2014 -0500
+
+    added my sample
+
+commit 65f21570d58e9dcaeb71a7c1d10287f9b1061c53
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Mar 5 22:22:20 2014 +0000
+
+    Update add rules
+
+commit e6d6ab7b6bad531460501ce426689a905e353d18
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Mar 5 22:08:13 2014 +0000
+
+    Update builtin functions
+
+commit 21ec5df08fd563574437cc92670dd24f4899e1d0
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Mar 5 22:05:45 2014 +0000
+
+    Create builtin functions
+
+commit b270b16250197f63b3a261efacbfcebbfb3a01c3
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Mar 5 22:05:03 2014 +0000
+
+    Create add rules
+
+commit 22ccb5a0ee3b8494694efd76b3b84ec56b8dea92
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Mar 5 16:43:55 2014 -0500
+
+    samples folder
+
+commit 2659f775ac3d9e89bdeff98f277d047a8afcb4bd
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Mar 5 16:22:22 2014 -0500
+
+    a how to for readme
+
+commit 7e81277ca4671a75645c08f64d0f6a9a92433005
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Mar 5 16:18:59 2014 -0500
+
+    added a grammar example
+
+commit 9bc922e8326cc5b8688586b882616ee1ffd0795d
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Wed Mar 5 21:14:07 2014 +0000
+
+    added links to grammar stuff
+
+commit ad2ff7330a01fdf9719d3298961549abd4f3d815
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Feb 17 14:50:41 2014 -0500
+
+    initial notes
+
+commit 3a07be2189a54d316f48e97c968cfe74f3b38038
+Author: Kevin Roark <ker2143@columbia.edu>
+Date:   Mon Feb 17 11:46:20 2014 -0800
+
+    Initial commit
