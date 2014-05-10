@@ -147,11 +147,13 @@ public class JavaImageMath {
 	public static ArthurImage minus(ArthurImage one, ArthurString two) {
 		BufferedImage image = JavaImageMath.clone(one.bf);
 
+    String rev = new StringBuilder(two.str).reverse().toString();
+
 		Graphics2D g2d = image.createGraphics();
 		Font font = new Font("Comic Sans MS", Font.PLAIN, 40);
 		g2d.setFont(font);
 		g2d.setColor(Color.BLACK);
-		g2d.drawString(two.str, 0, 120);
+		g2d.drawString(rev, 0, 120);
 		g2d.dispose();
 
 		//save image
